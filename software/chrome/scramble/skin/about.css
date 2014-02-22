@@ -1,0 +1,15 @@
+.labelVal {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#captionVal {
+	font-weight: bold;
+}
+
+.boxVal {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 1em;
+	text-align: center;
+}

@@ -1,0 +1,55 @@
+mrcore.c
+mrarth0.c
+mrarth1.c
+mrarth2.c
+mrsmall.c
+mrio1.c
+mrio2.c
+mrgcd.c
+mrjack.c
+mrxgcd.c
+mrarth3.c
+mrbits.c
+mrrand.c
+mrprime.c
+mrcrt.c
+mrscrt.c
+mrmonty.c
+mrpower.c
+mrsroot.c
+mrlucas.c
+mrshs.c
+mrshs256.c
+mraes.c
+mrgcm.c
+mrfpe.c
+mrstrong.c
+mrcurve.c
+mrbrick.c
+mrebrick.c
+mrzzn2.c
+mrzzn2b.c
+mrzzn3.c
+mrecn2.c
+mrfast.c
+mralloc.c
+mrshs512.c
+mrsha3.c
+mrflash.c
+mrfrnd.c
+mrdouble.c
+mrround.c
+mrbuild.c
+mrflsh1.c
+mrpi.c
+mrflsh2.c
+mrflsh3.c
+mrflsh4.c
+mrec2m.c
+mrgf2m.c
+mrmuldv.c
+
+Compile the above with -O2 optimization
+Note that mrmuldv.c file may be pure assembly, so may 
+be renamed to mrmuldv.asm or mrmuldv.s, and assembled 
+rather than compiled

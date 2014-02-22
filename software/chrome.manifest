@@ -1,0 +1,17 @@
+#content scramble jar:chrome/scramble.jar!/scramble/content/
+#content	scramble	jar:chrome/scramble.jar!/content/	contentaccessible=yes
+#locale scramble en-US jar:chrome/scramble.jar!/scramble/locale/en-US/
+#skin scramble classic/1.0 jar:chrome/scramble.jar!/scramble/skin/  #if doesnt work add /chrome/ after the jar
+
+overlay chrome://browser/content/browser.xul    chrome://scramble/content/scramble.xul
+content scramble chrome/scramble/content/
+
+locale scramble en-US chrome/scramble/locale/en-US/
+skin scramble classic/1.0 chrome/scramble/skin/
+style   chrome://global/content/customizeToolbar.xul	chrome://scramble/skin/scramble.css
+
+
+interfaces components/nsIMyComponent.xpt
+component {017FD347-4B99-4714-916B-0019F7707F63} components/OpenPGP.js
+contract @scramble.primelife.net/openpgp;1 {017FD347-4B99-4714-916B-0019F7707F63}
+category profile-after-change OpenPGPModule @scramble.primelife.net/openpgp;1

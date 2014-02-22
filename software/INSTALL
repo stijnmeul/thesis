@@ -1,0 +1,31 @@
+Scramble! prototype ... 
+(http://tinyurl.com/scrambleIt)  
+
+License: EPL
+Authors: COSIC, K.U.Leuven (filipe.beato@esat.kuleuven.be)
+
+
+USER MODE:
+  Installation:
+   1. If not installed, install Mozilla Firefox
+   2. If not installed, install GnuPG
+   3. Open the scramble.xpi file with Firefox
+   4. Use the Initialisation dialog (run for first installation) to configure the main preferences
+   5. Run Settings dialog to change any extra settings
+   6. Scramble! is up and running... 
+
+
+DEVELOPER MODE:
+
+  Installation:
+	- Open the XPI file with Firefox
+	(see requirements on README)
+	- If developer wants to perform changes and install in the debug mode:
+		. Extract to a folder (EXT_FOLDER)
+		. Go to the <Firefox/Profiles/CurrentProfile/extentions> 
+		. Create a file name "scramble@primelife.net" and copy the PATH_To_EXT_FOLDER to the first line of the file
+
+  Build XPI file:
+	- Run the script file 'build.sh' available in scr/ folder
+	- The latest XPI file will be present in package/ folder
+

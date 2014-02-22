@@ -1,0 +1,85 @@
+\documentclass[12pt]{beamer}
+
+\setbeamersize{text margin left=1.5em}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{hyperref}
+%\usepackage{anysize}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage[none]{hyphenat}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{epstopdf}
+\usepackage{dsfont}
+
+%set a smaller margin
+%\marginsize{2.5cm}{2.5cm}{1.5cm}{1.5cm}
+%turn off paragraph indentation
+\setlength\parindent{0pt}
+
+\setcounter{tocdepth}{4}
+
+%define some basic drawing blocks
+\usetikzlibrary{arrows, shapes,decorations.pathmorphing,positioning}
+\tikzstyle{arrow} = [->,font=\scriptsize,>=angle 90]
+\tikzstyle{block} = [draw, rectangle, text width=4em, text centered, minimum
+height=2.5em, node distance=2.5cm]
+\tikzstyle{cloud} = [draw, ellipse, text width=3.3em, text centered, minimum
+height=2.5em]
+\tikzstyle{inner} = [inner sep=0, minimum size=0, node distance=1.5cm]
+\tikzstyle{coil} = [decoration={aspect=0.5, segment
+length=1.7mm,amplitude=2mm,coil},decorate]
+\tikzstyle{coiledge} = [-,font=\scriptsize,>=angle 90]
+\tikzstyle{pipelinestage} = [draw, rectangle, text width=5em, text centered,
+minimum height=2.5em, node distance=2.5cm,inner sep=3pt]
+\tikzstyle{halfpipelinestage} = [draw, rectangle, text width=3.5em, text
+centered, minimum height=2.5em, node distance=2.2cm,inner sep=3pt]
+\tikzstyle{halfpipelinestagecont} = [draw, rectangle, text width=2em, minimum
+height=0.3em, node distance=1.13cm,inner sep=3pt, rotate=270,font=\small]
+\tikzstyle{forbidbox} = [draw, rectangle, text width=4.2em, minimum
+height=0.3em, node distance=1cm,inner sep=0pt,font=\small,fill=red]
+\begin{document} 
+\begin{frame}{}
+\textbf{Setup($\lambda$)}: 
+\begin{enumerate}
+ \item PKG picks random generators $g, h_1,h_2,h_3 \in \mathds{G}$
+ \item PKG picks random $\alpha \in \mathds{Z}_p$
+ \item PKG calculates $g_1=g^{\alpha}$
+ \item PKG chooses hash functions:
+ \begin{itemize}
+   \item $H_0:\mathds{G} \rightarrow \{ 0 , 1 \}^{\lambda}$
+   \item $H_1:\{ 0 , 1 \}^{*} \rightarrow \mathds{Z}_p$
+  \end{itemize}
+ \item PKG publishes $params \leftarrow \left( g,g_1,h_1,h_é,h_3,H_0,H_1 \right)$ and keeps~$\alpha$ secret as the master key
+\end{enumerate}
+\textbf{Extract($ID \in \{ 0, 1\}^{*}$):}
+\begin{enumerate}
+ \item PKG calulates $Q_{ID} \leftarrow H_1\left( ID \right)$
+ \item PKG generates random $r_{ID,i}$ for $i \in \{ 1,2,3\}$
+ \item PKG calulates the private key $d_{ID} \leftarrow \{ \left( r_{ID,i} , h_{ID,i} \right) : i \in \{ 1,2,3 \} \}$ where~$h_{ID,i} \leftarrow \left( h_i g^{-r_{ID,i}} \right)^\frac{1}{\alpha-ID}$
+ \item PKG transmits $d_{ID}$ over a secure channel to user $ID$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{}
+
+\textbf{Encrypt($S,M$)}
+\begin{enumerate}
+ \item Alice calculates $\left( \texttt{vk},\texttt{sk} \right) \leftarrow \texttt{Sig-Gen} \left( \lambda \right) $
+ \item Alice picks a random symmetric key $K$
+ \item Alice picks a random exponent $r$ and calculates $T\leftarrow g^r$
+ \item For each $\left( ID , g^a \right) \in S, c_{ID} \leftarrow H_0 \left( g^{r\alpha} \right)  || E_{ID}$ with $E_{ID}$
+ \item 
+\end{enumerate}
+
+\end{frame}
+
+
+\end{document}

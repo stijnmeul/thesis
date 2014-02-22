@@ -1,0 +1,138 @@
+\title{Thesis planning : Practically usable IBE for Online Social Networks} 
+\author{ Stijn Meul \\ 
+			Supervised by Filipe Beato\\
+			Promoted by Prof. Bart Preneel and Prof. Vincent Rijmen }
+\date{\today}
+
+\documentclass[12pt]{article}
+\setlength\parindent{0pt}
+
+\usepackage[none]{hyphenat}
+\usepackage{gantt}
+\usepackage{pdflscape}
+\usepackage[margin=1in]{geometry}
+\usepackage[strict]{changepage}
+\usepackage{cite}
+
+\begin{document} 
+\maketitle 
+\section*{Thesis Outline}
+This document describes the complete thesis planning of Stijn Meul. The goal of this thesis is to implement \textit{Identity Based Encryption (IBE)}~\cite{DBLP:conf/crypto/Shamir84} and to use it on online social networks. First some references will be read, then an architecture will be proposed and analysed and finally this architecture will be implemented in Scramble. Scramble~\cite{DBLP:conf/pet/BeatoKW11} is a Firefox exetension that currently allows public key encryption based on OpenPGP~\cite{rfc4880}.
+\section*{Time Schedule}
+As I already did an internship during the summer holidays, only 54 ECTS credits need to be taken during the academic year. Most of the obligatory courses for the Master of Multimedia and Embedded Systems take place in the first semester. This translates into 6 available ECTS credits for this thesis during the first semester and the further 18 ECTS credits during the second semester.\\
+\\
+One ECTS credit represents 25 to 30 hours of work. This allows us to calculate the amount of time spent on the thesis on a semesterly, weekly and a daily basis as shown in Figure \ref{tab:schedule_overview}.\\
+
+\begin{figure}
+    \centerline{
+        \begin{tabular}{ | p{3.5cm} || c | c | c | c | c |}
+        \hline
+         & ECTS & Total hours & Hours/week & Available weeks & Hours/day \\ \hline \hline
+        First Semester & 6 & 180 & 14 & 13 & 2h45 \\ \hline
+        Second Semester (without JobFair)& 18 & 540 & 17 & 31 & 6h20 \\ \hline
+        Second Semester (with JobFair) & 18 & 540 & 15 & 36 & 7h10\\
+        \hline
+        \end{tabular}
+    }
+    \caption{Estimated working hours}
+    \label{tab:schedule_overview}
+\end{figure}
+The Hours/day column gives a practical estimation for the feasibility of this thesis planning. It is calculated based on the working days of the week, so that the weekend is still available. The last row is added because I have commited myself to be a volunteer for VTK Corporate Relations. On March 12, 2014 I will organise VTK’s annual Job Fair for the second time. The Job Fair attracts more than 500 engineering students who are looking for a future employer. As more than 80 companies are represented, I will need to focus on the organisation of the Job Fair during the 2 weeks before the event. These two weeks before the Job Fair are compensated during the exam period at the beginning of June as I will only have 2 exams then.\\
+\\
+A Gantt chart can be found in Figure \ref{fig:gantt-chart}. Blue diamonds represent internal deadlines with Filipe, my thesis supervisor. Orange diamonds represent deadlines imposed by the faculty of engineering. Black hatched bars represent time spent on my thesis. Gray hatched bars represent time periods during which I will not be able to work on my thesis.
+
+\bibliographystyle{plain}
+\bibliography{planning}{}
+
+\begin{landscape}
+\pagenumbering{gobble}
+%\begin{adjustwidth}{}{}
+\begin{figure}
+    \centerline{
+    \scalebox{0.63}{
+    \begin{gantt}[xunitlength=0.3cm,fontsize=\small,titlefontsize=\tiny,drawledgerline=true]{15}{122}
+        \begin{ganttitle}
+          \titleelement{Sep}{30}
+          \titleelement{Oct}{31}
+          \titleelement{Nov}{30}
+          \titleelement{Dec}{31}
+        \end{ganttitle}
+        \begin{ganttitle}
+          \numtitle{1}{1}{30}{1}
+          \numtitle{1}{1}{31}{1}
+          \numtitle{1}{1}{30}{1}
+          \numtitle{1}{1}{31}{1}
+        \end{ganttitle}
+        \ganttbar{Reading references}{0}{64}
+        \ganttmilestone[color=cyan]{Meeting about thesis planning}{37}
+        \ganttbarcon{Making thesis planning}{37}{4}
+        \ganttmilestonecon[color=cyan]{Handing in planning}{41}
+        \ganttbarcon{Adjusting thesis planning}{41}{5}
+        \ganttmilestonecon[color=orange]{Submit deadline planning}{46}
+        \ganttbar{Writing literature study}{46}{18}
+        \ganttcon{64}{2}{64}{9}
+        \ganttmilestonecon[color=cyan]{Handing in literature study}{64}
+        \ganttbar{Analysing architecture and extensions}{64}{33}
+        \ganttbarcon{Preparing presentation}{97}{9}
+        \ganttmilestonecon[color=orange]{Intermediate presentation deadline}{106}
+        \ganttbar{Implementing basic IBE}{64}{42}
+        \ganttbar[color=lightgray]{Exam period}{111}{11}
+      \end{gantt}
+      } }
+      \centerline{
+      \scalebox{0.63}{
+    \begin{gantt}[xunitlength=0.3cm,fontsize=\small,titlefontsize=\tiny,drawledgerline=true]{8}{120}
+        \begin{ganttitle}
+          \titleelement{Jan}{31}
+          \titleelement{Feb}{28}
+          \titleelement{Mar}{31}
+          \titleelement{Apr}{30}
+        \end{ganttitle}
+        \begin{ganttitle}
+          \numtitle{1}{1}{31}{1}
+          \numtitle{1}{1}{28}{1}
+          \numtitle{1}{1}{31}{1}
+          \numtitle{1}{1}{30}{1}
+        \end{ganttitle}
+        \ganttbar[color=lightgray]{Exam period}{0}{31}
+        \ganttbar[color=lightgray]{Holiday}{31}{7}
+        \ganttbar{Security analysis of proposed architecture}{38}{13}
+        \ganttbar[color=lightgray]{Preparing jobfair}{51}{19}
+        \ganttmilestonecon[color=lightgray]{Jobfair}{70}
+        \ganttbar{Implementing proposed architecture}{70}{50}
+      \end{gantt}
+      } }
+      \scalebox{0.63}{
+    \begin{gantt}[xunitlength=0.3cm,fontsize=\small,titlefontsize=\tiny,drawledgerline=true]{11}{61}
+        \begin{ganttitle}
+          \titleelement{May}{31}
+          \titleelement{Jun}{30}
+        \end{ganttitle}
+        \begin{ganttitle}
+          \numtitle{1}{1}{31}{1}
+          \numtitle{1}{1}{30}{1}
+        \end{ganttitle}
+        \ganttbar{Implementing proposed architecture}{0}{7}
+        \ganttmilestonecon[color=cyan]{Intermediate meeting}{7}
+        \ganttbarcon{Writing thesis}{7}{24}
+        \ganttmilestonecon[color=cyan]{Handing in temporary draft of thesis}{31}
+        \ganttbarcon{Correcting thesis}{31}{6}
+        \ganttmilestonecon[color=orange]{Final thesis deadline}{37}
+        \ganttbar[color=lightgray]{Studying for exams}{37}{15}
+        \ganttbar{Preparing final presentation}{52}{7}
+        \ganttmilestonecon[color=orange]{Final presentation}{59}
+      \end{gantt}
+      }
+      \caption{Gantt chart of thesis planning}
+      \label{fig:gantt-chart}
+\end{figure}
+
+%\end{adjustwidth}
+\end{landscape}
+
+%\titleelement{Feb}{10}
+%     \titleelement{Mar}{10}
+%      \titleelement{Apr}{10}
+%      \titleelement{May}{10}
+%      \titleelement{Jun}{10}
+ \end{document}

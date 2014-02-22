@@ -1,0 +1,12 @@
+@inproceedings{DBLP:conf/crypto/Shamir84,
+  author    = {Adi Shamir},
+  title     = {Identity-Based Cryptosystems and Signature Schemes},
+  booktitle = {CRYPTO},
+  year      = {1984},
+  pages     = {47-53},
+  ee        = {http://dx.doi.org/10.1007/3-540-39568-7_5},
+  crossref  = {DBLP:conf/crypto/1984},
+  bibsource = {DBLP, http://dblp.uni-trier.de}
+}
+
+

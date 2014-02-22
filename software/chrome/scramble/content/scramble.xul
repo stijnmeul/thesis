@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://scramble/skin/scramble.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<overlay id="scrambleOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="onLoad();">
+
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/JavaLoader.js"></script>
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/kernel.js"></script>
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/dialogLoader.js"></script>
+    
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/vars.js"></script>
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js"></script>
+    
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/listeners.js"></script>
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/htmlactions.js"></script>    
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/scramble.js"></script>
+    
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/IOxml.js"></script>
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/utils.js"></script>
+
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/cryptobridge.js"></script>
+
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/initialise.js"></script>    
+    <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js" />
+
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties" />
+    </stringbundleset>
+
+
+    <script type="application/x-javascript">
+        kernel.init(); // this starts the Java Object;
+    </script>
+
+    <statusbar id="status-bar" hidden="false">
+        <!--image src='chrome://scramble/skin/imgs/scramble_small_icon.png' style='padding:0; margin:0;' /-->    
+        <statusbarpanel id="scrambleStatusBar" label="&mainMenu.label;"  class="statusbarpanel-iconic-text" image='chrome://scramble/skin/imgs/scramble_small_icon.png' role="button"  tooltip="scrambleTip"  onclick="scramble.onClick(event);" context="scrambleMenu" />                
+
+        <menupopup id="scrambleMenu">
+            <menuitem label="&mainMenu.item4;" oncommand="scramble.onMenuClick('ABOUT')" />
+            <menuitem label="&mainMenu.item3;" oncommand="scramble.onMenuClick('SETTINGS')" />    
+            <menuitem label="&mainMenu.item5;" oncommand="scramble.onMenuClick('TXT_EDITOR')" />
+            <menuitem label="&mainMenu.item2;" oncommand="scramble.onMenuClick('KEY_MANAGER')" />
+            <menuseparator/>
+            <menuitem label="&mainMenu.item6;" disabled="true" oncommand="" style="font-weight:bold" />
+            <menuitem label="&mainMenu.item1;" oncommand="scramble.onMenuClick('CRYPT')" style="font-weight:bold" />
+        </menupopup>
+        
+        <tooltip id="scrambleTip" orient="vertical">
+            <description value="&mainMenu.label;" style="font-weight:bold" />
+            <description value="&mainMenu.description;" />
+        </tooltip>
+    </statusbar>
+    
+    <popup id="contentAreaContextMenu">
+        <menu id="menu-rightclick" label="&mainMenu.label;" class="menu-iconic" image='chrome://scramble/skin/imgs/scramble_small_icon.png'>
+            <menupopup id="submenu-rightclickpopup">
+                <menuitem label="&mainMenu.item1;" oncommand="scramble.onMenuClick('CRYPT')" style="font-weight:bold" />
+                <menuitem label="&mainMenu.item6;" disabled="true" oncommand="Unscramble" style="font-weight:bold" />
+                <menuseparator/>
+                <menuitem label="&mainMenu.item2;" oncommand="scramble.onMenuClick('KEY_MANAGER')" />
+                <menuitem label="&mainMenu.item5;" oncommand="scramble.onMenuClick('TXT_EDITOR')" />
+                <menuitem label="&mainMenu.item3;" oncommand="scramble.onMenuClick('SETTINGS')" />
+                <menuitem label="&mainMenu.item4;" oncommand="scramble.onMenuClick('ABOUT')" />
+            </menupopup>
+        </menu>
+    </popup>
+    
+    <!--toolbox>
+      <toolbar id="nav-toolbar">
+        <toolbarbutton id="nav-users"  accesskey="U" label="Users"/>
+        <toolbarbutton id="nav-groups" accesskey="p" label="Groups"/>
+        <toolbarbutton id="nav-events" accesskey="E" label="Events" disabled="true"/>
+      </toolbar>
+    </toolbox-->
+    
+    <toolbarpalette id="BrowserToolbarPalette"> 
+      <toolbarbutton id="custom-button-1"/> 
+    </toolbarpalette>
+    <toolbarbutton id="custom-button-1" label="Custom" tooltiptext="My custom toolbar button" oncommand="aalert('bla')" 
+        class="toolbarbutton-1 chromeclass-toolbar-additional custombutton" />
+    
+    
+</overlay>

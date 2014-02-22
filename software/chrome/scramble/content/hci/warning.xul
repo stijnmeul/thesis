@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<dialog id="warning" title="Warning" orient="vertical" autostretch="always"
+        onload="warn.onLoad();"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+		buttons="none"
+		>
+        
+        <script type="application/x-javascript" src="chrome://scramble/content/hci/js/warning.js"></script>
+        <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js"></script>
+         
+		<vbox flex="1">
+			<vbox flex="1">
+				<hbox flex="1">
+					<!--spacer flex="1" /-->
+			        <image src="chrome://scramble/skin/imgs/warning.png" style="padding:5px 10px 5px 5px;" />
+                    <!--spacer flex="1" /-->
+					<label id="message" style="padding-top: 10px;" value="" />
+				</hbox>
+			</vbox>
+			<hbox flex="1">
+				<spacer flex="1" />
+		        <button id='but_Yes' label="Yes" oncommand="warn.onExit(true);" style="min-width: 9em; max-width: 12em; font-size: 0.9em;" />
+                <button id='but_No' label="No" oncommand="warn.onExit(false);" style="min-width: 9em; max-width: 12em; font-size: 0.9em;" />
+				<spacer flex="1" />
+			</hbox>
+        </vbox>
+</dialog>

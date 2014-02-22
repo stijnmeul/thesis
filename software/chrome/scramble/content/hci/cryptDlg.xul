@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/menus.dtd">
+
+<dialog id="cyrptTxt-Dialog" title="&cryptDlg.title;" orient="vertical" autostretch="always"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+        onload="cryptdlg.onLoad(this);" 
+        buttons="none">
+ 
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/cryptDlg.js" />
+
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/kernel.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/utils.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/vars.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/dialogLoader.js"></script>
+
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/cryptobridge.js" />        	  
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/JavaLoader.js"></script>
+    
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties"/>
+    </stringbundleset>
+    
+    <vbox>
+        <vbox flex="1">
+            <caption id="caption_txt" label="&cryptDlg.insert;" />
+            <textbox id="crypttxtbox" rows="20" multiline="true" value="&cryptDlg.textvalue;" />
+
+            <hbox flex="1">  
+                <spacer flex="1" />
+                <button id="but_enc" label="&cryptDlg.encrypt;" oncommand="cryptdlg.onEncrypt();" />  
+                <button id="but_enabletiny" label="&cryptDlg.encryptLink;" oncommand="cryptdlg.onEncryptTinyLink();"/>                
+                <button id="but_dec" label="&cryptDlg.decrypt;" oncommand="cryptdlg.onDecrypt();" /> 
+                <button id="but_cancel" label="&general.Cancel;" oncommand="cryptdlg.onCancel();" />  
+            </hbox>
+        
+        </vbox>
+    </vbox>
+    
+</dialog>

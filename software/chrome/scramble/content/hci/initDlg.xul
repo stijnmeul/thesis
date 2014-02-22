@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://scramble/skin/init.css" type="text/css" ?>
+
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<dialog title="Initialisation Preferences" orient="vertical" autostretch="always" 
+        onload="initdlg.onLoad(this);" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"  buttons="none" >
+
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/initDlg.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/dialogLoader.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/utils.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/vars.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/JavaLoader.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/cryptobridge.js" />
+    
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties" />
+    </stringbundleset>
+    
+    <vbox id="mainBox">
+        
+        <hbox>
+            <spacer flex="1" />
+            <image src="chrome://scramble/skin/imgs/scramble_medium_icon.png" style="margin:5px 10px 5px 5px;"/>
+            <spacer flex="1" />            
+        </hbox>
+        
+        <groupbox id="box">
+        
+        <vbox flex="1" id="licenseBox" class="inBox">
+            <vbox style="width:22em;">
+                <label style="font-weight: bold; margin-bottom: 5px;" id="licensetext" value="&init.disc;" />
+                <textbox style="width: 100%; height: 60px;" multiline="true" readonly="true" class="plain" value="&init.msg;" />
+
+                <label style="font-weight: bold; margin-bottom: 5px;" id="licensetext" value="&init.license;" />
+                <textbox style="width: 100%; height: 60px;" multiline="true" readonly="true" class="plain" value="&init.license_txt;" />
+                <separator class="groove" />
+                <textbox style="width: 100%; height: 150px;" multiline="true" readonly="true" class="plain" value="&init.warn;" />
+            </vbox>
+            
+            <spacer flex="1" /> 
+        </vbox>
+
+        <vbox flex="1" id="GnuPGbox" class="inBox">
+            <vbox>
+                <label style="font-weight: bold; margin-bottom: 5px;" value="GnuPG" />
+                <textbox style="width: 100%; height: 50px;" multiline="true" readonly="true" class="plain" id="status_gpg" value=" " />
+            </vbox>
+            <groupbox id="no_gpg" hidden="true">
+                <caption label="GnuPG Path" />
+                <textbox id="gpg_path_box" value=" " />
+                <hbox flex="1">
+                    <spacer flex="1" />        
+                    <button id="save_path" class="smallButton" label="Select" oncommand="initdlg.onSetGPGPathBox()" />          	        
+                </hbox>
+            </groupbox>
+            <vbox id="bouncycastle" style="margin: 5px; padding: 10px 10px 10px 30px;" hidden="true">
+                <vbox>
+                    <spacer flex="1" />
+                    <button id="genkeypair" class="smallButton" label="Generate Key Pair..." oncommand="initdlg.onGenKeyPair()" />          	    
+                    <label value="" />
+                    <progressmeter id="genkey_progressbar" hidden="true" mode="undetermined"/>                              
+                    <separator id="genkey_separator" class="groove" />
+                    <label id="genkey_label" value="" />
+                    <separator id="genkey_separator2" class="groove" />                    
+                    <label value="" />
+                    <button id="importkeypair" class="smallButton" label="Import Key Ring..." oncommand="initdlg.onImportKeyPair();" />          	        
+
+                    <spacer flex="1" />
+                </vbox>
+            </vbox>
+        </vbox>
+
+
+        <vbox id="secretKeysBox" class="inBox">
+        
+            <vbox flex="1" style="margin-bottom: 20px" >
+                <label value="Secret Keys" />
+                <tree id="list_secretkeys" hidecolumnpicker="true" style="width:22em" rows="3" onclick="initdlg.onKeysSelected(this);">
+                  <treecols>
+                    <treecol label="&keychain.contlabel;" style="width: 12em" primary="true" />
+                    <splitter class="tree-splitter"/>
+                    <treecol label="&keychain.contID;" hidden="true" ignoreincolumnpicker="true" />
+                    <splitter class="tree-splitter"/>
+                    <treecol label="&keychain.contmail;" style="width: 9.6em" ignoreincolumnpicker="true" />
+                    <splitter class="tree-splitter"/>
+                    <treecol label="&keychain.contfingerprint;" hidden="true" ignoreincolumnpicker="true" />
+                    <splitter class="tree-splitter"/>
+                  </treecols>
+                  
+                  <treechildren id="list_secretkeys_tree">
+                  </treechildren>
+                </tree>
+            </vbox>
+
+            <spacer flex="1" /> 
+
+            <vbox flex="1">
+                <separator class="groove" />
+                <label id="pwdlabel" value="Password" />
+                <textbox id="pwd-textbox" type="password" value="" />
+                <hbox flex="1">
+                    <spacer flex="1" />
+                    <checkbox id="pwd-showbox" label="Show" oncommand="initdlg.onShowPwd();" />
+                </hbox>
+            </vbox>
+            
+        </vbox>
+        
+        
+        
+        <vbox flex="1" id="publicKeysBox" class="inBox">
+            <vbox>
+                <checkbox id="syncAll" label="Synchronise All" checked="true" oncommand="initdlg.onSwitchCheckBox(this);"/>
+                <checkbox id="syncSelection" label="Synchronise Selection" checked="false" oncommand="initdlg.onSwitchCheckBox(this);" />
+
+                <separator class="thin"/>
+
+            </vbox>
+
+
+            <vbox flex="1">
+                <tree id="list_publickeys" hidecolumnpicker="true" seltype="multiple" flex="1" rows="10" style="width:22em">
+                  <treecols>
+                    <treecol label="&keychain.contlabel;" style="width: 12em" primary="true" />
+                    <splitter class="tree-splitter"/>
+                    <treecol label="&keychain.contID;" hidden="true" ignoreincolumnpicker="true" />
+                    <splitter class="tree-splitter"/>
+                    <treecol label="&keychain.contmail;" style="width: 9.6em" ignoreincolumnpicker="true" />
+                    <splitter class="tree-splitter"/>
+                    <treecol label="&keychain.contfingerprint;" hidden="true" ignoreincolumnpicker="true" />
+                    <splitter class="tree-splitter"/>
+                  </treecols>
+                  
+                  <treechildren id="list_publickeys_tree">
+                  </treechildren>
+                </tree>
+
+            </vbox>
+        </vbox>
+        
+        <vbox flex="1" id="endBox" class="inBox">
+            <hbox>
+                <spacer flex="1" />         
+                <label id="finish" value="Initialisation Process Complete" />
+                <spacer flex="1" />             
+            </hbox>
+            
+            <groupbox>
+                <caption>Report:</caption>
+                <label id="result_sk" value="Secret Key: " />
+                <label id="result_pwd" value="Password: " />
+                <label id="result_pk" value="Public Keys: " />
+                <label id="result_path" value="GnuPG Path: " />
+            </groupbox>
+        </vbox>
+        
+        </groupbox>
+        
+        <spacer flex="1" /> 
+        
+        <hbox>
+            <spacer flex="1" />
+            <button id="buttonBack" label="Back" oncommand="initdlg.onBack();" hidden="true" />
+            <button id="buttonNext" label="Next" oncommand="initdlg.onNext();" />
+        </hbox>
+        
+    </vbox>
+    
+</dialog>

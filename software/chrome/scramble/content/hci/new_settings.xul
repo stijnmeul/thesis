@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://scramble/skin/settings.css" type="text/css" ?>
+
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/menus.dtd">
+
+<prefwindow id="scrambleSettings"
+            title="&settings.title;"
+            onload="sett.onLoad(this);"
+            buttons="none"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <prefpane id="generalPanel" label="&settings.gen;" selected="true">
+        <preferences>
+            <preference id="pref_gpgkey" name="scramble.gpg_key" type="string"/>
+            <preference id="pref_defaultkey" name="scramble.gpg_defaultkey" type="string"/>      
+            <preference id="pref_tinylinks" name="scramble.tinylinks" type="bool"/>                  
+        </preferences>
+
+        <groupbox >
+            <caption label="&general.pwd;" />
+            <vbox flex="1">
+                <!--label class="smallerFontLabels" value="Password" /-->
+          	    <textbox id="pwd-textbox" type="password" />
+          	    
+          	    <hbox flex="1">
+          	        <spacer flex="1" />
+                    <checkbox id="pwd-showbox" style="font-size: 0.8em" label="&pwdMenu.show;" oncommand="sett.onShowPwd();" />
+				</hbox>
+				<separator class="groove" />
+				<hbox flex="1">
+                	<spacer flex="1" />
+                    <button id="keys_but" style="font-size: 0.8em;" label="&settings.savepwd;" oncommand="sett.onSetPwd();" />
+                    <button id="pwderase_but" style="font-size: 0.8em;" label="&settings.erasepwd;" oncommand="sett.onErasePwd();" />
+                </hbox>
+            </vbox>
+		</groupbox>
+		
+      <groupbox style="height: 150px">
+            <caption label="&settings.tinylink;" />
+            <vbox flex="1">
+                <checkbox  class="smallerFontLabels" id="tiny-enablebox" label="&settings.enable;" oncommand="sett.onSetLink()" />
+
+                <separator class="groove" />
+
+                <hbox>
+                    <button id="tiny_but" style="font-size: 0.8em;" label="&settings.changeserver;" oncommand="sett.showServerOption()" />
+                    <spacer flex="1" />                    
+                </hbox>
+
+            </vbox>
+
+            <vbox id="tiny_box">
+                <label  class="smallerFontLabels" value="&settings.serverurl;" />
+                <textbox id="tiny-urlserver" style="width: 18em" value="" onchange="sett.setChange();"/>
+            </vbox>
+
+        </groupbox>
+        
+    
+    </prefpane>
+
+    <prefpane id="advancedPanel" label="&settings.adv;"  selected="false" >
+        <preferences>
+            <preference id="pref_tinylinks" name="scramble.gpg_path" type="string"/>                    
+        </preferences>
+
+        <groupbox >
+            <caption label="&settings.keys;" />
+            <vbox flex="1">
+			<button id="upload_toserver" style="font-size: 0.8em;" label="&settings.upload2server;" oncommand="sett.onUploadToServer()" />
+				<button id="export_kring" style="font-size: 0.8em;" label="&settings.exportkeys;" oncommand="sett.onExportKeys()" />
+				<button id="import_kring" style="font-size: 0.8em;" label="&settings.importkeys;" oncommand="sett.onImportKeys()" />
+				<button id="generate_kring" style="font-size: 0.8em;" label="&settings.generate;" oncommand="sett.onGenerateNewKey()" />
+			</vbox>
+        </groupbox>
+
+        <groupbox >
+	            <caption label="&settings.contacts;" />
+	            <vbox flex="1">
+	            <button id="export_group_kring" style="font-size: 0.8em;" label="&settings.exportgroups;" oncommand="sett.onExportGroups()" />
+				<button id="import_old_kring" style="font-size: 0.8em;" label="&settings.importgroups;" oncommand="sett.onImportGroups()" />
+			</vbox>
+        </groupbox>
+
+        <groupbox >
+	            <caption label="&settings.junpolicies;" />
+	            <vbox flex="1">
+				<button id="update_jce" style="font-size: 0.8em;" label="&settings.jvmjce;" oncommand="sett.updateJCE()" />
+			</vbox>
+        </groupbox>
+
+        <groupbox >
+	            <caption label="Initialise Plug-in Settings" />
+	            <vbox flex="1">
+				<button id="init_plugin" style="font-size: 0.8em;" label="Initialise..." oncommand="sett.initPlugin()" />
+			</vbox>
+        </groupbox>
+
+
+		<description id="the-big-label" style="width: 200px; height: 30px; font-size: 0.8em;">&settings.advwarn;</description>
+		
+    </prefpane>	
+
+	<hbox id="settingsButtons" flex="1">
+        <spacer flex="1" />        
+		<button label="&general.Done;" oncommand="sett.onOK();"/>
+        <spacer flex="1" />        
+		<!--button label="&general.Cancel;" oncommand="sett.onCancel();" /-->
+	</hbox>	
+
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/vars.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/utils.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/IOxml.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js" />
+
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/kernel.js" />    
+    <script type="application/x-javascript" src="chrome://scramble/content/scrambleCore/initialise.js" />    
+
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/cryptobridge.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/crypto/JavaLoader.js"></script>
+    
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/new_settings.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/dialogLoader.js" />
+    
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties" />
+    </stringbundleset>
+
+</prefwindow>

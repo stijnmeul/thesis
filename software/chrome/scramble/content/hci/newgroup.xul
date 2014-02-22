@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<dialog id="newGroup" title="New Group" orient="vertical" autostretch="always"
+        onload="newgroupdlg.onLoad();"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+        buttons="accept,cancel"
+        buttonlabelcancel="&general.buttonCancel;"
+        buttonlabelaccept="&general.buttonSave;"
+        ondialogaccept="return newgroupdlg.onSave();"
+        ondialogcancel="return newgroupdlg.onCancel();" >
+        
+        <script type="application/x-javascript" src="chrome://scramble/content/hci/js/newgroup.js"></script>
+        <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js"></script>
+        
+        <stringbundleset>
+            <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties"/>
+        </stringbundleset>
+        
+        <vbox style="width: 300px">
+            <hbox flex="1">
+                <image src="chrome://scramble/skin/imgs/scramble_medium_icon.png" style="padding:5px 10px 5px 5px;" />
+                <vbox flex="1"> 
+                    <label value="Enter name for group:" />
+                    <textbox id="groupNameBox" value="" />    
+                </vbox>    
+            </hbox>
+        
+            <hbox>
+                    <spacer flex="1" />
+                    <label id="spacelabel" value="" style="margin: 0px 30px" />                    
+                    <!--button label="&general.buttonCancel;" oncommand="newgroupdlg.onCancel();" />
+                    <button label="&general.buttonSave;" oncommand="newgroupdlg.onSave();" /-->
+            </hbox>
+        </vbox>
+        
+</dialog>

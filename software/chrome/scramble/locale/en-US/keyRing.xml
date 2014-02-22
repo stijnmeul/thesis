@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups description="Scramble XML Group File">
+  
+<group name="Friends">
+	<description>This is the default Group of Friends</description>
+	<members></members>
+</group>
+</groups>
