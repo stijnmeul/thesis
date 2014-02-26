@@ -36,12 +36,12 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  * pairing.h
  *
  * High level interface to pairing functions - Type 3 pairings
- * 
+ *
  * GT=pairing(G2,G1)
  *
  * This is calculated on a Pairing Friendly Curve (PFC), which must first be defined.
  *
- * G1 is a point over the base field, and G2 is a point over an extension field. 
+ * G1 is a point over the base field, and G2 is a point over an extension field.
  * GT is a finite field point over the k-th extension, where k is the embedding degree.
  */
 
@@ -118,17 +118,17 @@ public:
 	ECn g;
 
 	ECn *mtable;   // pointer to values precomputed for multiplication
- 
+
 	int mtbits;
     G1()   {mtable=NULL; mtbits=0;}
 	G1(const G1& w) {mtable=NULL; mtbits=0; g=w.g;}
 
-	G1& operator=(const G1& w) 
+	G1& operator=(const G1& w)
 	{
-		if (mtable==NULL) g=w.g; 
-		else read_only_error(); 
+		if (mtable==NULL) g=w.g;
+		else read_only_error();
 		return *this;
-	} 
+	}
 	int spill(char *&);
 	void restore(char *);
 	friend G1 operator-(const G1&);
@@ -141,7 +141,7 @@ public:
 };
 
 //
-// This is just a G2_TYPE. But we want to restrict the ways in which it can be used. 
+// This is just a G2_TYPE. But we want to restrict the ways in which it can be used.
 // We want the instances to always be of an order compatible with the PFC
 //
 
@@ -156,20 +156,26 @@ public:
 
     G2()   {ptable=NULL; mtable=NULL; mtbits=0;}
 	G2(const G2& w) {ptable=NULL; mtable=NULL; mtbits=0; g=w.g;}
-	G2& operator=(const G2& w) 
-	{ 
-		if (ptable==NULL && mtable==NULL)	g=w.g; 
+	G2& operator=(const G2& w)
+	{
+		if (ptable==NULL && mtable==NULL)	g=w.g;
 		else read_only_error();
-		return *this; 
-	} 
+		return *this;
+	}
 	int spill(char *&);
 	void restore(char *);
 
 	friend G2 operator-(const G2&);
 	friend G2 operator+(const G2&,const G2&);
+	/*ORIG:
 	friend BOOL operator==(G2& x,G2& y)
+      {if (x.g==y.g) return TRUE; else return FALSE; } */
+	friend BOOL operator==(G2 x,G2 y)
       {if (x.g==y.g) return TRUE; else return FALSE; }
+	/*
 	friend BOOL operator!=(G2& x,G2& y)
+      {if (x.g!=y.g) return TRUE; else return FALSE; } */
+	friend BOOL operator!=(G2 x,G2 y)
       {if (x.g!=y.g) return TRUE; else return FALSE; }
 
 	~G2() {if (ptable!=NULL) {delete [] ptable; ptable=NULL;}
@@ -188,12 +194,12 @@ public:
 	GT(const GT& w) {etable=NULL; etbits=0; g=w.g;}
 	GT(int d) {etable=NULL; etbits=0; g=d;}
 
-	GT& operator=(const GT& w)  
+	GT& operator=(const GT& w)
 	{
-		if (etable==NULL) g=w.g; 
+		if (etable==NULL) g=w.g;
 		else read_only_error();
 		return *this;
-	} 
+	}
 	int spill(char *&);
 	void restore(char *);
 	friend GT operator*(const GT&,const GT&);
@@ -210,12 +216,12 @@ public:
 class PFC
 {
 public:
-	Big *B;        // y^2=x^3+Ax+B. This is B 
+	Big *B;        // y^2=x^3+Ax+B. This is B
 	Big *x;        // curve parameter
 	Big *mod;
 	Big *ord;
-	Big *cof; 
-	Big *npoints;  
+	Big *cof;
+	Big *npoints;
 	Big *trace;
 
 #ifdef MR_PAIRING_BN
@@ -246,7 +252,7 @@ public:
 
 	PFC(int, csprng *rng=NULL);
 	Big order(void) {return *ord;}
-	GT power(const GT&,const Big&);  
+	GT power(const GT&,const Big&);
 	G1 mult(const G1&,const Big&);
 	G2 mult(const G2&,const Big&);
 	void hash_and_map(G1&,char *);
