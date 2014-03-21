@@ -10,7 +10,7 @@
 
    For MR_PAIRING_MNT curve
    cl /O2 /GX bb1.cpp mnt_pair.cpp zzn6a.cpp ecn3.cpp zzn3.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
-	
+
    For MR_PAIRING_BN curve
    cl /O2 /GX bb1.cpp bn_pair.cpp zzn12a.cpp ecn2.cpp zzn4.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
@@ -20,14 +20,14 @@
    For MR_PAIRING_BLS curve
    cl /O2 /GX bb1.cpp bls_pair.cpp zzn24.cpp zzn8.cpp zzn4.cpp zzn2.cpp ecn4.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
-   Test program 
+   Test program
 */
 
 #include <iostream>
 #include <ctime>
 
 //********* choose just one of these pairs **********
-//#define MR_PAIRING_CP      // AES-80 security   
+//#define MR_PAIRING_CP      // AES-80 security
 //#define AES_SECURITY 80
 
 //#define MR_PAIRING_MNT	// AES-80 security
@@ -51,7 +51,7 @@
 //
 
 int main()
-{   
+{
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
     miracl* mip=get_mip();
 
@@ -70,6 +70,7 @@ int main()
 
 	pfc.random(alpha);
 	pfc.random(g);
+	// g_1 = g^alpha
 	gone=pfc.mult(g,alpha);
 	pfc.random(ghat);
 	ghat1=pfc.mult(ghat,alpha);
@@ -102,8 +103,11 @@ int main()
 	mip->IOBASE=16;
 
 	pfc.random(s);
+	// C_1 = Mv^s
 	c1=lxor(M,pfc.hash_to_aes_key(pfc.power(v,s)));
+	// C_2 = g^s
 	c2=pfc.mult(g,s);
+	// C_3 = (hg_1^a)^s
 	c3=pfc.mult(h+pfc.mult(gone,a),s);
 
 //decrypt
@@ -113,6 +117,7 @@ int main()
 	g1[0]=&c2; g1[1]=&c3;
 	g2[0]=&da0; g2[1]=&da1;
 
+	// in the paper: A XOR H(e(B,d_0)/e(C_1,d_1)) = A XOR H(e(c2,da0)/e(c1,da1))
 	M=lxor(c1,pfc.hash_to_aes_key(pfc.multi_pairing(2,g2,g1)));	// Use private key
 	mip->IOBASE=256;
 	cout << "Decrypted message=         " << M << endl;

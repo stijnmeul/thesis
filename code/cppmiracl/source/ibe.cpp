@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <ctime>
+#include <time.h>
 
 //********* choose just one of these pairs **********
 //#define MR_PAIRING_CP      // AES-80 security
@@ -45,19 +46,21 @@
 
 #include "pairing_3.h"
 
-
 int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
 	time_t seed;
+	float execution_time;
 
 	Big s,r,sigma,c,M,V,W,sigma_hash;
 	// Although in paper, generator P is an elementof G1, switch to G2 to allow precomputation with MIRACL library
-	G2 P,Ppub,U,rP;
-	G1 Q1,D,rQ;
+	G2 P, Ppub, U, rP;
+	G1 Q1, D, rQ;
 	char *comp1;
 	char *comp2;
+
+	const clock_t begin_time = clock();
 
 	time(&seed);
     irand((long)seed);
@@ -84,7 +87,7 @@ int main()
 	// Pick a random s elementof Z_q
 	pfc.random(s);
 	// Set Ppub = sP
-	Ppub = pfc.mult(P,s);
+	Ppub = pfc.mult(P, s);
 	// If an element of G2 is fixed, and it appears in the context
 	// of e(G2,.), then precomputation can greatly speed up the
 	// calculation of the pairing.
@@ -98,9 +101,9 @@ int main()
 	* later on Alice receives D over a secure channel
 	***********/
 	// hash public key of Alice to Q1
-	pfc.hash_and_map(Q1,(char *)"Alice");
+	pfc.hash_and_map(Q1, (char *)"Alice");
 	// Calculate private key of Alice as D=s.Q1
-	D = pfc.mult(Q1,s);
+	D = pfc.mult(Q1, s);
 
 	/**********
 	* ENCRYPT
@@ -125,20 +128,20 @@ int main()
 	//cout << "sigma: " << sigma << endl;
 
 	// Bob calculates Q1 based on Alice's identity
-	pfc.hash_and_map(Q1,(char *)"Alice");
+	pfc.hash_and_map(Q1, (char *)"Alice");
 	// U = r.P
-	U=pfc.mult(P,r);
+	U = pfc.mult(P, r);
 	// V = sigma XOR Hash(e(Q1,Ppub)^r)
 	// Note that e(Q1,Ppub)^r = e(r.Q1, Ppub) such that
 	// V = sigma XOR Hash(e(r.Q1,Ppub))
-	rQ = pfc.mult(Q1,r);
-	V = pfc.hash_to_aes_key(pfc.pairing(Ppub,rQ));
-	V = lxor(sigma,V);
+	rQ = pfc.mult(Q1, r);
+	V = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
+	V = lxor(sigma, V);
 	// W = M XOR Hash(sigma)
 	pfc.start_hash();
 	pfc.add_to_hash(sigma);
 	sigma_hash = pfc.finish_hash_to_group();
-	W = lxor(M,sigma_hash);
+	W = lxor(M, sigma_hash);
 
 	//cout << "sigma_hash: " << sigma_hash << endl;
 
@@ -149,19 +152,21 @@ int main()
 	***********/
 	// sigma = V XOR Hash(e(D,U))
 	// Alice knows her own secret key D
-	sigma=lxor(V,pfc.hash_to_aes_key(pfc.pairing(U,D)));
+	sigma = lxor(V, pfc.hash_to_aes_key(pfc.pairing(U,D)));
 
 	// M = W XOR Hash(sigma)
 	pfc.start_hash();
 	pfc.add_to_hash(sigma);
 	sigma_hash = pfc.finish_hash_to_group();
-	M = lxor(W,sigma_hash);
+	M = lxor(W, sigma_hash);
 
 	// r = Hash(sigma,M)
 	pfc.start_hash();
 	pfc.add_to_hash(sigma);
-	//pfc.add_to_hash(M);
-	r=pfc.finish_hash_to_group();
+	pfc.add_to_hash(M);
+	r = pfc.finish_hash_to_group();
+
+	execution_time = float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 
 	if(U != pfc.mult(P,r)) {
 		cout << "U does not equal rP. Rejected the ciphertext." << endl;
@@ -170,5 +175,9 @@ int main()
 	mip->IOBASE = 256;
 		cout << "Result after decryption:       " << M << endl;
 
+	cout << "Execution time: " << execution_time << endl;
+
     return 0;
+
+
 }

@@ -10,7 +10,7 @@
 
    For MR_PAIRING_MNT curve
    cl /O2 /GX bmc.cpp mnt_pair.cpp zzn6a.cpp ecn3.cpp zzn3.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
-	
+
    For MR_PAIRING_BN curve
    cl /O2 /GX bmc.cpp bn_pair.cpp zzn12a.cpp ecn2.cpp zzn4.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
@@ -20,14 +20,14 @@
    For MR_PAIRING_BLS curve
    cl /O2 /GX bmc.cpp bls_pair.cpp zzn24.cpp zzn8.cpp zzn4.cpp zzn2.cpp ecn4.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
-   Test program 
+   Test program
 */
 
 #include <iostream>
 #include <ctime>
 
 //********* choose just one of these pairs **********
-//#define MR_PAIRING_CP      // AES-80 security   
+//#define MR_PAIRING_CP      // AES-80 security
 //#define AES_SECURITY 80
 
 //#define MR_PAIRING_MNT	// AES-80 security
@@ -47,7 +47,7 @@
 #include "pairing_3.h"
 
 int main()
-{   
+{
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 	miracl* mip=get_mip();
 	Big order=pfc.order();
@@ -68,6 +68,7 @@ int main()
 
 	g=pfc.pairing(Q,P);
 	pfc.precomp_for_power(g);
+	// calculate Ppub = s.P
 	Ppub=pfc.mult(P,s);
 
 //Keygen
@@ -83,12 +84,15 @@ int main()
 	M=(char *)"test message"; // to be signcrypted from Alice to Bob
 	cout << "Signed Message=   " << M << endl;
 	mip->IOBASE=16;
-	
+
 	pfc.precomp_for_mult(Pa);
 	pfc.precomp_for_mult(Qsa);
 	pfc.random(x);
+	// N = g^((x)^-1)
 	N=pfc.power(g,inverse(x,order));
+	// Alice calculates R=x.Pa
 	R=pfc.mult(Pa,x);
+	// S = (x)^-1 . Pb
 	S=pfc.mult(Pb,inverse(x,order));
 	c=lxor(M,pfc.hash_to_aes_key(N));
 	pfc.start_hash();

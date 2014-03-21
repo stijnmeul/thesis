@@ -10,7 +10,7 @@
 
    For MR_PAIRING_MNT curve
    cl /O2 /GX fuzzy.cpp mnt_pair.cpp zzn6a.cpp ecn3.cpp zzn3.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
-	
+
    For MR_PAIRING_BN curve
    cl /O2 /GX fuzzy.cpp bn_pair.cpp zzn12a.cpp ecn2.cpp zzn4.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
@@ -20,14 +20,14 @@
    For MR_PAIRING_BLS curve
    cl /O2 /GX fuzzy.cpp bls_pair.cpp zzn24.cpp zzn8.cpp zzn4.cpp zzn2.cpp ecn4.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
-   Test program 
+   Test program
 */
 
 #include <iostream>
 #include <ctime>
 
 //********* choose just one of these pairs **********
-//#define MR_PAIRING_CP      // AES-80 security   
+//#define MR_PAIRING_CP      // AES-80 security
 //#define AES_SECURITY 80
 
 //#define MR_PAIRING_MNT	// AES-80 security
@@ -83,7 +83,7 @@ Big lagrange(int i,int *S,int d,Big order)
 }
 
 int main()
-{   
+{
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 	miracl *mip=get_mip();  // get handle on mip (Miracl Instance Pointer)
 	Big order=pfc.order();  // get pairing-friendly group order
@@ -111,28 +111,30 @@ int main()
 		pfc.random(t[i]);                 // Note t[i] will be 2*AES_SECURITY bits long
 		T[i]=pfc.mult(P,t[i]);            // which may be less than the group order.
 		pfc.precomp_for_mult(T[i],TRUE);  // T[i] are system params, so precompute on them
-                                          // Note second parameter indicates that all multipliers 
+                                          // Note second parameter indicates that all multipliers
 										  // must  be <=2*AES_SECURITY bits, which may be shorter
-										  // than the full group size. 
+										  // than the full group size.
 	}
 
 // key generation for Alice
 
+	// A d-1 degree polynomial is randomly chosen such that q(0)=y
 	poly[0]=y;
 	for (i=1;i<Nd;i++)
 		pfc.random(poly[i]);
-	
+
+	// Private key consists of components D_i where D_i=g^(q(i)/t_i)
 	for (j=0;j<NALICE;j++)
 	{
 		i=Alice[j];
 		qi=y; ik=i;
 		for (k=1;k<Nd;k++)
-		{ // evaluate polynomial a0+a1*x+a2*x^2... for x=i;
+		{ // evaluate polynomial a0+a1*x+a2*x^2... for x=i; => result is  q(i)
 			qi+=modmult(poly[k],(Big)ik,order);
 			ik*=i;
 			qi%=order;
 		}
-
+		// D_i=g^(q(i)/t_i)
 		AD[j]=pfc.mult(Q,moddiv(qi,t[i],order));  // exploits precomputation
 	}
 
@@ -141,7 +143,7 @@ int main()
 	poly[0]=y;
 	for (i=1;i<Nd;i++)
 		pfc.random(poly[i]);
-	
+
 	for (j=0;j<NBOB;j++)
 	{
 		i=Bob[j];
@@ -159,7 +161,7 @@ int main()
 
 // Encryption to Alice
 	mip->IOBASE=256;
-	M=(char *)"test message"; 
+	M=(char *)"test message";
 	cout << "Message to be encrypted=   " << M << endl;
 	mip->IOBASE=16;
 	pfc.random(s);
@@ -167,6 +169,7 @@ int main()
 	for (j=0;j<NALICE;j++)
 	{
 		i=Alice[j];
+		// calculate T_i^s
 		AE[j]=pfc.mult(T[i],s);   // exploit precomputation
 	}
 

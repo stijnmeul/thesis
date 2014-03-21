@@ -9,7 +9,7 @@
 
    For MR_PAIRING_MNT curve
    cl /O2 /GX bls.cpp mnt_pair.cpp zzn6a.cpp ecn3.cpp zzn3.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
-	
+
    For MR_PAIRING_BN curve
    cl /O2 /GX bls.cpp bn_pair.cpp zzn12a.cpp ecn2.cpp zzn4.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
@@ -19,14 +19,14 @@
    For MR_PAIRING_BLS curve
    cl /O2 /GX bls.cpp bls_pair.cpp zzn24.cpp zzn8.cpp zzn4.cpp zzn2.cpp ecn4.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
-   Test program 
+   Test program
 */
 
 #include <iostream>
 #include <ctime>
 
 //********* choose just one of these pairs **********
-//#define MR_PAIRING_CP      // AES-80 security   
+//#define MR_PAIRING_CP      // AES-80 security
 //#define AES_SECURITY 80
 
 //#define MR_PAIRING_MNT	// AES-80 security
@@ -46,7 +46,7 @@
 #include "pairing_3.h"
 
 int main()
-{   
+{
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
 	G2 Q,V;
@@ -62,6 +62,7 @@ int main()
 	pfc.random(Q);
 
 	pfc.random(s);    // private key
+	// Calculate V=s.Q
 	V=pfc.mult(Q,s);  // public key
 
 // signature
