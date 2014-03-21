@@ -1,0 +1,34 @@
+\documentclass[11pt]{article}
+
+\usepackage{dsfont}
+\usepackage[none]{hyphenat}
+\usepackage{amsmath}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+Let $\mathds{G}_1 , \mathds{G}_2$ and $\mathds{G}_T$ be groups of order $p$ and let $e : \mathds{G}_1 \times \mathds{G}_2 \rightarrow \mathds{G}_T$ be the bilinear map. The IBE system works as follows.\\
+\\
+\textbf{\textit{Setup:}} The PKG picks random generators $p, g_1 \in \mathds{G}_1$, generators $q, h_1, h_2, h_3$ and a random $\alpha \in \mathds{Z}_p$. It sets $g_1 = p^{\alpha} \in \mathds{G}_1$. It chooses a hash function $H$ from a family of universal one-way hash functions. The public $params$ and private $masterkey$ are given by
+\begin{equation*}
+ params = \left( p,q,h_1,h_2,h_3,H\right) \; \; \; \; \; masterkey = \alpha
+\end{equation*}
+
+\textbf{\textit{KeyGen:}} To generate a private key for identity ID $\in \mathds{Z}_p$, the PKG generates random $r_{\textrm{\tiny{ID}},i} \in \mathds{Z}_p$ for $i \in \{1,2,3\}$, and outputs the private key
+
+\begin{equation*}
+ d_{\textrm{\tiny{ID}}} = \{ \left( r_{\textrm{\tiny{ID}},i}, h_{\textrm{\tiny{ID}},i} \right) : i \in \{ 1, 2, 3\}\}, \; \; \textrm{where} \; \; h_{\textrm{\tiny{ID}},i} = \left( h_{i}q^{-r_{\textrm{\tiny{ID}}},i} \right)^{\frac{1}{\alpha-\textrm{\tiny{ID}}}}
+\end{equation*}
+
+If $\footnotesize{ID} = \alpha $, the PKG aborts. As before, we require that the PKG always use the same random values $r_{\textrm{\tiny{ID}},i}$ for ID.\\
+\\
+\textbf{\textit{Encrypt:}} To generate a private key for identity ID $\in \mathds{Z}_p$, the PKG generates random $r_{\textrm{\tiny{ID}},i} \in \mathds{Z}_p$ for $i \in \{1,2,3\}$, and outputs the private key
+
+\begin{equation*}
+ d_{\textrm{\tiny{ID}}} = \{ \left( r_{\textrm{\tiny{ID}},i}, h_{\textrm{\tiny{ID}},i} \right) : i \in \{ 1, 2, 3\}\}, \; \; \textrm{where} \; \; h_{\textrm{\tiny{ID}},i} = \left( h_{i}q^{-r_{\textrm{\tiny{ID}}},i} \right)^{\frac{1}{\alpha-\textrm{\tiny{ID}}}}
+\end{equation*}
+
+
+
+\end{document}
