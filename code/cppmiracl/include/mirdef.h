@@ -8,8 +8,8 @@
  *   For MS C on a PC, change BIG_ENDIAN to LITTLE_ENDIAN
  *   and "long long" to "__int64"
  *
- *   Assembly language routines for the mrmuldv module will 
- *   probably speed things up, so in most cases the generic 
+ *   Assembly language routines for the mrmuldv module will
+ *   probably speed things up, so in most cases the generic
  *   mirdef.h32 file is appropriate
  *
  *   NOT recommended for Linux on PCs - read linux.txt
