@@ -113,7 +113,7 @@ int main()
 	***********/
 	// The secret message
 	M = (char *)"I <3 you Alice";
-	cout << "Encrypt the following message: " << M << endl;
+	cout << "Encrypted message" << endl << M << endl;
 
 	// Choose a random sigma with length equal to AES_SECURITY as specified above
 	pfc.rankey(sigma);
@@ -173,7 +173,7 @@ int main()
 		return 0;
 	}
 	mip->IOBASE = 256;
-		cout << "Result after decryption:       " << M << endl;
+		cout << "Result after decryption:" << endl << M << endl;
 
 	cout << "Execution time: " << execution_time << endl;
 

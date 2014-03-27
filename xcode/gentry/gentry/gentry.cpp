@@ -50,7 +50,7 @@ int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
-
+	time_t seed;
 	float execution_time;
 
 	const clock_t begin_time = clock();
@@ -68,11 +68,10 @@ int main()
 	Big sAlpha, invsAlpha;
 	GT res;
 
-	time_t seed;
 	time(&seed);
     irand((long)seed);
 
-    set_io_buffer_size(10000);
+    set_io_buffer_size(5000);
 
     // Get the miracl instance pointer
 	// Can be used to access various internal parameters associated with the current instance of MIRACL
@@ -103,6 +102,9 @@ int main()
 
 	/* Following parameters stay the same*/
 	mip->IOBASE = 16;
+	cout << "p_1:" << endl << p_1.g << endl;
+	cout << "q_2:" << endl << q_2.g << endl << endl;
+
 
 	// If an element of G1, G2 or GT is fixed, then it can be
 	// precomputed on, using pfc.precomp_for_mult() for G1 and G2
@@ -125,17 +127,19 @@ int main()
 	// The PKG generates random r_{id}_{i} elementof Z_p for i elementof {1,2,3}
 	order = pfc.order();
 	if(id != alpha) {
-
+		pfc.random(r_id1);
 		// h_id[i] = (h_ig^(-r_id_i))^1/(alpha-ID)
 		// negative multiplication is implemented in the same way in (ipe.cpp r:207)
 		q_2rid1 = pfc.mult(q_2, -r_id1);
 		h_id1 = h_1 + q_2rid1;
 		h_id1 = pfc.mult(h_id1, inverse(alpha-id, order));
 
+		pfc.random(r_id2);
 		q_2rid2 = pfc.mult(q_2, -r_id2);
 		h_id2 = h_2 + q_2rid2;
 		h_id2 = pfc.mult(h_id2, inverse(alpha-id, order));
 
+		pfc.random(r_id3);
 		q_2rid3 = pfc.mult(q_2, -r_id3);
 		h_id3 = h_3 + q_2rid3;
 		h_id3 = pfc.mult(h_id3, inverse(alpha-id, order));
@@ -143,6 +147,14 @@ int main()
 		cout << "ID equals alpha. PKG aborted." << endl;
 		return 0;
 	}
+	/*
+	mip->IOBASE = 36;
+	cout << "h_id1:" << endl << h_id1.g << endl;
+	cout << "h_id2:" << endl << h_id2.g << endl;
+	cout << "h_id3:" << endl << h_id3.g << endl << endl;
+	cout << "q_2rid1:" << endl << q_2rid1.g << endl;
+	cout << "q_2rid2:" << endl << q_2rid2.g << endl;
+	cout << "q_2rid3:" << endl << q_2rid3.g << endl << endl;*/
 
 	/**********
 	* ENCRYPTION
@@ -165,17 +177,13 @@ int main()
 	u = gs_1 + u;
 	mip->IOBASE = 16;
 	cout << "u:" << endl << u.g << endl;
-	//u = pfc.mult(p_1, modmult(s, (alpha - id), order));
-	mip->IOBASE = 16;
-	//cout << "u:" << endl << u.g << endl;
 
 	// v = e(g, g)^s = e(g.s, g)
 	ps_1 = pfc.mult(p_1,s);
-	G2 qs_2 = pfc.mult(q_2, s);
-	v = pfc.pairing(qs_2, p_1);
+	v = pfc.pairing(q_2, ps_1);
 	//pfc.precomp_for_power(v);
 	mip->IOBASE = 16;
-	cout << "v:" << endl << v.g << endl;
+	//cout << "v:" << endl << v.g << endl;
 
 	wm = pfc.pairing(h_1, p_1);
 	wm = pfc.power(wm, s);
@@ -195,7 +203,6 @@ int main()
 	p1h3 = pfc.pairing(h_3, psBeta_1);
 
 	y = y * p1h3;
-	//cout << "y:" << endl << y.g << endl;
 
 	/**********
 	* DERYPTION
@@ -206,27 +213,11 @@ int main()
 	// Recipient tests whether y = y2
 	// with y2 = e(u, h_{id,2}(h_{id,3})^beta)
 	GT y_temp;
-	G2 h_2q, h_3q, h_23q;
-
-/*	h_2q = h_2 + pfc.mult(q_2, -r_id2);
-	h_2q = pfc.mult(h_2q, inverse(alpha-id, order));
-
-	cout << "h_2q" << endl << h_2q.g << endl;
-	h_3q = h_3 + pfc.mult(q_2, -r_id3);
-	h_3q = pfc.mult(h_3q, inverse((alpha-id), order));
-	cout << "h_3q" << endl << h_3q.g << endl;*/
-
-	h_id23 = pfc.mult(h_id3, beta);
-	h_id23 = h_id2 + h_id23;
+	h_id23 = h_id2 + pfc.mult(h_id3, beta);
 	y_temp = pfc.pairing(h_id23, u);
-
-	r_id23 = modmult(r_id3, beta, order);
-	r_id23 = modmult(r_id2 + r_id23, 1, order);
+	r_id23 = r_id2 + modmult(r_id3, beta, order);
 	v_id23 = pfc.power(v, r_id23);
-	cout << "v_id23:" << endl << v_id23.g << endl;
 	y2 = y_temp*v_id23;
-
-	//cout << "y2:" << endl << y2.g << endl;
 
 	mip->IOBASE = 16;
 
@@ -246,40 +237,25 @@ int main()
 	//cout << "y2:" << endl << y2.g << endl;
 
 	// Before last line
-	sAlpha = modmult(s, (alpha - id), order);
+	/*sAlpha = modmult(s, (alpha - id), order);
 	p_salpha = pfc.mult(p_1, sAlpha);
-	//cout << "p_salpha:" << endl << p_salpha.g << endl;
-	if(p_salpha != u)
-		cout << "------------------------" << endl << "Error: p_salpha does not equal u" << endl << "------------------------" << endl;
 	invsAlpha = inverse((alpha - id), order);
 	h_23 = h_2 + pfc.mult(h_3, beta);
 	h_23pow = pfc.mult(h_23, invsAlpha);
 	res = pfc.pairing(h_23pow, p_salpha);
-	cout << "Before last line:" << endl << res.g << endl;
 
 	// Second line
 	G2 q_2pow;
 	Big r_idpow, r_id23beta;
 	GT firstpair, secondpair;
 
-	// r_id23beta = r_id2 + r_id3.beta
 	r_id23beta = r_id2 + modmult(r_id3, beta, order);
-	// r_idpow = (r_id2 + r_id3.beta)/(alpha-id)
-	r_idpow = moddiv(r_id23beta, (alpha - id), order);
-	q_2pow = pfc.mult(q_2, -r_idpow);
+	r_idpow = moddiv(-r_id23beta, (alpha - id), order);
+	q_2pow = pfc.mult(q_2, r_idpow);
 	h_23pow = h_23pow + q_2pow;
-	if(h_23pow != h_id23)
-		cout << "------------------------" << endl << "Error: h_23pow does not equal h_id23" << endl << "------------------------" << endl;
 	firstpair = pfc.pairing(h_23pow, p_salpha);
-	if(firstpair != y_temp)
-		cout << "------------------------" << endl << "Error: firstpair does not equal y_temp" << endl << "------------------------" << endl;
-	//cout << "e(q_2, p_1)^s:" << endl << pfc.power(pfc.pairing(q_2, p_1),s).g << endl;
-	secondpair = pfc.power(pfc.pairing(q_2, p_1),modmult(r_id23beta, s, order));
-	if(secondpair != v_id23)
-		cout << "------------------------" << endl << "Error: secondpair does not equal v_id23" << endl << "------------------------" << endl;
-	cout << "secondpair:" << endl << secondpair.g << endl;
-	firstpair = firstpair * secondpair;
-	cout << "Second line:" << endl << firstpair.g << endl;
+	secondpair = pfc.power(pfc.pairing(q_2, p_1),modmult(s,r_id23beta,order));
+	firstpair = firstpair * secondpair;*/
 
 	// y and y2 are sometimes not equal at this point of the code
 	if(y == y2){
