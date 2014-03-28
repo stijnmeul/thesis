@@ -46,39 +46,32 @@
 
 #include "pairing_3.h"
 
+float getExecutionTime(float begin_time);
+
 int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
-
-	float execution_time;
-
-	const clock_t begin_time = clock();
-
-	int i;
-
-	Big alpha, r_id1, r_id2, r_id3, id, order, s, sID, beta, sBeta, temp2, M, w, mask, r_id23;
-	G1 p_1, g_1, u, temp, test, gs_1, ps_1, psBeta_1;
-	G2 q_2, h_1, h_2, h_3, h_id1, h_id2, h_id3, h_id23, q_2rid1, q_2rid2, q_2rid3;
-	GT v, wm, dec, vr, y2, v_id23, y, p1h3;
-
-	// Before last line
-	G1 p_salpha;
-	G2 h_23pow, h_23;
-	Big sAlpha, invsAlpha;
-	GT res;
+	float execution_time, set_time, gen_time, enc_time, dec_time;
 
 	time_t seed;
 	time(&seed);
     irand((long)seed);
 
-    set_io_buffer_size(10000);
+    set_io_buffer_size(5000);
 
     // Get the miracl instance pointer
 	// Can be used to access various internal parameters associated with the current instance of MIRACL
 	// Set IOBASE to 256 such that Big M can contain all ASCII characters
 	miracl* mip = get_mip();
 	mip->IOBASE = 256;
+
+	Big alpha, r_id1, r_id2, r_id3, id, order, s, sID, beta, sBeta, M, w, mask, r_id23;
+	G2 p_2, g_1, u, gs_1, ps_2, psBeta_2;
+	G1 q_1, h_1, h_2, h_3, h_id1, h_id2, h_id3, h_id23, q_1rid1, q_1rid2, q_1rid3;
+	GT v, wm, dec, vr, y2, v_id23, y, p1h3;
+
+	clock_t begin_time = clock();
 
 	// Calculate ID elementof Z_p based on the ID of the receiver.
 	id = (char *)"Bob";
@@ -92,8 +85,10 @@ int main()
 	* happens at the side of the TA
 	***********/
 	// P and Q function as the random generator g.
-	pfc.random(p_1);
-	pfc.random(q_2);
+	pfc.random(p_2);
+	pfc.precomp_for_mult(p_2);
+	pfc.random(q_1);
+	pfc.precomp_for_mult(q_1);
 	pfc.random(h_1);
 	pfc.random(h_2);
 	pfc.random(h_3);
@@ -101,8 +96,7 @@ int main()
 	pfc.random(r_id2);
 	pfc.random(r_id3);
 
-	/* Following parameters stay the same*/
-	mip->IOBASE = 16;
+	order = pfc.order();
 
 	// If an element of G1, G2 or GT is fixed, then it can be
 	// precomputed on, using pfc.precomp_for_mult() for G1 and G2
@@ -113,9 +107,9 @@ int main()
 	// Pick a random alpha elementof Z_p
 	pfc.random(alpha);
 
-	mip->IOBASE = 16;
+	g_1 = pfc.mult(p_2, alpha);
 
-	g_1 = pfc.mult(p_1, alpha);
+	set_time = getExecutionTime(begin_time);
 
 	/**********
 	* KEYGEN
@@ -123,32 +117,37 @@ int main()
 	* takes place at the side of the TA
 	***********/
 	// The PKG generates random r_{id}_{i} elementof Z_p for i elementof {1,2,3}
-	order = pfc.order();
+	begin_time = clock();
+
 	if(id != alpha) {
 
 		// h_id[i] = (h_ig^(-r_id_i))^1/(alpha-ID)
 		// negative multiplication is implemented in the same way in (ipe.cpp r:207)
-		q_2rid1 = pfc.mult(q_2, -r_id1);
-		h_id1 = h_1 + q_2rid1;
+		q_1rid1 = pfc.mult(q_1, -r_id1);
+		h_id1 = h_1 + q_1rid1;
 		h_id1 = pfc.mult(h_id1, inverse(alpha-id, order));
 
-		q_2rid2 = pfc.mult(q_2, -r_id2);
-		h_id2 = h_2 + q_2rid2;
+		q_1rid2 = pfc.mult(q_1, -r_id2);
+		h_id2 = h_2 + q_1rid2;
 		h_id2 = pfc.mult(h_id2, inverse(alpha-id, order));
 
-		q_2rid3 = pfc.mult(q_2, -r_id3);
-		h_id3 = h_3 + q_2rid3;
+		q_1rid3 = pfc.mult(q_1, -r_id3);
+		h_id3 = h_3 + q_1rid3;
 		h_id3 = pfc.mult(h_id3, inverse(alpha-id, order));
 	} else {
 		cout << "ID equals alpha. PKG aborted." << endl;
 		return 0;
 	}
 
+	gen_time = getExecutionTime(begin_time);
+
 	/**********
 	* ENCRYPTION
 	*
 	* takes place at the side of the transmitter
 	***********/
+	begin_time = clock();
+
 	mip->IOBASE = 256;
 	M = (char *)"I love you Bob";
 	cout << "Message to encrypt:" <<endl;
@@ -161,28 +160,18 @@ int main()
 
 	// u = g_{1}^{s}p_{1}^{-sID}
 	gs_1 = pfc.mult(g_1, s);
-	u = pfc.mult(p_1, -sID);
-	u = gs_1 + u;
-	mip->IOBASE = 16;
-	cout << "u:" << endl << u.g << endl;
-	//u = pfc.mult(p_1, modmult(s, (alpha - id), order));
-	mip->IOBASE = 16;
-	//cout << "u:" << endl << u.g << endl;
+	u = pfc.mult(p_2, -sID);
+	u = gs_1 + u;;
 
 	// v = e(g, g)^s = e(g.s, g)
-	ps_1 = pfc.mult(p_1,s);
-	G2 qs_2 = pfc.mult(q_2, s);
-	v = pfc.pairing(qs_2, p_1);
-	//pfc.precomp_for_power(v);
-	mip->IOBASE = 16;
-	cout << "v:" << endl << v.g << endl;
+	ps_2 = pfc.mult(p_2, s);
+	pfc.precomp_for_pairing(ps_2);
+	v = pfc.pairing(ps_2, q_1);
 
-	wm = pfc.pairing(h_1, p_1);
-	wm = pfc.power(wm, s);
+	wm = pfc.pairing(ps_2, h_1);
 	w = lxor(M, pfc.hash_to_aes_key(wm));
 
-
-	// y = e(p_1, h_2)^{s}(p1,h_3)^{sBeta}
+	// y = e(p_2, h_2)^{s}(p1,h_3)^{sBeta}
 	pfc.start_hash();
 	pfc.add_to_hash(u);
 	pfc.add_to_hash(v);
@@ -190,122 +179,68 @@ int main()
 	beta = pfc.finish_hash_to_group();
 	sBeta = modmult(beta, s, order);
 
-	y = pfc.pairing(h_2, ps_1);
-	psBeta_1 = pfc.mult(p_1, sBeta);
-	p1h3 = pfc.pairing(h_3, psBeta_1);
+	y = pfc.pairing(ps_2, h_2);
+	psBeta_2 = pfc.mult(p_2, sBeta);
+	pfc.precomp_for_pairing(psBeta_2);
+	p1h3 = pfc.pairing(psBeta_2, h_3);
 
 	y = y * p1h3;
-	//cout << "y:" << endl << y.g << endl;
+
+	enc_time = getExecutionTime(begin_time);
 
 	/**********
 	* DERYPTION
 	*
 	* takes place at the side of the receiver
 	***********/
-	mip->IOBASE = 16;
+	begin_time = clock();
+
 	// Recipient tests whether y = y2
 	// with y2 = e(u, h_{id,2}(h_{id,3})^beta)
 	GT y_temp;
 	G2 h_2q, h_3q, h_23q;
 
-/*	h_2q = h_2 + pfc.mult(q_2, -r_id2);
-	h_2q = pfc.mult(h_2q, inverse(alpha-id, order));
-
-	cout << "h_2q" << endl << h_2q.g << endl;
-	h_3q = h_3 + pfc.mult(q_2, -r_id3);
-	h_3q = pfc.mult(h_3q, inverse((alpha-id), order));
-	cout << "h_3q" << endl << h_3q.g << endl;*/
-
 	h_id23 = pfc.mult(h_id3, beta);
 	h_id23 = h_id2 + h_id23;
-	y_temp = pfc.pairing(h_id23, u);
+	y_temp = pfc.pairing(u, h_id23);
 
 	r_id23 = modmult(r_id3, beta, order);
 	r_id23 = modmult(r_id2 + r_id23, 1, order);
 	v_id23 = pfc.power(v, r_id23);
-	cout << "v_id23:" << endl << v_id23.g << endl;
-	y2 = y_temp*v_id23;
 
-	//cout << "y2:" << endl << y2.g << endl;
-
-	mip->IOBASE = 16;
-
-	/* Following parameters don't change
-	cout << "p_1:" << endl << p_1.g << endl;
-	cout << "q_2:" << endl << q_2.g << endl << endl;
-
-	cout << "h_1:" << endl << h[0].g << endl;
-	cout << "h_2:" << endl << h[1].g << endl;
-	cout << "h_3:" << endl << h[2].g << endl << endl;
-
-	cout << "h_id1:" << endl << h_id[0].g << endl;
-	cout << "h_id2:" << endl << h_id[1].g << endl;
-	cout << "h_id3:" << endl << h_id[2].g << endl << endl; */
-
-	//cout << "y:" << endl << y.g << endl;
-	//cout << "y2:" << endl << y2.g << endl;
-
-	// Before last line
-	sAlpha = modmult(s, (alpha - id), order);
-	p_salpha = pfc.mult(p_1, sAlpha);
-	//cout << "p_salpha:" << endl << p_salpha.g << endl;
-	if(p_salpha != u)
-		cout << "------------------------" << endl << "Error: p_salpha does not equal u" << endl << "------------------------" << endl;
-	invsAlpha = inverse((alpha - id), order);
-	h_23 = h_2 + pfc.mult(h_3, beta);
-	h_23pow = pfc.mult(h_23, invsAlpha);
-	res = pfc.pairing(h_23pow, p_salpha);
-	cout << "Before last line:" << endl << res.g << endl;
-
-	// Second line
-	G2 q_2pow;
-	Big r_idpow, r_id23beta;
-	GT firstpair, secondpair;
-
-	// r_id23beta = r_id2 + r_id3.beta
-	r_id23beta = r_id2 + modmult(r_id3, beta, order);
-	// r_idpow = (r_id2 + r_id3.beta)/(alpha-id)
-	r_idpow = moddiv(r_id23beta, (alpha - id), order);
-	q_2pow = pfc.mult(q_2, -r_idpow);
-	h_23pow = h_23pow + q_2pow;
-	if(h_23pow != h_id23)
-		cout << "------------------------" << endl << "Error: h_23pow does not equal h_id23" << endl << "------------------------" << endl;
-	firstpair = pfc.pairing(h_23pow, p_salpha);
-	if(firstpair != y_temp)
-		cout << "------------------------" << endl << "Error: firstpair does not equal y_temp" << endl << "------------------------" << endl;
-	//cout << "e(q_2, p_1)^s:" << endl << pfc.power(pfc.pairing(q_2, p_1),s).g << endl;
-	secondpair = pfc.power(pfc.pairing(q_2, p_1),modmult(r_id23beta, s, order));
-	if(secondpair != v_id23)
-		cout << "------------------------" << endl << "Error: secondpair does not equal v_id23" << endl << "------------------------" << endl;
-	cout << "secondpair:" << endl << secondpair.g << endl;
-	firstpair = firstpair * secondpair;
-	cout << "Second line:" << endl << firstpair.g << endl;
+	y2 = y_temp * v_id23;
 
 	// y and y2 are sometimes not equal at this point of the code
 	if(y == y2){
-		dec = pfc.pairing(h_id1, u);
+		dec = pfc.pairing(u, h_id1);
 		vr = pfc.power(v, r_id1);
 		dec = dec*vr;
 		mask = pfc.hash_to_aes_key(dec);
 		M = lxor(w, mask);
 
-		execution_time = float( clock () - begin_time ) /  CLOCKS_PER_SEC;
-
-		mip->IOBASE = 256;
-		cout << "Decrypted message:" << endl;
-		cout << M << endl;
+		dec_time = getExecutionTime(begin_time);
 	} else {
-		execution_time = float( clock () - begin_time ) /  CLOCKS_PER_SEC;
+		dec_time = getExecutionTime(begin_time);
 		mip->IOBASE = 16;
-
 		cout << "Hash of y:" << endl << pfc.hash_to_aes_key(y) << endl;
 		cout << "Hash of y2:" << endl << pfc.hash_to_aes_key(y2) << endl;
 		mip->IOBASE = 256;
 		cout << "Warning: The ciphertext has been altered. Decrypted message:" << endl << M << endl;
 	}
+	mip->IOBASE = 256;
 
-
-	cout << "Execution time: " << execution_time << endl;
+	cout << "{\"Decrypted message\": \"";
+	cout << M << "\"}" << endl;
+	cout << "Setup time:      " << set_time << endl;
+	cout << "KeyGen time:     " << gen_time << endl;
+	cout << "Encryption time: " << enc_time << endl;
+	cout << "Decryption time: " << dec_time << endl;
+	cout << "               + --------" << endl;
+	cout << "Total time:      " << set_time + gen_time + enc_time + dec_time << endl;
 
 	return 0;
+}
+
+float getExecutionTime(float begin_time) {
+	return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }

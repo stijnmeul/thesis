@@ -9,7 +9,7 @@
 
    For MR_PAIRING_MNT curve
    cl /O2 /GX sk_3.cpp mnt_pair.cpp zzn6a.cpp ecn3.cpp zzn3.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
-	
+
    For MR_PAIRING_BN curve
    cl /O2 /GX sk_3.cpp bn_pair.cpp zzn12a.cpp ecn2.cpp zzn4.cpp zzn2.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
 
@@ -18,35 +18,35 @@
 
    For MR_PAIRING_BLS curve
    cl /O2 /GX sk_3.cpp bls_pair.cpp zzn24.cpp zzn8.cpp zzn4.cpp zzn2.cpp ecn4.cpp big.cpp zzn.cpp ecn.cpp miracl.lib
- 
-   Very Simple Test program 
+
+   Very Simple Test program
 */
 
 #include <iostream>
 #include <ctime>
 
 //********* choose just one of these pairs **********
-//#define MR_PAIRING_CP      // AES-80 security   
+//#define MR_PAIRING_CP      // AES-80 security
 //#define AES_SECURITY 80
 
 //#define MR_PAIRING_MNT	// AES-80 security
 //#define AES_SECURITY 80
 
-#define MR_PAIRING_BN    // AES-128 or AES-192 security
-#define AES_SECURITY 128
+//#define MR_PAIRING_BN    // AES-128 or AES-192 security
+//#define AES_SECURITY 128
 //#define AES_SECURITY 192
 
 //#define MR_PAIRING_KSS    // AES-192 security
 //#define AES_SECURITY 192
 
-//#define MR_PAIRING_BLS    // AES-256 security
-//#define AES_SECURITY 256
+#define MR_PAIRING_BLS    // AES-256 security
+#define AES_SECURITY 256
 //*********************************************
 
 #include "pairing_3.h"
 
 int main()
-{   
+{
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
 	Big q=pfc.order();
@@ -87,7 +87,7 @@ int main()
 
 // Send session key to Bob
 	cout << "All set to go.." << endl;
-	
+
 	pfc.rankey(SSV);  // random AES key
 	pfc.start_hash();
 	pfc.add_to_hash(SSV);

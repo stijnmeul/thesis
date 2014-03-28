@@ -46,12 +46,15 @@
 
 #include "pairing_3.h"
 
+float getExecutionTime(float begin_time);
+
 int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 
 	time_t seed;
-	float execution_time;
+	float ext_time, set_time, enc_time, dec_time;
+	clock_t begin_time;
 
 	Big s,r,sigma,c,M,V,W,sigma_hash;
 	// Although in paper, generator P is an elementof G1, switch to G2 to allow precomputation with MIRACL library
@@ -59,8 +62,6 @@ int main()
 	G1 Q1, D, rQ;
 	char *comp1;
 	char *comp2;
-
-	const clock_t begin_time = clock();
 
 	time(&seed);
     irand((long)seed);
@@ -77,6 +78,8 @@ int main()
 	*
 	* happens at the side of the TA
 	***********/
+	begin_time = clock();
+
 	// Choose a random generator P elementof G2
 	pfc.random(P);
 	// If an element of G1, G2 or GT is fixed, then it can be
@@ -93,24 +96,29 @@ int main()
 	// calculation of the pairing.
 	pfc.precomp_for_pairing(Ppub);
 
-
+	set_time = getExecutionTime(begin_time);
 	/**********
 	* EXTRACT
 	*
 	* happens at the side of the TA
 	* later on Alice receives D over a secure channel
 	***********/
+	begin_time = clock();
+
 	// hash public key of Alice to Q1
 	pfc.hash_and_map(Q1, (char *)"Alice");
 	// Calculate private key of Alice as D=s.Q1
 	D = pfc.mult(Q1, s);
 
+	ext_time = getExecutionTime(begin_time);
 	/**********
 	* ENCRYPT
 	*
 	* happens at the side of Bob
 	* Bob can calculate Q1 because he knows Alice's identity
 	***********/
+	begin_time = clock();
+
 	// The secret message
 	M = (char *)"I <3 you Alice";
 	cout << "Encrypted message" << endl << M << endl;
@@ -143,13 +151,13 @@ int main()
 	sigma_hash = pfc.finish_hash_to_group();
 	W = lxor(M, sigma_hash);
 
-	//cout << "sigma_hash: " << sigma_hash << endl;
-
+	enc_time = getExecutionTime(begin_time);
 	/**********
 	* DECRYPT
 	*
 	* happens at the side of Alice
 	***********/
+	begin_time = clock();
 	// sigma = V XOR Hash(e(D,U))
 	// Alice knows her own secret key D
 	sigma = lxor(V, pfc.hash_to_aes_key(pfc.pairing(U,D)));
@@ -166,7 +174,7 @@ int main()
 	pfc.add_to_hash(M);
 	r = pfc.finish_hash_to_group();
 
-	execution_time = float( clock () - begin_time ) /  CLOCKS_PER_SEC;
+	dec_time = getExecutionTime(begin_time);
 
 	if(U != pfc.mult(P,r)) {
 		cout << "U does not equal rP. Rejected the ciphertext." << endl;
@@ -175,9 +183,16 @@ int main()
 	mip->IOBASE = 256;
 		cout << "Result after decryption:" << endl << M << endl;
 
-	cout << "Execution time: " << execution_time << endl;
+	cout << "Setup time:      " << set_time << endl;
+	cout << "Extract time:    " << ext_time << endl;
+	cout << "Encryption time: " << enc_time << endl;
+	cout << "Decryption time: " << dec_time << endl;
+	cout << "               + --------" << endl;
+	cout << "Total time:      " << set_time + ext_time + enc_time + dec_time << endl;
 
     return 0;
+}
 
-
+float getExecutionTime(float begin_time) {
+	return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }
