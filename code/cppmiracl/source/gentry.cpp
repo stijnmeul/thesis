@@ -46,6 +46,8 @@
 
 #include "pairing_3.h"
 
+//#define KEYGEN_PRECOMP
+
 float getExecutionTime(float begin_time);
 
 int main()
@@ -71,6 +73,11 @@ int main()
 	G1 q_1, h_1, h_2, h_3, h_id1, h_id2, h_id3, h_id23, q_1rid1, q_1rid2, q_1rid3;
 	GT v, wm, dec, vr, y2, v_id23, y, p1h3;
 
+	#ifdef KEYGEN_PRECOMP
+	GT pair, pair_h1, pair_h2, pair_h3;
+	#endif
+
+
 	clock_t begin_time = clock();
 
 	// Calculate ID elementof Z_p based on the ID of the receiver.
@@ -86,9 +93,11 @@ int main()
 	***********/
 	// P and Q function as the random generator g.
 	pfc.random(p_2);
-	pfc.precomp_for_mult(p_2);
 	pfc.random(q_1);
+	#ifndef KEYGEN_PRECOMP
+	pfc.precomp_for_mult(p_2);
 	pfc.precomp_for_mult(q_1);
+	#endif
 	pfc.random(h_1);
 	pfc.random(h_2);
 	pfc.random(h_3);
@@ -139,6 +148,13 @@ int main()
 		return 0;
 	}
 
+	#ifdef KEYGEN_PRECOMP
+	pair = pfc.pairing(p_2, q_1);
+	pair_h1 = pfc.pairing(p_2, h_1);
+	pair_h2 = pfc.pairing(p_2, h_2);
+	pair_h3 = pfc.pairing(p_2, h_3);
+	#endif
+
 	gen_time = getExecutionTime(begin_time);
 
 	/**********
@@ -147,6 +163,13 @@ int main()
 	* takes place at the side of the transmitter
 	***********/
 	begin_time = clock();
+
+	#ifdef KEYGEN_PRECOMP
+	pfc.precomp_for_power(pair);
+	pfc.precomp_for_power(pair_h1);
+	pfc.precomp_for_power(pair_h2);
+	pfc.precomp_for_power(pair_h3);
+	#endif
 
 	mip->IOBASE = 256;
 	M = (char *)"I love you Bob";
@@ -164,11 +187,18 @@ int main()
 	u = gs_1 + u;;
 
 	// v = e(g, g)^s = e(g.s, g)
+	#ifdef KEYGEN_PRECOMP
+	v = pfc.power(pair, s);
+	#else
 	ps_2 = pfc.mult(p_2, s);
-	pfc.precomp_for_pairing(ps_2);
 	v = pfc.pairing(ps_2, q_1);
+	#endif
 
+	#ifdef KEYGEN_PRECOMP
+	wm = pfc.power(pair_h1, s);
+	#else
 	wm = pfc.pairing(ps_2, h_1);
+	#endif
 	w = lxor(M, pfc.hash_to_aes_key(wm));
 
 	// y = e(p_2, h_2)^{s}(p1,h_3)^{sBeta}
@@ -179,10 +209,15 @@ int main()
 	beta = pfc.finish_hash_to_group();
 	sBeta = modmult(beta, s, order);
 
+	#ifdef KEYGEN_PRECOMP
+	y = pfc.power(pair_h2, s);
+	p1h3 = pfc.power(pair_h3, sBeta);
+	#else
 	y = pfc.pairing(ps_2, h_2);
 	psBeta_2 = pfc.mult(p_2, sBeta);
 	pfc.precomp_for_pairing(psBeta_2);
 	p1h3 = pfc.pairing(psBeta_2, h_3);
+	#endif
 
 	y = y * p1h3;
 
