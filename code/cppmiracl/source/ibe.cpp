@@ -91,10 +91,6 @@ int main()
 	pfc.random(s);
 	// Set Ppub = sP
 	Ppub = pfc.mult(P, s);
-	// If an element of G2 is fixed, and it appears in the context
-	// of e(G2,.), then precomputation can greatly speed up the
-	// calculation of the pairing.
-	pfc.precomp_for_pairing(Ppub);
 
 	set_time = getExecutionTime(begin_time);
 	/**********
@@ -118,6 +114,9 @@ int main()
 	* Bob can calculate Q1 because he knows Alice's identity
 	***********/
 	begin_time = clock();
+
+	pfc.precomp_for_pairing(Ppub);
+	pfc.precomp_for_mult(P);
 
 	// The secret message
 	M = (char *)"I <3 you Alice";
