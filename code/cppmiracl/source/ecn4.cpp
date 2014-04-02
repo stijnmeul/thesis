@@ -36,11 +36,11 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  *    MIRACL  C++ Implementation file ecn4.cpp
  *
  *    AUTHOR  : M. Scott
- *  
+ *
  *    PURPOSE : Implementation of class ECn4  (Elliptic curves over n^4)
  *
  * WARNING: This class has been cobbled together for a specific use with
- * the MIRACL library. It is not complete, and may not work in other 
+ * the MIRACL library. It is not complete, and may not work in other
  * applications
  *
  */
@@ -56,11 +56,14 @@ void ECn4::get(ZZn4& a,ZZn4& b) const
 void ECn4::get(ZZn4& a) const
 {a=x;}
 
+void ECn4::getMarker(int& myMarker) const
+{myMarker = marker;}
+
 BOOL ECn4::iszero(void) const
 {if (marker==MR_EPOINT_INFINITY) return TRUE; return FALSE;}
 
 BOOL ECn4::set(const ZZn4& xx,const ZZn4& yy)
-{ 
+{
 	if (yy*yy!=rhs(xx)) return FALSE;
 	x=xx;
 	y=yy;
@@ -69,12 +72,12 @@ BOOL ECn4::set(const ZZn4& xx,const ZZn4& yy)
 }
 
 BOOL ECn4::set(const ZZn4& xx)
-{ 
+{
 	ZZn4 w=rhs(xx);
 
 	if (!w.iszero())
 	{
-		w=sqrt(w); 
+		w=sqrt(w);
 		if (w.iszero()) return FALSE;
 	}
 
@@ -84,12 +87,15 @@ BOOL ECn4::set(const ZZn4& xx)
 	return TRUE;
 }
 
-ECn4 operator-(const ECn4& a) 
-{ECn4 w; 
- if (a.marker!=MR_EPOINT_INFINITY) 
-   {w.x=a.x; w.y=-a.y; w.marker=a.marker;} 
- return w; 
-}  
+void ECn4::setMarker(int& myMarker)
+{marker=myMarker;}
+
+ECn4 operator-(const ECn4& a)
+{ECn4 w;
+ if (a.marker!=MR_EPOINT_INFINITY)
+   {w.x=a.x; w.y=-a.y; w.marker=a.marker;}
+ return w;
+}
 
 ECn4& ECn4::operator*=(const Big& k)
 {
@@ -116,7 +122,7 @@ ECn4& ECn4::operator*=(const Big& k)
     }
     h=3*kk;
 
-    p2=pt+pt; 
+    p2=pt+pt;
     t[0]=pt;
     for (i=1;i<=10;i++)
         t[i]=t[i-1]+p2;
@@ -198,11 +204,11 @@ BOOL ECn4::add(const ECn4& z,ZZn4& lam)
     if (x!=z.x)
     {
         ZZn4 t=y;  t-=z.y;
-        ZZn4 t2=x; t2-=z.x;     
+        ZZn4 t2=x; t2-=z.x;
         lam=t; lam/=t2;
 
-        x+=z.x; t=lam; t*=t; t-=x; x=t;  
-        y=z.x; y-=x; y*=lam; y-=z.y;   
+        x+=z.x; t=lam; t*=t; t-=x; x=t;
+        y=z.x; y-=x; y*=lam; y-=z.y;
 
     }
     else
@@ -210,7 +216,7 @@ BOOL ECn4::add(const ECn4& z,ZZn4& lam)
         if (y!=z.y || y.iszero())
         {
             clear();
-            lam=(ZZn4)1; 
+            lam=(ZZn4)1;
             return TRUE;    // any non-zero value
         }
         ZZn4 t=x;
@@ -230,20 +236,20 @@ BOOL ECn4::add(const ECn4& z,ZZn4& lam)
         //    lam+=a4;
         }
         else  lam+=getA();
-        lam/=(y+y);       
+        lam/=(y+y);
 
         t2+=x;
         x=lam;
         x*=x;
         x-=t2;
-         
+
         t-=x;
         t*=lam;
         t-=y;
-        y=t;           
+        y=t;
     }
 
-    marker=MR_EPOINT_GENERAL;    
+    marker=MR_EPOINT_GENERAL;
     return TRUE;
 }
 
@@ -259,22 +265,22 @@ ECn4 mul(int n,ECn4* P,const Big* b)
     G=new ECn4[m];
 
  // precomputation
-    
+
     for (i=0,k=1;i<n;i++)
     {
         for (j=0; j < (1<<i) ;j++)
         {
             if (j==0)   G[k]=P[i];
-            else        G[k]=G[j]+P[i];      
+            else        G[k]=G[j]+P[i];
             k++;
         }
     }
 
     nb=0;
-    for (j=0;j<n;j++) 
+    for (j=0;j<n;j++)
         if ((k=bits(b[j]))>nb) nb=k;
 
-    for (i=nb-1;i>=0;i--) 
+    for (i=nb-1;i>=0;i--)
     {
         ea=0;
         k=1;

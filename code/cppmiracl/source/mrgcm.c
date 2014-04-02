@@ -35,7 +35,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 /*
  * Implementation of the AES-GCM Encryption/Authentication
  *
- * Some restrictions.. 
+ * Some restrictions..
  * 1. Only for use with AES
  * 2. Returned tag is always 128-bits. Truncate at your own risk.
  * 3. The order of function calls must follow some rules
@@ -51,7 +51,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  * See http://www.mindspring.com/~dmcgrew/gcm-nist-6.pdf
  */
 
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <string.h>
 #include "miracl.h"
 
@@ -133,7 +133,7 @@ void gcm_init(gcm* g,int nk,char *key,int niv,char *iv)
 	aes_init(&(g->a),MR_ECB,nk,key,iv);
 	aes_ecb_encrypt(&(g->a),H);     /* E(K,0) */
 	precompute(g,H);
-	
+
 	g->lenA[0]=g->lenC[0]=g->lenA[1]=g->lenC[1]=0;
 	if (niv==12)
 	{
@@ -223,7 +223,7 @@ void gcm_finish(gcm *g,char *tag)
 	aes_end(&(g->a));
 }
 
-/*
+
 // Compile with
 // cl /O2 mrgcm.c mraes.c
 
@@ -262,11 +262,15 @@ int main()
 {
 	int i;
 
+	// Symmetric key
 	char* KT="feffe9928665731c6d6a8f9467308308";
+	// Plaintext message to be sent
 	char* MT="d9313225f88406e5a55909c5aff5269a86a7a9531534f7da2e4c303d8a318a721c3c0c95956809532fcf0e2449a6b525b16aedf5aa0de657ba637b39";
+	// AAD (Data that is only integrity protected)
 	char* HT="feedfacedeadbeeffeedfacedeadbeefabaddad2";
 //	char* NT="cafebabefacedbaddecaf888";
 // Tag should be 5bc94fbc3221a5db94fae95ae7121a47
+	// IV
 	char* NT="9313225df88406e555909c5aff5269aa6a7a9538534f7da1e4c303d2a318a728c3c0c95156809539fcf0e2429a6b525416aedbf5a0de6a57a637b39b";
 // Tag should be 619cc5aefffe0bfa462af43c1699d050
 
@@ -276,18 +280,24 @@ int main()
 	int lenK=strlen(KT)/2;
 	int lenIV=strlen(NT)/2;
 
-	char T[16];   // Tag
-	char K[32];   // AES Key
-	char H[64];   // Header - to be included in Authentication, but not encrypted
-	char N[100];   // IV - Initialisation vector
-	char M[100];  // Plaintext to be encrypted/authenticated
-	char C[100];  // Ciphertext
-	char P[100];  // Recovered Plaintext 
+	printf("len:  %i\n", len);
+	printf("lenH: %i\n", lenH);
+	printf("lenK: %i\n", lenK);
+	printf("lenIV:%i\n", lenIV);
+
+	char T[16];   // Tag 		= 128-bit
+	char K[32];   // AES Key 	= 256-bit
+//	char H[64];   // Header - to be included in Authentication, but not encrypted = AAD
+	char N[100];   // IV - Initialisation vector = 800 bit
+	char M[100];  // Plaintext to be encrypted/authenticated = 800 bit
+	char C[100];  // Ciphertext = 800 bit
+	char P[100];  // Recovered Plaintext = 800 bit
 
 	gcm g;
 
+	// Convert all the strings above to bytes
     hex2bytes(MT, M);
-    hex2bytes(HT, H);
+//    hex2bytes(HT, H);
     hex2bytes(NT, N);
 	hex2bytes(KT, K);
 
@@ -295,21 +305,30 @@ int main()
 	for (i=0;i<len;i++) printf("%02x",(unsigned char)M[i]);
 	printf("\n");
 
+	// Start encryption
 	gcm_init(&g,lenK,K,lenIV,N);
-	gcm_add_header(&g,H,lenH);
+//	gcm_add_header(&g,H,lenH);
+	/*
+	M = message to be encrypted
+	len = length of the message/ciphertext
+	C = resulting ciphertext
+	T = resulting tag
+	*/
 	gcm_add_cipher(&g,GCM_ENCRYPTING,M,len,C);
 	gcm_finish(&g,T);
 
+	// Ciphertext and tag are sent over
 	printf("Ciphertext=\n");
 	for (i=0;i<len;i++) printf("%02x",(unsigned char)C[i]);
 	printf("\n");
-        
+
 	printf("Tag=\n");
 	for (i=0;i<16;i++) printf("%02x",(unsigned char)T[i]);
 	printf("\n");
 
+	// Decrypt the ciphertext
 	gcm_init(&g,lenK,K,lenIV,N);
-	gcm_add_header(&g,H,lenH);
+//	gcm_add_header(&g,H,lenH);
 	gcm_add_cipher(&g,GCM_DECRYPTING,P,len,C);
 	gcm_finish(&g,T);
 
@@ -321,4 +340,3 @@ int main()
 	for (i=0;i<16;i++) printf("%02x",(unsigned char)T[i]);
 	printf("\n");
 }
-*/

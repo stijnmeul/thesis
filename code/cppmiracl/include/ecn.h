@@ -37,15 +37,15 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  *    MIRACL  C++ Header file ecn.h
  *
  *    AUTHOR  : M. Scott
- *  
+ *
  *    PURPOSE : Definition of class ECn  (Arithmetic on an Elliptic Curve,
  *               mod n)
  *
  *    NOTE    : Must be used in conjunction with ecn.cpp and big.cpp
- *              The active curve is set dynamically (via the Big ecurve() 
+ *              The active curve is set dynamically (via the Big ecurve()
  *              routine) - so beware the pitfalls implicit in declaring
- *              static or global ECn's (which are initialised before the 
- *              curve is set!). Uninitialised data is OK 
+ *              static or global ECn's (which are initialised before the
+ *              curve is set!). Uninitialised data is OK
  *
  */
 
@@ -56,9 +56,9 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 #include "big.h"
 
 #ifdef ZZNS
-#define MR_INIT_ECN memset(mem,0,mr_ecp_reserve(1,ZZNS)); p=(epoint *)epoint_init_mem_variable(mem,0,ZZNS); 
+#define MR_INIT_ECN memset(mem,0,mr_ecp_reserve(1,ZZNS)); p=(epoint *)epoint_init_mem_variable(mem,0,ZZNS);
 #else
-#define MR_INIT_ECN mem=(char *)ecp_memalloc(1); p=(epoint *)epoint_init_mem(mem,0); 
+#define MR_INIT_ECN mem=(char *)ecp_memalloc(1); p=(epoint *)epoint_init_mem(mem,0);
 #endif
 
 class ECn
@@ -71,18 +71,18 @@ class ECn
 #endif
 public:
     ECn()                           {MR_INIT_ECN }
-   
-    ECn(const Big &x,const Big& y)  {MR_INIT_ECN 
+
+    ECn(const Big &x,const Big& y)  {MR_INIT_ECN
                                    epoint_set(x.getbig(),y.getbig(),0,p); }
-    
-  // This next constructor restores a point on the curve from "compressed" 
+
+  // This next constructor restores a point on the curve from "compressed"
   // data, that is the full x co-ordinate, and the LSB of y  (0 or 1)
 
 #ifndef MR_SUPPORT_COMPRESSION
     ECn(const Big& x,int cb)             {MR_INIT_ECN
                                    epoint_set(x.getbig(),x.getbig(),cb,p); }
 #endif
-    
+
     ECn(const ECn &b)                   {MR_INIT_ECN epoint_copy(b.p,p);}
 
     epoint *get_point() const;
@@ -91,13 +91,13 @@ public:
 
     ECn& operator+=(const ECn& b) {ecurve_add(b.p,p); return *this;}
 
-    int add(const ECn&,big *,big *ex1=NULL,big *ex2=NULL) const; 
+    int add(const ECn&,big *,big *ex1=NULL,big *ex2=NULL) const;
                                   // returns line slope as a big
-    int sub(const ECn&,big *,big *ex1=NULL,big *ex2=NULL) const;         
- 
+    int sub(const ECn&,big *,big *ex1=NULL,big *ex2=NULL) const;
+
     ECn& operator-=(const ECn& b) {ecurve_sub(b.p,p); return *this;}
 
-  // Multiplication of a point by an integer. 
+  // Multiplication of a point by an integer.
 
     ECn& operator*=(const Big& k) {ecurve_mult(k.getbig(),p,p); return *this;}
 
@@ -120,7 +120,7 @@ public:
 
   // point compression
 
-  // This sets the point from compressed form. cb is LSB of y coordinate 
+  // This sets the point from compressed form. cb is LSB of y coordinate
 #ifndef MR_SUPPORT_COMPRESSION
     BOOL set(const Big& x,int cb=0)  {return epoint_set(x.getbig(),x.getbig(),cb,p);}
 #endif
@@ -130,14 +130,14 @@ public:
 
     friend ECn mul(const Big&, const ECn&, const Big&, const ECn&);
     friend ECn mul(int, const Big *, ECn *);
-  
+
     friend void normalise(ECn &e) {epoint_norm(e.p);}
     friend void multi_norm(int,ECn *);
 
     friend BOOL operator==(const ECn& a,const ECn& b)
-                                  {return epoint_comp(a.p,b.p);}    
+                                  {return epoint_comp(a.p,b.p);}
     friend BOOL operator!=(const ECn& a,const ECn& b)
-                                  {return (!epoint_comp(a.p,b.p));}    
+                                  {return (!epoint_comp(a.p,b.p));}
 
     friend ECn operator*(const Big &,const ECn&);
 
@@ -149,7 +149,7 @@ public:
 
     ~ECn() {
 #ifndef ZZNS
-        mr_free(mem); 
+        mr_free(mem);
 #endif
  }
 
