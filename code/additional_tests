@@ -1,0 +1,5 @@
+// Check whether pfc.mult works as expected with the divised exponent
+	cout << "(g_1)^1/alpha" << endl << pfc.mult(g_1, moddiv(1,alpha, order)).g <<endl;
+	cout << "(Q^1/alpha)^alpha" << endl << pfc.mult(pfc.mult(Q, alpha), moddiv(1,alpha, order)).g <<endl;
+	cout << "(Q^alpha)^1/alpha" << endl << pfc.mult(pfc.mult(Q, moddiv(1,alpha, order)), alpha).g <<endl;
+	cout << "Q" << endl << Q.g <<endl;
