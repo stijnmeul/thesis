@@ -39,7 +39,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  *
  *    PURPOSE : Definition of class ZZn2  (Arithmetic over n^2)
  *
- *    Note: This code assumes that 
+ *    Note: This code assumes that
  *          p=5 mod 8
  *          OR p=3 mod 4
  */
@@ -48,11 +48,13 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 #define ZZN2_H
 
 #include "zzn.h"
+#include <string>
+#include <sstream>
 
 #ifdef ZZNS
-#define MR_INIT_ZZN2 {fn.a=&at; at.w=a; at.len=UZZNS; fn.b=&bt; bt.w=b; bt.len=UZZNS;} 
+#define MR_INIT_ZZN2 {fn.a=&at; at.w=a; at.len=UZZNS; fn.b=&bt; bt.w=b; bt.len=UZZNS;}
 #define MR_CLONE_ZZN2(x) {at.len=x.at.len; bt.len=x.bt.len; for (int i=0;i<UZZNS;i++) {a[i]=x.a[i]; b[i]=x.b[i];}}
-#define MR_ZERO_ZZN2 {at.len=bt.len=0; for (int i=0;i<UZZNS;i++) {a[i]=b[i]=0;}} 
+#define MR_ZERO_ZZN2 {at.len=bt.len=0; for (int i=0;i<UZZNS;i++) {a[i]=b[i]=0;}}
 #else
 #define MR_INIT_ZZN2 {fn.a=mirvar(0); fn.b=mirvar(0);}
 #define MR_CLONE_ZZN2(x) {zzn2_copy((zzn2 *)&x.fn,&fn);}
@@ -77,17 +79,36 @@ public:
     ZZn2(const ZZn &x,const ZZn& y) {MR_INIT_ZZN2 zzn2_from_zzns(x.getzzn(),y.getzzn(),&fn); }
     ZZn2(const ZZn &x) {MR_INIT_ZZN2 zzn2_from_zzn(x.getzzn(),&fn);}
     ZZn2(const Big &x)              {MR_INIT_ZZN2 zzn2_from_big(x.getbig(),&fn); }
-    
+    //@modif
+    ZZn2(string zzn2Nb) {
+        size_t found;
+        Big x, y;
+        string left, right;
+        found = zzn2Nb.find(",");
+        if(found == ((zzn2Nb.length()-1)/2) || found == ((zzn2Nb.length())/2) || found == ((zzn2Nb.length()+1)/2)) {
+            left = zzn2Nb.substr(0,found).erase(0,1);
+            right = zzn2Nb.substr(found+1, string::npos);
+            right = right.erase(right.length()-1,1);
+            char* cleft = const_cast<char*>(left.c_str());
+            char* cright = const_cast<char*>(right.c_str());
+            x = (Big) cleft;
+            y = (Big) cright;
+            MR_INIT_ZZN2 zzn2_from_bigs(x.getbig(),y.getbig(),&fn);
+        } else {
+            MR_INIT_ZZN2 MR_ZERO_ZZN2
+        }
+    }
+
     void set(const Big &x,const Big &y) {zzn2_from_bigs(x.getbig(),y.getbig(),&fn); }
     void set(const ZZn &x,const ZZn &y) {zzn2_from_zzns(x.getzzn(),y.getzzn(),&fn);}
     void set(const Big &x)              {zzn2_from_big(x.getbig(),&fn); }
     void set(int x,int y)               {zzn2_from_ints(x,y,&fn);}
 
-    void get(Big &,Big &) const; 
-    void get(Big &) const; 
+    void get(Big &,Big &) const;
+    void get(Big &) const;
 
-    void get(ZZn &,ZZn &) const;  
-    void get(ZZn &) const; 
+    void get(ZZn &,ZZn &) const;
+    void get(ZZn &) const;
 
     void clear() {MR_ZERO_ZZN2}
     BOOL iszero()  const { return zzn2_iszero((zzn2 *)&fn); }
@@ -110,9 +131,9 @@ public:
     ZZn2& operator*=(int x) {zzn2_imul(&fn,x,&fn); return *this;}
 
     ZZn2& conj() {zzn2_conj(&fn,&fn); return *this;}
-    
-    ZZn2& operator/=(const ZZn2&); 
-    ZZn2& operator/=(const ZZn&); 
+
+    ZZn2& operator/=(const ZZn2&);
+    ZZn2& operator/=(const ZZn&);
     ZZn2& operator/=(int);
 
     friend ZZn2 operator+(const ZZn2&,const ZZn2&);
@@ -132,8 +153,8 @@ public:
     friend ZZn2 operator/(const ZZn2&,const ZZn&);
     friend ZZn2 operator/(const ZZn2&,int);
 
-    friend ZZn  real(const ZZn2&);      
-    friend ZZn  imaginary(const ZZn2&); 
+    friend ZZn  real(const ZZn2&);
+    friend ZZn  imaginary(const ZZn2&);
 
     friend ZZn2 pow(const ZZn2&,const Big&);
 	friend ZZn2 powu(const ZZn2&,const Big&);
@@ -162,17 +183,17 @@ public:
 
     zzn2* getzzn2(void) const;
 
-    ~ZZn2()  
+    ~ZZn2()
     {
     //    MR_ZERO_ZZN2  // slower but safer
-#ifndef ZZNS  
-        mr_free(fn.a); 
+#ifndef ZZNS
+        mr_free(fn.a);
         mr_free(fn.b);
 #endif
     }
 };
 #ifndef MR_NO_RAND
-extern ZZn2 randn2(void);     
+extern ZZn2 randn2(void);
 #endif
 #endif
 
