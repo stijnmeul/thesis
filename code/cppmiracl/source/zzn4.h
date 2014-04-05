@@ -44,10 +44,10 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  *    PURPOSE : Definition of class ZZn4  (Arithmetic over n^4)
  *
  * WARNING: This class has been cobbled together for a specific use with
- * the MIRACL library. It is not complete, and may not work in other 
+ * the MIRACL library. It is not complete, and may not work in other
  * applications
  *
- *    Note: This code assumes that 
+ *    Note: This code assumes that
  *          p=5 mod 8
  *          OR p=3 mod 8
  *          OR p=7 mod 8, p=2,3 mod 5
@@ -63,11 +63,14 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 #define ZZN4_H
 
 #include "zzn2.h"
+#include <string>
+#include <sstream>
+#include <algorithm>
 
 #ifdef ZZNS
-#define MR_INIT_ZZN4 {fn.a.a=&at; at.w=a; at.len=UZZNS;  fn.a.b=&bt; bt.w=b; bt.len=UZZNS;  fn.b.a=&ct; ct.w=c; ct.len=UZZNS; fn.b.b=&dt; dt.w=d; dt.len=UZZNS; fn.unitary=FALSE;} 
+#define MR_INIT_ZZN4 {fn.a.a=&at; at.w=a; at.len=UZZNS;  fn.a.b=&bt; bt.w=b; bt.len=UZZNS;  fn.b.a=&ct; ct.w=c; ct.len=UZZNS; fn.b.b=&dt; dt.w=d; dt.len=UZZNS; fn.unitary=FALSE;}
 #define MR_CLONE_ZZN4(x) {fn.unitary=x.fn.unitary; at.len=x.at.len; bt.len=x.bt.len; ct.len=x.ct.len; dt.len=x.dt.len;    for (int i=0;i<UZZNS;i++) {a[i]=x.a[i]; b[i]=x.b[i]; c[i]=x.c[i]; d[i]=x.d[i];}}
-#define MR_ZERO_ZZN4 {fn.unitary=FALSE; at.len=bt.len=ct.len=dt.len=0; for (int i=0;i<UZZNS;i++) {a[i]=b[i]=c[i]=d[i]=0;}} 
+#define MR_ZERO_ZZN4 {fn.unitary=FALSE; at.len=bt.len=ct.len=dt.len=0; for (int i=0;i<UZZNS;i++) {a[i]=b[i]=c[i]=d[i]=0;}}
 #else
 #define MR_INIT_ZZN4 {fn.a.a=mirvar(0); fn.a.b=mirvar(0); fn.b.a=mirvar(0); fn.b.b=mirvar(0); fn.unitary=FALSE;}
 #define MR_CLONE_ZZN4(x) {zzn4_copy((zzn4 *)&x.fn,&fn);}
@@ -93,15 +96,28 @@ public:
 	ZZn4(const ZZn &x)  { MR_INIT_ZZN4 zzn4_from_zzn(x.getzzn(),&fn);}
 	ZZn4(const Big &x)              {MR_INIT_ZZN4 zzn4_from_big(x.getbig(),&fn); }
     ZZn4(const ZZn2 &x,const ZZn2& y) {MR_INIT_ZZN4 zzn4_from_zzn2s(x.getzzn2(),y.getzzn2(),&fn); }
+    ZZn4(string zzn4String) {
+        size_t found;
+        ZZn2 leftZzn2, rightZzn2;
+        string temp, left, right;
+        temp = zzn4String.erase(0,1);
+        temp = temp.erase(temp.length()-1, 1);
+        found = temp.find("],[");
+        left = temp.substr(0,found+1);
+        right = temp.substr(found+2, string::npos);
+        leftZzn2 = ZZn2(left);
+        rightZzn2 = ZZn2(right);
+        MR_INIT_ZZN4 zzn4_from_zzn2s(leftZzn2.getzzn2(),rightZzn2.getzzn2(),&fn);
+    }
 
     void set(const ZZn2 &x,const ZZn2 &y) {zzn4_from_zzn2s(x.getzzn2(),y.getzzn2(),&fn); }
     void set(const ZZn2 &x)  {zzn4_from_zzn2(x.getzzn2(),&fn); }
-    void seth(const ZZn2 &x) {zzn2_copy(x.getzzn2(),&(fn.b)); zzn2_zero(&(fn.a)); fn.unitary=FALSE;}   
+    void seth(const ZZn2 &x) {zzn2_copy(x.getzzn2(),&(fn.b)); zzn2_zero(&(fn.a)); fn.unitary=FALSE;}
 
     void get(ZZn2 &,ZZn2 &) const;
     void get(ZZn2 &) const;
     void geth(ZZn2 &) const;
-    
+
     void clear() {MR_ZERO_ZZN4 }
     void mark_as_unitary() {fn.unitary=TRUE;}
     BOOL is_unitary() {return fn.unitary;}
@@ -120,12 +136,12 @@ public:
     ZZn4& operator-=(const ZZn2& x) {zzn4_ssub(&fn,x.getzzn2(),&fn);  return *this; }
 	ZZn4& operator-=(const ZZn& x) {zzn2_ssub(&(fn.a),x.getzzn(),&(fn.a));  return *this; }
     ZZn4& operator-=(const ZZn4& x) {zzn4_sub(&fn,(zzn4 *)&x.fn,&fn); return *this; }
-    ZZn4& operator*=(const ZZn4& x) {zzn4_mul(&fn,(zzn4 *)&x.fn,&fn); return *this;} 
+    ZZn4& operator*=(const ZZn4& x) {zzn4_mul(&fn,(zzn4 *)&x.fn,&fn); return *this;}
     ZZn4& operator*=(const ZZn2& x) {zzn4_smul(&fn,x.getzzn2(),&fn); return *this; }
 	ZZn4& operator*=(const ZZn& x)  {zzn4_lmul(&fn,x.getzzn(),&fn); return *this; }
 	ZZn4& operator*=(int i) {zzn4_imul(&fn,i,&fn); return *this; }
-  
-    ZZn4& operator/=(const ZZn4&); 
+
+    ZZn4& operator/=(const ZZn4&);
     ZZn4& operator/=(const ZZn2&);
     ZZn4& operator/=(const ZZn&);
     ZZn4& operator/=(int);
@@ -181,18 +197,18 @@ public:
     friend ostream& operator<<(ostream&,const ZZn4&);
 #endif
 
-    ~ZZn4()  
+    ~ZZn4()
 	{
-#ifndef ZZNS  
-        mr_free(fn.a.a); 
+#ifndef ZZNS
+        mr_free(fn.a.a);
         mr_free(fn.a.b);
-		mr_free(fn.b.a); 
+		mr_free(fn.b.a);
         mr_free(fn.b.b);
 #endif
 	}
 };
 #ifndef MR_NO_RAND
-extern ZZn4 randn4(void);   
+extern ZZn4 randn4(void);
 #endif
 #endif
 
