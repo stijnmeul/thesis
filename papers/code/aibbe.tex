@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+
+\usepackage{dsfont}
+\usepackage[none]{hyphenat}
+\usepackage{amsmath}
+\usepackage{mathabx}
+\usepackage{anysize}
+\usepackage{color}
+
+\marginsize{3.5cm}{3.5cm}{2cm}{2cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+We let $lambda$ be the security parameter given to the setup algorithm such that a security level of 256 bits is realised. We let $G$ be some BDH parameter generator.
+\textbf{\textit{Setup$\left( \lambda \right)$:}} Given a security parameter $\lambda \in \mathds{Z}^{+}$, the algorithm works as follows:
+\begin{enumerate}
+ \item Run $G$ on input $\lambda$ to generate a prime $q$, two groups $\mathds{G}_1, \mathds{G}_2$ of order $q$, and an admissible bilinear map $e: \mathds{G}_1 \times \mathds{G}_2 \rightarrow \mathds{G}_T$. Choose a random generator $P \in \mathds{G}_1$
+ \item Pick a random $s \in \mathds{Z}^{*}_q$ and set $P_{pub} = sP$
+ \item Choose a cryptographic hash function $H_1: \{ 0,1 \}^{*} \rightarrow \mathds{G}_1^{*}$. The security analysis will view $H_1$ as a random oracle.
+\end{enumerate}
+
+The symmetric key space is $K = \{ 0,1 \}^{256}$. The ciphertext space is $C_i = \mathds{G}_1^{*} \times \{ 0,1 \}^{256}$. The system parameters are $params = < q, \mathds{G}_1, \mathds{G}_2, e, P, P_{pub}, H_1  >$. The master key is $s \in \mathds{Z}_q^{*}$.\\
+\\
+\textbf{\textit{KeyGen$\left( \lambda,ID \right)$:}} For a given string $ID \in \{ 0,1 \}^{*}$ the algorithm does:
+\begin{enumerate}
+ \item Compute $Q_{\textrm{\tiny{ID}}} = H_1 \left( ID \right)$
+ \item Set the private key $d_{\textrm{\tiny{ID}}}$ to be $d_{\textrm{\tiny{ID}}} = s Q_{\textrm{\tiny{ID}}}$ where $s$ is the master key.
+\end{enumerate}
+
+
+\begin{equation*}
+ d_{\textrm{\tiny{ID}}} = \{ \left( r_{\textrm{\tiny{ID}},i}, h_{\textrm{\tiny{ID}},i} \right) : i \in \{ 1, 2, 3\}\}, \; \; \textrm{where} \; \; h_{\textrm{\tiny{ID}},i} = \left( h_{i}q_2^{-r_{\textrm{\tiny{ID}},i}} \right)^{\frac{1}{\alpha-\textrm{\tiny{ID}}}} \in \mathds{G}_2
+\end{equation*}
+
+If ID $ = \alpha $, the PKG aborts. As before, we require that the PKG always use the same random values $\{r_{\textrm{\tiny{ID}},i}\}$ for ID.\\
+\\
+\textbf{\textit{Encrypt:}} To encrypt $m \in \{ 1, 0 \}^n$ using identity ID $\in \mathds{Z}_p$, the sender generates random $s \in \mathds{Z}_p$, and sends the ciphertext
+
+\begin{equation*}
+ \begin{array}{lcl}
+  C & = & \left( g_{1}^{s}p_1^{-s\cdot\textrm{\tiny{ID}}}, \; e \left( p_1, q_2\right)^s, \; m \oplus H_2 \{ e \left( p_1, h_1 \right)^s \}, \; e \left( p_1, h_2 \right)^s e \left( p_1, h_3\right)^{s \beta} \right) \\ & = & \left( u, v, w, y \right)
+ \end{array}
+\end{equation*}
+
+Note that $u \in \mathds{G}_1, v \in \mathds{G}_T,  w \in \{ 1, 0 \}^n$ and $y \in \mathds{G}_T$. We set $\beta = H_1 \{ u, v, w \}$. Encryption does not require any pairing computations once $e \left( p_1, q_2 \right)$, and $\{ e \left( p_1, h_i \right) \}$ have been pre-computed or alternatively included in $params$.\\
+\\
+\textbf{\textit{Decrypt:}} To decrypt ciphertext $C = \left( u, v, w, y \right)$ with ID, the recipient sets $\beta=H_1 \{ u, v, w \}$ and tests whether
+
+\begin{equation*}
+ y = e \left( u, h_{\textrm{\tiny{ID}}, 2}h_{\textrm{\tiny{ID}}, 3}^{\beta} \right)v^{r_{\textrm{\tiny{ID}},2}+r_{\textrm{\tiny{ID}},3}\beta}
+\end{equation*}
+
+If the check fails, the recipient outputs $\bot$. Otherwise, it outputs
+
+\begin{equation*}
+ m = w \oplus H_2 \{ e \left( u, h_{\textrm{\tiny{ID}}, 1} \right) v^{r_{\textrm{\tiny{ID}}, 1}} \}
+\end{equation*}
+
+\textbf{Correctness:} Assuming the ciphertext is well-formed for ID:
+
+\begin{equation*}
+ \begin{split}
+  e \left( u, h_{\textrm{\tiny{ID}},2} h_{\textrm{\tiny{ID}},3}^{\beta} \right) v^{ r_{\textrm{\tiny{ID}},2} + r_{\textrm{\tiny{ID}},3} \beta} \\
+  & \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace\negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace = e \left( p_1^{s\left( \alpha - \textrm{\tiny{ID}} \right)}, \left( h_{2}h_{3}^{\beta} \right)^{\frac{1}{\alpha - \textrm{\tiny{ID}}}} q_2^{\frac{- \left( r_{\textrm{\tiny{ID}},2} + r_{\textrm{\tiny{ID}},3} \beta \right)}{\alpha - \textrm{\tiny{ID}}}} \right) e \left( p_1, q_2 \right)^{s \left( r_{\textrm{\tiny{ID}},2} + r_{\textrm{\tiny{ID}},3} \beta \right)} \\
+ & \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace = e \left( p_1^{s\left( \alpha - \textrm{\tiny{ID}} \right)}, \left( h_{2}h_{3}^{\beta} \right)^{\frac{1}{\alpha - \textrm{\tiny{ID}}}} \right) = e \left( p_1, h_2 \right)^s e \left( p_1, h_3\right)^{s \beta}
+ \end{split}
+\end{equation*}
+
+
+Thus, the check passes. Moreover, as in the ANON-IND-ID CPA scheme,
+
+\begin{equation*}
+ e \left( u, h_{\textrm{\tiny{ID}}} \right) v^{r_{ \textrm{\tiny{ID}},1}} = e \left( p_1^{s\left( \alpha - \textrm{\tiny{ID}} \right)}, h^{\frac{1}{\alpha - \textrm{\tiny{ID}}}} q_2^{\frac{- r_{\textrm{\tiny{ID}},1}}{\alpha - \textrm{\tiny{ID}}}} \right) e \left( p_1, q_2 \right)^{s r_{\textrm{\tiny{ID}},1}} = e \left( p_1, h\right)^s,
+\end{equation*}
+
+as required.
+
+\end{document}
