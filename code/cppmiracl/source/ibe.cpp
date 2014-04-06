@@ -20,6 +20,8 @@
 
    See https://eprint.iacr.org/2001/090 for more information
    Section 4.1 and 4.2
+
+   g++-4.7 ibe.cpp bls_pair.cpp zzn24.cpp zzn8.cpp zzn4.cpp zzn2.cpp ecn4.cpp big.cpp zzn.cpp ecn.cpp -I ../include/ -L./ -l miracl -o ibe
 */
 
 #include <iostream>
