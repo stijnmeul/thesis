@@ -257,7 +257,7 @@ static void hex2bytes(char *hex,char *bin)
         bin[i] = v;
     }
 }
-
+/*
 int main()
 {
 	int i;
@@ -308,12 +308,12 @@ int main()
 	// Start encryption
 	gcm_init(&g,lenK,K,lenIV,N);
 //	gcm_add_header(&g,H,lenH);
-	/*
-	M = message to be encrypted
-	len = length of the message/ciphertext
-	C = resulting ciphertext
-	T = resulting tag
-	*/
+
+	//M = message to be encrypted
+	//len = length of the message/ciphertext
+	//C = resulting ciphertext
+	//T = resulting tag
+
 	gcm_add_cipher(&g,GCM_ENCRYPTING,M,len,C);
 	gcm_finish(&g,T);
 
@@ -339,4 +339,4 @@ int main()
 	printf("Tag=\n");
 	for (i=0;i<16;i++) printf("%02x",(unsigned char)T[i]);
 	printf("\n");
-}
+}*/
