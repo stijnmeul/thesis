@@ -97,7 +97,7 @@ int main()
 
 	// Pick a random s elementof Z_q
 	// Normally this would be pfc.random(s) Such random numbers are not safe however.
-	q = pfc.order();
+	/*q = pfc.order();
 	csprng *rng;
 	int rawlen = 64;
 	time_t tod;
@@ -111,7 +111,16 @@ int main()
     fclose(fp);
 	strong_init(rng, rawlen, raw, tod);
 	s = strong_rand(rng, q);
-	strong_kill(rng);
+	strong_kill(rng);*/
+
+	char seed[2];
+	FILE *fp;
+    fp = fopen("/dev/urandom", "r");
+    int bytes_read = fread(&seed, 1, 2, fp);
+    fclose(fp);
+
+    irand((long)seed);
+	pfc.random(s);
 
 	// Set Ppub = sP
 	Ppub = pfc.mult(P, s);
@@ -177,6 +186,10 @@ int main()
 	outputFile.close();
 	cout << "MSK successfully generated!" << endl;
 	cout << "MSK is stored in encrypted format in encrypted_msk.key. Please do not forget your password. " << endl;
+
+	outputFile.open("unenc_msk.key");
+	outputFile.write(msk, bytes_per_big);
+	outputFile.close();
 
 	// Read encrypted MSK from file
 	file.open("encrypted_msk.key", ios::in | ios::binary);

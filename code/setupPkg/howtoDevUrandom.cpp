@@ -12,5 +12,5 @@ int main() {
     fclose(fp);
     cout << bytes_read <<" were read out." << endl;
 
-    cout << "your random integer:" << endl << data[0] << data[1] << data[2] << endl;
+    //cout << "your random integer:" << endl << data[0] << data[1] << data[2] << endl;
 }
