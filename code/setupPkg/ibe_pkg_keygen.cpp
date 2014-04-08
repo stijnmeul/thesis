@@ -52,6 +52,7 @@
 
 int main(int argc, char *argv[])
 {
+	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 	int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
 	char Cread[bytes_per_big];
 	char Tread[TAG_LEN];
@@ -60,13 +61,19 @@ int main(int argc, char *argv[])
 	char msk[bytes_per_big];
 	char * pwd;
 	char hash[HASH_LEN];
+	Big s;
 
 	ifstream file;
 	gcm g;
 	sha256 sh;
 
 	// Hash password string to two 128 bit big numbers h1 and h2.
-	pwd = argv[0];
+	if(argc > 1) {
+		pwd = argv[1];
+	} else {
+		cout << "Please specify a password to decrypt the encrypted_msk.key" << endl;
+		return 0;
+	}
 	shs256_init(&sh);
 	while (*pwd!=0) {
 		shs256_process(&sh,*pwd++);
@@ -92,12 +99,16 @@ int main(int argc, char *argv[])
 	bool encryptedIsDecrypted = true;
 	for (int i = 0; i < TAG_LEN; i++) {
 		if(T[i] != Tread[i]) {
-			cout << "For i: " << i << "Decrypted T[i] does not equal Tread[i]!" << endl;
 			encryptedIsDecrypted = false;
 		}
 	}
+	if(!encryptedIsDecrypted) {
+		cout << "Incorrect password specified. Terminating extraction process." << endl;
+		return 0;
+	}
+	s = from_binary(bytes_per_big, plain);
 
-	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
+	cout << "Recovered MSK:" << endl << s << endl;
 
 	return 0;
 }
@@ -125,14 +136,62 @@ int main(int argc, char *argv[])
 
 float getExecutionTime(float begin_time) {
 	return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
-}
-
-string toString(float number) {
-	std::stringstream ss;
-	ss << number;
-	return ss.str();
-}
-
-int add(int a, int b) {
-	return a+b;
 }*/
+
+	/*
+
+	outputFile.open("unenc_msk.key");
+	outputFile.write(msk, bytes_per_big);
+	outputFile.close();
+
+	// Read encrypted MSK from file
+	file.open("encrypted_msk.key", ios::in | ios::binary);
+	file.read(Cread, bytes_per_big);
+	file.read(Tread, TAG_LEN);
+	file.close();
+
+	// Check whether Cread equals C
+	bool readIsWrite = true;
+	for (int i = 0; i < bytes_per_big; i++) {
+		if(C[i] != Cread[i]) {
+			cout << "For i: " << i << "C[i] does not equal Cread[i]!" << endl;
+			readIsWrite = false;
+		}
+	}
+	for (int i = 0; i < TAG_LEN; i++) {
+		if(T[i] != Tread[i]) {
+			cout << "For i: " << i << "T[i] does not equal Tread[i]!" << endl;
+			readIsWrite = false;
+		}
+	}
+	if(readIsWrite) {
+		cout << "Cread equals C and tags match!" << endl;
+	}
+
+	// Decrypt MSK
+	gcm_init(&g, HASH_LEN/2, hash1, HASH_LEN/2, hash2);
+	gcm_add_cipher(&g, GCM_DECRYPTING, plain, bytes_per_big, Cread);
+	gcm_finish(&g,T); // Overwrite previous T value
+
+	bool encryptedIsDecrypted = true;
+	for (int i = 0; i < TAG_LEN; i++) {
+		if(T[i] != Tread[i]) {
+			cout << "For i: " << i << "Decrypted T[i] does not equal Tread[i]!" << endl;
+			encryptedIsDecrypted = false;
+		}
+	}
+	for (int i = 0; i < bytes_per_big; i++) {
+		if(msk[i] != plain[i]) {
+			cout << "For i: " << i << "Decrypted plain[i] does not equal msk[i]!" << endl;
+			encryptedIsDecrypted = false;
+		}
+	}
+	if(encryptedIsDecrypted) {
+		cout << "Encrypted content equals decrypted content!" << endl;
+	}
+	s2 = from_binary(bytes_per_big, plain);
+
+	if(s == s2) {
+		cout << "Big MSK s equals Big MSK s2!" << endl;
+	}
+*/

@@ -8,5 +8,3 @@ To start the PKG please execute the following commands:
 2)	Execute ibe_pkg_setup.cpp
 		./ibe_pkg_setup
 	Execution of this script requires a password to store the MSK in "encrypted_msk.key" using AES-GCM encryption. Do not forget this password.
-
-3)

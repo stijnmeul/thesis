@@ -53,6 +53,8 @@
 #define HASH_LEN 32
 #define TAG_LEN 16
 
+string toString(G2);
+
 int main()
 {
 	PFC pfc(AES_SECURITY);
@@ -78,7 +80,6 @@ int main()
 		return 0;
 	} else {
 		file.close();
-		outputFile.open("encrypted_msk.key", ios::out | ios::binary);
 	}
 
 	/**********
@@ -126,10 +127,21 @@ int main()
 	Ppub = pfc.mult(P, s);
 	// At the end of the SETUP algorithm P and Ppub are public. s is the Master Secret Key.
 
+	// Write Ppub to file
+	outputFile.open("Ppub.key", ios::out | ios::binary);
+	string toStr = toString(Ppub);
+	outputFile.write(toStr.c_str(), toStr.length());
+	outputFile.close();
+
+	// Write P to file
+	outputFile.open("P.key", ios::out | ios::binary);
+	toStr = toString(P);
+	outputFile.write(toStr.c_str(), toStr.length());
+	outputFile.close();
 
 	/**********
 	*
-	*  Ask for a password to encrypt the new setup key.
+	*  Encrypt the Master Secret Key s to store it on disk
 	*
 	**********/
     termios oldt;
@@ -181,66 +193,14 @@ int main()
 	gcm_finish(&g, T);
 
 	// Write encrypted MSK to file
+	outputFile.open("encrypted_msk.key", ios::out | ios::binary);
 	outputFile.write(C, bytes_per_big);
 	outputFile.write(T, TAG_LEN);
 	outputFile.close();
 	cout << "MSK successfully generated!" << endl;
 	cout << "MSK is stored in encrypted format in encrypted_msk.key. Please do not forget your password. " << endl;
 
-	outputFile.open("unenc_msk.key");
-	outputFile.write(msk, bytes_per_big);
-	outputFile.close();
-
-	// Read encrypted MSK from file
-	file.open("encrypted_msk.key", ios::in | ios::binary);
-	file.read(Cread, bytes_per_big);
-	file.read(Tread, TAG_LEN);
-	file.close();
-
-	// Check whether Cread equals C
-	bool readIsWrite = true;
-	for (int i = 0; i < bytes_per_big; i++) {
-		if(C[i] != Cread[i]) {
-			cout << "For i: " << i << "C[i] does not equal Cread[i]!" << endl;
-			readIsWrite = false;
-		}
-	}
-	for (int i = 0; i < TAG_LEN; i++) {
-		if(T[i] != Tread[i]) {
-			cout << "For i: " << i << "T[i] does not equal Tread[i]!" << endl;
-			readIsWrite = false;
-		}
-	}
-	if(readIsWrite) {
-		cout << "Cread equals C and tags match!" << endl;
-	}
-
-	// Decrypt MSK
-	gcm_init(&g, HASH_LEN/2, hash1, HASH_LEN/2, hash2);
-	gcm_add_cipher(&g, GCM_DECRYPTING, plain, bytes_per_big, Cread);
-	gcm_finish(&g,T); // Overwrite previous T value
-
-	bool encryptedIsDecrypted = true;
-	for (int i = 0; i < TAG_LEN; i++) {
-		if(T[i] != Tread[i]) {
-			cout << "For i: " << i << "Decrypted T[i] does not equal Tread[i]!" << endl;
-			encryptedIsDecrypted = false;
-		}
-	}
-	for (int i = 0; i < bytes_per_big; i++) {
-		if(msk[i] != plain[i]) {
-			cout << "For i: " << i << "Decrypted plain[i] does not equal msk[i]!" << endl;
-			encryptedIsDecrypted = false;
-		}
-	}
-	if(encryptedIsDecrypted) {
-		cout << "Encrypted content equals decrypted content!" << endl;
-	}
-	s2 = from_binary(bytes_per_big, plain);
-
-	if(s == s2) {
-		cout << "Big MSK s equals Big MSK s2!" << endl;
-	}
-
+	mip->IOBASE = 16;
+	cout << "Stored MSK" << endl << s << endl;
     return 0;
 }

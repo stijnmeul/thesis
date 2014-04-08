@@ -1,18 +1,9 @@
-#ifndef IBE_PKG2_H
-#define IBE_PKG2_H
-
-#include <iostream>
-#include <ctime>
-#include <time.h>
-#include <sstream>
-#include <string>
-#include <vector>
-
-using namespace std;
-
-string getIbeParams(const char * id);
-float getExecutionTime(float);
-string toString(float);
-int add(int, int);
-
+#ifndef IBE_PKG_H
+#define IBE_PKG_H
 #endif
+
+string toString(G2 groupEl) {
+	stringstream ss;
+	ss << groupEl.g;
+	return ss.str();
+}
