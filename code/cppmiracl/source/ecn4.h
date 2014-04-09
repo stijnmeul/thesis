@@ -53,6 +53,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 #define ECN4_H
 
 #include "zzn4.h"
+#include <string>
 
 // Affine Only
 
@@ -64,7 +65,19 @@ public:
     ECn4()     {marker=MR_EPOINT_INFINITY;}
     ECn4(const ECn4& b) {x=b.x; y=b.y; marker=b.marker; }
 
-    ECn4(const char* text, const Big& text2) {};//x=b.x; y=b.y; marker = b.marker;}
+    ECn4(string ecn4String) {
+      size_t found;
+      ZZn2 leftZzn2, rightZzn2;
+      string temp, left, right;
+      temp = ecn4String.erase(0,1);
+      temp = temp.erase(temp.length()-1, 1);
+      found = temp.find("]],[[");
+      left = temp.substr(0,found+2);
+      right = temp.substr(found+3, string::npos);
+      x = ZZn4(left);
+      y = ZZn4(right);
+      marker = MR_EPOINT_GENERAL;
+    };//x=b.x; y=b.y; marker = b.marker;}
 
     ECn4& operator=(const ECn4& b)
         {x=b.x; y=b.y; marker=b.marker; return *this; }
