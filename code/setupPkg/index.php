@@ -1,5 +1,5 @@
 <?php
-
+/*
 $password = '"stijn"';
 $binDir = "/Users/stijn/KUL/Master/Thesis/code/setupPkg/";
 
@@ -28,7 +28,17 @@ if(file_exists($binDir . "P.key") && file_exists($binDir . "Ppub.key") && file_e
 echo "count(out): " . count($out) . "<br><br>";
 for($i = 0; $i < count($out); $i++) {
 	echo $out[$i] . "<br>";
-}
+}*/
+
+	$socket = socket_create(AF_INET,SOCK_STREAM,0);
+    socket_connect($socket,"127.0.0.1",5000);
+
+
+    $command = "Lorem Ipsum Dolor Sit Amet";
+    echo $command;
+    socket_write($socket,$command,strlen($command));
+
+    socket_close($socket);
 
 
 ?>
