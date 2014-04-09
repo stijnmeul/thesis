@@ -16,48 +16,52 @@ void error(const char*);
 
 int main()
 {
-     int sockfd, newsockfd;
-     socklen_t clilen;
+    int sockfd, newsockfd;
+    socklen_t clilen;
 
-     char buffer[4096];
-     struct sockaddr_in serv_addr, cli_addr;
-     int n;
-     string test;
-     // Initialise the socket descriptor.
-     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-     if (sockfd < 0)
+    char buffer[4096];
+    struct sockaddr_in serv_addr, cli_addr;
+    int n;
+    string test;
+    // Initialise the socket descriptor.
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
         error("ERROR opening socket");
     // Set buffer to zero
-     memset((char *) &serv_addr,'0',sizeof(serv_addr));
+    memset((char *) &serv_addr,'0',sizeof(serv_addr));
 
-     // Bind socket to port
-     serv_addr.sin_family = AF_INET;
-     serv_addr.sin_addr.s_addr = INADDR_ANY;
-     serv_addr.sin_port = htons(PORT_NB);
-     if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
-              error("ERROR on binding");
+    // Bind socket to port
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = htons(PORT_NB);
+    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+        error("ERROR on binding");
 
      // Listen to socket and accept incoming connections
-     listen(sockfd,5);
-     clilen = sizeof(cli_addr);
-     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-     if (newsockfd < 0)
-          error("ERROR on accept");
+    listen(sockfd,5);
+    while(1){
+        memset((char *) &buffer,0,sizeof(buffer));
+        clilen = sizeof(cli_addr);
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        if (newsockfd < 0)
+            error("ERROR on accept");
 
-    // Read out socket.
-     n = read(newsockfd,buffer,sizeof(buffer));
-     if (n < 0) error("ERROR reading from socket");
-     cout << "Received ID:" << endl << buffer << endl;
+        // Read out socket.
+        n = read(newsockfd,buffer,sizeof(buffer));
+        if (n < 0) error("ERROR reading from socket");
+        cout << "Received ID:" << endl << buffer << endl;
 
-     strcpy(buffer, "Geslaagd!");
+        strcpy(buffer, "Geslaagd!");
 
+        n = write(newsockfd,buffer,sizeof(buffer));
 
-     n = write(newsockfd,buffer,sizeof(buffer));
+        if (n < 0) error("ERROR writing to socket");
 
-     if (n < 0) error("ERROR writing to socket");
+        close(newsockfd);
+        sleep(1);
+    }
 
-     close(newsockfd);
-     return 0;
+    return 0;
 }
 
 void error(const char* msg) {

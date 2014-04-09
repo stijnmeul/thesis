@@ -34,7 +34,7 @@ for($i = 0; $i < count($out); $i++) {
     socket_connect($socket,"127.0.0.1",5000);
 
 
-    $command = "Lorem Ipsum Dolor Sit Amet";
+    $command = "Some random shit here";
     echo $command;
     socket_write($socket,$command,strlen($command));
 
