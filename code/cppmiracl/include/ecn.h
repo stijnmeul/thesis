@@ -53,6 +53,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 #define ECN_H
 
 #include <cstring>
+#include <string>
 #include "big.h"
 
 #ifdef ZZNS
@@ -74,6 +75,24 @@ public:
 
     ECn(const Big &x,const Big& y)  {MR_INIT_ECN
                                    epoint_set(x.getbig(),y.getbig(),0,p); }
+    ECn(string ecnString) {
+      size_t found;
+      MR_INIT_ECN
+      string temp, left, right;
+      Big x, y;
+      temp = ecnString.erase(0,1);
+      temp = temp.erase(temp.length()-1, 1);
+      found = temp.find(",");
+      if(found == ((temp.length()-1)/2) || found == ((temp.length())/2) || found == ((temp.length()+1)/2)) {
+        left = temp.substr(0,found);
+        right = temp.substr(found+1, string::npos);
+        char* cleft = const_cast<char*>(left.c_str());
+        char* cright = const_cast<char*>(right.c_str());
+        x = (Big)cleft;
+        y = (Big)cright;
+        epoint_set(x.getbig(),y.getbig(),0,p);
+      }
+    }
 
   // This next constructor restores a point on the curve from "compressed"
   // data, that is the full x co-ordinate, and the LSB of y  (0 or 1)

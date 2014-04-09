@@ -50,12 +50,19 @@
 #include <sstream>
 
 G2 g2From(string);
+G1 g1From(string);
 
 int main()
 {
     PFC pfc(AES_SECURITY);
     stringstream ss1;
     string p_string;
+
+
+    /*************************************************
+    *   Uncomment to see this code working for G2    *
+    **************************************************/
+    /*
     G2 P, G, L;
     pfc.random(P);
     int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
@@ -101,12 +108,36 @@ int main()
     if(P == L) {
         cout << "Hurray! P equals L!" << endl;
     }
+    */
 
+
+    /*************************************************
+    *   Uncomment to see this code working for G1    *
+    **************************************************/
+/*
+    G1 P, G, L;
+    size_t found;
+    pfc.random(P);
+    cout << "P: " << endl << P.g << endl;
+    ss1 << P.g;
+    p_string = ss1.str();
+
+      G = g1From(p_string);
+      if(P == G) {
+        cout << "Hurray! P equals G!" << endl;
+      }
+*/
     return 0;
 }
 
 G2 g2From(string aString) {
     G2 res;
     res.g = ECn4(aString);
+    return res;
+}
+
+G1 g1From(string aString) {
+    G1 res;
+    res.g = ECn(aString);
     return res;
 }
