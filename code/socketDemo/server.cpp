@@ -22,7 +22,7 @@ int main()
     char buffer[4096];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
-    string test;
+
     // Initialise the socket descriptor.
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)

@@ -1,44 +1,54 @@
 <?php
-/*
-$password = '"stijn"';
-$binDir = "/Users/stijn/KUL/Master/Thesis/code/setupPkg/";
-
-// Read out the ciphertext of MSK in PHP
-$myFile = $binDir . "encrypted_msk.key";
-$fh = fopen($myFile, 'rb');
-$Cread = fread($fh, 80);
-$Tread = fread($fh, 16);
-echo "Cread:" . $Cread . "<br>";
-echo "Tread:" . $Tread . "<br>";
-fclose($fh);
-$fh = fopen($myFile, 'rb');
-$theData = fread($fh, fileSize($myFile));
-fclose($fh);
-echo "theData:" . $theData . "<br>";
-$theData = bin2hex($theData);
-
-if(file_exists($binDir . "P.key") && file_exists($binDir . "Ppub.key") && file_exists($binDir . "encrypted_msk.key")) {
-	$command = $binDir . "ibe_pkg_keygen " . $password . " " . $theData;
-	//echo "command: " . $command;
-	system($command, $out);
-} else {
-	echo "PKG not initalised properly.";
-}
-
-echo "count(out): " . count($out) . "<br><br>";
-for($i = 0; $i < count($out); $i++) {
-	echo $out[$i] . "<br>";
-}*/
-
+	$buf_size = 4096;
 	$socket = socket_create(AF_INET,SOCK_STREAM,0);
     socket_connect($socket,"127.0.0.1",5000);
 
+    $binDir = "/Users/stijn/KUL/Master/Thesis/code/setupPkg/";
 
-    $command = "Some random shit here";
-    echo $command;
-    socket_write($socket,$command,strlen($command));
+    $xml = new DOMDocument("1.0");
 
-    socket_close($socket);
+	$root = $xml->createElement("scramble");
+	$result = $xml->createElement("result");
+	$xml->appendChild($root);
 
+    if(array_key_exists("id", $_GET) && isset($_GET["id"]) && $_GET["id"] != ""){
+    	$command = htmlspecialchars($_GET["id"]);
+        socket_write($socket,$command,strlen($command));
+        $DidResult = socket_read($socket, $buf_size, PHP_NORMAL_READ);
+        socket_close($socket);
 
+        // get contents of a file into a string
+    	$filename = $binDir . "Ppub.key";
+    	$handle = fopen($filename, "r");
+    	$PpubResult = fread($handle, filesize($filename));
+    	fclose($handle);
+
+    	// get contents of a file into a string
+    	$filename = $binDir . "P.key";
+    	$handle = fopen($filename, "r");
+    	$PResult = fread($handle, filesize($filename));
+    	fclose($handle);
+
+    	$P   = $xml->createElement("P");
+    	$PText = $xml->createTextNode($PResult);
+    	$P->appendChild($PText);
+
+    	$Ppub = $xml->createElement("Ppub");
+    	$PpubText = $xml->createTextNode($PpubResult);
+    	$Ppub->appendChild($PpubText);
+
+    	$Did = $xml->createElement("Did");
+    	$DidText = $xml->createTextNode($DidResult);
+    	$Did->appendChild($DidText);
+
+    	$result->appendChild($Ppub);
+    	$result->appendChild($P);
+    	$result->appendChild($Did);
+    	$root->appendChild($result);
+    	$xml->formatOutput = true;
+    	echo "<xmp>". $xml->saveXML() ."</xmp>";
+    } else {
+    	$root->appendChild($result);
+    	echo "<xmp>". $xml->saveXML() ."</xmp>";
+    }
 ?>

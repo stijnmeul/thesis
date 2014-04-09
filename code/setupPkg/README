@@ -8,3 +8,10 @@ To start the PKG please execute the following commands:
 2)	Execute ibe_pkg_setup.cpp
 		./ibe_pkg_setup
 	Execution of this script requires a password to store the MSK in "encrypted_msk.key" using AES-GCM encryption. Do not forget this password.
+
+3) 	Compile ibe_pkg_keygen.cpp
+		g++-4.7 ibe_pkg_keygen.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp ../cppmiracl/source/mrgcm.c ../cppmiracl/source/mraes.c -I ../cppmiracl/include/ -L ../cppmiracl/source/ -l miracl -o ibe_pkg_keygen
+
+4) 	Execute ibe_pkg_keygen
+		./ibe_pkg_keygen
+	Execution of this script requires a password to decrypt the MSK in "decrypted_msk.key" using AES-GCM decryption. If the password is incorrect execution is terminated. If the password is correct a socket is started that listens at port 5000 and can extract user private keys based on their public ID.
