@@ -29,15 +29,15 @@
     	$PResult = fread($handle, filesize($filename));
     	fclose($handle);
 
-    	$P   = $xml->createElement("P");
+    	$P   = $xml->createElement("p");
     	$PText = $xml->createTextNode($PResult);
     	$P->appendChild($PText);
 
-    	$Ppub = $xml->createElement("Ppub");
+    	$Ppub = $xml->createElement("p_pub");
     	$PpubText = $xml->createTextNode($PpubResult);
     	$Ppub->appendChild($PpubText);
 
-    	$Did = $xml->createElement("Did");
+    	$Did = $xml->createElement("d_id");
     	$DidText = $xml->createTextNode($DidResult);
     	$Did->appendChild($DidText);
 
@@ -46,9 +46,9 @@
     	$result->appendChild($Did);
     	$root->appendChild($result);
     	$xml->formatOutput = true;
-    	echo "<xmp>". $xml->saveXML() ."</xmp>";
+    	echo $xml->saveXML();
     } else {
     	$root->appendChild($result);
-    	echo "<xmp>". $xml->saveXML() ."</xmp>";
+    	echo $xml->saveXML();
     }
 ?>
