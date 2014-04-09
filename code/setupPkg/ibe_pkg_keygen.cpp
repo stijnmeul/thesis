@@ -75,15 +75,29 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	shs256_init(&sh);
+	int i =0;
 	while (*pwd!=0) {
 		shs256_process(&sh,*pwd++);
 		shs256_hash(&sh,hash);
+		i++;
 	}
 	char hash1[HASH_LEN/2];
 	char hash2[HASH_LEN/2];
 	memcpy(hash1,hash,HASH_LEN/2);
 	memcpy(hash2,&hash[HASH_LEN/2],HASH_LEN/2);
+	cout << "<br><br> hash of pwd: " << endl;
+	for(i=0; i<HASH_LEN; i++) {cout << hash[i];}
+	cout << endl;
 
+	char * test = (char *)"stijn";
+	while (*test!=0) {
+		shs256_process(&sh,*test++);
+		shs256_hash(&sh,hash);
+		i++;
+	}
+	cout << "<br><br> hash of test: " << endl;
+	for(i=0; i<HASH_LEN; i++) {cout << hash[i];}
+	cout << endl;
 
 	// Read encrypted MSK from file
 	file.open("encrypted_msk.key", ios::in | ios::binary);
@@ -99,12 +113,14 @@ int main(int argc, char *argv[])
 	bool encryptedIsDecrypted = true;
 	for (int i = 0; i < TAG_LEN; i++) {
 		if(T[i] != Tread[i]) {
+			cout << "T[" << i << "]: " << T[i] << "      Tread[" << i << "]: " << Tread[i] << endl;
 			encryptedIsDecrypted = false;
 		}
 	}
 	if(!encryptedIsDecrypted) {
+		cout << "The given password <i>" << argv[1] << "</i> appears to be incorrect." << endl;
 		cout << "Incorrect password specified. Terminating extraction process." << endl;
-		return 0;
+		//return 0;
 	}
 	s = from_binary(bytes_per_big, plain);
 

@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "ibe_PKG.h"
+#include "ibe_pkg.h"
 
 #define PORT_NB 5000
 
@@ -49,8 +49,7 @@ int main()
      if (n < 0) error("ERROR reading from socket");
      cout << "Received ID:" << endl << buffer << endl;
 
-     test = getIbeParams(buffer);
-     strcpy(buffer, test.c_str());
+     strcpy(buffer, "Geslaagd!");
 
 
      n = write(newsockfd,buffer,sizeof(buffer));

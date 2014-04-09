@@ -40,7 +40,7 @@
 #define AES_SECURITY 256
 //*********************************************
 
-#include "../../cppmiracl/source/pairing_3.h"
+#include "../cppmiracl/source/pairing_3.h"
 #include "ibe_pkg.h"
 
 /*class JsonArray {
