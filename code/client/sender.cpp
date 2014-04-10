@@ -208,14 +208,15 @@ int main(void)
     /*************************************************
     *       AES GCM part of the encryption step      *
     **************************************************/
-    /*
+
     gcm g;
+    char A[getAuthenticatedDataLength(nbOfRecipients)];
     char C[SES_KEY_LEN];
     char T[TAG_LEN];
     char plain[bytes_per_big];
     gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
     gcm_add_cipher(&g, GCM_ENCRYPTING, msk, bytes_per_big, C);
-    gcm_finish(&g, T);*/
+    gcm_finish(&g, T);
 
     "***********************************************************************************************************************";
     "*                                                           DECRYPT                                                   *";
