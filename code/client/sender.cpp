@@ -19,6 +19,8 @@
 
 #if AES_SECURITY == 256
 #define U_LEN 1300
+#define W_LEN 64
+#define V_LEN 64
 #endif
 
 using namespace std;
@@ -27,6 +29,9 @@ static size_t WriteCallback(void *, size_t, size_t, void *);
 
 G2 g2From(string);
 G1 g1From(string);
+string toString(G2);
+string toString(G1);
+string toString(Big);
 int getAuthenticatedDataLength(int);
 int getBroadcastMessageLength(int, string);
 
@@ -165,6 +170,7 @@ int main(void)
     recipients.push_back("Fred");
     recipients.push_back(RECEIVER_ID);
     int nbOfRecipients = recipients.size();
+    cout << "nbOfRecipients: " << nbOfRecipients << endl;
 
     // Vector of Q_id's
     vector <G1> recipientHashes;
@@ -204,20 +210,64 @@ int main(void)
     pfc.add_to_hash(sigma);
     sigma_hash = pfc.finish_hash_to_group();
     W = lxor(ses_key, sigma_hash);
+    cout << "W: " << endl << W << endl;
 
     /*************************************************
     *       AES GCM part of the encryption step      *
     **************************************************/
-
-    gcm g;
+    // Encode A-array
     char A[getAuthenticatedDataLength(nbOfRecipients)];
+    char big_bin[bytes_per_big];
+    memset(A, 0, sizeof(A));
+    int filled = 0;
+    memcpy(A,&nbOfRecipients, sizeof(nbOfRecipients));
+    filled = sizeof(nbOfRecipients);
+    strcpy(&A[filled],toString(U).c_str());
+    filled += U_LEN;
+    strcpy(&A[filled],toString(W).c_str());
+    filled += W_LEN;
+    for(int i = 0; i < nbOfRecipients; i++){
+        strcpy(&A[filled],toString(vs.at(i)).c_str());
+        filled += V_LEN;
+    }
+
+    //memcpy(&A[filled],W,HASH_LEN/2);
+    cout << "Content of A:" << endl;
+    for(int i = 0; i < getAuthenticatedDataLength(nbOfRecipients); i++) {
+        cout << "A[" << dec << i << "]: " << hex << A[i] << " ";
+    }
+    cout << endl;
+
+    // Decode A-array
+    int recNbOfRecipients;
+    int readOut = 0;
+    G2 recU;
+    Big recW;
+    char tempString[U_LEN];
+    char tempString2[W_LEN] = "";
+    memcpy(&recNbOfRecipients, A, sizeof(recNbOfRecipients));
+    readOut = sizeof(nbOfRecipients);
+    strncpy(tempString, &A[readOut], U_LEN);
+    recU = g2From((string)tempString);
+    readOut += U_LEN;
+
+    strncpy(tempString2, &A[readOut], W_LEN);
+    cout << "tempString2" << endl << tempString2 << endl;
+    cout << "Expected W" << endl << W << endl;
+    if(recNbOfRecipients == nbOfRecipients && U == recU && W == recW) {
+        cout << "successful decoding!" << endl;
+    } else {
+        cout << "Something went very very wrong" << endl;
+    }
+/*
+    gcm g;
     char C[SES_KEY_LEN];
     char T[TAG_LEN];
     char plain[bytes_per_big];
     gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
-    gcm_add_cipher(&g, GCM_ENCRYPTING, msk, bytes_per_big, C);
+    gcm_add_cipher(&g, GCM_ENCRYPTING, plain, bytes_per_big, C);
     gcm_finish(&g, T);
-
+*/
     "***********************************************************************************************************************";
     "*                                                           DECRYPT                                                   *";
     "***********************************************************************************************************************";
@@ -279,9 +329,27 @@ G1 g1From(string aString) {
     res.g = ECn(aString);
     return res;
 }
+
+string toString(G2 g2) {
+    stringstream res;
+    res << g2.g;
+    return res.str();
+}
+
+string toString(G1 g1) {
+    stringstream res;
+    res << g1.g;
+    return res.str();
+}
+
+string toString(Big big) {
+    stringstream res;
+    res << big;
+    return res.str();
+}
 int getAuthenticatedDataLength(int nbOfRecipients) {
     // +1 because of length(W)
-    return U_LEN + (nbOfRecipients+1)*SES_KEY_LEN + sizeof(int);
+    return U_LEN + nbOfRecipients*V_LEN + W_LEN + sizeof(int);
 }
 int getBroadcastMessageLength(int nbOfRecipients, string message) {
     return getAuthenticatedDataLength(nbOfRecipients) + TAG_LEN + message.length();
