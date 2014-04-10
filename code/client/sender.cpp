@@ -43,7 +43,7 @@ int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 int main(void)
 {
     clock_t begin_time, begin_time1;
-    float enc_time, enc_time1;
+    float enc_time, enc_time1, dec_time, dec_time1, dec_time2;
     /*************************************************
     *          Scrape localhost/thesis/?id=          *
     **************************************************/
@@ -52,7 +52,7 @@ int main(void)
     string readBuffer;
 
     curl = curl_easy_init();
-    cout << PKG_ADDR << endl;
+
     if(curl) {
         // Suppose Bob already knows his private d_id value.
         // Therefore, ask Alice's ID such that the webpage only needs to be crawled once.
@@ -151,9 +151,11 @@ int main(void)
     P = g2From(p);
     D = g1From(d_id);
 
+    /*
     cout << "received Ppub: " << endl << Ppub.g << endl;
     cout << "received P: " << endl << P.g << endl;
     cout << "received D: " << endl << D.g << endl;
+    */
 
     pfc.precomp_for_pairing(Ppub);
     pfc.precomp_for_mult(P);
@@ -174,7 +176,6 @@ int main(void)
     recipients.push_back("Fred");
     recipients.push_back(RECEIVER_ID);
     int nbOfRecipients = recipients.size();
-    cout << "nbOfRecipients: " << nbOfRecipients << endl;
 
     begin_time = clock();
     // Vector of Q_id's
@@ -217,8 +218,9 @@ int main(void)
 
     enc_time = getExecutionTime(begin_time);
     enc_time1 += getExecutionTime(begin_time1);
-    cout << "Total encryption time:             " << enc_time << endl;
-    cout << "Encryption time for only one user: " << enc_time1 << endl;
+    cout << "Total encryption time:                    " << enc_time << endl;
+    cout << "Encryption time for first recipient:      " << enc_time1 << endl;
+    cout << "Encryption time per additional recipient: " << (enc_time - enc_time1)/(nbOfRecipients-1) << endl;
 
     /*************************************************
     *       AES GCM part of the encryption step      *
@@ -297,6 +299,7 @@ int main(void)
     /*************************************************
     *         IBE part of the decryption step        *
     **************************************************/
+    begin_time = clock();
     r = 0;
     int i = 0;
     // Iterate over all V values until U equals rP.
@@ -323,10 +326,20 @@ int main(void)
         } else {
             cout << "Decrypting " << recipients.at(i) << "'s session key." << endl;
             mip->IOBASE=16;
-            cout << "Decrypted message:" << endl << ses_key << endl;
+            cout << "Decrypted symmetric session key:" << endl << ses_key << endl;
+            dec_time = getExecutionTime(begin_time);
+        }
+        if(i==0) {
+            dec_time1 = getExecutionTime(begin_time);
+            begin_time1 = clock();
+        } else if(i==1) {
+            dec_time2 = getExecutionTime(begin_time1);
         }
         i++;
     }
+    cout << "Total decryption time:                    " << dec_time << endl;
+    cout << "Decryption time for first recipient:      " << dec_time1 << endl;
+    cout << "Decryption time per additional recipient: " << dec_time2 - dec_time1 << endl;
 
     return 0;
 }
