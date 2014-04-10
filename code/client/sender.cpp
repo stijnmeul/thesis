@@ -34,6 +34,7 @@ string toString(G1);
 string toString(Big);
 int getAuthenticatedDataLength(int);
 int getBroadcastMessageLength(int, string);
+float getExecutionTime(float);
 
 PFC pfc(AES_SECURITY);
 miracl *mip = get_mip();
@@ -41,6 +42,8 @@ int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 
 int main(void)
 {
+    clock_t begin_time, begin_time1;
+    float enc_time, enc_time1;
     /*************************************************
     *          Scrape localhost/thesis/?id=          *
     **************************************************/
@@ -173,21 +176,21 @@ int main(void)
     int nbOfRecipients = recipients.size();
     cout << "nbOfRecipients: " << nbOfRecipients << endl;
 
+    begin_time = clock();
     // Vector of Q_id's
     vector <G1> recipientHashes;
     for(int i =0; i < nbOfRecipients; i++) {
         pfc.hash_and_map(Q1, (char *)recipients.at(i).c_str());
         recipientHashes.push_back(Q1);
+        if(i==0) {
+            enc_time1 = getExecutionTime(begin_time);
+        }
     }
+    begin_time1 = clock();
     // U = r.P
     U = pfc.mult(P, r);
     string testString;
     stringstream ss2;
-    mip->IOBASE = 16;
-    ss2 << U.g;
-    testString = ss2.str();
-    cout << "testString size: " << testString.length() << endl;
-    cout << "U: " << U.g << endl;
     mip->IOBASE = 16;
 
     // Vector of V values
@@ -200,24 +203,28 @@ int main(void)
         V = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
         V = lxor(sigma, V);
         vs.push_back(V);
+        if(i==0) {
+            enc_time1 += getExecutionTime(begin_time1);
+        }
     }
-
-    mip->IOBASE = 2;
-    cout << "V: " << endl << V << endl;
-    mip->IOBASE = 16;
+    begin_time1 = clock();
 
     // W = M XOR Hash(sigma)
     pfc.start_hash();
     pfc.add_to_hash(sigma);
     sigma_hash = pfc.finish_hash_to_group();
     W = lxor(ses_key, sigma_hash);
-    cout << "W: " << endl << W << endl;
+
+    enc_time = getExecutionTime(begin_time);
+    enc_time1 += getExecutionTime(begin_time1);
+    cout << "Total encryption time:             " << enc_time << endl;
+    cout << "Encryption time for only one user: " << enc_time1 << endl;
 
     /*************************************************
     *       AES GCM part of the encryption step      *
     **************************************************/
     // Encode A-array
-    char A[getAuthenticatedDataLength(nbOfRecipients)];
+ /*   char A[getAuthenticatedDataLength(nbOfRecipients)];
     char big_bin[bytes_per_big];
     memset(A, 0, sizeof(A));
     int filled = 0;
@@ -270,7 +277,7 @@ int main(void)
         }
     } else {
         cout << "Something went very very wrong" << endl;
-    }
+    }*/
 /*
     gcm g;
     char C[SES_KEY_LEN];
@@ -365,4 +372,8 @@ int getAuthenticatedDataLength(int nbOfRecipients) {
 }
 int getBroadcastMessageLength(int nbOfRecipients, string message) {
     return getAuthenticatedDataLength(nbOfRecipients) + TAG_LEN + message.length();
+}
+
+float getExecutionTime(float begin_time) {
+    return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }
