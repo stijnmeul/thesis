@@ -244,7 +244,7 @@ int main(void)
     G2 recU;
     Big recW;
     char tempString[U_LEN];
-    char tempString2[W_LEN] = "";
+    char tempString2[W_LEN+1];
     memcpy(&recNbOfRecipients, A, sizeof(recNbOfRecipients));
     readOut = sizeof(nbOfRecipients);
     strncpy(tempString, &A[readOut], U_LEN);
