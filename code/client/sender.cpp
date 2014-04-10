@@ -35,10 +35,12 @@ string toString(Big);
 int getAuthenticatedDataLength(int);
 int getBroadcastMessageLength(int, string);
 
+PFC pfc(AES_SECURITY);
+miracl *mip = get_mip();
+int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
+
 int main(void)
 {
-    PFC pfc(AES_SECURITY);
-    miracl *mip = get_mip();
     /*************************************************
     *          Scrape localhost/thesis/?id=          *
     **************************************************/
@@ -113,7 +115,6 @@ int main(void)
     // Hash 256 bits to an encryption key K1 and an initialisation vector IV
     char hash[HASH_LEN];
     sha256 sh;
-    int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 
     shs256_init(&sh);
 
@@ -243,6 +244,7 @@ int main(void)
     int readOut = 0;
     G2 recU;
     Big recW;
+    vector <Big> recvs;
     char tempString[U_LEN];
     char tempString2[W_LEN+1];
     memcpy(&recNbOfRecipients, A, sizeof(recNbOfRecipients));
@@ -250,12 +252,22 @@ int main(void)
     strncpy(tempString, &A[readOut], U_LEN);
     recU = g2From((string)tempString);
     readOut += U_LEN;
-
     strncpy(tempString2, &A[readOut], W_LEN);
-    cout << "tempString2" << endl << tempString2 << endl;
-    cout << "Expected W" << endl << W << endl;
+    recW = (Big) tempString2;
+    readOut += W_LEN;
+    for(int i = 0; i < recNbOfRecipients; i++) {
+        strncpy(tempString2,&A[readOut], V_LEN);
+        recvs.push_back((Big)tempString2);
+        readOut += V_LEN;
+    }
+
     if(recNbOfRecipients == nbOfRecipients && U == recU && W == recW) {
         cout << "successful decoding!" << endl;
+        for(int i = 0; i < nbOfRecipients; i++) {
+            if(recvs.at(i) != vs.at(i)) {
+                cout << "altough V[" << i << "] differs from Vrec[" << i << "]" << endl;
+            }
+        }
     } else {
         cout << "Something went very very wrong" << endl;
     }
