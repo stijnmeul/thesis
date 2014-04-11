@@ -130,11 +130,15 @@ int main(void)
 
     shs256_init(&sh);
 
-    for(int i = 0; i < SES_KEY_LEN; i++) {
+    for(int i = 0; i < HASH_LEN; i++) {
         shs256_process(&sh,k[i]);
         shs256_hash(&sh,hash);
     }
-
+    cout << "hash:" << endl;
+    for(int i = 0; i<HASH_LEN; i++) {
+        cout << hex << hash[i];
+    }
+    cout << endl;
     char k1[HASH_LEN/2];
     char iv[HASH_LEN/2];
     memcpy(k1,hash,HASH_LEN/2);
@@ -142,9 +146,11 @@ int main(void)
 
     // The secret message
     Big ses_key;
-    mip->IOBASE = 256;
+    /*mip->IOBASE = 256;
     ses_key = (char *)hash;
     mip->IOBASE = 16;
+    cout << "Symmetric session key to encrypt" << endl << ses_key << endl;*/
+    ses_key = from_binary(HASH_LEN, hash);
     cout << "Symmetric session key to encrypt" << endl << ses_key << endl;
 
     /*************************************************
@@ -235,7 +241,8 @@ int main(void)
     *       AES GCM part of the encryption step      *
     **************************************************/
     // Encode A-array
-    char A[getAuthenticatedDataLength(nbOfRecipients)];
+    int Alen = getAuthenticatedDataLength(nbOfRecipients);
+    char A[Alen];
     memset(A, 0, sizeof(A));
     authenticatedData_t ad1;
     ad1.nbOfRecipients = nbOfRecipients;
@@ -244,12 +251,45 @@ int main(void)
     ad1.vs = vs;
     encodeAuthenticatedDataArray(ad1, A);
 
-    //memcpy(&A[filled],W,HASH_LEN/2);
+    /*
     cout << "Content of A:" << endl;
-    for(int i = 0; i < getAuthenticatedDataLength(nbOfRecipients); i=i+4) {
+    for(int i = 0; i < Alen; i=i+4) {
         cout << "A[" << dec << i << "]: " << hex << A[i] << "    " << "A[" << dec << i+1 << "]: " << hex << A[i+1] << "    "  << "A[" << dec << i+2 << "]: " << hex << A[i+2] << "    "  << "A[" << dec << i+3 << "]: " << hex << A[i+3] << "    " << endl;
     }
+    cout << endl;*/
+
+    char P_text[message.length()];
+    memset(P_text, 0, sizeof(P_text));
+    strcpy(P_text, message.c_str());
+
+    gcm g;
+    char C[message.length()];
+    char T[TAG_LEN];
+    gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
+    gcm_add_header(&g, A, Alen);
+    gcm_add_cipher(&g, GCM_ENCRYPTING, P_text, message.length(), C);
+    gcm_finish(&g, T);
+
+    char broadCastMessage[getBroadcastMessageLength(nbOfRecipients, message)];
+    int filled = 0;
+    memcpy(broadCastMessage, A, Alen);
+    filled += Alen;
+    memcpy(&broadCastMessage[filled], T, TAG_LEN);
+    filled += TAG_LEN;
+    memcpy(&broadCastMessage[filled], C, message.length());
+    cout << "broadCastMessage:" << endl;
+    for(int i = 0; i < sizeof(broadCastMessage); i++) {
+        cout << broadCastMessage[i];
+    }
     cout << endl;
+    "***********************************************************************************************************************";
+    "*                                                           DECRYPT                                                   *";
+    "***********************************************************************************************************************";
+    /*************************************************
+    *         IBE part of the decryption step        *
+    **************************************************/
+    // Overwrite existing A array
+    memcpy(A, broadCastMessage, Alen);
 
     // Decode A-array
     authenticatedData_t ad = decodeAuthenticatedDataArray(A);
@@ -264,25 +304,7 @@ int main(void)
     } else {
         cout << "Something went very very wrong" << endl;
     }
-/*
-    gcm g;
-    char C[SES_KEY_LEN];
-    char T[TAG_LEN];
-    char plain[bytes_per_big];
-    gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
-    gcm_add_cipher(&g, GCM_ENCRYPTING, plain, bytes_per_big, C);
-    gcm_finish(&g, T);
-*/
-    "***********************************************************************************************************************";
-    "*                                                           DECRYPT                                                   *";
-    "***********************************************************************************************************************";
-    /*************************************************
-    *       AES GCM part of the decryption step      *
-    **************************************************/
 
-    /*************************************************
-    *         IBE part of the decryption step        *
-    **************************************************/
     begin_time = clock();
     r = 0;
     int i = 0;
@@ -324,6 +346,26 @@ int main(void)
     cout << "Total decryption time:                    " << dec_time << endl;
     cout << "Decryption time for first recipient:      " << dec_time1 << endl;
     cout << "Decryption time per additional recipient: " << dec_time2 - dec_time1 << endl;
+
+    /*************************************************
+    *       AES GCM part of the decryption step      *
+    **************************************************/
+
+    string sesKeyString = toString(ses_key);
+    char sesKey[SES_KEY_LEN];
+    to_binary(ses_key, HASH_LEN, sesKey, TRUE);
+
+    memcpy(k1, sesKey, SES_KEY_LEN/2);
+    memcpy(iv, &sesKey[SES_KEY_LEN/2], SES_KEY_LEN/2);
+
+    gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
+    gcm_add_header(&g, A, Alen);
+    gcm_add_cipher(&g, GCM_DECRYPTING, P_text, message.length(), C);
+    gcm_finish(&g, T);
+
+    message = (string)P_text;
+
+    cout << endl << "Received message:" << endl << message << endl;
 
     return 0;
 }
