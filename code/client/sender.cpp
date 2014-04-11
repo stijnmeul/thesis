@@ -19,13 +19,20 @@
 
 #if AES_SECURITY == 256
 #define U_LEN 1300
-#define W_LEN 64
-#define V_LEN 64
+#define W_LEN 65
+#define V_LEN 65
 #endif
 
 using namespace std;
 
 static size_t WriteCallback(void *, size_t, size_t, void *);
+
+struct authenticatedData_t {
+  int nbOfRecipients;
+  G2 U;
+  Big W;
+  vector <Big> vs;
+};
 
 G2 g2From(string);
 G1 g1From(string);
@@ -35,6 +42,8 @@ string toString(Big);
 int getAuthenticatedDataLength(int);
 int getBroadcastMessageLength(int, string);
 float getExecutionTime(float);
+void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
+authenticatedData_t decodeAuthenticatedDataArray(char * A);
 
 PFC pfc(AES_SECURITY);
 miracl *mip = get_mip();
@@ -226,60 +235,35 @@ int main(void)
     *       AES GCM part of the encryption step      *
     **************************************************/
     // Encode A-array
- /*   char A[getAuthenticatedDataLength(nbOfRecipients)];
-    char big_bin[bytes_per_big];
+    char A[getAuthenticatedDataLength(nbOfRecipients)];
     memset(A, 0, sizeof(A));
-    int filled = 0;
-    memcpy(A,&nbOfRecipients, sizeof(nbOfRecipients));
-    filled = sizeof(nbOfRecipients);
-    strcpy(&A[filled],toString(U).c_str());
-    filled += U_LEN;
-    strcpy(&A[filled],toString(W).c_str());
-    filled += W_LEN;
-    for(int i = 0; i < nbOfRecipients; i++){
-        strcpy(&A[filled],toString(vs.at(i)).c_str());
-        filled += V_LEN;
-    }
+    authenticatedData_t ad1;
+    ad1.nbOfRecipients = nbOfRecipients;
+    ad1.U = U;
+    ad1.W = W;
+    ad1.vs = vs;
+    encodeAuthenticatedDataArray(ad1, A);
 
     //memcpy(&A[filled],W,HASH_LEN/2);
     cout << "Content of A:" << endl;
-    for(int i = 0; i < getAuthenticatedDataLength(nbOfRecipients); i++) {
-        cout << "A[" << dec << i << "]: " << hex << A[i] << " ";
+    for(int i = 0; i < getAuthenticatedDataLength(nbOfRecipients); i=i+4) {
+        cout << "A[" << dec << i << "]: " << hex << A[i] << "    " << "A[" << dec << i+1 << "]: " << hex << A[i+1] << "    "  << "A[" << dec << i+2 << "]: " << hex << A[i+2] << "    "  << "A[" << dec << i+3 << "]: " << hex << A[i+3] << "    " << endl;
     }
     cout << endl;
 
     // Decode A-array
-    int recNbOfRecipients;
-    int readOut = 0;
-    G2 recU;
-    Big recW;
-    vector <Big> recvs;
-    char tempString[U_LEN];
-    char tempString2[W_LEN+1];
-    memcpy(&recNbOfRecipients, A, sizeof(recNbOfRecipients));
-    readOut = sizeof(nbOfRecipients);
-    strncpy(tempString, &A[readOut], U_LEN);
-    recU = g2From((string)tempString);
-    readOut += U_LEN;
-    strncpy(tempString2, &A[readOut], W_LEN);
-    recW = (Big) tempString2;
-    readOut += W_LEN;
-    for(int i = 0; i < recNbOfRecipients; i++) {
-        strncpy(tempString2,&A[readOut], V_LEN);
-        recvs.push_back((Big)tempString2);
-        readOut += V_LEN;
-    }
+    authenticatedData_t ad = decodeAuthenticatedDataArray(A);
 
-    if(recNbOfRecipients == nbOfRecipients && U == recU && W == recW) {
+    if(ad.nbOfRecipients == nbOfRecipients && U == ad.U && W == ad.W) {
         cout << "successful decoding!" << endl;
         for(int i = 0; i < nbOfRecipients; i++) {
-            if(recvs.at(i) != vs.at(i)) {
+            if(ad.vs.at(i) != vs.at(i)) {
                 cout << "altough V[" << i << "] differs from Vrec[" << i << "]" << endl;
             }
         }
     } else {
         cout << "Something went very very wrong" << endl;
-    }*/
+    }
 /*
     gcm g;
     char C[SES_KEY_LEN];
@@ -390,3 +374,41 @@ int getBroadcastMessageLength(int nbOfRecipients, string message) {
 float getExecutionTime(float begin_time) {
     return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }
+
+void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A) {
+    memset(A, 0, sizeof(A));
+    int filled = 0;
+    memcpy(A,&(ad.nbOfRecipients), sizeof(ad.nbOfRecipients));
+    filled = sizeof(ad.nbOfRecipients);
+    strcpy(&A[filled],toString(ad.U).c_str());
+    filled += U_LEN;
+    strcpy(&A[filled],toString(ad.W).c_str());
+    filled += W_LEN;
+    for(int i = 0; i < ad.nbOfRecipients; i++){
+        strcpy(&A[filled],toString(ad.vs.at(i)).c_str());
+        filled += V_LEN;
+    }
+}
+
+authenticatedData_t decodeAuthenticatedDataArray(char * A) {
+    // Decode A-array
+    authenticatedData_t ad;
+    int readOut = 0;
+    char tempString[U_LEN];
+    char tempString2[W_LEN];
+    memcpy(&(ad.nbOfRecipients), A, sizeof(ad.nbOfRecipients));
+    readOut += sizeof(ad.nbOfRecipients);
+    strncpy(tempString, &A[readOut], U_LEN);
+    ad.U = g2From((string)tempString);
+    readOut += U_LEN;
+    strncpy(tempString2, &A[readOut], W_LEN);
+    ad.W = (Big)tempString2;
+    readOut += W_LEN;
+    for(int i = 0; i < ad.nbOfRecipients; i++) {
+        strncpy(tempString2,&A[readOut], V_LEN);
+        ad.vs.push_back((Big)tempString2);
+        readOut += V_LEN;
+    }
+    return ad;
+}
+
