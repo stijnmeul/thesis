@@ -28,10 +28,10 @@ using namespace std;
 static size_t WriteCallback(void *, size_t, size_t, void *);
 
 struct authenticatedData_t {
-  int nbOfRecipients;
-  G2 U;
-  Big W;
-  vector <Big> vs;
+    int nbOfRecipients;
+    G2 U;
+    Big W;
+    vector <Big> vs;
 };
 
 G2 g2From(string);
@@ -39,12 +39,11 @@ G1 g1From(string);
 string toString(G2);
 string toString(G1);
 string toString(Big);
-int getAuthenticatedDataLength(int);
-int getBroadcastMessageLength(int, string);
-float getExecutionTime(float);
+int getAuthenticatedDataLength(int nbOfRecipients);
+int getBroadcastMessageLength(int nbOfRecipients, string message);
+float getExecutionTime(float begin_time);
 void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
 authenticatedData_t decodeAuthenticatedDataArray(char * A);
-void getRandomBits(int nbOfBits, char * k);
 
 PFC pfc(AES_SECURITY);
 miracl *mip = get_mip();
@@ -120,7 +119,10 @@ int main(void)
     **************************************************/
     // Read out 256 random bits from /dev/urandom
     char k[SES_KEY_LEN];
-    getRandomBits(k, SES_KEY_LEN);
+    FILE *fp;
+    fp = fopen("/dev/urandom", "r");
+    fread(&k, 1, SES_KEY_LEN, fp);
+    fclose(fp);
 
     // Hash 256 bits to an encryption key K1 and an initialisation vector IV
     char hash[HASH_LEN];
@@ -152,7 +154,6 @@ int main(void)
     G2 P, Ppub, U;
     G1 Q1, D, rQ;
     Big sigma, r, V, W, sigma_hash;
-    ZZn4 test;
 
     // Get Ppub, P and D from the PKG's XML message
     Ppub = g2From(p_pub);
@@ -264,6 +265,7 @@ int main(void)
     gcm_finish(&g, T);
 
     char broadCastMessage[getBroadcastMessageLength(nbOfRecipients, message)];
+
     int filled = 0;
     memcpy(broadCastMessage, A, Alen);
     filled += Alen;
@@ -446,12 +448,4 @@ authenticatedData_t decodeAuthenticatedDataArray(char * A) {
     }
     return ad;
 }
-
-void getRandomBits(int nbOfBits, char * k) {
-    FILE *fp;
-    fp = fopen("/dev/urandom", "r");
-    int bytes_read = fread(&k, 1, nbOfBits, fp);
-    fclose(fp);
-}
-
 
