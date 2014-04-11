@@ -44,6 +44,7 @@ int getBroadcastMessageLength(int, string);
 float getExecutionTime(float);
 void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
 authenticatedData_t decodeAuthenticatedDataArray(char * A);
+void getRandomBits(int nbOfBits, char * k);
 
 PFC pfc(AES_SECURITY);
 miracl *mip = get_mip();
@@ -119,10 +120,7 @@ int main(void)
     **************************************************/
     // Read out 256 random bits from /dev/urandom
     char k[SES_KEY_LEN];
-    FILE *fp;
-    fp = fopen("/dev/urandom", "r");
-    int bytes_read = fread(&k, 1, SES_KEY_LEN, fp);
-    fclose(fp);
+    getRandomBits(k, SES_KEY_LEN);
 
     // Hash 256 bits to an encryption key K1 and an initialisation vector IV
     char hash[HASH_LEN];
@@ -144,13 +142,8 @@ int main(void)
     memcpy(k1,hash,HASH_LEN/2);
     memcpy(iv,&hash[HASH_LEN/2],HASH_LEN/2);
 
-    // The secret message
-    Big ses_key;
-    /*mip->IOBASE = 256;
-    ses_key = (char *)hash;
-    mip->IOBASE = 16;
-    cout << "Symmetric session key to encrypt" << endl << ses_key << endl;*/
-    ses_key = from_binary(HASH_LEN, hash);
+    // The secret session key
+    Big ses_key = from_binary(HASH_LEN, hash);
     cout << "Symmetric session key to encrypt" << endl << ses_key << endl;
 
     /*************************************************
@@ -453,4 +446,12 @@ authenticatedData_t decodeAuthenticatedDataArray(char * A) {
     }
     return ad;
 }
+
+void getRandomBits(int nbOfBits, char * k) {
+    FILE *fp;
+    fp = fopen("/dev/urandom", "r");
+    int bytes_read = fread(&k, 1, nbOfBits, fp);
+    fclose(fp);
+}
+
 
