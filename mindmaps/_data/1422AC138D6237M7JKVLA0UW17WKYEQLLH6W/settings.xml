@@ -1,4 +1,4 @@
-<project name="My Thesis" ID="1422AC138D6237M7JKVLA0UW17WKYEQLLH6W" version="docear 1.0">
+<project name="My Thesis" version="docear 1.0" ID="1422AC138D6237M7JKVLA0UW17WKYEQLLH6W">
 <folder type="library" name="Library">
 <link type="literature_annotations" name="Literature &amp; Annotations" path="project://1422AC138D6237M7JKVLA0UW17WKYEQLLH6W/_data/1422AC138D6237M7JKVLA0UW17WKYEQLLH6W/default_files/literature_and_annotations.mm"/>
 <link type="file" name="Temp" path="project://1422AC138D6237M7JKVLA0UW17WKYEQLLH6W/_data/1422AC138D6237M7JKVLA0UW17WKYEQLLH6W/default_files/temp.mm" system="true"/>

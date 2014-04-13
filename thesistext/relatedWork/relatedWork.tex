@@ -1,0 +1,23 @@
+\documentclass[11pt]{article}
+
+\usepackage{dsfont}
+\usepackage[none]{hyphenat}
+\usepackage{amsmath}
+\usepackage{mathabx}
+\usepackage{anysize}
+\usepackage{color}
+
+\marginsize{3.5cm}{3.5cm}{2cm}{2cm}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\section*{Related Work}
+
+\paragraph{Identity Based Encryption} The first concept of Identity-Based Encryption (IBE) was introduced by Shamir in 1984~\cite{DBLP:conf/crypto/Shamir84}. Although Shamir easily constructed an identity-based signature scheme based on RSA, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{BonehFranklinIBE} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{BonehFranklinIBE} still relies on the random oracle assumption. Canetti et al.~\cite{Canetti} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{Canetti} requires the adversary to declare which identity it will target, therefore the scheme in~\cite{BonehBoyenRandomOracles} is considered more secure as attackers can adaptively choose the targeted identity. Gentry~\cite{GentryRandomOracles} proposes a more efficient alternative to this scheme without random oracles while achieving shorter public parameters. 
+
+\paragraph{Broadcast Encryption}
+\bibliographystyle{abbrv}
+\bibliography{referencesToRelatedWork}
+
+\end{document}

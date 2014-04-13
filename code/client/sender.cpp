@@ -27,11 +27,111 @@ using namespace std;
 
 static size_t WriteCallback(void *, size_t, size_t, void *);
 
+PFC pfc(AES_SECURITY);
+
 struct authenticatedData_t {
     int nbOfRecipients;
     G2 U;
     Big W;
     vector <Big> vs;
+};
+
+class AuthenticatedData {
+    int nbOfRecipients;
+    G2 U;
+    Big W;
+    vector <Big> vs;
+public:
+    G2 getU() {
+        return U;
+    }
+    Big getW() {
+        return W;
+    }
+    int getNbOfRecipients() {
+        return nbOfRecipients;
+    }
+    int getLength(int nbOfRecipients) {
+        return U_LEN + nbOfRecipients*V_LEN + W_LEN + sizeof(int);
+    }
+    //void add
+};
+
+class BroadcastMessage {
+    vector <string> recipients;
+    vector <G1> recipientHashes;
+    string message;
+    AuthenticatedData autData;
+    char * encryptedData;
+    G2 P;
+    G2 Ppub;
+    char sessionKey[HASH_LEN];
+
+public:
+    BroadcastMessage(string message) {
+        this->message = message;
+
+        /*************************************************
+        *     Generate random symmetric session key      *
+        **************************************************/
+        // Read out 256 random bits from /dev/urandom
+        char k[SES_KEY_LEN];
+        FILE *fp;
+        fp = fopen("/dev/urandom", "r");
+        fread(&k, 1, SES_KEY_LEN, fp);
+        fclose(fp);
+
+        // Hash 256 bits to an encryption key K1 and an initialisation vector IV
+        char hash[HASH_LEN];
+        sha256 sh;
+
+        shs256_init(&sh);
+
+        for(int i = 0; i < HASH_LEN; i++) {
+            shs256_process(&sh,k[i]);
+            shs256_hash(&sh,hash);
+        }
+        cout << "hash:" << endl;
+        for(int i = 0; i<HASH_LEN; i++) {
+            cout << hex << hash[i];
+        }
+        cout << endl;
+        char k1[HASH_LEN/2];
+        char iv[HASH_LEN/2];
+        memcpy(k1,hash,HASH_LEN/2);
+        memcpy(iv,&hash[HASH_LEN/2],HASH_LEN/2);
+
+        // The secret session key used to AES encrypt this message
+        Big sessionKey = from_binary(HASH_LEN, hash);
+    }
+    void addRecipient(string recipient) {
+        G1 Q1;
+
+        // Add recipient to the recipient list
+        recipients.push_back(recipient);
+        // Add hash of recipient to the recipientHashes list
+        pfc.hash_and_map(Q1, (char *)recipient.c_str());
+        recipientHashes.push_back(Q1);
+        // Add
+    }
+    int getNbOfRecipients() {
+        return recipients.size();
+    }
+    string getMessage() {
+        return message;
+    }
+    int getBroadcastMessageLength() {
+        if(recipients.size() == 0)
+            return 0;
+        else
+            return autData.getLength(recipients.size()) + TAG_LEN + message.length();
+    }
+    void getIV(char (&iv)[HASH_LEN/2]) {
+        memcpy(iv,&sessionKey[HASH_LEN/2],HASH_LEN/2);
+    }
+    void getK1(char (&k1)[HASH_LEN/2]) {
+        memcpy(k1,&sessionKey,HASH_LEN/2);
+    }
 };
 
 G2 g2From(string);
@@ -45,7 +145,6 @@ float getExecutionTime(float begin_time);
 void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
 authenticatedData_t decodeAuthenticatedDataArray(char * A);
 
-PFC pfc(AES_SECURITY);
 miracl *mip = get_mip();
 int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 
@@ -448,4 +547,3 @@ authenticatedData_t decodeAuthenticatedDataArray(char * A) {
     }
     return ad;
 }
-
