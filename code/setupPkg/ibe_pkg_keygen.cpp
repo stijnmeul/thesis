@@ -61,6 +61,7 @@
 #define BUF_SIZE 4096
 
 void *connection_handler(void *);
+string extract(char * id);
 
 PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
@@ -170,9 +171,8 @@ int main(int argc, char *argv[])
 
      // Listen to socket and accept incoming connections
     listen(sockfd,5);
-    while(1){
-        clilen = sizeof(cli_addr);
-        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+    clilen = sizeof(cli_addr);
+    while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) )){
         cout << "newsockfd: " << newsockfd << endl;
         if (newsockfd < 0)
             error("ERROR on accept");
@@ -181,32 +181,38 @@ int main(int argc, char *argv[])
         pthread_t sniffer_thread;
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , new int(newsockfd)) < 0)
             perror("ERROR on creating thread");
-        close(newsockfd);
+
         sleep(1);
     }
 
-
 	return 0;
 }
+
+// The following function is executed concurrently with other threads
 void *connection_handler(void *arg) {
+	/* UNCOMMENT THIS CODE SNIPPET TO SEE WHETHER MULTITHREADING IS WORKING
+	cout << "Started sleeping..." << endl << endl;
+	sleep(10);
+	cout << "Waking up..." << endl << endl;
+	*/
 	char buffer[BUF_SIZE];
-	memset((char *) &buffer,0,sizeof(buffer));
+	//memset((char *) &buffer,0,sizeof(buffer));
 	int * data = reinterpret_cast<int*>(arg);
 	int sockfd = *data;
 	cout << "sockfd is " << sockfd << endl;
 	// Read out socket.
-    int n = read(sockfd,buffer,sizeof(buffer));
+    int n = recv(sockfd,buffer,sizeof(buffer),0);
     Big s;
     if (n < 0)
     	error("ERROR reading from socket");
 
-    string ext_pvt_key = extract(buffer, s);
+    string ext_pvt_key = extract(buffer);
     cout << "Received ID:" << endl << buffer << endl;
     cout << "Extracted private key:" << endl << ext_pvt_key << endl;
 
     strcpy(buffer, ext_pvt_key.c_str());
 
-    n = write(sockfd,buffer,sizeof(buffer));
+    n = send(sockfd,buffer,sizeof(buffer),0);
 
     if (n < 0) error("ERROR writing to socket");
 
@@ -215,7 +221,8 @@ void *connection_handler(void *arg) {
 
     return 0;
 }
-string extract(char * id, Big s) {
+string extract(char * id) {
+	//Big s is a global variable!
 	/**********
 	* EXTRACT
 	***********/
@@ -224,6 +231,8 @@ string extract(char * id, Big s) {
 	pfc.hash_and_map(Q1, (char*)id);
 	// Calculate private key of Alice as D=s.Q1
 	D = pfc.mult(Q1, s);
+
+	cout << "Value of s in extract is " << s << endl;
 
 	return toString(D);
 }
