@@ -60,9 +60,12 @@
 #define PORT_NB 5000
 #define BUF_SIZE 4096
 
+void *connection_handler(void *);
+
 PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
 int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
 
+Big s;
 int main(int argc, char *argv[])
 {
 	/*************************************************
@@ -75,7 +78,6 @@ int main(int argc, char *argv[])
 	char msk[bytes_per_big];
 	char * pwd;
 	char hash[HASH_LEN];
-	Big s;
 
 	ifstream file;
 	gcm g;
@@ -152,16 +154,12 @@ int main(int argc, char *argv[])
     int sockfd, newsockfd;
     socklen_t clilen;
 
-    char buffer[BUF_SIZE];
     struct sockaddr_in serv_addr, cli_addr;
-    int n;
 
     // Initialise the socket descriptor.
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
         error("ERROR opening socket");
-    // Set buffer to zero
-    memset((char *) &serv_addr,'0',sizeof(serv_addr));
 
     // Bind socket to port
     serv_addr.sin_family = AF_INET;
@@ -173,42 +171,50 @@ int main(int argc, char *argv[])
      // Listen to socket and accept incoming connections
     listen(sockfd,5);
     while(1){
-        memset((char *) &buffer,0,sizeof(buffer));
         clilen = sizeof(cli_addr);
-        // Accept incoming connections
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        cout << "newsockfd: " << newsockfd << endl;
         if (newsockfd < 0)
             error("ERROR on accept");
-        int pid = fork();
-        if (pid < 0)
-        	error("ERROR on fork");
-        if (pid == 0) {
-        	close(sockfd);
-        	 // Read out socket.
-	        n = read(newsockfd,buffer,sizeof(buffer));
-	        if (n < 0)
-	        	error("ERROR reading from socket");
-	        string ext_pvt_key = extract(buffer, s);
-	        cout << "Received ID:" << endl << buffer << endl;
-	        cout << "Extracted private key:" << endl << ext_pvt_key << endl;
 
-	        strcpy(buffer, ext_pvt_key.c_str());
-
-	        n = write(newsockfd,buffer,sizeof(buffer));
-
-	        if (n < 0) error("ERROR writing to socket");
-
-	        exit(0);
-        } else {
-        	close(newsockfd);
-        }
-        //sleep(1);
+        // Initialise new thread
+        pthread_t sniffer_thread;
+        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , new int(newsockfd)) < 0)
+            perror("ERROR on creating thread");
+        close(newsockfd);
+        sleep(1);
     }
 
 
 	return 0;
 }
+void *connection_handler(void *arg) {
+	char buffer[BUF_SIZE];
+	memset((char *) &buffer,0,sizeof(buffer));
+	int * data = reinterpret_cast<int*>(arg);
+	int sockfd = *data;
+	cout << "sockfd is " << sockfd << endl;
+	// Read out socket.
+    int n = read(sockfd,buffer,sizeof(buffer));
+    Big s;
+    if (n < 0)
+    	error("ERROR reading from socket");
 
+    string ext_pvt_key = extract(buffer, s);
+    cout << "Received ID:" << endl << buffer << endl;
+    cout << "Extracted private key:" << endl << ext_pvt_key << endl;
+
+    strcpy(buffer, ext_pvt_key.c_str());
+
+    n = write(sockfd,buffer,sizeof(buffer));
+
+    if (n < 0) error("ERROR writing to socket");
+
+    delete data;
+    pthread_detach(pthread_self());
+
+    return 0;
+}
 string extract(char * id, Big s) {
 	/**********
 	* EXTRACT
