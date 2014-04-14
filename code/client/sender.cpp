@@ -82,27 +82,14 @@ public:
         fclose(fp);
 
         // Hash 256 bits to an encryption key K1 and an initialisation vector IV
-        char hash[HASH_LEN];
         sha256 sh;
 
         shs256_init(&sh);
 
         for(int i = 0; i < HASH_LEN; i++) {
             shs256_process(&sh,k[i]);
-            shs256_hash(&sh,hash);
+            shs256_hash(&sh,sessionKey);
         }
-        cout << "hash:" << endl;
-        for(int i = 0; i<HASH_LEN; i++) {
-            cout << hex << hash[i];
-        }
-        cout << endl;
-        char k1[HASH_LEN/2];
-        char iv[HASH_LEN/2];
-        memcpy(k1,hash,HASH_LEN/2);
-        memcpy(iv,&hash[HASH_LEN/2],HASH_LEN/2);
-
-        // The secret session key used to AES encrypt this message
-        Big sessionKey = from_binary(HASH_LEN, hash);
     }
     void addRecipient(string recipient) {
         G1 Q1;

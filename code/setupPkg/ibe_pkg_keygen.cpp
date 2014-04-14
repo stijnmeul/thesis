@@ -175,27 +175,34 @@ int main(int argc, char *argv[])
     while(1){
         memset((char *) &buffer,0,sizeof(buffer));
         clilen = sizeof(cli_addr);
+        // Accept incoming connections
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0)
             error("ERROR on accept");
+        int pid = fork();
+        if (pid < 0)
+        	error("ERROR on fork");
+        if (pid == 0) {
+        	close(sockfd);
+        	 // Read out socket.
+	        n = read(newsockfd,buffer,sizeof(buffer));
+	        if (n < 0)
+	        	error("ERROR reading from socket");
+	        string ext_pvt_key = extract(buffer, s);
+	        cout << "Received ID:" << endl << buffer << endl;
+	        cout << "Extracted private key:" << endl << ext_pvt_key << endl;
 
-        // Read out socket.
-        n = read(newsockfd,buffer,sizeof(buffer));
-        if (n < 0)
-        	error("ERROR reading from socket");
+	        strcpy(buffer, ext_pvt_key.c_str());
 
-        string ext_pvt_key = extract(buffer, s);
-        cout << "Received ID:" << endl << buffer << endl;
-        cout << "Extracted private key:" << endl << ext_pvt_key << endl;
+	        n = write(newsockfd,buffer,sizeof(buffer));
 
-        strcpy(buffer, ext_pvt_key.c_str());
+	        if (n < 0) error("ERROR writing to socket");
 
-        n = write(newsockfd,buffer,sizeof(buffer));
-
-        if (n < 0) error("ERROR writing to socket");
-
-        close(newsockfd);
-        sleep(1);
+	        exit(0);
+        } else {
+        	close(newsockfd);
+        }
+        //sleep(1);
     }
 
 
