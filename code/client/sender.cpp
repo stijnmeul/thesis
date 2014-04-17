@@ -1,3 +1,8 @@
+/**
+ * TODO: Add recipients to plaintext message as well.
+ *
+ **/
+
 #include <stdio.h>
 #include <curl/curl.h>
 #include <string>
@@ -32,29 +37,38 @@ PFC pfc(AES_SECURITY);
 struct authenticatedData_t {
     int nbOfRecipients;
     G2 U;
-    Big W;
-    vector <Big> vs;
+    Big V;
+    vector <Big> ws;
 };
 
 class AuthenticatedData {
     int nbOfRecipients;
     G2 U;
-    Big W;
-    vector <Big> vs;
+    Big V;
+    vector <Big> ws;
 public:
     G2 getU() {
         return U;
     }
-    Big getW() {
-        return W;
+    Big getV() {
+        return V;
+    }
+    void setU(G2 U) {
+        this->U = U;
+    }
+    void setV(Big V) {
+        this->V = V;
     }
     int getNbOfRecipients() {
         return nbOfRecipients;
     }
     int getLength(int nbOfRecipients) {
-        return U_LEN + nbOfRecipients*V_LEN + W_LEN + sizeof(int);
+        return U_LEN + nbOfRecipients*W_LEN + V_LEN + sizeof(int);
     }
-    //void add
+    void addCiphertext(Big cipherText) {
+        ws.push_back(cipherText);
+        nbOfRecipients += 1;
+    }
 };
 
 class BroadcastMessage {
@@ -71,16 +85,40 @@ class BroadcastMessage {
     /********************************************************
      *  Private parameters of the Boneh and Franklin scheme *
      ********************************************************/
-    Big sigma;
-    Big r;
+    Big sigma = 0;
+    Big r = 0;
 
 public:
     BroadcastMessage(string message) {
         this->message = message;
+    }
+    void addRecipient(string recipient) {
+        G1 Q1;
 
-        /*************************************************
-        *     Generate random symmetric session key      *
-        **************************************************/
+        // Add recipient to the recipient list
+        recipients.push_back(recipient);
+        // Add hash of recipient to the recipientHashes list
+        pfc.hash_and_map(Q1, (char *)recipient.c_str());
+        recipientHashes.push_back(Q1);
+        // Add K XOR g_ID = V to Authenticated Data
+        G1 rQ = pfc.mult(Q1, r);
+        Big W = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
+        W = lxor(sigma, W);
+        autData.addCiphertext(W);
+    }
+    int getNbOfRecipients() {
+        return recipients.size();
+    }
+    string getMessage() {
+        return message;
+    }
+    int getBroadcastMessageLength() {
+        if(recipients.size() == 0)
+            return 0;
+        else
+            return autData.getLength(recipients.size()) + TAG_LEN + message.length();
+    }
+    void generateKeys() {
         // Read out 256 random bits from /dev/urandom
         char k[SES_KEY_LEN];
         FILE *fp;
@@ -107,34 +145,22 @@ public:
         pfc.add_to_hash(ses_key);
         r = pfc.finish_hash_to_group();
     }
-    void addRecipient(string recipient) {
-        G1 Q1;
 
-        // Add recipient to the recipient list
-        recipients.push_back(recipient);
-        // Add hash of recipient to the recipientHashes list
-        pfc.hash_and_map(Q1, (char *)recipient.c_str());
-        recipientHashes.push_back(Q1);
-        // Add
-    }
-    int getNbOfRecipients() {
-        return recipients.size();
-    }
-    string getMessage() {
-        return message;
-    }
-    int getBroadcastMessageLength() {
-        if(recipients.size() == 0)
-            return 0;
-        else
-            return autData.getLength(recipients.size()) + TAG_LEN + message.length();
-    }
+private:
     void getIV(char (&iv)[HASH_LEN/2]) {
         memcpy(iv,&sessionKey[HASH_LEN/2],HASH_LEN/2);
     }
     void getK1(char (&k1)[HASH_LEN/2]) {
         memcpy(k1,&sessionKey,HASH_LEN/2);
     }
+};
+
+class EncryptedMessage: public BroadcastMessage {
+
+};
+
+class DecryptedMessage: public BroadcastMessage {
+
 };
 
 G2 g2From(string);
@@ -424,7 +450,7 @@ int main(void)
     mip->IOBASE = 16;
 
     // Vector of V values
-    vector <Big> vs;
+    vector <Big> ws;
     // V = sigma XOR Hash(e(Q1,Ppub)^r)
     // Note that e(Q1,Ppub)^r = e(r.Q1, Ppub) such that
     // V = sigma XOR Hash(e(r.Q1,Ppub))
@@ -432,7 +458,7 @@ int main(void)
         rQ = pfc.mult(recipientHashes.at(i), r);
         V = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
         V = lxor(sigma, V);
-        vs.push_back(V);
+        ws.push_back(V);
     }
 
     // W = M XOR Hash(sigma)
@@ -455,8 +481,8 @@ int main(void)
     authenticatedData_t ad1;
     ad1.nbOfRecipients = nbOfRecipients;
     ad1.U = U;
-    ad1.W = W;
-    ad1.vs = vs;
+    ad1.V = W;
+    ad1.ws = ws;
     encodeAuthenticatedDataArray(ad1, A);
 
     /*
@@ -510,7 +536,7 @@ int main(void)
     if(ad.nbOfRecipients == nbOfRecipients && U == ad.U && W == ad.W) {
         cout << "successful decoding!" << endl;
         for(int i = 0; i < nbOfRecipients; i++) {
-            if(ad.vs.at(i) != vs.at(i)) {
+            if(ad.ws.at(i) != ws.at(i)) {
                 cout << "altough V[" << i << "] differs from Vrec[" << i << "]" << endl;
             }
         }
@@ -523,7 +549,7 @@ int main(void)
     Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(U,D));
     while(U != uCalc && i < ad.nbOfRecipients){
         // sigma = V XOR Hash(e(D,U))
-        V=vs.at(i);
+        V=ws.at(i);
         sigma = lxor(V, ud_hash);
 
         // M = W XOR Hash(sigma)
@@ -653,10 +679,10 @@ void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A) {
     filled = sizeof(ad.nbOfRecipients);
     strcpy(&A[filled],toString(ad.U).c_str());
     filled += U_LEN;
-    strcpy(&A[filled],toString(ad.W).c_str());
+    strcpy(&A[filled],toString(ad.V).c_str());
     filled += W_LEN;
     for(int i = 0; i < ad.nbOfRecipients; i++){
-        strcpy(&A[filled],toString(ad.vs.at(i)).c_str());
+        strcpy(&A[filled],toString(ad.ws.at(i)).c_str());
         filled += V_LEN;
     }
 }
@@ -673,11 +699,11 @@ authenticatedData_t decodeAuthenticatedDataArray(char * A) {
     ad.U = g2From((string)tempString);
     readOut += U_LEN;
     strncpy(tempString2, &A[readOut], W_LEN);
-    ad.W = (Big)tempString2;
+    ad.V = (Big)tempString2;
     readOut += W_LEN;
     for(int i = 0; i < ad.nbOfRecipients; i++) {
         strncpy(tempString2,&A[readOut], V_LEN);
-        ad.vs.push_back((Big)tempString2);
+        ad.ws.push_back((Big)tempString2);
         readOut += V_LEN;
     }
     return ad;
