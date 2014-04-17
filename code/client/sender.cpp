@@ -265,10 +265,71 @@ int main(void)
 
     // Vector of intended recipients
     vector<string> recipients;
+
+
+    // First 4 (because Alice is number 5)
     recipients.push_back("Andre");
     recipients.push_back("Adam");
     recipients.push_back("Dylan");
     recipients.push_back("Fred");
+    // 5
+    recipients.push_back("Adam1");
+    recipients.push_back("Dylan1");
+    recipients.push_back("Fred1");
+    recipients.push_back("Andre2");
+    recipients.push_back("Adam2");
+    // 10
+    recipients.push_back("Dylan2");
+    recipients.push_back("Patrick");
+    recipients.push_back("Ferdinand");
+    recipients.push_back("Filipe");
+    recipients.push_back("Frits");
+    // 15
+    recipients.push_back("Frank");
+    recipients.push_back("Giovanni");
+    recipients.push_back("Gianni");
+    recipients.push_back("Kennedy");
+    recipients.push_back("John");
+    // 20
+    recipients.push_back("Aster");
+    recipients.push_back("Jonas");
+    recipients.push_back("Riek");
+    recipients.push_back("Stefan");
+    recipients.push_back("Tim");
+    // 25
+    recipients.push_back("Nolan");
+    recipients.push_back("Vincent");
+    recipients.push_back("Frederick");
+    recipients.push_back("Gerrit");
+    recipients.push_back("Anne-Laure");
+    // 30
+    recipients.push_back("Nolan");
+    recipients.push_back("Vincent");
+    recipients.push_back("Frederick");
+    recipients.push_back("Gerrit");
+    recipients.push_back("Anne-Laure");
+    // 35
+    recipients.push_back("Michael");
+    recipients.push_back("Alexander");
+    recipients.push_back("Wouter");
+    recipients.push_back("Bart");
+    recipients.push_back("David");
+    // 40
+    recipients.push_back("Prisca");
+    recipients.push_back("Isabel");
+    recipients.push_back("Laure");
+    recipients.push_back("Tine");
+    recipients.push_back("Sarah");
+    // 45
+    recipients.push_back("Joke");
+    recipients.push_back("Laura");
+    recipients.push_back("Tess");
+    recipients.push_back("Evelien");
+    recipients.push_back("Eline");
+    // 50
+    /*
+    */
+    // Alice is here :)
     recipients.push_back(RECEIVER_ID);
     int nbOfRecipients = recipients.size();
 
@@ -278,9 +339,6 @@ int main(void)
     for(int i =0; i < nbOfRecipients; i++) {
         pfc.hash_and_map(Q1, (char *)recipients.at(i).c_str());
         recipientHashes.push_back(Q1);
-        if(i==0) {
-            enc_time1 = getExecutionTime(begin_time);
-        }
     }
     begin_time1 = clock();
     // U = r.P
@@ -299,11 +357,7 @@ int main(void)
         V = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
         V = lxor(sigma, V);
         vs.push_back(V);
-        if(i==0) {
-            enc_time1 += getExecutionTime(begin_time1);
-        }
     }
-    begin_time1 = clock();
 
     // W = M XOR Hash(sigma)
     pfc.start_hash();
@@ -312,10 +366,8 @@ int main(void)
     W = lxor(ses_key, sigma_hash);
 
     enc_time = getExecutionTime(begin_time);
-    enc_time1 += getExecutionTime(begin_time1);
-    cout << "Total encryption time:                    " << enc_time << endl;
-    cout << "Encryption time for first recipient:      " << enc_time1 << endl;
-    cout << "Encryption time per additional recipient: " << (enc_time - enc_time1)/(nbOfRecipients-1) << endl;
+    //cout << "Encryption time for first recipient:      " << enc_time1 << endl;
+    //cout << "Encryption time per additional recipient: " << (enc_time - enc_time1)/(nbOfRecipients-1) << endl;
 
     /*************************************************
     *       AES GCM part of the encryption step      *
@@ -358,23 +410,27 @@ int main(void)
     memcpy(&broadCastMessage[filled], T, TAG_LEN);
     filled += TAG_LEN;
     memcpy(&broadCastMessage[filled], C, message.length());
-    cout << "broadCastMessage:" << endl;
+    /*cout << "broadCastMessage:" << endl;
     for(int i = 0; i < sizeof(broadCastMessage); i++) {
         cout << broadCastMessage[i];
     }
-    cout << endl;
+    cout << endl;*/
+    cout << "Total encryption time:                    " << enc_time << endl;
     "***********************************************************************************************************************";
     "*                                                           DECRYPT                                                   *";
     "***********************************************************************************************************************";
     /*************************************************
     *         IBE part of the decryption step        *
     **************************************************/
+    begin_time = clock();
     // Overwrite existing A array
     memcpy(A, broadCastMessage, Alen);
 
     // Decode A-array
     authenticatedData_t ad = decodeAuthenticatedDataArray(A);
+    int readOut = Alen;
 
+    /*
     if(ad.nbOfRecipients == nbOfRecipients && U == ad.U && W == ad.W) {
         cout << "successful decoding!" << endl;
         for(int i = 0; i < nbOfRecipients; i++) {
@@ -384,16 +440,15 @@ int main(void)
         }
     } else {
         cout << "Something went very very wrong" << endl;
-    }
-
-    begin_time = clock();
-    r = 0;
+    }*/
     int i = 0;
     // Iterate over all V values until U equals rP.
-    while(U != pfc.mult(P,r) && i < nbOfRecipients){
+    G2 uCalc;
+    Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(U,D));
+    while(U != uCalc && i < ad.nbOfRecipients){
         // sigma = V XOR Hash(e(D,U))
         V=vs.at(i);
-        sigma = lxor(V, pfc.hash_to_aes_key(pfc.pairing(U,D)));
+        sigma = lxor(V, ud_hash);
 
         // M = W XOR Hash(sigma)
         pfc.start_hash();
@@ -406,7 +461,9 @@ int main(void)
         pfc.add_to_hash(sigma);
         pfc.add_to_hash(ses_key);
         r = pfc.finish_hash_to_group();
+        uCalc = pfc.mult(P,r);
 
+        /*
         if(U != pfc.mult(P,r)) {
             cout << "Decrypting " << recipients.at(i) << "'s session key." << endl;
             cout << "U does not equal rP. Rejected the ciphertext." << endl;
@@ -421,12 +478,12 @@ int main(void)
             begin_time1 = clock();
         } else if(i==1) {
             dec_time2 = getExecutionTime(begin_time1);
-        }
+        } */
         i++;
     }
-    cout << "Total decryption time:                    " << dec_time << endl;
-    cout << "Decryption time for first recipient:      " << dec_time1 << endl;
-    cout << "Decryption time per additional recipient: " << dec_time2 - dec_time1 << endl;
+
+    //cout << "Decryption time for first recipient:      " << dec_time1 << endl;
+    //cout << "Decryption time per additional recipient: " << dec_time2 - dec_time1 << endl;
 
     /*************************************************
     *       AES GCM part of the decryption step      *
@@ -443,6 +500,21 @@ int main(void)
     gcm_add_header(&g, A, Alen);
     gcm_add_cipher(&g, GCM_DECRYPTING, P_text, message.length(), C);
     gcm_finish(&g, T);
+    char Trec[TAG_LEN];
+    memcpy(Trec, &broadCastMessage[Alen], TAG_LEN);
+    bool integrity = true;
+    for (int i = 0; i < TAG_LEN; i++) {
+        if(Trec[i] != T[i]) {
+            integrity = false;
+        }
+    }
+    dec_time = getExecutionTime(begin_time);
+    cout << "Total decryption time:                    " << dec_time << endl;
+    if(integrity == false) {
+        cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
+    } else {
+        cout << "Successful integrity check!" << endl;
+    }
 
     message = (string)P_text;
 

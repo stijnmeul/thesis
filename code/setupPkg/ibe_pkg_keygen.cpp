@@ -179,10 +179,9 @@ int main(int argc, char *argv[])
 
         // Initialise new thread
         pthread_t sniffer_thread;
+        //mr_init_threading();
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , new int(newsockfd)) < 0)
             perror("ERROR on creating thread");
-
-        sleep(1);
     }
 
 	return 0;
