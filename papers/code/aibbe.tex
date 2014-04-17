@@ -40,10 +40,10 @@ The symmetric key space is $K = \{ 0,1 \}^{256} = \{ K_1 || IV \}$ with $K_1 = \
   W_i = \sigma \oplus H_2 \left( g_{{\textrm{\tiny{ID}}_i}}^r \right) \; \; \; \textrm{where} \; \; \; g_{\textrm{\tiny{ID}}_i} = e \left( Q_{\textrm{\tiny{ID}}_i}, P_{pub} \right) \in \mathds{G}_T^{*}
  \end{equation*}
  
- \item Apply GCM with initialisation vector $IV$ and secret key $K_1$. Plaintext is set to $P_{text} = M$ and the additional authenticated data:
+ \item Apply GCM with initialisation vector $IV$ and secret key $K_1$. Plaintext $P_{text}$ is the message to be broadcasted and the additional authenticated data:
  \begin{equation*}
  \begin{array}{lcl}
-  A & = & \{ n || rP || K \oplus H_4 \left( \sigma \right) || W_1 || W_2 || .. || W_n \} \\
+  A & = & \{ n || rP || K \oplus H_4 \left( \sigma \right) || W_1 || W_2 || .. || W_n || P_{text} \} \\
     & = & \{ n || U || V || W \} \; \; \; \textrm{where} \; \; \; W = \{ W_1 || W_2 || .. || W_n \}
  \end{array} 
  \end{equation*}
