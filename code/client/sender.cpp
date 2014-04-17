@@ -63,9 +63,16 @@ class BroadcastMessage {
     string message;
     AuthenticatedData autData;
     char * encryptedData;
+    // Public parameters of the Boneh and Franklin scheme
     G2 P;
     G2 Ppub;
     char sessionKey[HASH_LEN];
+
+    /********************************************************
+     *  Private parameters of the Boneh and Franklin scheme *
+     ********************************************************/
+    Big sigma;
+    Big r;
 
 public:
     BroadcastMessage(string message) {
@@ -90,6 +97,15 @@ public:
             shs256_process(&sh,k[i]);
             shs256_hash(&sh,sessionKey);
         }
+
+        // Generate random sigma key with AES_LENGTH bits
+        pfc.rankey(sigma);
+        // Calculate r=Hash(sigma,M)
+        pfc.start_hash();
+        pfc.add_to_hash(sigma);
+        Big ses_key = from_binary(HASH_LEN, sessionKey);
+        pfc.add_to_hash(ses_key);
+        r = pfc.finish_hash_to_group();
     }
     void addRecipient(string recipient) {
         G1 Q1;
@@ -273,6 +289,7 @@ int main(void)
     recipients.push_back("Dylan");
     recipients.push_back("Fred");
     // 5
+    /*
     recipients.push_back("Adam1");
     recipients.push_back("Dylan1");
     recipients.push_back("Fred1");
@@ -387,7 +404,6 @@ int main(void)
     recipients.push_back("Evelientje");
     recipients.push_back("Elineke");
     //100
-    /*
     */
     // Alice is here :)
     recipients.push_back(RECEIVER_ID);
