@@ -529,6 +529,125 @@ int main(void)
     D = g1From(d_id);
 
     PlaintextMessage mes = PlaintextMessage("Dit is een testje");
+    mes.addRecipient("Andre");
+    mes.addRecipient("Adam");
+    mes.addRecipient("Dylan");
+    mes.addRecipient("Fred");
+    // 5
+    mes.addRecipient("Adam1");
+    mes.addRecipient("Dylan1");
+    mes.addRecipient("Fred1");
+    mes.addRecipient("Andre2");
+    mes.addRecipient("Adam2");
+    // 10
+    mes.addRecipient("Dylan2");
+    mes.addRecipient("Patrick");
+    mes.addRecipient("Ferdinand");
+    mes.addRecipient("Filipe");
+    mes.addRecipient("Frits");
+    // 15
+    mes.addRecipient("Frank");
+    mes.addRecipient("Giovanni");
+    mes.addRecipient("Gianni");
+    mes.addRecipient("Kennedy");
+    mes.addRecipient("John");
+    // 20
+    mes.addRecipient("Aster");
+    mes.addRecipient("Jonas");
+    mes.addRecipient("Riek");
+    mes.addRecipient("Stefan");
+    mes.addRecipient("Tim");
+    // 25
+    mes.addRecipient("Nolan");
+    mes.addRecipient("Vincent");
+    mes.addRecipient("Frederick");
+    mes.addRecipient("Gerrit");
+    mes.addRecipient("Anne-Laure");
+    // 30
+    mes.addRecipient("Jean-Jeacques");
+    mes.addRecipient("Fitzgerald");
+    mes.addRecipient("Anton");
+    mes.addRecipient("Anteun");
+    mes.addRecipient("Antoin");
+    // 35
+    mes.addRecipient("Michael");
+    mes.addRecipient("Alexander");
+    mes.addRecipient("Wouter");
+    mes.addRecipient("Bart");
+    mes.addRecipient("David");
+    // 40
+    mes.addRecipient("Prisca");
+    mes.addRecipient("Isabel");
+    mes.addRecipient("Laure");
+    mes.addRecipient("Tine");
+    mes.addRecipient("Sarah");
+    // 45
+    mes.addRecipient("Joke");
+    mes.addRecipient("Laura");
+    mes.addRecipient("Tess");
+    mes.addRecipient("Evelien");
+    mes.addRecipient("Eline");
+    // 50
+    mes.addRecipient("Jules");
+    mes.addRecipient("Flor");
+    mes.addRecipient("Josef");
+    mes.addRecipient("Joseph");
+    mes.addRecipient("Jozef");
+    // 55
+    mes.addRecipient("Appel");
+    mes.addRecipient("Banaan");
+    mes.addRecipient("Peer");
+    mes.addRecipient("Annanas");
+    mes.addRecipient("Aardbei");
+    // 60
+    mes.addRecipient("Prei");
+    mes.addRecipient("Sla");
+    mes.addRecipient("Tomaat");
+    mes.addRecipient("Boontjes");
+    mes.addRecipient("Fritske");
+    // 65
+    mes.addRecipient("Frankske");
+    mes.addRecipient("Giovannike");
+    mes.addRecipient("Giannike");
+    mes.addRecipient("Kennedyke");
+    mes.addRecipient("Johnny");
+    // 70
+    mes.addRecipient("Astertje");
+    mes.addRecipient("Jonaske");
+    mes.addRecipient("Riekske");
+    mes.addRecipient("Stefanneke");
+    mes.addRecipient("Timpie");
+    // 75
+    mes.addRecipient("Nolaneke");
+    mes.addRecipient("Vincentje");
+    mes.addRecipient("Frederickske");
+    mes.addRecipient("Gerritje");
+    mes.addRecipient("Anne-Lauretje");
+    // 80
+    mes.addRecipient("Fanny");
+    mes.addRecipient("Kiekeboe");
+    mes.addRecipient("Konstantinopel");
+    mes.addRecipient("Moemoe");
+    mes.addRecipient("Goegebhuer");
+    // 85
+    mes.addRecipient("Michaeltje");
+    mes.addRecipient("Alexanderke");
+    mes.addRecipient("Wouterke");
+    mes.addRecipient("Bartje");
+    mes.addRecipient("Davidje");
+    // 90
+    mes.addRecipient("Priscatje");
+    mes.addRecipient("Isabelleke");
+    mes.addRecipient("Lauretje");
+    mes.addRecipient("Tineke");
+    mes.addRecipient("Sarahtje");
+    // 95
+    mes.addRecipient("Joketje");
+    mes.addRecipient("Lauratje");
+    mes.addRecipient("Tesske");
+    mes.addRecipient("Evelientje");
+    mes.addRecipient("Elineke");
+    //100
     mes.addRecipient("Alice");
     begin_time = clock();
     EncryptedMessage encMes = mes.encrypt(P, Ppub);
