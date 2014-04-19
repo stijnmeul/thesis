@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include "../cppmiracl/include/rapidxml.hpp"
+#include <stdexcept>
 
 #define MR_PAIRING_BLS    // AES-256 security
 #define AES_SECURITY 256
@@ -34,6 +35,8 @@ static size_t WriteCallback(void *, size_t, size_t, void *);
 
 PFC pfc(AES_SECURITY);
 
+class PlaintextMessage;
+
 struct authenticatedData_t {
     int nbOfRecipients;
     G2 U;
@@ -41,12 +44,64 @@ struct authenticatedData_t {
     vector <Big> ws;
 };
 
+G2 g2From(string aString) {
+    G2 res;
+    res.g = ECn4(aString);
+    return res;
+}
+
+G1 g1From(string aString) {
+    G1 res;
+    res.g = ECn(aString);
+    return res;
+}
+
+string toString(G2 g2) {
+    stringstream res;
+    res << g2.g;
+    return res.str();
+}
+
+string toString(G1 g1) {
+    stringstream res;
+    res << g1.g;
+    return res.str();
+}
+
+string toString(Big big) {
+    stringstream res;
+    res << big;
+    return res.str();
+}
+
 class AuthenticatedData {
-    int nbOfRecipients;
     G2 U;
     Big V;
     vector <Big> ws;
+    char * authenticatedDataArray;
 public:
+    AuthenticatedData() {}
+    // Decodes an array of authenticated data to an AuthenticatedData object
+    AuthenticatedData(char * A) {
+        // Decode A-array
+        int readOut = 0;
+        char tempString[U_LEN];
+        char tempString2[W_LEN];
+        int nbOfRecipients;
+        memcpy(&(nbOfRecipients), A, sizeof(nbOfRecipients));
+        readOut += sizeof(nbOfRecipients);
+        strncpy(tempString, &A[readOut], U_LEN);
+        this->U = g2From((string)tempString);
+        readOut += U_LEN;
+        strncpy(tempString2, &A[readOut], W_LEN);
+        this->V = (Big)tempString2;
+        readOut += W_LEN;
+        for(int i = 0; i < nbOfRecipients; i++) {
+            strncpy(tempString2,&A[readOut], V_LEN);
+            ws.push_back((Big)tempString2);
+            readOut += V_LEN;
+        }
+    }
     G2 getU() {
         return U;
     }
@@ -60,51 +115,54 @@ public:
         this->V = V;
     }
     int getNbOfRecipients() {
-        return nbOfRecipients;
+        return ws.size();
     }
+    vector <Big> getRecipientKeys() {
+        return ws;
+    }
+    // nbOfRecipients is a required argument as recipientKeys only get added during encryption.
     int getLength(int nbOfRecipients) {
         return U_LEN + nbOfRecipients*W_LEN + V_LEN + sizeof(int);
     }
-    void addCiphertext(Big cipherText) {
-        ws.push_back(cipherText);
-        nbOfRecipients += 1;
+    void addRecipientKey(Big recipientKey) {
+        ws.push_back(recipientKey);
+    }
+public:
+    void encodeToArray(char * A) {
+        int nbOfRecipients = getNbOfRecipients();
+        int Alen = getLength(nbOfRecipients);
+        memset(A, 0, Alen);
+        int filled = 0;
+        memcpy(A,&(nbOfRecipients), sizeof(nbOfRecipients));
+        filled = sizeof(nbOfRecipients);
+        strcpy(&A[filled],toString(U).c_str());
+        filled += U_LEN;
+        strcpy(&A[filled],toString(V).c_str());
+        filled += W_LEN;
+        for(int i = 0; i < nbOfRecipients; i++){
+            strcpy(&A[filled],toString(ws.at(i)).c_str());
+            filled += V_LEN;
+        }
     }
 };
 
 class BroadcastMessage {
+protected:
     vector <string> recipients;
-    vector <G1> recipientHashes;
     string message;
     AuthenticatedData autData;
-    char * encryptedData;
-    // Public parameters of the Boneh and Franklin scheme
-    G2 P;
-    G2 Ppub;
     char sessionKey[HASH_LEN];
 
     /********************************************************
      *  Private parameters of the Boneh and Franklin scheme *
      ********************************************************/
-    Big sigma = 0;
-    Big r = 0;
+    Big sigma;
+    Big r;
 
 public:
+    BroadcastMessage() {}
     BroadcastMessage(string message) {
         this->message = message;
-    }
-    void addRecipient(string recipient) {
-        G1 Q1;
-
-        // Add recipient to the recipient list
-        recipients.push_back(recipient);
-        // Add hash of recipient to the recipientHashes list
-        pfc.hash_and_map(Q1, (char *)recipient.c_str());
-        recipientHashes.push_back(Q1);
-        // Add K XOR g_ID = V to Authenticated Data
-        G1 rQ = pfc.mult(Q1, r);
-        Big W = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
-        W = lxor(sigma, W);
-        autData.addCiphertext(W);
     }
     int getNbOfRecipients() {
         return recipients.size();
@@ -116,8 +174,141 @@ public:
         if(recipients.size() == 0)
             return 0;
         else
-            return autData.getLength(recipients.size()) + TAG_LEN + message.length();
+            return autData.getLength(getNbOfRecipients()) + TAG_LEN + message.length();
     }
+    Big getSessionKey() {
+        return from_binary(HASH_LEN, sessionKey);
+    }
+protected:
+    void getIV(char (&iv)[HASH_LEN/2]) {
+        memcpy(iv,&sessionKey[HASH_LEN/2],HASH_LEN/2);
+    }
+    void getK1(char (&k1)[HASH_LEN/2]) {
+        memcpy(k1,&sessionKey,HASH_LEN/2);
+    }
+};
+
+// Protected makes all public methods from BroadcastMessage only available from within EncryptedMessage
+class EncryptedMessage: protected BroadcastMessage {
+    //char * broadCastMessage;
+public:
+    char * broadcastMessage;
+    char * A;
+    // TODO: Determine Clen on the ciphertext
+    int Alen;
+    int Clen;
+    char * C;
+    char T[TAG_LEN];
+
+    EncryptedMessage() {}
+    EncryptedMessage(char * A, int Alen, char (&T)[TAG_LEN], char * C, int Clen) {
+
+        autData = AuthenticatedData(A);
+        this->A = new char[Alen];
+        memcpy(this->A, A, Alen);
+        this->C = new char[Clen];
+        memcpy(this->C, C, Clen);
+        memcpy(this->T, T, TAG_LEN);
+        this->Alen = Alen;
+        this->Clen = Clen;
+    }
+    // Avoid invalid returning of forward reference.
+    PlaintextMessage decrypt(G2 P, G2 Ppub, G1 D);
+
+    string toString() {
+        //@TODO:
+        /*int filled = 0;
+
+        memcpy(broadcastMessage, A, Alen);
+        filled += Alen;
+        memcpy(&broadcastMessage[filled], T, TAG_LEN);
+        filled += TAG_LEN;
+        memcpy(&broadcastMessage[filled], C, Clen);
+        return (string) broadcastMessage;*/
+        return "Hallo!";
+    }
+};
+
+class PlaintextMessage: protected BroadcastMessage {
+    vector <G1> recipientHashes;
+public:
+    PlaintextMessage(string message) : BroadcastMessage(message){
+    }
+    void addRecipient(string recipient) {
+        G1 Q1;
+
+        // Add recipient to the recipient list
+        recipients.push_back(recipient);
+        // Add hash of recipient to the recipientHashes list
+        pfc.hash_and_map(Q1, (char *)recipient.c_str());
+        recipientHashes.push_back(Q1);
+    }
+    EncryptedMessage encrypt(G2 P, G2 Ppub) {
+        // Generate keys
+        generateKeys();
+
+        if (getNbOfRecipients() == 0) {
+            throw invalid_argument("Can not encrypt message if no recipients were specified.");
+        }
+        G2 myUnitVar;
+        if (P == myUnitVar || P == myUnitVar) {
+            throw invalid_argument("Please specify initialised public parameters.");
+        }
+        /************************************************/
+        /*   PREPARE AUTHENTICATED DATA - IBE ENCRYPT   */
+        /************************************************/
+        // Add all recipients to Authenticated data
+        for (int i = 0; i < getNbOfRecipients(); i++) {
+            // Add K XOR g_ID = V to Authenticated Data
+            G1 rQ = pfc.mult(recipientHashes.at(i), r);
+            Big W = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
+            W = lxor(sigma, W);
+            autData.addRecipientKey(W);
+        }
+
+        // U = r.P
+        G2 U = pfc.mult(P, r);
+        autData.setU(U);
+
+        // W = M XOR Hash(sigma)
+        pfc.start_hash();
+        pfc.add_to_hash(sigma);
+        Big V = pfc.finish_hash_to_group();
+        Big ses_key = getSessionKey();
+        cout << "encrypt ses_key is " << endl << ses_key << endl;
+        V = lxor(ses_key, V);
+        autData.setV(V);
+
+        /************************************************/
+        /*                 AES ENCRYPT                  */
+        /************************************************/
+        char P_text[message.length()];
+        memset(P_text, 0, sizeof(P_text));
+        strcpy(P_text, message.c_str());
+
+        gcm g;
+        char C[message.length()];
+        char T[TAG_LEN];
+        char k1[HASH_LEN/2];
+        char iv[HASH_LEN/2];
+        int Alen = autData.getLength(getNbOfRecipients());
+        char A[Alen];
+        autData.encodeToArray(A);
+        getIV(iv);
+        getK1(k1);
+        gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
+        gcm_add_header(&g, A, Alen);
+        gcm_add_cipher(&g, GCM_ENCRYPTING, P_text, message.length(), C);
+        gcm_finish(&g, T);
+
+
+        return EncryptedMessage(A, Alen, T, C, message.length());
+    }
+    string getMessage() {
+        return message;
+    }
+
+private:
     void generateKeys() {
         // Read out 256 random bits from /dev/urandom
         char k[SES_KEY_LEN];
@@ -145,29 +336,78 @@ public:
         pfc.add_to_hash(ses_key);
         r = pfc.finish_hash_to_group();
     }
+};
+// Avoid invalid returning of forward reference.
+PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
+    // Iterate over all V values until U equals rP.
+    G2 uCalc;
+    G2 U = autData.getU();
+    Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(U,D));
+    Big ses_key;
+    int i = 0;
+    while(U != uCalc && i < autData.getNbOfRecipients()){
+        // sigma = V XOR Hash(e(D,U))
+        Big W=autData.getRecipientKeys().at(i);
+        Big sigma = lxor(W, ud_hash);
 
-private:
-    void getIV(char (&iv)[HASH_LEN/2]) {
-        memcpy(iv,&sessionKey[HASH_LEN/2],HASH_LEN/2);
+        // M = W XOR Hash(sigma)
+        pfc.start_hash();
+        pfc.add_to_hash(sigma);
+        Big sigma_hash = pfc.finish_hash_to_group();
+        ses_key = lxor(autData.getV(), sigma_hash);
+
+        // r = Hash(sigma,M)
+        pfc.start_hash();
+        pfc.add_to_hash(sigma);
+        pfc.add_to_hash(ses_key);
+        r = pfc.finish_hash_to_group();
+        uCalc = pfc.mult(P,r);
+
+        i++;
     }
-    void getK1(char (&k1)[HASH_LEN/2]) {
-        memcpy(k1,&sessionKey,HASH_LEN/2);
+    cout << "ses_key is " << endl << ses_key << endl;
+
+    /*************************************************
+    *       AES GCM part of the decryption step      *
+    **************************************************/
+    to_binary(ses_key, HASH_LEN, sessionKey, TRUE);
+    char k1[HASH_LEN/2];
+    char iv[HASH_LEN/2];
+    char Tdec[TAG_LEN];
+    char P_text[Clen];
+    memset(P_text, 0, Clen);
+
+    getIV(iv);
+    getK1(k1);
+
+
+    int Alen = autData.getLength(autData.getNbOfRecipients());
+    char A[Alen];
+    autData.encodeToArray(A);
+    gcm g;
+    gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
+    gcm_add_header(&g, A, Alen);
+    gcm_add_cipher(&g, GCM_DECRYPTING, P_text, Clen, C);
+    gcm_finish(&g, Tdec);
+
+    bool integrity = true;
+    for (int i = 0; i < TAG_LEN; i++) {
+        if(Tdec[i] != T[i]) {
+            integrity = false;
+        }
     }
-};
 
-class EncryptedMessage: public BroadcastMessage {
+    if(integrity == false) {
+        cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
+    } else {
+        cout << "Successful integrity check!" << endl;
+    }
 
-};
+    message = (string)P_text;
 
-class DecryptedMessage: public BroadcastMessage {
+    return PlaintextMessage(message);
+}
 
-};
-
-G2 g2From(string);
-G1 g1From(string);
-string toString(G2);
-string toString(G1);
-string toString(Big);
 int getAuthenticatedDataLength(int nbOfRecipients);
 int getBroadcastMessageLength(int nbOfRecipients, string message);
 float getExecutionTime(float begin_time);
@@ -274,7 +514,7 @@ int main(void)
 
     // The secret session key
     Big ses_key = from_binary(HASH_LEN, hash);
-    cout << "Symmetric session key to encrypt" << endl << ses_key << endl;
+    //cout << "Symmetric session key to encrypt" << endl << ses_key << endl;
 
     /*************************************************
     *        IBE part of the encryption step         *
@@ -288,6 +528,11 @@ int main(void)
     P = g2From(p);
     D = g1From(d_id);
 
+    PlaintextMessage mes = PlaintextMessage("Dit is een testje");
+    mes.addRecipient("Alice");
+    EncryptedMessage encMes = mes.encrypt(P, Ppub);
+    PlaintextMessage decMes = encMes.decrypt(P, Ppub, D);
+    cout << "decMes " << decMes.getMessage() << endl;
     /*
     cout << "received Ppub: " << endl << Ppub.g << endl;
     cout << "received P: " << endl << P.g << endl;
@@ -517,7 +762,7 @@ int main(void)
         cout << broadCastMessage[i];
     }
     cout << endl;*/
-    cout << "Total encryption time:                    " << enc_time << endl;
+    //cout << "Total encryption time:                    " << enc_time << endl;
     "***********************************************************************************************************************";
     "*                                                           DECRYPT                                                   *";
     "***********************************************************************************************************************";
@@ -530,13 +775,13 @@ int main(void)
 
     // Decode A-array
     authenticatedData_t ad = decodeAuthenticatedDataArray(A);
+    AuthenticatedData autData = AuthenticatedData(A);
     int readOut = Alen;
-
     /*
-    if(ad.nbOfRecipients == nbOfRecipients && U == ad.U && W == ad.W) {
+    if(autData.getNbOfRecipients() == nbOfRecipients && autData.getU() == U && autData.getV() == W) {
         cout << "successful decoding!" << endl;
         for(int i = 0; i < nbOfRecipients; i++) {
-            if(ad.ws.at(i) != ws.at(i)) {
+            if(autData.getRecipientKeys().at(i) != ws.at(i)) {
                 cout << "altough V[" << i << "] differs from Vrec[" << i << "]" << endl;
             }
         }
@@ -611,6 +856,7 @@ int main(void)
         }
     }
     dec_time = getExecutionTime(begin_time);
+    /*
     cout << "Total decryption time:                    " << dec_time << endl;
     if(integrity == false) {
         cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
@@ -620,7 +866,7 @@ int main(void)
 
     message = (string)P_text;
 
-    cout << endl << "Received message:" << endl << message << endl;
+    cout << endl << "Received message:" << endl << message << endl;*/
 
     return 0;
 }
@@ -631,35 +877,6 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     return size * nmemb;
 }
 
-G2 g2From(string aString) {
-    G2 res;
-    res.g = ECn4(aString);
-    return res;
-}
-
-G1 g1From(string aString) {
-    G1 res;
-    res.g = ECn(aString);
-    return res;
-}
-
-string toString(G2 g2) {
-    stringstream res;
-    res << g2.g;
-    return res.str();
-}
-
-string toString(G1 g1) {
-    stringstream res;
-    res << g1.g;
-    return res.str();
-}
-
-string toString(Big big) {
-    stringstream res;
-    res << big;
-    return res.str();
-}
 int getAuthenticatedDataLength(int nbOfRecipients) {
     // +1 because of length(W)
     return U_LEN + nbOfRecipients*V_LEN + W_LEN + sizeof(int);

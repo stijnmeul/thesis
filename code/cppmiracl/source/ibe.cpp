@@ -117,12 +117,12 @@ int main()
 	***********/
 	begin_time = clock();
 
-	pfc.precomp_for_pairing(Ppub);
-	pfc.precomp_for_mult(P);
+	//pfc.precomp_for_pairing(Ppub);
+	//pfc.precomp_for_mult(P);
 
 	// The secret message
 	M = (char *)"I <3 you Alice";
-	cout << "Encrypted message" << endl << M << endl;
+	//cout << "Encrypted message" << endl << M << endl;
 
 	// Choose a random sigma with length equal to AES_SECURITY as specified above
 	pfc.rankey(sigma);
