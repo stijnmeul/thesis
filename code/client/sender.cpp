@@ -33,6 +33,8 @@ using namespace std;
 
 static size_t WriteCallback(void *, size_t, size_t, void *);
 
+
+
 PFC pfc(AES_SECURITY);
 
 class PlaintextMessage;
@@ -43,6 +45,14 @@ struct authenticatedData_t {
     Big V;
     vector <Big> ws;
 };
+
+
+int getAuthenticatedDataLength(int nbOfRecipients);
+int getBroadcastMessageLength(int nbOfRecipients, string message);
+float getExecutionTime(float begin_time);
+void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
+authenticatedData_t decodeAuthenticatedDataArray(char * A);
+
 
 G2 g2From(string aString) {
     G2 res;
@@ -254,6 +264,7 @@ public:
         if (P == myUnitVar || P == myUnitVar) {
             throw invalid_argument("Please specify initialised public parameters.");
         }
+        time_t begin_time = clock();
         /************************************************/
         /*   PREPARE AUTHENTICATED DATA - IBE ENCRYPT   */
         /************************************************/
@@ -300,7 +311,7 @@ public:
         gcm_add_header(&g, A, Alen);
         gcm_add_cipher(&g, GCM_ENCRYPTING, P_text, message.length(), C);
         gcm_finish(&g, T);
-
+        cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
 
         return EncryptedMessage(A, Alen, T, C, message.length());
     }
@@ -345,6 +356,7 @@ PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
     Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(U,D));
     Big ses_key;
     int i = 0;
+    time_t begin_time = clock();
     while(U != uCalc && i < autData.getNbOfRecipients()){
         // sigma = V XOR Hash(e(D,U))
         Big W=autData.getRecipientKeys().at(i);
@@ -381,7 +393,7 @@ PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
     getK1(k1);
 
 
-    int Alen = autData.getLength(autData.getNbOfRecipients());
+    //int Alen = autData.getLength(autData.getNbOfRecipients());
     char A[Alen];
     autData.encodeToArray(A);
     gcm g;
@@ -396,6 +408,7 @@ PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
             integrity = false;
         }
     }
+    cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
 
     if(integrity == false) {
         cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
@@ -407,12 +420,6 @@ PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
 
     return PlaintextMessage(message);
 }
-
-int getAuthenticatedDataLength(int nbOfRecipients);
-int getBroadcastMessageLength(int nbOfRecipients, string message);
-float getExecutionTime(float begin_time);
-void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
-authenticatedData_t decodeAuthenticatedDataArray(char * A);
 
 miracl *mip = get_mip();
 int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
@@ -649,12 +656,9 @@ int main(void)
     mes.addRecipient("Elineke");
     //100
     mes.addRecipient("Alice");
-    begin_time = clock();
+
     EncryptedMessage encMes = mes.encrypt(P, Ppub);
-    cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
-    begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D);
-    cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
     cout << "decMes " << decMes.getMessage() << endl;
     /*
     cout << "received Ppub: " << endl << Ppub.g << endl;
@@ -899,6 +903,13 @@ int main(void)
     // Decode A-array
     authenticatedData_t ad = decodeAuthenticatedDataArray(A);
     AuthenticatedData autData = AuthenticatedData(A);
+    Big temp;
+    begin_time = clock();
+    temp = autData.getV();
+    cout << "autData.getV() exec time     :" << endl <<  getExecutionTime(begin_time) << endl;
+    begin_time = clock();
+    temp = ad.V;
+    cout << "ad.w           exec time     :" << endl <<  getExecutionTime(begin_time) << endl;
     int readOut = Alen;
     /*
     if(autData.getNbOfRecipients() == nbOfRecipients && autData.getU() == U && autData.getV() == W) {
