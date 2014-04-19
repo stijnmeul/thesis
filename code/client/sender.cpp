@@ -530,8 +530,12 @@ int main(void)
 
     PlaintextMessage mes = PlaintextMessage("Dit is een testje");
     mes.addRecipient("Alice");
+    begin_time = clock();
     EncryptedMessage encMes = mes.encrypt(P, Ppub);
+    cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
+    begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D);
+    cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
     cout << "decMes " << decMes.getMessage() << endl;
     /*
     cout << "received Ppub: " << endl << Ppub.g << endl;
