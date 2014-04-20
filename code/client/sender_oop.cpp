@@ -217,7 +217,7 @@ public:
         this->Clen = Clen;
     }
     // Avoid invalid returning of forward reference.
-    PlaintextMessage decrypt(G2 P, G2 Ppub, G1 D);
+    PlaintextMessage decrypt(const G2& P, const G2& Ppub, G1 D);
 
     string toString() {
         //@TODO:
@@ -247,7 +247,7 @@ public:
         pfc.hash_and_map(Q1, (char *)recipient.c_str());
         recipientHashes.push_back(Q1);
     }
-    EncryptedMessage encrypt(G2 P, G2 Ppub) {
+    EncryptedMessage encrypt(const G2& P, const G2& Ppub) {
         // Generate keys
         generateKeys();
 
@@ -305,7 +305,6 @@ public:
         gcm_add_header(&g, A, Alen);
         gcm_add_cipher(&g, GCM_ENCRYPTING, P_text, message.length(), C);
         gcm_finish(&g, T);
-        cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
 
         return EncryptedMessage(A, Alen, T, C, message.length());
     }
@@ -343,30 +342,30 @@ private:
     }
 };
 // Avoid invalid returning of forward reference.
-PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
+PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D) {
     // Iterate over all V values until U equals rP.
     G2 uCalc;
     G2 U = autData.getU();
     Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(U,D));
     Big ses_key;
     int i = 0;
-    time_t begin_time = clock();
-    time_t begin_time1;
-    time_t enc_time1;
     int nbOfRecipients = autData.getNbOfRecipients();
+    Big V = autData.getV();
     Big W;
     Big sigma, sigma_hash;
+    vector <Big> ws = autData.getRecipientKeys();
+
+    time_t begin_time = clock();
     while(U != uCalc && i < nbOfRecipients){
-        begin_time1 = clock();
         // sigma = V XOR Hash(e(D,U))
-        W=autData.getRecipientKeys().at(i);
+        W=ws.at(i);
         sigma = lxor(W, ud_hash);
 
         // M = W XOR Hash(sigma)
         pfc.start_hash();
         pfc.add_to_hash(sigma);
         sigma_hash = pfc.finish_hash_to_group();
-        ses_key = lxor(autData.getV(), sigma_hash);
+        ses_key = lxor(V, sigma_hash);
 
         // r = Hash(sigma,M)
         pfc.start_hash();
@@ -376,7 +375,6 @@ PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
         uCalc = pfc.mult(P,r);
 
         i++;
-        cout << "Decryption time per user:                    " << getExecutionTime(begin_time1) << endl;
     }
 
     cout << "ses_key is " << endl << ses_key << endl;
@@ -410,7 +408,6 @@ PlaintextMessage EncryptedMessage::decrypt(G2 P, G2 Ppub, G1 D) {
             integrity = false;
         }
     }
-    cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
 
     if(integrity == false) {
         cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
@@ -496,7 +493,7 @@ int main(void)
     P = g2From(p);
     D = g1From(d_id);
 
-    PlaintextMessage mes = PlaintextMessage("Dit is een testje");
+    PlaintextMessage mes = PlaintextMessage("Dit is een testje");/*
     mes.addRecipient("Andre");
     mes.addRecipient("Adam");
     mes.addRecipient("Dylan");
@@ -614,12 +611,19 @@ int main(void)
     mes.addRecipient("Lauratje");
     mes.addRecipient("Tesske");
     mes.addRecipient("Evelientje");
-    mes.addRecipient("Elineke");
+    mes.addRecipient("Elineke");*/
     //100
     mes.addRecipient("Alice");
 
+
+    pfc.precomp_for_mult(P);
+    pfc.precomp_for_pairing(Ppub);
+    begin_time = clock();
     EncryptedMessage encMes = mes.encrypt(P, Ppub);
+    cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
+    begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D);
+    cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
     cout << "decMes " << decMes.getMessage() << endl;
 
     return 0;

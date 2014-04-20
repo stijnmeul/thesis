@@ -37,8 +37,6 @@ static size_t WriteCallback(void *, size_t, size_t, void *);
 
 PFC pfc(AES_SECURITY);
 
-class PlaintextMessage;
-
 struct authenticatedData_t {
     int nbOfRecipients;
     G2 U;
@@ -46,89 +44,19 @@ struct authenticatedData_t {
     vector <Big> ws;
 };
 
+
 int getAuthenticatedDataLength(int nbOfRecipients);
 int getBroadcastMessageLength(int nbOfRecipients, string message);
 float getExecutionTime(float begin_time);
 void encodeAuthenticatedDataArray(authenticatedData_t ad, char * A);
 authenticatedData_t decodeAuthenticatedDataArray(char * A);
+void generateSessionKey(char (&k1)[HASH_LEN/2], char (&iv)[HASH_LEN/2], Big& sessionKey);
+void encryptRecipientKeys(vector<string> recipients, G2 P, G2 Ppub, Big sessionKey, authenticatedData_t& autData);
 G2 g2From(string aString);
 G1 g1From(string aString);
 string toString(G2 g2);
 string toString(G1 g1);
 string toString(Big big);
-
-class AuthenticatedData {
-    G2 U;
-    Big V;
-    vector <Big> ws;
-    char * authenticatedDataArray;
-public:
-    AuthenticatedData() {}
-    // Decodes an array of authenticated data to an AuthenticatedData object
-    AuthenticatedData(char * A) {
-        // Decode A-array
-        int readOut = 0;
-        char tempString[U_LEN];
-        char tempString2[W_LEN];
-        int nbOfRecipients;
-        memcpy(&(nbOfRecipients), A, sizeof(nbOfRecipients));
-        readOut += sizeof(nbOfRecipients);
-        strncpy(tempString, &A[readOut], U_LEN);
-        this->U = g2From((string)tempString);
-        readOut += U_LEN;
-        strncpy(tempString2, &A[readOut], W_LEN);
-        this->V = (Big)tempString2;
-        readOut += W_LEN;
-        for(int i = 0; i < nbOfRecipients; i++) {
-            strncpy(tempString2,&A[readOut], V_LEN);
-            ws.push_back((Big)tempString2);
-            readOut += V_LEN;
-        }
-    }
-    G2 getU() {
-        return U;
-    }
-    Big getV() {
-        return V;
-    }
-    void setU(G2 U) {
-        this->U = U;
-    }
-    void setV(Big V) {
-        this->V = V;
-    }
-    int getNbOfRecipients() {
-        return ws.size();
-    }
-    vector <Big> getRecipientKeys() {
-        return ws;
-    }
-    // nbOfRecipients is a required argument as recipientKeys only get added during encryption.
-    int getLength(int nbOfRecipients) {
-        return U_LEN + nbOfRecipients*W_LEN + V_LEN + sizeof(int);
-    }
-    void addRecipientKey(Big recipientKey) {
-        ws.push_back(recipientKey);
-    }
-public:
-    void encodeToArray(char * A) {
-        int nbOfRecipients = getNbOfRecipients();
-        int Alen = getLength(nbOfRecipients);
-        memset(A, 0, Alen);
-        int filled = 0;
-        memcpy(A,&(nbOfRecipients), sizeof(nbOfRecipients));
-        filled = sizeof(nbOfRecipients);
-        strcpy(&A[filled],toString(U).c_str());
-        filled += U_LEN;
-        strcpy(&A[filled],toString(V).c_str());
-        filled += W_LEN;
-        for(int i = 0; i < nbOfRecipients; i++){
-            strcpy(&A[filled],toString(ws.at(i)).c_str());
-            filled += V_LEN;
-        }
-    }
-};
-
 
 miracl *mip = get_mip();
 int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
@@ -137,7 +65,6 @@ int main(void)
 {
     clock_t begin_time, begin_time1;
     float enc_time, enc_time1, dec_time, dec_time1, dec_time2;
-    AuthenticatedData autData;
     /*************************************************
     *          Scrape localhost/thesis/?id=          *
     **************************************************/
@@ -202,69 +129,25 @@ int main(void)
     /*************************************************
     *     Generate random symmetric session key      *
     **************************************************/
-    // Read out 256 random bits from /dev/urandom
-    char k[SES_KEY_LEN];
-    FILE *fp;
-    fp = fopen("/dev/urandom", "r");
-    fread(&k, 1, SES_KEY_LEN, fp);
-    fclose(fp);
-
-    // Hash 256 bits to an encryption key K1 and an initialisation vector IV
-    char hash[HASH_LEN];
-    sha256 sh;
-
-    shs256_init(&sh);
-
-    for(int i = 0; i < HASH_LEN; i++) {
-        shs256_process(&sh,k[i]);
-        shs256_hash(&sh,hash);
-    }
-    cout << "hash:" << endl;
-    for(int i = 0; i<HASH_LEN; i++) {
-        cout << hex << hash[i];
-    }
-    cout << endl;
     char k1[HASH_LEN/2];
     char iv[HASH_LEN/2];
-    memcpy(k1,hash,HASH_LEN/2);
-    memcpy(iv,&hash[HASH_LEN/2],HASH_LEN/2);
+    Big ses_key;
+    generateSessionKey(k1, iv, ses_key);
 
-    // The secret session key
-    Big ses_key = from_binary(HASH_LEN, hash);
-    //cout << "Symmetric session key to encrypt" << endl << ses_key << endl;
+    cout << "Symmetric session key to encrypt" << endl << ses_key << endl;
 
     /*************************************************
     *        IBE part of the encryption step         *
     **************************************************/
-    G2 P, Ppub, U;
-    G1 Q1, D, rQ;
-    Big sigma, r, V, W, sigma_hash;
-
     // Get Ppub, P and D from the PKG's XML message
-    Ppub = g2From(p_pub);
-    P = g2From(p);
-    D = g1From(d_id);
-
-    /*
-    cout << "received Ppub: " << endl << Ppub.g << endl;
-    cout << "received P: " << endl << P.g << endl;
-    cout << "received D: " << endl << D.g << endl;
-    */
-
-    pfc.precomp_for_pairing(Ppub);
+    G2 Ppub = g2From(p_pub);
+    G2 P = g2From(p);
+    G1 D = g1From(d_id);
+    // NEVER remove this statement. It divides decryption time by 3 :)
     pfc.precomp_for_mult(P);
-
-    // Choose a random sigma with length equal to AES_SECURITY as specified above
-    pfc.rankey(sigma);
-    // Calculate r=Hash(sigma,M)
-    pfc.start_hash();
-    pfc.add_to_hash(sigma);
-    pfc.add_to_hash(ses_key);
-    r = pfc.finish_hash_to_group();
 
     // Vector of intended recipients
     vector<string> recipients;
-
 
     // First 4 (because Alice is number 5)
     recipients.push_back("Andre");
@@ -389,59 +272,23 @@ int main(void)
 
     // Alice is here :)
     recipients.push_back(RECEIVER_ID);
-    int nbOfRecipients = recipients.size();
 
     begin_time = clock();
-    // Vector of Q_id's
-    vector <G1> recipientHashes;
-    for(int i =0; i < nbOfRecipients; i++) {
-        pfc.hash_and_map(Q1, (char *)recipients.at(i).c_str());
-        recipientHashes.push_back(Q1);
-    }
-    begin_time1 = clock();
-    // U = r.P
-    U = pfc.mult(P, r);
-    string testString;
-    stringstream ss2;
-    mip->IOBASE = 16;
-
-    // Vector of V values
-    vector <Big> ws;
-    // V = sigma XOR Hash(e(Q1,Ppub)^r)
-    // Note that e(Q1,Ppub)^r = e(r.Q1, Ppub) such that
-    // V = sigma XOR Hash(e(r.Q1,Ppub))
-    for(int i = 0; i < nbOfRecipients; i++) {
-        rQ = pfc.mult(recipientHashes.at(i), r);
-        V = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
-        V = lxor(sigma, V);
-        ws.push_back(V);
-        autData.addRecipientKey(V);
-    }
-
-    // W = M XOR Hash(sigma)
-    pfc.start_hash();
-    pfc.add_to_hash(sigma);
-    sigma_hash = pfc.finish_hash_to_group();
-    W = lxor(ses_key, sigma_hash);
-
+    authenticatedData_t ad1;
+    encryptRecipientKeys(recipients, P, Ppub, ses_key, ad1);
+    cout << "ad1.U" << endl << ad1.U.g << endl;
+    cout << "ad1.V" << endl << ad1.V << endl;
     enc_time = getExecutionTime(begin_time);
     //cout << "Encryption time for first recipient:      " << enc_time1 << endl;
     //cout << "Encryption time per additional recipient: " << (enc_time - enc_time1)/(nbOfRecipients-1) << endl;
-    autData.setV(V);
-    autData.setU(U);
 
     /*************************************************
     *       AES GCM part of the encryption step      *
     **************************************************/
     // Encode A-array
-    int Alen = getAuthenticatedDataLength(nbOfRecipients);
+    int Alen = getAuthenticatedDataLength(ad1.nbOfRecipients);
     char A[Alen];
     memset(A, 0, sizeof(A));
-    authenticatedData_t ad1;
-    ad1.nbOfRecipients = nbOfRecipients;
-    ad1.U = U;
-    ad1.V = W;
-    ad1.ws = ws;
     encodeAuthenticatedDataArray(ad1, A);
 
     /*
@@ -463,7 +310,7 @@ int main(void)
     gcm_add_cipher(&g, GCM_ENCRYPTING, P_text, message.length(), C);
     gcm_finish(&g, T);
 
-    char broadCastMessage[getBroadcastMessageLength(nbOfRecipients, message)];
+    char broadCastMessage[getBroadcastMessageLength(ad1.nbOfRecipients, message)];
 
     int filled = 0;
     memcpy(broadCastMessage, A, Alen);
@@ -483,13 +330,13 @@ int main(void)
     /*************************************************
     *         IBE part of the decryption step        *
     **************************************************/
-    begin_time = clock();
+    //begin_time = clock();
     // Overwrite existing A array
     memcpy(A, broadCastMessage, Alen);
 
     // Decode A-array
     authenticatedData_t ad = decodeAuthenticatedDataArray(A);
-
+    //AuthenticatedData autData = AuthenticatedData(A);
     int readOut = Alen;
     /*
     if(autData.getNbOfRecipients() == nbOfRecipients && autData.getU() == U && autData.getV() == W) {
@@ -505,18 +352,25 @@ int main(void)
     int i = 0;
     // Iterate over all V values until U equals rP.
     G2 uCalc;
-    Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(U,D));
-        while(U != uCalc && i < nbOfRecipients){
-        begin_time1 = clock();
+    Big ud_hash = pfc.hash_to_aes_key(pfc.pairing(ad.U,D));
+    Big W;
+    Big sigma;
+    Big sigma_hash;
+    Big r;
+    Big V = ad1.V;
+    vector<Big> &ws = ad.ws;
+    int nbOfRecipients = ad.nbOfRecipients;
+    begin_time = clock();
+    while(ad1.U != uCalc && i < nbOfRecipients){
         // sigma = V XOR Hash(e(D,U))
-        W=autData.getRecipientKeys().at(i);
+        W=ws.at(i);
         sigma = lxor(W, ud_hash);
 
         // M = W XOR Hash(sigma)
         pfc.start_hash();
         pfc.add_to_hash(sigma);
         sigma_hash = pfc.finish_hash_to_group();
-        ses_key = lxor(autData.getV(), sigma_hash);
+        ses_key = lxor(V, sigma_hash);
 
         // r = Hash(sigma,M)
         pfc.start_hash();
@@ -525,8 +379,23 @@ int main(void)
         r = pfc.finish_hash_to_group();
         uCalc = pfc.mult(P,r);
 
+        /*
+        if(U != pfc.mult(P,r)) {
+            cout << "Decrypting " << recipients.at(i) << "'s session key." << endl;
+            cout << "U does not equal rP. Rejected the ciphertext." << endl;
+        } else {
+            cout << "Decrypting " << recipients.at(i) << "'s session key." << endl;
+            mip->IOBASE=16;
+            cout << "Decrypted symmetric session key:" << endl << ses_key << endl;
+            dec_time = getExecutionTime(begin_time);
+        }
+        if(i==0) {
+            dec_time1 = getExecutionTime(begin_time);
+            begin_time1 = clock();
+        } else if(i==1) {
+            dec_time2 = getExecutionTime(begin_time1);
+        } */
         i++;
-        cout << "Decryption time per user:                    " << getExecutionTime(begin_time1) << endl;
     }
 
     //cout << "Decryption time for first recipient:      " << dec_time1 << endl;
@@ -556,9 +425,7 @@ int main(void)
         }
     }
     dec_time = getExecutionTime(begin_time);
-
     cout << "Total decryption time:                    " << dec_time << endl;
-    cout << "Decryption time per user:                 " << dec_time1 << endl;
     if(integrity == false) {
         cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
     } else {
@@ -625,6 +492,81 @@ authenticatedData_t decodeAuthenticatedDataArray(char * A) {
         readOut += V_LEN;
     }
     return ad;
+}
+
+void generateSessionKey(char (&k1)[HASH_LEN/2], char (&iv)[HASH_LEN/2], Big& sessionKey) {
+    /*************************************************
+    *     Generate random symmetric session key      *
+    **************************************************/
+    // Read out 256 random bits from /dev/urandom
+    char k[SES_KEY_LEN];
+    FILE *fp;
+    fp = fopen("/dev/urandom", "r");
+    fread(&k, 1, SES_KEY_LEN, fp);
+    fclose(fp);
+
+    // Hash 256 bits to an encryption key K1 and an initialisation vector IV
+    char hash[HASH_LEN];
+    sha256 sh;
+
+    shs256_init(&sh);
+
+    for(int i = 0; i < HASH_LEN; i++) {
+        shs256_process(&sh,k[i]);
+        shs256_hash(&sh,hash);
+    }
+    cout << endl;
+    memcpy(k1,hash,HASH_LEN/2);
+    memcpy(iv,&hash[HASH_LEN/2],HASH_LEN/2);
+
+    // The secret session key
+    sessionKey = from_binary(HASH_LEN, hash);
+}
+
+void encryptRecipientKeys(vector<string> recipients, G2 P, G2 Ppub, Big sessionKey, authenticatedData_t& autData) {
+    /*************************************************
+    *        IBE part of the encryption step         *
+    **************************************************/
+    G2 U;
+    G1 Q1, D, rQ;
+    Big sigma, r, V, W, sigma_hash;
+
+    // Choose a random sigma with length equal to AES_SECURITY as specified above
+    pfc.rankey(sigma);
+    // Calculate r=Hash(sigma,M)
+    pfc.start_hash();
+    pfc.add_to_hash(sigma);
+    pfc.add_to_hash(sessionKey);
+    r = pfc.finish_hash_to_group();
+
+    int nbOfRecipients = recipients.size();
+
+    // U = r.P
+    U = pfc.mult(P, r);
+
+    // Vector of recipientKeys (W values) values
+    vector <Big> recipientKeys;
+    // W = sigma XOR Hash(e(Q1,Ppub)^r)
+    // Note that e(Q1,Ppub)^r = e(r.Q1, Ppub) such that
+    // W = sigma XOR Hash(e(r.Q1,Ppub))
+    for(int i = 0; i < nbOfRecipients; i++) {
+        pfc.hash_and_map(Q1, (char *)recipients.at(i).c_str());
+        rQ = pfc.mult(Q1, r);
+        W = pfc.hash_to_aes_key(pfc.pairing(Ppub, rQ));
+        W = lxor(sigma, W);
+        recipientKeys.push_back(W);
+    }
+
+    // V = M XOR Hash(sigma)
+    pfc.start_hash();
+    pfc.add_to_hash(sigma);
+    sigma_hash = pfc.finish_hash_to_group();
+    V = lxor(sessionKey, sigma_hash);
+
+    autData.nbOfRecipients = nbOfRecipients;
+    autData.V = V;
+    autData.U = U;
+    autData.ws = recipientKeys;
 }
 
 G2 g2From(string aString) {
