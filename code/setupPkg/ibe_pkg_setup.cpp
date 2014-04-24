@@ -66,7 +66,7 @@ int main()
 	char * pwd;
 
 	miracl* mip = get_mip();
-	mip->IOBASE = 16;
+	mip->IOBASE = 64;
 
 	ifstream file;
 	ofstream outputFile;
@@ -75,7 +75,7 @@ int main()
 
 	if(file.is_open()) {
 		cout << "encrypted_msk.key file already exists. Terminating to prevent losing the MSK." << endl;
-		cout << "If you want to restart the system using the previous MSK please execute ./restartPKG" << endl;
+		cout << "If you want to restart the system using the previous MSK please only execute ./ibe_pkg_keygen" << endl;
 		file.close();
 		return 0;
 	} else {
@@ -200,7 +200,7 @@ int main()
 	cout << "MSK successfully generated!" << endl;
 	cout << "MSK is stored in encrypted format in encrypted_msk.key. Please do not forget your password. " << endl;
 
-	mip->IOBASE = 16;
+	mip->IOBASE = 64;
 	cout << "Stored MSK" << endl << s << endl;
     return 0;
 }

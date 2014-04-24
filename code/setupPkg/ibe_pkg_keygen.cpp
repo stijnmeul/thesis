@@ -69,6 +69,7 @@ int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
 Big s;
 int main(int argc, char *argv[])
 {
+	get_mip()->IOBASE=64;
 	/*************************************************
     *     Decrypt the MSK from encrypted_msk.key 	 *
     **************************************************/

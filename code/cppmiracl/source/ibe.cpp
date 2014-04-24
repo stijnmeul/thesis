@@ -50,6 +50,8 @@
 
 float getExecutionTime(float begin_time);
 
+#define RECEIVER_ID "Alice"
+
 int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
@@ -116,11 +118,11 @@ int main()
 	* Bob can calculate Q1 because he knows Alice's identity
 	***********/
 
-	//pfc.precomp_for_pairing(Ppub);
-	pfc.precomp_for_mult(P);
+	pfc.precomp_for_pairing(Ppub);
+	//pfc.precomp_for_mult(P);
 
 	// The secret message
-	M = (char *)"I <3 you Alice";
+	M = (char *)"Hello";
 	//cout << "Encrypted message" << endl << M << endl;
 
 	begin_time = clock();

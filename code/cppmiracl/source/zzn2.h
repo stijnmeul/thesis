@@ -86,7 +86,7 @@ public:
         string left, right;
         found = zzn2Nb.find(",");
         // return [0,0] if string has the wrong format
-        if(found == ((zzn2Nb.length()-1)/2) || found == ((zzn2Nb.length())/2) || found == ((zzn2Nb.length()+1)/2)) {
+        if (found >= ((zzn2Nb.length()-4)/2) && found <= ((zzn2Nb.length()+4)/2) )  {
             left = zzn2Nb.substr(0,found).erase(0,1);
             right = zzn2Nb.substr(found+1, string::npos);
             right = right.erase(right.length()-1,1);
