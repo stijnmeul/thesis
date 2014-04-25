@@ -21,6 +21,8 @@
 #define PKG_ADDR PKG RECEIVER_ID
 // Compilation command: g++-4.7 sender_oop.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp ../cppmiracl/source/mrgcm.c -I ../cppmiracl/include/ ../cppmiracl/source/mraes.c -L ../cppmiracl/source/ -l miracl -lcurl -o oopsender
 
+
+// https://www.facebook.com/help/105399436216001#What-are-the-guidelines-around-creating-a-custom-username? for more information about which characters that can be used for usernames and profile_ids
 #include "../cppmiracl/source/pairing_3.h"
 
 #if AES_SECURITY == 256
@@ -77,6 +79,26 @@ string toString(Big big) {
     stringstream res;
     res << big;
     return res.str();
+}
+
+string toString(vector <string> recipients) {
+    stringstream ss;
+    for (int i = 0; i < recipients.size(); i++) {
+        ss << "|" << recipients.at(i);
+    }
+    return ss.str();
+}
+
+vector <string> toVector(string recipients) {
+    stringstream ss(recipients);
+    string recipient;
+    vector <string> res;
+    char delim = *"|";
+    while (std::getline(ss, recipient, delim)) {
+        res.push_back(recipient);
+    }
+    res.erase(res.begin());
+    return res;
 }
 
 class AuthenticatedData {
@@ -259,13 +281,6 @@ public:
 
         memcpy(encAr, base64_decode(encryptedMessage).c_str(), encryptedMessage.length());
 
-        cout << endl << endl;
-        cout << "encAr" << endl;
-        for (int i = 0; i < encryptedMessage.length()+1; i++) {
-            cout << encAr[i];
-        }
-        cout << endl << endl;
-
         memcpy(this->T, encAr, TAG_LEN);
         this->C = new char[Clen];
         memcpy(this->C, &encAr[TAG_LEN], Clen);
@@ -282,42 +297,34 @@ public:
     string getMessage() {
         stringstream ss;
 
+        // Convert nbOfRecipients from string to int
         int nbOfRecipients;
         memcpy(&(nbOfRecipients), A, sizeof(nbOfRecipients));
         string stringNbOfRecipients = static_cast<ostringstream*>( &(ostringstream() << nbOfRecipients) )->str();
-        ss << stringNbOfRecipients;
+
+        // Convert array of chars to a string
         string aString(A, Alen);
-        /*
-        cout << "aString is " << endl << aString << endl;
-        for (int i = 0; i < Alen; i++) {
-            cout << "  A[" << dec << i << "]  " << A[i];
-        }*/
-        ss << aString;
+
+        // concatenate tag T and ciphertext C
         char tc[TAG_LEN+Clen+1];
         memset(tc, 0, sizeof(tc));
         memcpy(tc, T, TAG_LEN);
         memcpy(&tc[TAG_LEN], C, Clen);
+
+        // Concatenate all strings
+        ss << stringNbOfRecipients;
+        ss << aString;
         ss << base64_encode(reinterpret_cast<const unsigned char*>(tc), TAG_LEN+Clen);
         return ss.str();
-    }
-
-    void getTag(char * tag) {
-        memcpy(tag, T, TAG_LEN);
-    }
-
-    void getC (char * c) {
-        memcpy(c, this->C, Clen);
-    }
-
-    int getClen() {
-        return this->Clen;
     }
 };
 
 class PlaintextMessage: protected BroadcastMessage {
     vector <G1> recipientHashes;
 public:
-    PlaintextMessage(string message) : BroadcastMessage(message){
+    PlaintextMessage(string message) {
+        this->message = message;
+        recipients = toVector(message);
     }
     void addRecipient(string recipient) {
         G1 Q1;
@@ -340,6 +347,8 @@ public:
             throw invalid_argument("Please specify initialised public parameters.");
         }
         time_t begin_time = clock();
+        // Add recipients to message
+        message = message + toString(recipients);
         /************************************************/
         /*   PREPARE AUTHENTICATED DATA - IBE ENCRYPT   */
         /************************************************/
@@ -390,9 +399,17 @@ public:
 
         return EncryptedMessage(A, Alen, T, C, message.length());
     }
-    // Get the plaintext message
+    // Get the plaintext message (without the recipients)
     string getMessage() {
+
+        string message = this->message;
+        size_t found = message.find("|");
+        message = message.substr(0, found);
         return message;
+    }
+
+    vector <string> getRecipients() {
+        return recipients;
     }
 
 private:
@@ -705,66 +722,15 @@ int main(void)
     pfc.precomp_for_mult(P);
     pfc.precomp_for_pairing(Ppub);
     begin_time = clock();
-    char tag1[TAG_LEN];
-    char tag2[TAG_LEN];
 
     EncryptedMessage encMes = mes.encrypt(P, Ppub);
-    encMes.getTag(tag1);
     string temp = encMes.getMessage();
     EncryptedMessage encMes2 = EncryptedMessage(temp);
-    encMes2.getTag(tag2);
     cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
     begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D);
     cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
     cout << "decMes " << decMes.getMessage() << endl;
-    cout << "encMes" << endl << encMes.getMessage() << endl;
-    char c1[encMes.getClen()];
-    char c2[encMes2.getClen()];
-    encMes.getC(c1);
-    encMes2.getC(c2);
-
-    cout << endl << endl;
-    cout << "c1" << endl;
-    for(int i = 0; i < sizeof(c1); i++) {
-        cout << c1[i];
-    }
-    cout << endl;
-
-    /*string tempiStringi = base64_encode(reinterpret_cast<const unsigned char*>(tag1), TAG_LEN);
-    char tag3[TAG_LEN];
-    tempiStringi = base64_decode(tempiStringi);
-    stringstream ss;
-    ss << tempiStringi << "a";
-    memcpy(tag3, ss.str().c_str(), TAG_LEN);*/
-
-    bool isInteger = true;
-    for (int i = 0; i < TAG_LEN; i++) {
-        if(tag1[i] != tag2[i]) {
-            isInteger = false;
-            cout << "tag1 and tag2 difference at position " << dec << i << endl;
-        }
-    }
-    if(isInteger == false) {
-        cout << "Tag1 and tag2 differ!" << endl;
-    } else {
-        cout << "Tag1 and tag2 are the same. Hurray!" << endl;
-    }
-    isInteger = true;
-    for (int i = 0; i < TAG_LEN; i++) {
-        if(c1[i] != c2[i]) {
-            isInteger = false;
-            cout << "c1 and c2 difference at position " << dec << i << endl;
-            cout << "c1[i]" << c1[i] << endl;
-            cout << "c2[i]" << c2[i] << endl;
-        }
-    }
-    if(isInteger == false) {
-        cout << "c1 and c2 differ!" << endl;
-    } else {
-        cout << "c1 and c2 are the same. Hurray!" << endl;
-    }
-
 
     return 0;
 }
