@@ -596,6 +596,7 @@ int main(void)
     D = g1From(d_id);
 
     PlaintextMessage mes = PlaintextMessage("Dit is een testje");
+    vector<string> testVect = mes.getRecipients();
 
     mes.addRecipient("Andre");
     mes.addRecipient("Adam");
