@@ -61,14 +61,16 @@
 #define BUF_SIZE 4096
 
 void *connection_handler(void *);
-string extract(char * id, Big s, PFC pfc);
+string extract(char * id, Big s);
 
 int bytes_per_big = 80;
 
+//PFC pfc(AES_SECURITY);
+
 struct ThreadParams {
-	//PFC *pfc;
-	string s;
+	int s;
 	int sockfd;
+	PFC *pfc;
 };
 
 int main(int argc, char *argv[])
@@ -93,6 +95,8 @@ int main(int argc, char *argv[])
      // Listen to socket and accept incoming connections
     listen(sockfd,5);
     clilen = sizeof(cli_addr);
+    mr_init_threading();
+
     while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) )){
         cout << "newsockfd: " << newsockfd << endl;
         if (newsockfd < 0)
@@ -100,27 +104,34 @@ int main(int argc, char *argv[])
 
         // Initialise new thread
         pthread_t sniffer_thread;
+        //pthread_attr_t attributes;
         ThreadParams *params = new ThreadParams; // params is a pointer to a threadParams struct
-		//*(params->pfc) = PFC(AES_SECURITY);
 		params->sockfd = newsockfd;
-		params->s = "Stijn zijn testjeuh!";
-        //mr_init_threading();
+		params->pfc = new PFC(AES_SECURITY); // MEMORY LEAK: this pointer is never being freed! :o
+		if(newsockfd == 4)
+			params->s = 42;
+		else params->s = 100;
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , params) < 0 )
             perror("ERROR on creating thread");
     }
+    mr_end_threading();
 
 	return 0;
 }
 
 // The following function is executed concurrently with other threads
 void *connection_handler(void *arg) {
-	/* UNCOMMENT THIS CODE SNIPPET TO SEE WHETHER MULTITHREADING IS WORKING
+	Miracl *myMiracl = new Miracl(100,0);
+	//Big s;
+
+	//G1 Q1;
+	//(*pfc).hash_and_map(Q1, (char *) "Stijn");
+	//cout << "Q1" << endl << Q1.g << endl;
 	cout << "Started sleeping..." << endl << endl;
-	sleep(10);
+	sleep(5);
 	cout << "Waking up..." << endl << endl;
-	*/
+
 	char buffer[BUF_SIZE];
-	//memset((char *) &buffer,0,sizeof(buffer));
 	ThreadParams * params = (ThreadParams*)(arg);
 	int sockfd = params->sockfd;
 	cout << "sockfd is " << sockfd << endl;
@@ -141,13 +152,21 @@ void *connection_handler(void *arg) {
 
     if (n < 0) error("ERROR writing to socket");
 
+
     delete params;
+
+    //delete pfc;
+    delete myMiracl;
+    close(sockfd);
+
+    pthread_cancel(pthread_self());
     pthread_detach(pthread_self());
 
-    return 0;
+
+    return NULL;
 }
 
-//string extract(char * id, Big s, PFC pfc) {
+//string extract(char * id, Big s) {
 	//Big s is a global variable!
 	/**********
 	* EXTRACT
