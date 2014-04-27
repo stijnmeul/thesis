@@ -21,7 +21,7 @@
    See https://eprint.iacr.org/2001/090 for more information
    Section 4.1 and 4.2
 
-   g++-4.7 ibe_pkg_keygen.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp ../cppmiracl/source/mrgcm.c ../cppmiracl/source/mraes.c -I ../cppmiracl/include/ -L ../cppmiracl/source/ -l miracl -o ibe_pkg_keygen
+   g++-4.7 threaded_ibe_keygen.cpp ../miraclthread/source/bls_pair.cpp ../miraclthread/source/zzn24.cpp ../miraclthread/source/zzn8.cpp ../miraclthread/source/zzn4.cpp ../miraclthread/source/zzn2.cpp ../miraclthread/source/ecn4.cpp ../miraclthread/source/big.cpp ../miraclthread/source/zzn.cpp ../miraclthread/source/ecn.cpp ../miraclthread/source/mrgcm.c ../miraclthread/source/mraes.c ../miraclthread/source/miracl.a -D_REENTRANT -I ../miraclthread/include/ -L ../miraclthread/source/ -l pthread -o threaded_ibe_keygen
 */
 
 //********* choose just one of these pairs **********
@@ -59,22 +59,99 @@
 #define TAG_LEN 16
 #define PORT_NB 5000
 #define BUF_SIZE 4096
+#define BYTES_PER_BIG 80
 
 void *connection_handler(void *);
-string extract(char * id, Big s);
-
-int bytes_per_big = 80;
-
-//PFC pfc(AES_SECURITY);
+string extract(char * id, Big s, PFC *pfc);
 
 struct ThreadParams {
-	int s;
+	char sPlain[BYTES_PER_BIG];
 	int sockfd;
-	PFC *pfc;
+	//PFC *pfc;
 };
 
 int main(int argc, char *argv[])
 {
+	/*************************************************
+    *     Decrypt the MSK from encrypted_msk.key 	 *
+    **************************************************/
+	char Cread[BYTES_PER_BIG];
+	char Tread[TAG_LEN];
+	char T[TAG_LEN];
+	char plain[BYTES_PER_BIG];
+	char msk[BYTES_PER_BIG];
+	char * pwd;
+	char hash[HASH_LEN];
+
+	ifstream file;
+	gcm g;
+	sha256 sh;
+
+	// Hash password string to two 128 bit big numbers h1 and h2.
+	/*if(argc > 1) {
+		pwd = argv[1];
+	} else {
+		cout << "Please specify a password to decrypt the encrypted_msk.key" << endl;
+		return 0;
+	}*/
+	termios oldt;
+
+    cout << "Please insert a password to decrypt the master secret key:";
+
+    // Turn off terminal output
+    tcgetattr(STDIN_FILENO, &oldt);
+    termios newt = oldt;
+    newt.c_lflag &= ~ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+    string password;
+    getline(cin, password);
+
+    // Turn terminal output back on.
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    cout << endl;
+
+    pwd = (char *)password.c_str();
+	shs256_init(&sh);
+	int i =0;
+	while (*pwd!=0) {
+		shs256_process(&sh,*pwd++);
+		shs256_hash(&sh,hash);
+		i++;
+	}
+	char hash1[HASH_LEN/2];
+	char hash2[HASH_LEN/2];
+	memcpy(hash1,hash,HASH_LEN/2);
+	memcpy(hash2,&hash[HASH_LEN/2],HASH_LEN/2);
+
+	// Read encrypted MSK from file
+	file.open("encrypted_msk.key", ios::in | ios::binary);
+	file.read(Cread, BYTES_PER_BIG);
+	file.read(Tread, TAG_LEN);
+	file.close();
+
+	// Decrypt MSK
+	gcm_init(&g, HASH_LEN/2, hash1, HASH_LEN/2, hash2);
+	gcm_add_cipher(&g, GCM_DECRYPTING, plain, BYTES_PER_BIG, Cread);
+	gcm_finish(&g,T); // Overwrite previous T value
+
+	bool encryptedIsDecrypted = true;
+	for (int i = 0; i < TAG_LEN; i++) {
+		if(T[i] != Tread[i]) {
+			cout << "T[" << i << "]: " << T[i] << "      Tread[" << i << "]: " << Tread[i] << endl;
+			encryptedIsDecrypted = false;
+		}
+	}
+	if(!encryptedIsDecrypted) {
+		cout << "Incorrect password specified. Terminating extraction process." << endl;
+		return 0;
+	} else {
+		cout << "Successfully extracted the MSK." << endl;
+	}
+
+	/*************************************************
+    * Initialise server side socket for PKG purposes *
+    **************************************************/
 	int sockfd, newsockfd;
     socklen_t clilen;
 
@@ -107,10 +184,8 @@ int main(int argc, char *argv[])
         //pthread_attr_t attributes;
         ThreadParams *params = new ThreadParams; // params is a pointer to a threadParams struct
 		params->sockfd = newsockfd;
-		params->pfc = new PFC(AES_SECURITY); // MEMORY LEAK: this pointer is never being freed! :o
-		if(newsockfd == 4)
-			params->s = 42;
-		else params->s = 100;
+		//params->pfc = new PFC(AES_SECURITY); // MEMORY LEAK: this pointer is never being freed! :o
+		memcpy(params->sPlain, plain, BYTES_PER_BIG);
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , params) < 0 )
             perror("ERROR on creating thread");
     }
@@ -121,66 +196,59 @@ int main(int argc, char *argv[])
 
 // The following function is executed concurrently with other threads
 void *connection_handler(void *arg) {
-	Miracl *myMiracl = new Miracl(100,0);
-	//Big s;
-
-	//G1 Q1;
-	//(*pfc).hash_and_map(Q1, (char *) "Stijn");
-	//cout << "Q1" << endl << Q1.g << endl;
-	cout << "Started sleeping..." << endl << endl;
-	sleep(5);
-	cout << "Waking up..." << endl << endl;
+	PFC *pfc = new PFC(AES_SECURITY);
+	get_mip()->IOBASE=64;
+	int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
 
 	char buffer[BUF_SIZE];
 	ThreadParams * params = (ThreadParams*)(arg);
-	int sockfd = params->sockfd;
-	cout << "sockfd is " << sockfd << endl;
-	cout << "passed additional parameter is " << params->s << endl;
+
+	Big s = from_binary(sizeof(params->sPlain), params->sPlain);
+
+	/*
+	cout << "Started sleeping..." << endl << endl;
+	sleep(5);
+	cout << "Waking up..." << endl << endl;*/
+
+	cout << "sockfd is " << params->sockfd << endl;
 	// Read out socket.
-    int n = recv(params->sockfd,buffer,sizeof(buffer),0);
+    int n = recv(params->sockfd, buffer, sizeof(buffer),0);
     if (n < 0)
     	error("ERROR reading from socket");
 
 
-    //string ext_pvt_key = extract(buffer, params->s, *(params->pfc));
+    string ext_pvt_key = extract(buffer, s, pfc);
     cout << "Received ID:" << endl << buffer << endl;
-    //cout << "Extracted private key:" << endl << ext_pvt_key << endl;
-    string ext_pvt_key("testje");
+    cout << "Extracted private key:" << endl << ext_pvt_key << endl;
     strcpy(buffer, ext_pvt_key.c_str());
 
-    n = send(sockfd,buffer,sizeof(buffer),0);
+    n = send(params->sockfd, buffer, sizeof(buffer),0);
 
     if (n < 0) error("ERROR writing to socket");
 
-
     delete params;
-
-    //delete pfc;
-    delete myMiracl;
-    close(sockfd);
+    delete pfc;
+    close(params->sockfd);
 
     pthread_cancel(pthread_self());
     pthread_detach(pthread_self());
 
-
     return NULL;
 }
 
-//string extract(char * id, Big s) {
-	//Big s is a global variable!
+string extract(char * id, Big s, PFC *pfc) {
 	/**********
 	* EXTRACT
 	***********/
-/*	G1 Q1, D;
+	get_mip()->IOBASE=256;
+	G1 Q1, D;
 	// hash public key of Alice to Q1
-	pfc.hash_and_map(Q1, (char*)id);
+	(*pfc).hash_and_map(Q1, (char*)id);
 	// Calculate private key of Alice as D=s.Q1
-	D = pfc.mult(Q1, s);
-
-	cout << "Value of s in extract is " << s << endl;
-
+	D = (*pfc).mult(Q1, s);
+	get_mip()->IOBASE=64;
 	return toString(D);
-}*/
+}
 /*
 float getExecutionTime(float begin_time) {
 	return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
