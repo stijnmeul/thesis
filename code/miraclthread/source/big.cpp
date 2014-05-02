@@ -37,7 +37,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
  *
  *    AUTHOR  :    N.Coghlan
  *                 Modified by M.Scott
- *             
+ *
  *    PURPOSE :    Implementation of class Big functions
  */
 
@@ -45,7 +45,7 @@ the CertiVox MIRACL Crypto SDK with a closed source product.               *
 
 void Big::negate() const
          { negify(fn,fn); }
-big Big::getbig() const         
+big Big::getbig() const
          { return fn;}
 BOOL Big::iszero() const
          { if (size(fn)==0) return TRUE; return FALSE;}
@@ -107,7 +107,7 @@ Big operator>>(const Big& b, int i)
 #ifndef MR_FP
 Big land(const Big& x,const Big& y)
 {Big z; mr_and(x.fn,y.fn,z.fn); return z;}
-Big lxor(const Big& x,const Big& y) 
+Big lxor(const Big& x,const Big& y)
 {Big z; mr_xor(x.fn,y.fn,z.fn); return z;}
 
 #endif
@@ -128,7 +128,7 @@ Big abs(const Big& b) {Big z; absol(b.fn,z.fn); return z;}
 Big root(const Big &b,int n) {Big z; nroot(b.fn, n, z.fn); return z;}
 Big gcd(const Big& b1, const Big& b2){Big z;egcd(b1.fn,b2.fn,z.fn);return z;}
 Big pow(const Big& b,int n)
-{Big z;int x; 
+{Big z;int x;
 if (mr_abs(x=size(b.fn))<MR_TOOBIG) expint(x,n,z.fn);
               else power(b.fn,n,z.fn,z.fn);return z;}
 Big pow(const Big& b1,int n, const Big& b3)
@@ -175,7 +175,7 @@ Big pow(int n,Big *a,Big *b,Big p)
 #endif
 
 Big luc(const Big& b1,const Big& b2,const Big& b3,Big *b4)
-{Big z; if (b4!=NULL) lucas(b1.fn,b2.fn,b3.fn,b4->fn,z.fn); 
+{Big z; if (b4!=NULL) lucas(b1.fn,b2.fn,b3.fn,b4->fn,z.fn);
         else          lucas(b1.fn,b2.fn,b3.fn,z.fn,z.fn);
 return z;}
 
@@ -198,7 +198,7 @@ Big strong_rand(csprng *rng,int n,int b) {Big z; strong_bigdig(rng,n,b,z.fn);  r
 #endif
 
 Big nextprime(const Big& b) {Big z; nxprime(b.fn,z.fn); return z;}
-Big nextsafeprime(int type,int subset,const Big& b) {Big z; 
+Big nextsafeprime(int type,int subset,const Big& b) {Big z;
 nxsafeprime(type,subset,b.fn,z.fn); return z; }
 Big trial_divide(const Big& b) {Big r; trial_division(b.fn,r.fn); return r;}
 BOOL small_factors(const Big& b)
@@ -211,18 +211,18 @@ BOOL perfect_power(const Big& b)
  {
     if (nroot(b.fn,i,mip->w8)) return TRUE;
     if (size(mip->w8)<=1) break;
- }   
- return FALSE; 
+ }
+ return FALSE;
 }
 
 
 Big sqrt(const Big& x,const Big& p) {Big z; sqroot(x.fn,p.fn,z.fn); return z;}
 
 void modulo(const Big& n) {prepare_monty(n.fn);}
-Big get_modulus()      
-{Big m; 
+Big get_modulus()
+{Big m;
 miracl *mip=get_mip();
-copy(mip->modulus,m.fn); 
+copy(mip->modulus,m.fn);
 return m;}
 
 
@@ -271,7 +271,7 @@ Big nres_pown(int n,Big *a,Big *b)
 }
 
 Big nres_luc(const Big& b1,const Big& b2,Big *b3)
-{ Big z; if (b3!=NULL) nres_lucas(b1.fn,b2.fn,b3->fn,z.fn); 
+{ Big z; if (b3!=NULL) nres_lucas(b1.fn,b2.fn,b3->fn,z.fn);
          else          nres_lucas(b1.fn,b2.fn,z.fn,z.fn);
   return z;}
 
@@ -287,7 +287,7 @@ Big shift(const Big&b,int n)
 }
 
 int length(const Big& b)
-{                     
+{
     return mr_lent(b.fn);
 }
 
@@ -298,27 +298,27 @@ int length(const Big& b)
 #ifndef MR_SIMPLE_IO
 
 istream& operator>>(istream& s, Big& x)
-{ 
+{
   miracl *mip=get_mip();
 #ifndef MR_SIMPLE_BASE
 
-  if (mip->IOBASE>60) 
+  if (mip->IOBASE>60)
   {
-     s.sync(); 
+     s.sync();
      s.getline(mip->IOBUFF,mip->IOBSIZ);
   }
   else
 #endif
 	  s >> mip->IOBUFF;
-  if (s.eof() || s.bad()) 
-  {   
-      zero(x.fn); 
-      return s; 
+  if (s.eof() || s.bad())
+  {
+      zero(x.fn);
+      return s;
   }
 #ifdef MR_SIMPLE_BASE
-  instr(x.fn,mip->IOBUFF); 
+  instr(x.fn,mip->IOBUFF);
 #else
-  cinstr(x.fn,mip->IOBUFF); 
+  cinstr(x.fn,mip->IOBUFF);
 #endif
   return s;
 }
@@ -343,7 +343,7 @@ int window(const Big& x,int i,int *nbs,int *nzs,int window_size)
 int naf_window(const Big& x,const Big& x3,int i,int *nbs,int *nzs,int store)
 { /* returns sliding window value, max of 5 bits           *
    * starting at i-th bit of x. nbs is number of bits      *
-   * processed. nzs is number of additional trailing       *    
+   * processed. nzs is number of additional trailing       *
    * zeros detected. x and x3 (which is 3*x) are           *
    * combined to produce the NAF (non-adjacent form)       *
    * So if x=11011(27) and x3 is 1010001, the LSB is       *
@@ -374,7 +374,7 @@ ostream& operator<<(ostream& s, const Big& x)
 #else
 	cotstr(x.fn,mip->IOBUFF);
 #endif
-    s << mip->IOBUFF; 
+    s << mip->IOBUFF;
     return s;
 }
 
@@ -403,7 +403,7 @@ ostream& otfloat(ostream& s,const Big& m,int e)
         }
 #if defined(MR_SIMPLE_BASE) || defined(MR_SIMPLE_IO)
 		otstr(mip->w8,mip->IOBUFF);
-#else	
+#else
         cotstr(mip->w8,mip->IOBUFF);
 #endif
         s << mip->IOBUFF;
@@ -416,7 +416,7 @@ ostream& otfloat(ostream& s,const Big& m,int e)
         cotstr(mip->w8,mip->IOBUFF);
 #endif
 		s << mip->IOBUFF;
-        s << ".2^" << e*MIRACL; 
+        s << ".2^" << e*MIRACL;
     }
 
     return s;
