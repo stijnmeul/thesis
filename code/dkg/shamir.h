@@ -36,7 +36,7 @@ private:
 	// Generate a share for each participating server
 	void generateShares(int nbOfShares, int threshold);
 
-	DKG(int nbOfShares, int threshold, Big order, PFC *pfc, Big s);
+	void init(int nbOfShares, int threshold, Big order, Big s);
 
 public:
 	// Constructor only allowed if serverId = 1 (because only server 1 can generate P)
@@ -56,9 +56,11 @@ public:
 
 	void setP(G2 P);
 
-	int getServerId() {
-		return this->serverId;
-	}
+	G2 getP();
+
+	int getServerId();
+
+	int getLastReceivedShareGenerator();
 
 	void setShare(share_t share);
 

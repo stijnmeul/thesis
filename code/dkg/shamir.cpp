@@ -15,7 +15,6 @@ void DKG::generatePolynomial(int threshold) {
 
 	// A THRESHOLD-1 degree polynomial is randomly chosen such that poly(0)=s
 	poly[0] = this->secret;
-
 	// Generate THRESHOLD-1 random numbers
 	for (int i = 1; i < threshold; i++) {
 		(*pfc).random(randCoef);
@@ -69,13 +68,17 @@ G2 DKG::getSjP() {
 }
 
 void DKG::setShare(share_t share) {
+	cout << "setting share from server " << share.shareGenerator << " on server " << this->serverId << endl;
 	if (this->lastReceivedShareGenerator + 1 != share.shareGenerator) {
-		throw invalid_argument("DKGs have to distribute their shares in the same order as their IDs");
+		throw invalid_argument("DKGs have to distribute their shares in the same order as their IDs.");
+	}
+	if (this->serverId == share.shareGenerator) {
+		throw invalid_argument("Can not use setShare() for a share that was generated on the same server.");
 	}
 	this->receivedShares[share.shareGenerator-1] = share;
 	this->lastReceivedShareGenerator = share.shareGenerator;
 	// If all shares are received, start calculating sjP
-	if (this->lastReceivedShareGenerator == nbOfShares) {
+	if (this->lastReceivedShareGenerator == nbOfShares || (this->serverId == nbOfShares && lastReceivedShareGenerator + 1 == this->serverId )) { // second condition is needed for to set the last server to finish
 		this->sj = 0;
 		for (int i = 0; i < nbOfShares; i++) {
 			this->sj += receivedShares[i].y;
@@ -88,6 +91,9 @@ void DKG::setShare(share_t share) {
 
 // Note: normally a server would have to authenticate itself before being able to receive its share
 share_t DKG::getShareOf(int serverId) {
+	if(this->lastReceivedShareGenerator + 1 == this->serverId) { // Update lastReceivedShareGenerator if it's this server's turn to distribute shares.
+		this->lastReceivedShareGenerator  = this->serverId;
+	}
 	return this->myShares[serverId-1];
 }
 // It shouldn't be possible to get the shares of one server, only SjP
@@ -124,32 +130,39 @@ void DKG::setP(G2 P) {
 	}
 }
 
+G2 DKG::getP() {
+	if(getState() == DKG_WAITING_FOR_P) {
+		throw logic_error("P is not initialised yet");
+	}
+	return this->P;
+}
+// All servers except server 1
 DKG::DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, Big s) {
+	this->pfc = pfc;
 	if (serverId > nbOfShares || serverId < 1)
 		throw invalid_argument("Please provide an integer serverID between 1 and nbOfShares.");
 	if (serverId == 1)
 		throw invalid_argument("A server with ID equal to 1 has to be initialised with a P value.");
-	this->pfc = pfc;
 	this->portNb = BASE_PORT + serverId;
 	this->serverId = serverId;
-	DKG(nbOfShares, threshold, order, pfc, s);
+	init(nbOfShares, threshold, order, s);
 	this->state = DKG_WAITING_FOR_P;
 }
-
+// Only server 1
 DKG::DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s) {
+	this->pfc = pfc;
 	if (serverId > nbOfShares || serverId < 1)
 		throw invalid_argument("Please provide an integer serverID between 1 and nbOfShares");
 	if (serverId != 1)
 		throw invalid_argument("Only a server with ID equal to 1 can be initialised with a P value.");
-	this->pfc = pfc;
 	this->portNb = BASE_PORT + serverId;
 	this->serverId = serverId;
-	DKG(nbOfShares, threshold, order, pfc, s);
+	init(nbOfShares, threshold, order, s);
 	this->P = P;
 	this->state = DKG_WAITING_FOR_SHARES;
 }
 
-DKG::DKG(int nbOfShares, int threshold, Big order, PFC *pfc, Big s) {
+void DKG::init(int nbOfShares, int threshold, Big order, Big s) {
 	this->myShares = new share_t[nbOfShares]();
 	this->receivedShares = new share_t[nbOfShares]();
 	this->poly = new Big[threshold];
@@ -165,4 +178,12 @@ DKG::DKG(int nbOfShares, int threshold, Big order, PFC *pfc, Big s) {
 
 ServerState DKG::getState() {
 	return this->state;
+}
+
+int DKG::getServerId() {
+	return this->serverId;
+}
+
+int DKG::getLastReceivedShareGenerator() {
+	return this->lastReceivedShareGenerator;
 }

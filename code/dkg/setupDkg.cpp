@@ -88,164 +88,44 @@ int main()
     irand((long)seed);
 	pfc.random(s);
 
-	// Choose a random generator P elementof G2
-	pfc.random(P);
-	pfc.precomp_for_mult(P);
-
 	Big order = pfc.order();
 	vector <DKG> serverlist;
-
-	// Initialise all servers and put them in a list
-	for (int i = 0; i < NB_OF_SHARES; i++) {
+	DKG leaderDKG = DKG(1, NB_OF_SHARES, THRESHOLD, order, &pfc, P, s);
+	cout << "leaderDKG.getState()" << endl << leaderDKG.getState() << endl;
+	serverlist.push_back(leaderDKG);
+	// Initialise the other servers and put them in a list
+	for (int i = 1; i < NB_OF_SHARES; i++) {
 		int serverId = i + 1; // ServerId must be between 1 and NB_OF_SHARES
 		pfc.random(s);
-		serverlist.push_back(DKG(serverId, NB_OF_SHARES, THRESHOLD, order, &pfc, P, s));
+		serverlist.push_back(DKG(serverId, NB_OF_SHARES, THRESHOLD, order, &pfc, s));
+		cout << "server " << serverId << " after initialisation"<< endl << serverlist.at(i).getState() << endl;
 	}
 
-	// Servers connect to each other to receive their share
-	for (int i = 0; i < NB_OF_SHARES; i++) {
-		serverlist.at(i).getSharesFrom(serverlist);
+	// Server 1 distributes his P value to the other servers
+	P = serverlist.at(0).getP();
+	for (int i = 1; i < NB_OF_SHARES; i++) {
+		serverlist.at(i).setP(P);
+		cout << "server " << i+1 << " after P distribution"<< endl << serverlist.at(i).getState() << endl;
 	}
 
-	/***
-	* RECALCULATE THE SECRET BASED ON THRESHOLD NB OF SHARES
-	***/
-	cout << "Get all secret shares from Server 0, 1, 2, 3 and 4" << endl;
-	share_t shares0[NB_OF_SHARES];
-	share_t shares1[NB_OF_SHARES];
-	share_t shares2[NB_OF_SHARES];
-	share_t shares3[NB_OF_SHARES];
-	share_t shares4[NB_OF_SHARES];
+	// In ascending order, each server spreads its shares
+	for (int j = 0; j < NB_OF_SHARES; j++) { // j is the ID of the distributing server
+		//DKG distribServer = serverlist.at(j); <- don't do this, this makes a new distribServerobject that doesn't change the state of the original one
+		for (int i = 0; i < NB_OF_SHARES; i++) {
+			int recServId = i+1;
+			if(j != i) {
+				cout << "Server " << j+1 << " has distributed his share to server " << recServId << endl;
+				share_t aShare = serverlist.at(j).getShareOf(recServId);
+				serverlist.at(i).setShare(aShare);
 
-	serverlist[0].getShares(shares0, NB_OF_SHARES);
-	serverlist[1].getShares(shares1, NB_OF_SHARES);
-	serverlist[2].getShares(shares2, NB_OF_SHARES);
-	serverlist[3].getShares(shares3, NB_OF_SHARES);
-	serverlist[4].getShares(shares4, NB_OF_SHARES);
-	share_t reconstructionPoints0[THRESHOLD];
-	share_t reconstructionPoints1[THRESHOLD];
-	share_t reconstructionPoints2[THRESHOLD];
-	share_t reconstructionPoints3[THRESHOLD];
-	share_t reconstructionPoints4[THRESHOLD];
-
-	cout << "Walking through shares0:" << endl;
-	for (int i = 0; i < NB_OF_SHARES; i++) {
-		cout << "storing server: " << shares0[i].x << " shareGenerator: " << shares0[i].shareGenerator << endl;
+				cout << "State of all servers is " << endl;
+				for (int k = 0; k < NB_OF_SHARES; k++) {
+					cout << "Server " << k+1 << " has state: " << serverlist.at(k).getState() << " and lastReceivedShareGenerator: " << serverlist.at(k).getLastReceivedShareGenerator() << endl;
+				}
+				cout << endl << endl;
+			}
+		}
 	}
-
-	cout << "Walking through shares1:" << endl;
-	for (int i = 0; i < NB_OF_SHARES; i++) {
-		cout << "storing server: " << shares1[i].x << " shareGenerator: " << shares1[i].shareGenerator << endl;
-	}
-
-	reconstructionPoints0[0] = shares0[0];
-	reconstructionPoints0[1] = shares1[0];
-	reconstructionPoints0[2] = shares2[0];
-
-	cout << "Walking through reconstructionPoints0:" << endl;
-	for (int i = 0; i < THRESHOLD; i++) {
-		cout << "storing server: " << reconstructionPoints0[i].x << " shareGenerator: " << reconstructionPoints0[i].shareGenerator << endl;
-	}
-	cout << endl;
-
-	cout << "Result of Lagrange interpolation on reconstructionPoints0" << endl << retrieveSecret(reconstructionPoints0, THRESHOLD, order)  << endl;
-
-	reconstructionPoints1[0] = shares0[1];
-	reconstructionPoints1[1] = shares1[1];
-	reconstructionPoints1[2] = shares2[1];
-
-
-	cout << "Walking through reconstructionPoints1:" << endl;
-	for (int i = 0; i < THRESHOLD; i++) {
-		cout << "storing server: " << reconstructionPoints1[i].x << " shareGenerator: " << reconstructionPoints1[i].shareGenerator << endl;
-	}
-	cout << endl;
-
-	reconstructionPoints2[0] = shares0[2];
-	reconstructionPoints2[1] = shares1[2];
-	reconstructionPoints2[2] = shares2[2];
-
-	Big sumOfSecrets = 0;
-	sumOfSecrets += retrieveSecret(reconstructionPoints0, THRESHOLD, order);
-	sumOfSecrets %= order;
-	sumOfSecrets += retrieveSecret(reconstructionPoints1, THRESHOLD, order);
-	sumOfSecrets %= order;
-	sumOfSecrets += retrieveSecret(reconstructionPoints2, THRESHOLD, order);
-	sumOfSecrets %= order;
-	cout << "interpolationResult from server 0, 1 and 2" << endl << sumOfSecrets << endl;
-
-	cout << "Recalculation of secret based on servers 2, 3 and 4" << endl;
-	reconstructionPoints0[0] = shares3[0];
-	reconstructionPoints0[1] = shares4[0];
-
-	reconstructionPoints1[0] = shares3[1];
-	reconstructionPoints1[1] = shares4[1];
-
-	reconstructionPoints2[0] = shares3[2];
-	reconstructionPoints2[1] = shares4[2];
-
-	sumOfSecrets = 0;
-	sumOfSecrets += retrieveSecret(reconstructionPoints0, THRESHOLD, order);
-	sumOfSecrets %= order;
-	sumOfSecrets += retrieveSecret(reconstructionPoints1, THRESHOLD, order);
-	sumOfSecrets %= order;
-	sumOfSecrets += retrieveSecret(reconstructionPoints2, THRESHOLD, order);
-	sumOfSecrets %= order;
-
-	cout << "interpolationResult from server 2, 3 and 4" << endl << sumOfSecrets << endl;
-
-	// Check step 4 of keygen
-	const char * id = "Stijn";
-	Ppub = serverlist.at(0).getSjP();
-	Qjprivid = serverlist.at(0).extract((char*)id);
-	GT comp1 = pfc.pairing(P, Qjprivid);
-	pfc.hash_and_map(Qid, (char*)"Stijn");
-	GT comp2 = pfc.pairing(Ppub, Qid);
-	if(comp1 == comp2) {
-		cout << "Step 4 of KeyGen works!" << endl;
-	} else {
-		cout << "Step 4 of KeyGen fails!" << endl;
-	}
-
-	cout << endl << endl;
-
-	vector <G1> Qprivs;
-	int recServ1, recServ2, recServ3;
-	int recServers[3];
-
-	recServ1 = 3;
-	recServ2 = 2;
-	recServ3 = 4;
-	Qprivs.push_back(serverlist.at(recServ1).extract((char*)id));
-	Qprivs.push_back(serverlist.at(recServ2).extract((char*)id));
-	Qprivs.push_back(serverlist.at(recServ3).extract((char*)id));
-	recServers[0] = recServ1;
-	recServers[1] = recServ2;
-	recServers[2] = recServ3;
-
-	for (int i = 0; i < THRESHOLD; i++) {
-		Big l = lagrange(i, recServers, THRESHOLD, order);
-		D = D + pfc.mult(Qprivs.at(i), l);
-	}
-	cout << "D based on servers " << recServ1 << ", " << recServ2 << " and " << recServ3 << endl << D.g << endl;
-	Qprivs.clear();
-
-	recServ1 = 1;
-	recServ2 = 5;
-	recServ3 = 2;
-	Qprivs.push_back(serverlist.at(recServ1).extract((char*)id));
-	Qprivs.push_back(serverlist.at(recServ2).extract((char*)id));
-	Qprivs.push_back(serverlist.at(recServ3).extract((char*)id));
-
-	recServers[0] = recServ1;
-	recServers[1] = recServ2;
-	recServers[2] = recServ3;
-	G1 D1;
-	for (int i = 0; i < THRESHOLD; i++) {
-		Big l = lagrange(i, recServers, THRESHOLD, order);
-		D1 = D1 + pfc.mult(Qprivs.at(i), l);
-	}
-	cout << "D based on servers " << recServ1 << ", " << recServ2 << " and " << recServ3 << endl << D1.g << endl;
 
     return 0;
 }
