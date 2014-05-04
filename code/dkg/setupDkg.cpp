@@ -62,14 +62,14 @@
 Big lagrange(int i, int *reconstructionPoints, int degree, Big order);
 Big lagrange(int i, share_t *reconstructionPoints, int degree, Big order);
 Big retrieveSecret(share_t *reconstructonPoints, int degree, Big order);
-
+G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <DKG> serverlist, Big order);
 
 PFC pfc(AES_SECURITY);
 
 int main()
 {
 	G2 P, Ppub;
-	G1 Qid, Qjprivid, D;
+	G1 Qid, Qjprivid;
 	Big s, s2, h1, h2, q;
 	big temp;
 
@@ -127,9 +127,29 @@ int main()
 		}
 	}
 
+	// Each server can now start to accept client requests for key generation
+	const char * id = "Stijn";
+
+	int contactedServers[3] = {1, 2, 3};
+	G1 D = getSecretKey((char*)id, contactedServers, serverlist, order);
+	cout << "D based on servers " << contactedServers[0] << ", " << contactedServers[1] << " and " << contactedServers[2] << endl << D.g << endl;
+
+	int contactedServers2[3] = {3, 4, 5};
+	D = getSecretKey((char*)id, contactedServers2, serverlist, order);
+	cout << "D based on servers " << contactedServers2[0] << ", " << contactedServers2[1] << " and " << contactedServers2[2] << endl << D.g << endl;
+
     return 0;
 }
 
+G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <DKG> serverlist, Big order) {
+	G1 D;
+	for (int i = 0; i < THRESHOLD; i++) {
+		G1 Q = serverlist.at(contactedServers[i]).extract(id);
+		Big l = lagrange(i, contactedServers, THRESHOLD, order);
+		D = D + pfc.mult(Q, l);
+	}
+	return D;
+}
 
 Big lagrange(int i, int *reconstructionPoints, int degree, Big order) {
 	Big z = 1;

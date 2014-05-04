@@ -55,10 +55,6 @@ void DKG::getSharesFrom(vector <DKG> serverlist) {
 	}
 	this->sjP = (*pfc).mult(this->P, this->sj);
 }
-// It shouldn't be possible to get Sj, only SjP
-Big DKG::getSj() {
-	return this->sj;
-}
 
 G2 DKG::getSjP() {
 	if(getState() != DKG_FINISHED) {
@@ -95,12 +91,6 @@ share_t DKG::getShareOf(int serverId) {
 		this->lastReceivedShareGenerator  = this->serverId;
 	}
 	return this->myShares[serverId-1];
-}
-// It shouldn't be possible to get the shares of one server, only SjP
-void DKG::getShares(share_t *shares, int nbOfShares) {
-	for (int i = 0; i < nbOfShares; i++) {
-		shares[i] = this->receivedShares[i];
-	}
 }
 
 G1 DKG::extract(char * id) {

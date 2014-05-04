@@ -44,10 +44,6 @@ public:
 	// Constructor only allowed if serverId != 1
 	DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, Big s);
 
-	void getShares(share_t *shares, int nbOfShares);
-
-	Big getSj();
-
 	G2 getSjP();
 
 	G1 extract(char * id);
