@@ -181,14 +181,16 @@ int main(int argc, char * argv[])
 	G2 P;
 	DKG *dkg;
 	// The first DKG server decides which P value is used
-	DKGMessage mes = DKGMessage(0, 0, P_MESSAGE, P);
 	if(servId == 1) {
 		pfc.random(P);
+		// Write P to file TODO: check whether file already exists
 		outputFile.open((dkgDir + "P.key").c_str(), ios::out | ios::binary);
 		string toStr = toString(P);
 		outputFile.write(toStr.c_str(), toStr.length());
 		outputFile.close();
+
 		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, P, s);
+
 	} else {
 		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, s);
 	}

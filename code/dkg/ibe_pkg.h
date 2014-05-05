@@ -3,6 +3,8 @@
 #endif
 
 #include <string>
+#include "shamir.h"
+#include "DKGMessage.h"
 
 string toString(G2 groupEl) {
 	stringstream ss;
@@ -22,3 +24,9 @@ void error(const char* msg) {
 }
 
 string extract(char *, Big);
+
+G2 g2From(string aString) {
+    G2 res;
+    res.g = ECn4(aString);
+    return res;
+}

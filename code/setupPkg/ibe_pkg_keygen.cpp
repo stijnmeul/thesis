@@ -43,7 +43,6 @@
 //*********************************************
 
 #include "../../cppmiracl/source/pairing_3.h"
-#include "ibe_pkg.h"
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
