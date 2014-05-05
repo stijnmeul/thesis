@@ -53,7 +53,7 @@
 #define BUF_SIZE 4096
 #define DKG_DIR "/Applications/XAMPP/htdocs/thesis/" // In this folder a subfolder dkgxx will be created with xx = id specified at startup
 
-#define THRESHOLD 3
+#define THRESHOLD 2
 
 void storeMSK(Big s, int servId, string mskPath);
 bool retrieveMSK(char * plain, int servId, string mskPath);
@@ -72,6 +72,7 @@ struct Server{
 struct ThreadParams{
 	volatile bool *keepListening;
 	int portNb;
+	DKG *dkg;
 };
 
 int main(int argc, char * argv[])
@@ -191,28 +192,56 @@ int main(int argc, char * argv[])
 
 		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, P, s);
 
-	} else {
+	} else { // If this is not the first DKG server, initialise DKG without P
 		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, s);
 	}
 
-	(*dkg).getState();
 	if(servId == 1) {
-		sendTo(9000, "Dit is mijn testje :)");
+		P = (*dkg).getP();
+		// Send P to all servers in serverlist
+		for (int i = 1; i < nbOfServers; i++) {
+			DKGMessage pMes = DKGMessage(servId, serverlist[i].id, P);
+			sendTo(serverlist[i].portNb, pMes.toString().c_str());
+		}
+		// After sending P, send a share to each DKG.
+		for (int i = 2; i < nbOfServers; i++) {
+			share_t share = (*dkg).getShareOf(serverlist[i].id);
+			DKGMessage sMes = DKGMessage(servId, serverlist[i].id, share);
+			sendTo(serverlist[i].portNb, sMes.toString().c_str());
+		}
+		// The share to server 2 is sent as the last one because it serves as a kickoff sign for server 2 to distribute its shares.
+		share_t share = (*dkg).getShareOf(serverlist[1].id);
+		DKGMessage sMes = DKGMessage(servId, serverlist[1].id, share);
+		sendTo(serverlist[1].portNb, sMes.toString().c_str());
+
 	} else {
 		*keepListening = true;
 		pthread_t sniffer_thread;
 		ThreadParams * params = new ThreadParams;
 		params->keepListening = keepListening;
-		params->portNb = 9000;
+		params->portNb = serverlist[servId-1].portNb;
+		params->dkg = dkg;
 		if( pthread_create( &sniffer_thread , NULL ,  listenTo , params) < 0 )
             perror("ERROR on creating thread");
+		// Keep the process active for long enough
 		volatile int i = 0;
 		while (i<900000000) {
 			i++;
 		}
-		cout << "900 000 000 iterations have passed. I am going to stop listening.";
-		*keepListening = false;
+		i = 0;
+		while (i<900000000) {
+			i++;
+		}
+		i = 0;
+		while (i<900000000) {
+			i++;
+		}
+		/* keep listening forever
+		cout << "900 000 000 iterations have passed. I am going to stop listening." << endl;
+
+		*keepListening = false;*/
 	}
+	cout << "State of server " << servId << " after execution is " << (*dkg).printState() << endl;
 
 /*
 
@@ -294,12 +323,7 @@ int sendTo(int portNb, const char * message) {
     n = write(sockfd,buffer,strlen(buffer));
     if(n < 0)
         error("ERROR writing to socket");
-/* iets terug uitlezen is niet nodig
-    bzero(buffer,256);
-    n = read(sockfd,buffer,255);
 
-    if (n < 0)
-        error("ERROR reading from socket");*/
     cout << "The following message was successfully sent:" << endl;
     printf("%s\n",buffer);
     freeaddrinfo(servinfo);
@@ -317,7 +341,7 @@ void *listenTo(void *arg) {
     ThreadParams * params = (ThreadParams*)(arg);
     volatile bool * keepListening = params->keepListening;
     int portNb = params->portNb;
-
+    cout << "Server listening on port " << portNb << endl;
     struct sockaddr_in serv_addr, cli_addr;
     char buffer[BUF_SIZE];
 
@@ -337,14 +361,13 @@ void *listenTo(void *arg) {
     listen(sockfd,5);
     clilen = sizeof(cli_addr);
 
-    // Start listening on myPortNb
+    // Start listening on myPortNb until keepListening is false
     while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) ) && *keepListening){
-        cout << "newsockfd: " << newsockfd << endl;
         if (newsockfd < 0)
             error("ERROR on accept");
         char buffer[BUF_SIZE];
+        memset(buffer, 0, sizeof(buffer));
 
-		cout << "sockfd is " << newsockfd << endl;
 		// Read out socket.
     	int n = recv(newsockfd,buffer,sizeof(buffer),0);
     	Big s;
@@ -352,18 +375,23 @@ void *listenTo(void *arg) {
     		error("ERROR reading from socket");
     	cout << "Received message is" << endl;
     	printf("%s\n",buffer);
-/* 		Doe iets met zojuist ontvangen antwoord
-    	string ext_pvt_key = extract(buffer);
-    	cout << "Received ID:" << endl << buffer << endl;
-    	cout << "Extracted private key:" << endl << ext_pvt_key << endl;
-*/
-    	// Terugsturen is niet nodig
-    	/*
-    	strcpy(buffer, ext_pvt_key.c_str());
-    	n = send(newsockfd,buffer,sizeof(buffer),0);
-
-    	if (n < 0) error("ERROR writing to socket");*/
+    	if(strlen(buffer) != 0) {
+	    	string xmlMessage(buffer);
+	    	DKGMessage dkgMes = DKGMessage(xmlMessage);
+	    	if(dkgMes.getType() == P_MESSAGE) {
+	    		cout << "Setting P" << endl;
+	    		G2 P = dkgMes.getP();
+	    		params->dkg->setP(P);
+	    	} else {
+	    		share_t share = dkgMes.getShare();
+	    		params->dkg->setShare(share);
+	    		if(params->dkg->getServerId() == share.shareGenerator+1)
+	    			*keepListening = false;
+	    	}
+	    }
     }
+    close(sockfd);
+    close(newsockfd);
     pthread_cancel(pthread_self());
     pthread_detach(pthread_self());
     return NULL;

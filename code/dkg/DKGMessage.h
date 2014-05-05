@@ -17,9 +17,9 @@ private:
 
 public:
 	// Constructor only allowed if serverId = 1 (because only server 1 can generate P)
-	DKGMessage(int sender, int receiver, DKGMessageType type, G2 P);
+	DKGMessage(int sender, int receiver, G2 P);
 
-	DKGMessage(int sender, int receiver, DKGMessageType type, share_t share);
+	DKGMessage(int sender, int receiver, share_t share);
 
 	DKGMessage(string xmlString);
 
@@ -32,6 +32,8 @@ public:
 	int getReceiver();
 
 	share_t getShare();
+
+	G2 getP();
 };
 
 #endif

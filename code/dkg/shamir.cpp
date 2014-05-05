@@ -170,6 +170,18 @@ ServerState DKG::getState() {
 	return this->state;
 }
 
+string DKG::printState() {
+	switch(this->state)
+	{
+		case DKG_WAITING_FOR_P:
+			return "DKG_WAITING_FOR_P";
+		case DKG_WAITING_FOR_SHARES:
+			return "DKG_WAITING_FOR_SHARES";
+		case DKG_FINISHED:
+			return "DKG_FINISHED";
+	}
+}
+
 int DKG::getServerId() {
 	return this->serverId;
 }

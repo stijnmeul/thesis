@@ -17,12 +17,12 @@ void DKGMessage::init(int sender, int receiver, DKGMessageType type) {
 	this->type = type;
 }
 
-DKGMessage::DKGMessage(int sender, int receiver, DKGMessageType type, G2 P) {
-	init(sender, receiver, type);
+DKGMessage::DKGMessage(int sender, int receiver, G2 P) {
+	init(sender, receiver, P_MESSAGE);
 	this->P = P;
 }
-DKGMessage::DKGMessage(int sender, int receiver, DKGMessageType type, share_t share) {
-	init(sender, receiver, type);
+DKGMessage::DKGMessage(int sender, int receiver, share_t share) {
+	init(sender, receiver, SHARE_MESSAGE);
 	this->share = share;
 }
 DKGMessage::DKGMessage(string xmlString) {
@@ -96,4 +96,8 @@ int DKGMessage::getReceiver() {
 
 share_t DKGMessage::getShare() {
 	return this->share;
+}
+
+G2 DKGMessage::getP() {
+	return this->P;
 }

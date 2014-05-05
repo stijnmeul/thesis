@@ -62,6 +62,8 @@ public:
 
 	void getSharesFrom(vector <DKG> serverList);
 
+	string printState();
+
 	share_t getShareOf(int serverId);
 };
 
