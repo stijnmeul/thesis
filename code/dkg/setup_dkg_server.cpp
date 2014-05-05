@@ -57,6 +57,8 @@
 
 void storeMSK(Big s, int servId, string mskPath);
 bool retrieveMSK(char * plain, int servId, string mskPath);
+void listenForClients(int portNb, DKG *dkg);
+void *connection_handler(void *arg);
 int sendTo(int portNb, const char * message);
 void listenTo(int portNb, DKG *dkg);
 
@@ -67,8 +69,7 @@ struct Server{
 };
 
 struct ThreadParams{
-	volatile bool *keepListening;
-	int portNb;
+	int sockfd;
 	DKG *dkg;
 };
 
@@ -80,7 +81,7 @@ int main(int argc, char * argv[])
 	Big s;
 	Big order = pfc.order();
 	miracl* mip = get_mip();
-
+	mip->IOBASE = 64;
 	int servId;
 	const char * serverlistFile;
 	cout << endl;
@@ -159,6 +160,7 @@ int main(int argc, char * argv[])
 	}
 
 	// Create an array of all servers in servers.list and find your own portNb
+	// TODO: check if all serverIDs are in ascending order. Otherwise throw an exception. This is now implicitly assumed.
 	file.open(serverlistFile);
 	int sId, pNb;
 	int myPortNb = 0;
@@ -178,6 +180,26 @@ int main(int argc, char * argv[])
 
 	G2 P;
 	DKG *dkg;
+	/* PSEUDOCODE OF THE CODE BELOW
+
+	if(servId == 1) {
+		send_P();
+		send_shares();
+	} else {
+		while(prev_server_not_ready()) {
+			listen_to_dkgs();
+		}
+		send_shares();
+	}
+	while(!all_shares_received()) {
+		listen_to_dkgs();
+	}
+
+	// end of DKG
+	listen_to_clients();
+
+	*/
+
 	// The first DKG server decides which P value is used
 	if(servId == 1) {
 		pfc.random(P);
@@ -211,30 +233,34 @@ int main(int argc, char * argv[])
 		DKGMessage sMes = DKGMessage(servId, serverlist[1].id, share);
 		sendTo(serverlist[1].portNb, sMes.toString().c_str());
 	} else {
+			listenTo(myPortNb, dkg);
+			Server nextSharingServer;
+			// Send to all servers except serverId + 1
+			for (int i = 0; i < nbOfServers; i++) {
+				if (serverlist[i].id != servId+1 && serverlist[i].id != servId) {
+					share_t share = (*dkg).getShareOf(serverlist[i].id);
+					DKGMessage sMes = DKGMessage(servId, serverlist[i].id, share);
+					sendTo(serverlist[i].portNb, sMes.toString().c_str());
+				} else {
+					nextSharingServer = serverlist[i];
+				}
+			}
+			// Send to serverId + 1
+			if (servId != nbOfServers) {
+				share_t share = (*dkg).getShareOf(nextSharingServer.id);
+				DKGMessage sMes = DKGMessage(servId, nextSharingServer.id, share);
+				sendTo(nextSharingServer.portNb, sMes.toString().c_str());
+			}
+	}
+	// The last server shouldn't listen anymore
+	if (servId != nbOfServers) {
 		listenTo(myPortNb, dkg);
 	}
+	cout << "State of server " << servId << " is " << (*dkg).printState() << endl << endl;
 
-	cout << "State of server " << servId << " after execution is " << (*dkg).printState() << endl;
-
-/*
-
-	if(servId == 1) {
-		send();
-	} else {
-		while(prev_server_not_ready()) {
-			listen();
-		}
-		send();
-	}
-	while(!all_shares_received()) {
-		listen();
-	}
-
-	// end of DKG
-	listen_to_clients();
-
-*/
-
+	// At this point all DKGs should be finished. Start listening for clients. This should be multithreaded of course.
+	cout << "DKG server " << servId << " starts listening for client requests on port " << myPortNb + 100 << endl;
+	listenForClients(myPortNb + 100, dkg);
 
 	cout << endl;
 	return 0;
@@ -273,6 +299,12 @@ int sendTo(int portNb, const char * message) {
         error("ERROR opening socket");
         return 1;
     }
+    int so_reuseaddr = TRUE;
+    setsockopt(sockfd,
+               SOL_SOCKET,
+               SO_REUSEADDR,
+               &so_reuseaddr,
+               sizeof(so_reuseaddr));
 
 	// Wait until DKG server is online
 	cout << "Waiting for server on port " << portNb << " to connect" << endl;
@@ -294,10 +326,106 @@ int sendTo(int portNb, const char * message) {
     if (n < 0)
         error("ERROR reading from socket");*/
     cout << "The following message was successfully sent:" << endl;
-    printf("%s\n",buffer);
+    DKGMessage dkgMes = DKGMessage(message);
+    cout << "A " << dkgMes.printType() << " has been sent from server " << dkgMes.getSender() << " to server " << dkgMes.getReceiver() << endl << endl;
     //freeaddrinfo(servinfo);
     //freeaddrinfo(it);
     close(sockfd);
+}
+
+void listenForClients(int portNb, DKG *dkg) {
+	int sockfd, newsockfd;
+    socklen_t clilen;
+
+    struct sockaddr_in serv_addr, cli_addr;
+
+    // Initialise the socket descriptor.
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+        error("ERROR opening socket");
+
+    // Bind socket to port
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    serv_addr.sin_port = htons(portNb);
+    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+        error("ERROR on binding");
+
+     // Listen to socket and accept incoming connections
+    listen(sockfd,5);
+    clilen = sizeof(cli_addr);
+    // TODO: turn on multithreading
+    //mr_init_threading();
+
+    while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) )){
+        cout << "newsockfd: " << newsockfd << endl;
+        if (newsockfd < 0)
+            error("ERROR on accept");
+
+        // Initialise new thread
+        pthread_t sniffer_thread;
+        //pthread_attr_t attributes;
+        ThreadParams *params = new ThreadParams; // params is a pointer to a threadParams struct
+		params->sockfd = newsockfd;
+		params->dkg = dkg;
+		//params->pfc = new PFC(AES_SECURITY); // MEMORY LEAK: this pointer is never being freed! :o
+        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , params) < 0 )
+            perror("ERROR on creating thread");
+    }
+    //mr_end_threading();
+}
+
+void *connection_handler(void *arg) {
+	PFC *pfc = new PFC(AES_SECURITY);
+	get_mip()->IOBASE=64;
+	int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
+
+	char buffer[BUF_SIZE];
+	ThreadParams * params = (ThreadParams*)(arg);
+
+	/*
+	cout << "Started sleeping..." << endl << endl;
+	sleep(5);
+	cout << "Waking up..." << endl << endl;*/
+
+	cout << "sockfd is " << params->sockfd << endl;
+	// Read out socket.
+    int n = recv(params->sockfd, buffer, sizeof(buffer),0);
+    if (n < 0)
+    	error("ERROR reading from socket");
+    G1 D = params->dkg->extract(buffer);
+
+    cout << "Received ID:" << endl << buffer << endl;
+    cout << "Extracted private key:" << endl << D.g << endl;
+    strcpy(buffer, toString(D).c_str());
+
+    n = send(params->sockfd, buffer, sizeof(buffer),0);
+
+    if (n < 0) error("ERROR writing to socket");
+
+    delete params;
+    delete pfc;
+    close(params->sockfd);
+
+    pthread_cancel(pthread_self());
+    pthread_detach(pthread_self());
+
+    return NULL;
+}
+
+
+string extract(char * id, Big s, PFC *pfc) {
+	/**********
+	* EXTRACT
+	***********/
+	get_mip()->IOBASE=256;
+	G1 Q1, D;
+	// hash public key of Alice to Q1
+	(*pfc).hash_and_map(Q1, (char*)id);
+	// Calculate private key of Alice as D=s.Q1
+	D = (*pfc).mult(Q1, s);
+	get_mip()->IOBASE=64;
+	return toString(D);
 }
 
 void listenTo(int portNb, DKG *dkg) {
@@ -315,6 +443,12 @@ void listenTo(int portNb, DKG *dkg) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
         error("ERROR opening socket");
+    int so_reuseaddr = TRUE;
+    setsockopt(sockfd,
+               SOL_SOCKET,
+               SO_REUSEADDR,
+               &so_reuseaddr,
+               sizeof(so_reuseaddr));
 
     // Bind socket to port
     serv_addr.sin_family = AF_INET;
@@ -341,27 +475,24 @@ void listenTo(int portNb, DKG *dkg) {
     	Big s;
     	if (n < 0)
     		error("ERROR reading from socket");
-    	cout << "Received message is" << endl;
-    	printf("%s\n",buffer);
     	if (strlen(buffer) != 0) {
 	    	string xmlMessage(buffer);
 	    	DKGMessage dkgMes = DKGMessage(xmlMessage);
+	    	cout << "Received message is" << endl;
+	    	cout << "A " << dkgMes.printType() << " has been received on server " << dkgMes.getReceiver() << " from server " << dkgMes.getSender() << endl << endl;
 	    	if (dkgMes.getType() == P_MESSAGE) {
 		    	G2 P = dkgMes.getP();
 		    	(*dkg).setP(P);
 		    } else {
 		    	share_t share = dkgMes.getShare();
 		    	(*dkg).setShare(share);
-		    	if((*dkg).getServerId() == share.shareGenerator+1)
+		    	if( ( (*dkg).getServerId() == share.shareGenerator + 1 ) || ( (*dkg).getState() == DKG_FINISHED ) )
 		    		keepOnListening = false;
 		    }
 	    }
     }
     close(sockfd);
     close(newsockfd);
-    //pthread_cancel(pthread_self());
-    //pthread_detach(pthread_self());
-    //return NULL;
 }
 
 void storeMSK(Big s, int servId, string mskPath) {

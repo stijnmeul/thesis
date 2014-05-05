@@ -86,6 +86,16 @@ DKGMessageType DKGMessage::getType() {
 	return this->type;
 }
 
+string DKGMessage::printType() {
+	switch(this->type)
+	{
+		case P_MESSAGE:
+			return "P_MESSAGE";
+		case SHARE_MESSAGE:
+			return "SHARE_MESSAGE";
+	}
+}
+
 int DKGMessage::getSender() {
 	return this->sender;
 }

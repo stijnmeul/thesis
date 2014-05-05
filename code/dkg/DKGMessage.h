@@ -27,6 +27,8 @@ public:
 
 	DKGMessageType getType();
 
+	string printType();
+
 	int getSender();
 
 	int getReceiver();
