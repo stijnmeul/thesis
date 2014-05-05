@@ -68,6 +68,11 @@ struct Server{
 	int id;
 };
 
+struct ThreadParams{
+	volatile bool *keepListening;
+	int portNb;
+};
+
 int main(int argc, char * argv[])
 {
 	PFC pfc(AES_SECURITY);
@@ -191,7 +196,10 @@ int main(int argc, char * argv[])
 	} else {
 		*keepListening = true;
 		pthread_t sniffer_thread;
-		if( pthread_create( &sniffer_thread , NULL ,  listenTo , &keepListening) < 0 )
+		ThreadParams * params = new ThreadParams;
+		params->keepListening = keepListening;
+		params->portNb = 9000;
+		if( pthread_create( &sniffer_thread , NULL ,  listenTo , params) < 0 )
             perror("ERROR on creating thread");
 		//sleep(10000);
 		volatile int i = 0;
@@ -302,7 +310,10 @@ void *listenTo(void *arg) {
 	int sockfd, newsockfd;
     socklen_t clilen;
 
-    bool * keepListening = reinterpret_cast<bool*>(arg);
+    ThreadParams * params = (ThreadParams*)(arg);
+    volatile bool * keepListening = params->keepListening;
+    int portNb = params->portNb;
+
     struct sockaddr_in serv_addr, cli_addr;
     char buffer[BUF_SIZE];
 
@@ -314,7 +325,6 @@ void *listenTo(void *arg) {
     // Bind socket to port
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    int portNb = 9000;
     serv_addr.sin_port = htons(portNb);
     if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
         error("ERROR on binding");
