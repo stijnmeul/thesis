@@ -1,7 +1,7 @@
 <?php
 	$buf_size = 4096;
 	$socket = socket_create(AF_INET,SOCK_STREAM,0);
-    socket_connect($socket,'127.0.0.1',9103);
+    socket_connect($socket,'127.0.0.1',5000);
 
     $binDir = '/Users/stijn/KUL/Master/Thesis/code/setupPkg/';
 
