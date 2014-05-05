@@ -127,25 +127,25 @@ G2 DKG::getP() {
 	return this->P;
 }
 // All servers except server 1
-DKG::DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, Big s) {
+DKG::DKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, Big s) {
 	this->pfc = pfc;
 	if (serverId > nbOfShares || serverId < 1)
 		throw invalid_argument("Please provide an integer serverID between 1 and nbOfShares.");
 	if (serverId == 1)
 		throw invalid_argument("A server with ID equal to 1 has to be initialised with a P value.");
-	this->portNb = BASE_PORT + serverId;
+	this->portNb = portNb;
 	this->serverId = serverId;
 	init(nbOfShares, threshold, order, s);
 	this->state = DKG_WAITING_FOR_P;
 }
 // Only server 1
-DKG::DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s) {
+DKG::DKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s) {
 	this->pfc = pfc;
 	if (serverId > nbOfShares || serverId < 1)
 		throw invalid_argument("Please provide an integer serverID between 1 and nbOfShares");
 	if (serverId != 1)
 		throw invalid_argument("Only a server with ID equal to 1 can be initialised with a P value.");
-	this->portNb = BASE_PORT + serverId;
+	this->portNb = portNb;
 	this->serverId = serverId;
 	init(nbOfShares, threshold, order, s);
 	this->P = P;

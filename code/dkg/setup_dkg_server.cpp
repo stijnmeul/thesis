@@ -38,16 +38,35 @@
 #include <cstdlib>
 #include <sys/stat.h>
 #include "shamir.h"
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <stdlib.h>
+
 
 #define HASH_LEN 32
 #define TAG_LEN 16
 #define BYTES_PER_BIG 80
+#define BUF_SIZE 4096
 #define DKG_DIR "/Applications/XAMPP/htdocs/thesis/" // In this folder a subfolder dkgxx will be created with xx = id specified at startup
 
 #define THRESHOLD 3
 
 void storeMSK(Big s, int servId, string mskPath);
 bool retrieveMSK(char * plain, int servId, string mskPath);
+int sendTo(int portNb, const char * message);
+void *listenTo(void *arg);
+
+// One global variable :p
+volatile bool *keepListening = new bool();
+
+struct Server{
+	int portNb;
+	string address;
+	int id;
+};
 
 int main(int argc, char * argv[])
 {
@@ -59,7 +78,7 @@ int main(int argc, char * argv[])
 	miracl* mip = get_mip();
 
 	int servId;
-	const char * serverlist;
+	const char * serverlistFile;
 	cout << endl;
 
 	if(argc != 3) {
@@ -68,14 +87,14 @@ int main(int argc, char * argv[])
 		return 0;
 	} else  {
 		servId = atoi(argv[1]);
-		serverlist = argv[2];
+		serverlistFile = argv[2];
 	}
 	string dkgDir = (string)DKG_DIR + "dkg" + argv[1] + "/";
 	mkdir(dkgDir.c_str(), S_IRWXU);
 	string mskFile = dkgDir + (string)"encrypted_msk.key";
 
-	// Check if serverlist is correct and whether serverID is between 1 and the total nb of servers
-	file.open(serverlist);
+	// Check if serverlistFile is correct and whether serverID is between 1 and the total nb of servers
+	file.open(serverlistFile);
 	int nbOfServers = 0;
 	if(file.is_open()) {
 		string unused;
@@ -95,9 +114,9 @@ int main(int argc, char * argv[])
 			return 0;
 		}
 		// Copy servers.list to the correct DKG directory
-		string serverlistLocation = dkgDir + "servers.list";
-		ifstream  src(serverlist, std::ios::binary);
-     	ofstream  dst(serverlistLocation.c_str(), std::ios::binary);
+		string serverlistFileLocation = dkgDir + "servers.list";
+		ifstream  src(serverlistFile, std::ios::binary);
+     	ofstream  dst(serverlistFileLocation.c_str(), std::ios::binary);
      	dst << src.rdbuf();
 	} else {
 		cout << "Please provide a path to an existing servers.list file." << endl << "Terminating setup." << endl << endl;
@@ -135,7 +154,25 @@ int main(int argc, char * argv[])
 		storeMSK(s, servId, mskFile);
 	}
 
+	// Create an array of all servers in servers.list and find your own portNb
+	file.open(serverlistFile);
+	int sId, pNb;
+	int myPortNb = 0;
+	Server serverlist[nbOfServers];
+	while (file >> sId && file >> pNb) {
+		if(sId == servId) {
+			myPortNb = pNb;
+		}
+		Server serv;
+		serv.portNb = pNb;
+		serv.id = sId;
+		serverlist[sId-1] = serv;
+	}
+	file.close();
+
+
 	G2 P;
+	DKG *dkg;
 	// The first DKG server decides which P value is used
 	if(servId == 1) {
 		pfc.random(P);
@@ -143,12 +180,179 @@ int main(int argc, char * argv[])
 		string toStr = toString(P);
 		outputFile.write(toStr.c_str(), toStr.length());
 		outputFile.close();
+		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, P, s);
+	} else {
+		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, s);
 	}
-	// TODO: what if servId != 1? P is not initialised!
-	DKG dkg = DKG(servId, nbOfServers, THRESHOLD, order, &pfc, P, s);
+
+	(*dkg).getState();
+	if(servId == 1) {
+		sendTo(9000, "Dit is mijn testje :)");
+	} else {
+		*keepListening = true;
+		pthread_t sniffer_thread;
+		if( pthread_create( &sniffer_thread , NULL ,  listenTo , &keepListening) < 0 )
+            perror("ERROR on creating thread");
+		//sleep(10000);
+		volatile int i = 0;
+		while (i<900000000) {
+			i++;
+		}
+		cout << "900 000 000 iterations have passed. I am going to stop listening.";
+		*keepListening = false;
+	}
+
+/*
+
+	if(servId == 1) {
+		send();
+	} else {
+		while(prev_server_not_ready()) {
+			listen();
+		}
+		send();
+	}
+	while(!all_shares_received()) {
+		listen();
+	}
+
+	// end of DKG
+	listen_to_clients();
+
+*/
+
 
 	cout << endl;
 	return 0;
+}
+
+/*******
+* Korte zender => zendt iets en leest antwoord uit
+*******/
+int sendTo(int portNb, const char * message) {
+	int sockfd, n;
+    const char* host;
+
+    struct sockaddr_in serv_addr;
+    struct addrinfo hints, *servinfo, *it, *server;
+
+    host = "127.0.0.1";
+
+    char buffer[BUF_SIZE];
+
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+
+    // Convert portNb to a const char*
+    stringstream ss;
+    ss << portNb << ends;
+ 	string temp = ss.str();
+ 	const char * portNbString = temp.c_str();
+
+    if (getaddrinfo("127.0.0.1", portNbString, &hints, &servinfo) != 0) {
+        error("ERROR getting addrinfo");
+        return 1;
+    }
+    it = servinfo;
+    int i = 0;
+    while(it != NULL) {
+        if((sockfd = socket(it->ai_family, it->ai_socktype, it->ai_protocol)) == -1) {
+            error("ERROR opening socket");
+            it = it->ai_next;
+        } else if (connect(sockfd, it->ai_addr, it->ai_addrlen) == -1) {
+        	// Wait until DKG server is online
+        	cout << "Waiting for server on port " << portNb << " to connect" << endl;
+        	while (connect(sockfd, servinfo->ai_addr, servinfo->ai_addrlen) == -1) {
+        		close(sockfd);
+        		sockfd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+        	}
+        } else {
+            server = it;
+            it = NULL;
+        }
+    }
+    if(server == NULL) {
+        error("ERROR client failed to connect");
+    }
+
+    bzero(buffer,sizeof(buffer));
+    strcpy(buffer,message);
+
+    n = write(sockfd,buffer,strlen(buffer));
+    if(n < 0)
+        error("ERROR writing to socket");
+/* iets terug uitlezen is niet nodig
+    bzero(buffer,256);
+    n = read(sockfd,buffer,255);
+
+    if (n < 0)
+        error("ERROR reading from socket");*/
+    cout << "The following message was successfully sent:" << endl;
+    printf("%s\n",buffer);
+    freeaddrinfo(servinfo);
+    freeaddrinfo(it);
+    close(sockfd);
+}
+
+void *listenTo(void *arg) {
+	/*************************************************
+    * Eeuwige luisteraar => luistert en stuurt iets terug bij ontvangst
+    **************************************************/
+	int sockfd, newsockfd;
+    socklen_t clilen;
+
+    bool * keepListening = reinterpret_cast<bool*>(arg);
+    struct sockaddr_in serv_addr, cli_addr;
+    char buffer[BUF_SIZE];
+
+    // Initialise the socket descriptor.
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0)
+        error("ERROR opening socket");
+
+    // Bind socket to port
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = INADDR_ANY;
+    int portNb = 9000;
+    serv_addr.sin_port = htons(portNb);
+    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
+        error("ERROR on binding");
+
+     // Listen to socket and accept incoming connections
+    listen(sockfd,5);
+    clilen = sizeof(cli_addr);
+
+    // Start listening on myPortNb
+    while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) ) && *keepListening){
+        cout << "newsockfd: " << newsockfd << endl;
+        if (newsockfd < 0)
+            error("ERROR on accept");
+        char buffer[BUF_SIZE];
+
+		cout << "sockfd is " << newsockfd << endl;
+		// Read out socket.
+    	int n = recv(newsockfd,buffer,sizeof(buffer),0);
+    	Big s;
+    	if (n < 0)
+    		error("ERROR reading from socket");
+    	cout << "Received message is" << endl;
+    	printf("%s\n",buffer);
+/* 		Doe iets met zojuist ontvangen antwoord
+    	string ext_pvt_key = extract(buffer);
+    	cout << "Received ID:" << endl << buffer << endl;
+    	cout << "Extracted private key:" << endl << ext_pvt_key << endl;
+*/
+    	// Terugsturen is niet nodig
+    	/*
+    	strcpy(buffer, ext_pvt_key.c_str());
+    	n = send(newsockfd,buffer,sizeof(buffer),0);
+
+    	if (n < 0) error("ERROR writing to socket");*/
+    }
+    pthread_cancel(pthread_self());
+    pthread_detach(pthread_self());
+    return NULL;
 }
 
 void storeMSK(Big s, int servId, string mskPath) {

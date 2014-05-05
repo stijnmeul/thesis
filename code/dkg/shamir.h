@@ -40,9 +40,9 @@ private:
 
 public:
 	// Constructor only allowed if serverId = 1 (because only server 1 can generate P)
-	DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s);
+	DKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s);
 	// Constructor only allowed if serverId != 1
-	DKG(int serverId, int nbOfShares, int threshold, Big order, PFC *pfc, Big s);
+	DKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, Big s);
 
 	G2 getSjP();
 
