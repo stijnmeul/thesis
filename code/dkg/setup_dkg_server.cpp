@@ -21,7 +21,7 @@
    See https://eprint.iacr.org/2001/090 for more information
    Section 4.1 and 4.2
 
-   g++-4.7 setup_dkg_server.cpp shamir.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp -I ../cppmiracl/include/ -L ../cppmiracl/source/ -l miracl -o setup_dkg_server
+   g++-4.7 setup_dkg_server.cpp shamir.cpp DKGMessage.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp -I ../cppmiracl/include/ -L ../cppmiracl/source/ -l miracl -o setup_dkg_server
 */
 
 //********* choose just one of these pairs **********
@@ -31,13 +31,14 @@
 
 #include "../cppmiracl/source/pairing_3.h"
 #include "ibe_pkg.h"
+#include "DKGMessage.h"
+#include "shamir.h"
 #include <termios.h>
 #include <unistd.h>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <sys/stat.h>
-#include "shamir.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -176,9 +177,11 @@ int main(int argc, char * argv[])
 	file.close();
 
 
+
 	G2 P;
 	DKG *dkg;
 	// The first DKG server decides which P value is used
+	DKGMessage mes = DKGMessage(0, 0, P_MESSAGE, P);
 	if(servId == 1) {
 		pfc.random(P);
 		outputFile.open((dkgDir + "P.key").c_str(), ios::out | ios::binary);
@@ -201,7 +204,6 @@ int main(int argc, char * argv[])
 		params->portNb = 9000;
 		if( pthread_create( &sniffer_thread , NULL ,  listenTo , params) < 0 )
             perror("ERROR on creating thread");
-		//sleep(10000);
 		volatile int i = 0;
 		while (i<900000000) {
 			i++;
