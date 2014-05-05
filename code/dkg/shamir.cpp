@@ -60,6 +60,10 @@ G2 DKG::getSjP() {
 	if(getState() != DKG_FINISHED) {
 		throw logic_error("DKG is not finished yet");
 	}
+	G2 uninit;
+	if (this->sjP == uninit) {
+
+	}
 	return this->sjP;
 }
 
@@ -74,7 +78,7 @@ void DKG::setShare(share_t share) {
 	this->receivedShares[share.shareGenerator-1] = share;
 	this->lastReceivedShareGenerator = share.shareGenerator;
 	// If all shares are received, start calculating sjP
-	if (this->lastReceivedShareGenerator == nbOfShares || (this->serverId == nbOfShares && lastReceivedShareGenerator + 1 == this->serverId )) { // second condition is needed for to set the last server to finish
+	if (this->lastReceivedShareGenerator == nbOfShares || (this->serverId == nbOfShares && lastReceivedShareGenerator + 1 == this->serverId )) { // second condition is needed for the last server to finish
 		this->sj = 0;
 		for (int i = 0; i < nbOfShares; i++) {
 			this->sj += receivedShares[i].y;

@@ -1,43 +1,43 @@
 <?php
 	$buf_size = 4096;
 	$socket = socket_create(AF_INET,SOCK_STREAM,0);
-    socket_connect($socket,"127.0.0.1",5000);
+    socket_connect($socket,'127.0.0.1',9103);
 
-    $binDir = "/Users/stijn/KUL/Master/Thesis/code/setupPkg/";
+    $binDir = '/Users/stijn/KUL/Master/Thesis/code/setupPkg/';
 
-    $xml = new DOMDocument("1.0");
+    $xml = new DOMDocument('1.0');
 
-	$root = $xml->createElement("scramble");
-	$result = $xml->createElement("result");
+	$root = $xml->createElement('scramble');
+	$result = $xml->createElement('result');
 	$xml->appendChild($root);
 
-    if(array_key_exists("id", $_GET) && isset($_GET["id"]) && $_GET["id"] != ""){
-    	$command = htmlspecialchars($_GET["id"]);
+    if(array_key_exists('id', $_GET) && isset($_GET['id']) && $_GET['id'] != ''){
+    	$command = htmlspecialchars($_GET['id']);
         socket_write($socket,$command,strlen($command));
         $DidResult = socket_read($socket, $buf_size, PHP_NORMAL_READ);
         socket_close($socket);
 
         // get contents of a file into a string
-    	$filename = $binDir . "Ppub.key";
-    	$handle = fopen($filename, "r");
+    	$filename = $binDir . 'Ppub.key';
+    	$handle = fopen($filename, 'r');
     	$PpubResult = fread($handle, filesize($filename));
     	fclose($handle);
 
     	// get contents of a file into a string
-    	$filename = $binDir . "P.key";
-    	$handle = fopen($filename, "r");
+    	$filename = $binDir . 'P.key';
+    	$handle = fopen($filename, 'r');
     	$PResult = fread($handle, filesize($filename));
     	fclose($handle);
 
-    	$P   = $xml->createElement("p");
+    	$P   = $xml->createElement('p');
     	$PText = $xml->createTextNode($PResult);
     	$P->appendChild($PText);
 
-    	$Ppub = $xml->createElement("p_pub");
+    	$Ppub = $xml->createElement('p_pub');
     	$PpubText = $xml->createTextNode($PpubResult);
     	$Ppub->appendChild($PpubText);
 
-    	$Did = $xml->createElement("d_id");
+    	$Did = $xml->createElement('d_id');
     	$DidText = $xml->createTextNode($DidResult);
     	$Did->appendChild($DidText);
 

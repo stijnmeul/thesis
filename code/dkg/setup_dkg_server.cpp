@@ -21,7 +21,7 @@
    See https://eprint.iacr.org/2001/090 for more information
    Section 4.1 and 4.2
 
-   g++-4.7 setup_dkg_server.cpp shamir.cpp DKGMessage.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp -I ../cppmiracl/include/ -L ../cppmiracl/source/ -l miracl -o setup_dkg_server
+   g++-4.7 setup_dkg_server.cpp shamir.cpp DKGMessage.cpp ../miraclthread/source/bls_pair.cpp ../miraclthread/source/zzn24.cpp ../miraclthread/source/zzn8.cpp ../miraclthread/source/zzn4.cpp ../miraclthread/source/zzn2.cpp ../miraclthread/source/ecn4.cpp ../miraclthread/source/big.cpp ../miraclthread/source/zzn.cpp ../miraclthread/source/ecn.cpp ../miraclthread/source/miracl.a -I ../miraclthread/include/ -o setup_dkg_server
 */
 
 //********* choose just one of these pairs **********
@@ -52,6 +52,7 @@
 #define BYTES_PER_BIG 80
 #define BUF_SIZE 4096
 #define DKG_DIR "/Applications/XAMPP/htdocs/thesis/" // In this folder a subfolder dkgxx will be created with xx = id specified at startup
+#define CLIENT_PORT_OFFSET 100
 
 #define THRESHOLD 3
 
@@ -61,6 +62,7 @@ void listenForClients(int portNb, DKG *dkg);
 void *connection_handler(void *arg);
 int sendTo(int portNb, const char * message);
 void listenTo(int portNb, DKG *dkg);
+void writeIndexPhp(int portNb, const char * dkgDir);
 
 struct Server{
 	int portNb;
@@ -75,6 +77,7 @@ struct ThreadParams{
 
 int main(int argc, char * argv[])
 {
+	mr_init_threading();
 	PFC pfc(AES_SECURITY);
 	ifstream file;
 	ofstream outputFile;
@@ -95,7 +98,7 @@ int main(int argc, char * argv[])
 		serverlistFile = argv[2];
 	}
 	string dkgDir = (string)DKG_DIR + "dkg" + argv[1] + "/";
-	mkdir(dkgDir.c_str(), S_IRWXU);
+	mkdir(dkgDir.c_str(), S_IRWXU | S_IRWXG | S_IRWXO); // S_IRUSR|S_IRGRP|S_IROTH
 	string mskFile = dkgDir + (string)"encrypted_msk.key";
 
 	// Check if serverlistFile is correct and whether serverID is between 1 and the total nb of servers
@@ -176,8 +179,6 @@ int main(int argc, char * argv[])
 	}
 	file.close();
 
-
-
 	G2 P;
 	DKG *dkg;
 	/* PSEUDOCODE OF THE CODE BELOW
@@ -200,14 +201,27 @@ int main(int argc, char * argv[])
 
 	*/
 
+	string pFile = (dkgDir + "P.key");
+	file.open(pFile.c_str());
+	bool pAlreadyGenerated = file.is_open();
+	file.close();
 	// The first DKG server decides which P value is used
 	if(servId == 1) {
-		pfc.random(P);
-		// Write P to file TODO: check whether file already exists
-		outputFile.open((dkgDir + "P.key").c_str(), ios::out | ios::binary);
-		string toStr = toString(P);
-		outputFile.write(toStr.c_str(), toStr.length());
-		outputFile.close();
+		if (pAlreadyGenerated) {
+			fstream in(pFile.c_str(), ios::in | ios::binary);
+			if (in)
+			{
+			    string contents;
+			    in.seekg(0, std::ios::end);
+			    contents.resize(in.tellg());
+			    in.seekg(0, std::ios::beg);
+			    in.read(&contents[0], contents.size());
+			    in.close();
+			    P = g2From(contents);
+			}
+		} else {
+			pfc.random(P);
+		}
 
 		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, P, s);
 
@@ -256,11 +270,32 @@ int main(int argc, char * argv[])
 	if (servId != nbOfServers) {
 		listenTo(myPortNb, dkg);
 	}
+
+	// Write P.key to outputfile
+	P = (*dkg).getP();
+	outputFile.open(pFile.c_str(), ios::out | ios::binary);
+	string toStr = toString(P);
+	outputFile.write(toStr.c_str(), toStr.length());
+	outputFile.close();
+	chmod(pFile.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+
+	// Write Ppub.key to outputfile
+	G2 Ppub = (*dkg).getSjP();
+	pFile = (dkgDir + "Ppub.key");
+	outputFile.open(pFile.c_str(), ios::out | ios::binary);
+	toStr = toString(Ppub);
+	outputFile.write(toStr.c_str(), toStr.length());
+	outputFile.close();
+	chmod(pFile.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+
+
 	cout << "State of server " << servId << " is " << (*dkg).printState() << endl << endl;
+
+	writeIndexPhp(myPortNb + CLIENT_PORT_OFFSET, dkgDir.c_str());
 
 	// At this point all DKGs should be finished. Start listening for clients. This should be multithreaded of course.
 	cout << "DKG server " << servId << " starts listening for client requests on port " << myPortNb + 100 << endl;
-	listenForClients(myPortNb + 100, dkg);
+	listenForClients(myPortNb + CLIENT_PORT_OFFSET, dkg);
 
 	cout << endl;
 	return 0;
@@ -354,8 +389,6 @@ void listenForClients(int portNb, DKG *dkg) {
      // Listen to socket and accept incoming connections
     listen(sockfd,5);
     clilen = sizeof(cli_addr);
-    // TODO: turn on multithreading
-    //mr_init_threading();
 
     while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) )){
         cout << "newsockfd: " << newsockfd << endl;
@@ -364,7 +397,6 @@ void listenForClients(int portNb, DKG *dkg) {
 
         // Initialise new thread
         pthread_t sniffer_thread;
-        //pthread_attr_t attributes;
         ThreadParams *params = new ThreadParams; // params is a pointer to a threadParams struct
 		params->sockfd = newsockfd;
 		params->dkg = dkg;
@@ -372,21 +404,16 @@ void listenForClients(int portNb, DKG *dkg) {
         if( pthread_create( &sniffer_thread , NULL ,  connection_handler , params) < 0 )
             perror("ERROR on creating thread");
     }
-    //mr_end_threading();
+    mr_end_threading();
 }
 
 void *connection_handler(void *arg) {
-	PFC *pfc = new PFC(AES_SECURITY);
+	PFC pfc2(AES_SECURITY);
 	get_mip()->IOBASE=64;
 	int bytes_per_big = (MIRACL/8)*(get_mip()->nib-1);
 
 	char buffer[BUF_SIZE];
 	ThreadParams * params = (ThreadParams*)(arg);
-
-	/*
-	cout << "Started sleeping..." << endl << endl;
-	sleep(5);
-	cout << "Waking up..." << endl << endl;*/
 
 	cout << "sockfd is " << params->sockfd << endl;
 	// Read out socket.
@@ -403,29 +430,12 @@ void *connection_handler(void *arg) {
 
     if (n < 0) error("ERROR writing to socket");
 
-    delete params;
-    delete pfc;
     close(params->sockfd);
 
     pthread_cancel(pthread_self());
     pthread_detach(pthread_self());
 
     return NULL;
-}
-
-
-string extract(char * id, Big s, PFC *pfc) {
-	/**********
-	* EXTRACT
-	***********/
-	get_mip()->IOBASE=256;
-	G1 Q1, D;
-	// hash public key of Alice to Q1
-	(*pfc).hash_and_map(Q1, (char*)id);
-	// Calculate private key of Alice as D=s.Q1
-	D = (*pfc).mult(Q1, s);
-	get_mip()->IOBASE=64;
-	return toString(D);
 }
 
 void listenTo(int portNb, DKG *dkg) {
@@ -623,4 +633,68 @@ bool retrieveMSK(char * plain, int servId, string mskPath) {
 		}
 	}
 	return encryptedIsDecrypted;
+}
+
+void writeIndexPhp(int portNb, const char * dkgDir) {
+	stringstream indexPhp;
+	ofstream outputFile;
+	indexPhp << "<?php" << endl;
+	indexPhp << "$buf_size = " << BUF_SIZE << ";" << endl;
+	indexPhp << "$socket = socket_create(AF_INET,SOCK_STREAM,0);" << endl;
+    indexPhp << "socket_connect($socket,'127.0.0.1'," << portNb << ");" << endl;
+    indexPhp << endl;
+    indexPhp << "$binDir = '" << dkgDir << "';" << endl;
+    indexPhp << endl;
+    indexPhp << "$xml = new DOMDocument('1.0');" << endl;
+    indexPhp << endl;
+	indexPhp << "$root = $xml->createElement('scramble');" << endl;
+	indexPhp << "$result = $xml->createElement('result');" << endl;
+	indexPhp << "$xml->appendChild($root);" << endl;
+	indexPhp << endl;
+    indexPhp << "if(array_key_exists('id', $_GET) && isset($_GET['id']) && $_GET['id'] != ''){" << endl;
+    indexPhp << "	$command = htmlspecialchars($_GET['id']);" << endl;
+    indexPhp << "    socket_write($socket,$command,strlen($command));" << endl;
+    indexPhp << "    $DidResult = socket_read($socket, $buf_size, PHP_NORMAL_READ);" << endl;
+    indexPhp << "    socket_close($socket);" << endl;
+    indexPhp << endl;
+    indexPhp << "    // get contents of a file into a string" << endl;
+    indexPhp << "	$filename = $binDir . 'Ppub.key';" << endl;
+    indexPhp << "	$handle = fopen($filename, 'r');" << endl;
+    indexPhp << "	$PpubResult = fread($handle, filesize($filename));" << endl;
+    indexPhp << "	fclose($handle);" << endl;
+    indexPhp << endl;
+    indexPhp << "	// get contents of a file into a string" << endl;
+    indexPhp << "	$filename = $binDir . 'P.key';" << endl;
+    indexPhp << "	$handle = fopen($filename, 'r');" << endl;
+    indexPhp << "	$PResult = fread($handle, filesize($filename));" << endl;
+    indexPhp << "	fclose($handle);" << endl;
+    indexPhp << endl;
+    indexPhp << "	$P   = $xml->createElement('p');" << endl;
+    indexPhp << "	$PText = $xml->createTextNode($PResult);" << endl;
+    indexPhp << "	$P->appendChild($PText);" << endl;
+    indexPhp << endl;
+    indexPhp << "	$Ppub = $xml->createElement('p_pub');" << endl;
+    indexPhp << "	$PpubText = $xml->createTextNode($PpubResult);" << endl;
+    indexPhp << "	$Ppub->appendChild($PpubText);" << endl;
+    indexPhp << "" << endl;
+    indexPhp << "	$Did = $xml->createElement('d_id');" << endl;
+    indexPhp << "	$DidText = $xml->createTextNode($DidResult);" << endl;
+    indexPhp << "	$Did->appendChild($DidText);" << endl;
+    indexPhp << " " << endl;
+    indexPhp << "	$result->appendChild($Ppub);" << endl;
+    indexPhp << "	$result->appendChild($P);" << endl;
+    indexPhp << "	$result->appendChild($Did);" << endl;
+    indexPhp << "	$root->appendChild($result);" << endl;
+    indexPhp << "	$xml->formatOutput = true;" << endl;
+    indexPhp << "	echo $xml->saveXML();" << endl;
+    indexPhp << "} else {" << endl;
+    indexPhp << "	$root->appendChild($result);" << endl;
+    indexPhp << "	echo $xml->saveXML();" << endl;
+    indexPhp << "}";
+	indexPhp << "?>";
+	string phpFile = (string)dkgDir + "index.php";
+	outputFile.open(phpFile.c_str(), ios::out | ios::binary);
+	outputFile.write(indexPhp.str().c_str(), indexPhp.str().size());
+	outputFile.close();
+	chmod(phpFile.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
 }
