@@ -53,15 +53,12 @@
 #define BUF_SIZE 4096
 #define DKG_DIR "/Applications/XAMPP/htdocs/thesis/" // In this folder a subfolder dkgxx will be created with xx = id specified at startup
 
-#define THRESHOLD 2
+#define THRESHOLD 3
 
 void storeMSK(Big s, int servId, string mskPath);
 bool retrieveMSK(char * plain, int servId, string mskPath);
 int sendTo(int portNb, const char * message);
-void *listenTo(void *arg);
-
-// One global variable :p
-volatile bool *keepListening = new bool();
+void listenTo(int portNb, DKG *dkg);
 
 struct Server{
 	int portNb;
@@ -213,34 +210,10 @@ int main(int argc, char * argv[])
 		share_t share = (*dkg).getShareOf(serverlist[1].id);
 		DKGMessage sMes = DKGMessage(servId, serverlist[1].id, share);
 		sendTo(serverlist[1].portNb, sMes.toString().c_str());
-
 	} else {
-		*keepListening = true;
-		pthread_t sniffer_thread;
-		ThreadParams * params = new ThreadParams;
-		params->keepListening = keepListening;
-		params->portNb = serverlist[servId-1].portNb;
-		params->dkg = dkg;
-		if( pthread_create( &sniffer_thread , NULL ,  listenTo , params) < 0 )
-            perror("ERROR on creating thread");
-		// Keep the process active for long enough
-		volatile int i = 0;
-		while (i<900000000) {
-			i++;
-		}
-		i = 0;
-		while (i<900000000) {
-			i++;
-		}
-		i = 0;
-		while (i<900000000) {
-			i++;
-		}
-		/* keep listening forever
-		cout << "900 000 000 iterations have passed. I am going to stop listening." << endl;
-
-		*keepListening = false;*/
+		listenTo(myPortNb, dkg);
 	}
+
 	cout << "State of server " << servId << " after execution is " << (*dkg).printState() << endl;
 
 /*
@@ -275,7 +248,7 @@ int sendTo(int portNb, const char * message) {
     const char* host;
 
     struct sockaddr_in serv_addr;
-    struct addrinfo hints, *servinfo, *it, *server;
+    struct addrinfo hints, *servinfo;
 
     host = "127.0.0.1";
 
@@ -295,27 +268,18 @@ int sendTo(int portNb, const char * message) {
         error("ERROR getting addrinfo");
         return 1;
     }
-    it = servinfo;
     int i = 0;
-    while(it != NULL) {
-        if((sockfd = socket(it->ai_family, it->ai_socktype, it->ai_protocol)) == -1) {
-            error("ERROR opening socket");
-            it = it->ai_next;
-        } else if (connect(sockfd, it->ai_addr, it->ai_addrlen) == -1) {
-        	// Wait until DKG server is online
-        	cout << "Waiting for server on port " << portNb << " to connect" << endl;
-        	while (connect(sockfd, servinfo->ai_addr, servinfo->ai_addrlen) == -1) {
-        		close(sockfd);
-        		sockfd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
-        	}
-        } else {
-            server = it;
-            it = NULL;
-        }
+    if((sockfd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol)) == -1) {
+        error("ERROR opening socket");
+        return 1;
     }
-    if(server == NULL) {
-        error("ERROR client failed to connect");
-    }
+
+	// Wait until DKG server is online
+	cout << "Waiting for server on port " << portNb << " to connect" << endl;
+	while (connect(sockfd, servinfo->ai_addr, servinfo->ai_addrlen) == -1) {
+		close(sockfd);
+		sockfd = socket(servinfo->ai_family, servinfo->ai_socktype, servinfo->ai_protocol);
+	}
 
     bzero(buffer,sizeof(buffer));
     strcpy(buffer,message);
@@ -323,24 +287,26 @@ int sendTo(int portNb, const char * message) {
     n = write(sockfd,buffer,strlen(buffer));
     if(n < 0)
         error("ERROR writing to socket");
+/* iets terug uitlezen is niet nodig
+    bzero(buffer,256);
+    n = read(sockfd,buffer,255);
 
+    if (n < 0)
+        error("ERROR reading from socket");*/
     cout << "The following message was successfully sent:" << endl;
     printf("%s\n",buffer);
-    freeaddrinfo(servinfo);
-    freeaddrinfo(it);
+    //freeaddrinfo(servinfo);
+    //freeaddrinfo(it);
     close(sockfd);
 }
 
-void *listenTo(void *arg) {
+void listenTo(int portNb, DKG *dkg) {
 	/*************************************************
     * Eeuwige luisteraar => luistert en stuurt iets terug bij ontvangst
     **************************************************/
 	int sockfd, newsockfd;
     socklen_t clilen;
 
-    ThreadParams * params = (ThreadParams*)(arg);
-    volatile bool * keepListening = params->keepListening;
-    int portNb = params->portNb;
     cout << "Server listening on port " << portNb << endl;
     struct sockaddr_in serv_addr, cli_addr;
     char buffer[BUF_SIZE];
@@ -361,8 +327,10 @@ void *listenTo(void *arg) {
     listen(sockfd,5);
     clilen = sizeof(cli_addr);
 
+    bool keepOnListening = true;
     // Start listening on myPortNb until keepListening is false
-    while( (newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen) ) && *keepListening){
+    while (keepOnListening) {
+    	newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0)
             error("ERROR on accept");
         char buffer[BUF_SIZE];
@@ -375,26 +343,25 @@ void *listenTo(void *arg) {
     		error("ERROR reading from socket");
     	cout << "Received message is" << endl;
     	printf("%s\n",buffer);
-    	if(strlen(buffer) != 0) {
+    	if (strlen(buffer) != 0) {
 	    	string xmlMessage(buffer);
 	    	DKGMessage dkgMes = DKGMessage(xmlMessage);
-	    	if(dkgMes.getType() == P_MESSAGE) {
-	    		cout << "Setting P" << endl;
-	    		G2 P = dkgMes.getP();
-	    		params->dkg->setP(P);
-	    	} else {
-	    		share_t share = dkgMes.getShare();
-	    		params->dkg->setShare(share);
-	    		if(params->dkg->getServerId() == share.shareGenerator+1)
-	    			*keepListening = false;
-	    	}
+	    	if (dkgMes.getType() == P_MESSAGE) {
+		    	G2 P = dkgMes.getP();
+		    	(*dkg).setP(P);
+		    } else {
+		    	share_t share = dkgMes.getShare();
+		    	(*dkg).setShare(share);
+		    	if((*dkg).getServerId() == share.shareGenerator+1)
+		    		keepOnListening = false;
+		    }
 	    }
     }
     close(sockfd);
     close(newsockfd);
-    pthread_cancel(pthread_self());
-    pthread_detach(pthread_self());
-    return NULL;
+    //pthread_cancel(pthread_self());
+    //pthread_detach(pthread_self());
+    //return NULL;
 }
 
 void storeMSK(Big s, int servId, string mskPath) {
