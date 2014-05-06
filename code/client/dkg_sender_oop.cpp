@@ -1,5 +1,5 @@
 #include "client_funcs.h"
-// Compilation command: g++-4.7 sender_oop.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp ../cppmiracl/source/mrgcm.c -I ../cppmiracl/include/ ../cppmiracl/source/mraes.c -L ../cppmiracl/source/ -l miracl -lcurl -o oopsender
+// Compilation command: g++-4.7 dkg_sender_oop.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp ../cppmiracl/source/mrgcm.c -I ../cppmiracl/include/ ../cppmiracl/source/mraes.c -L ../cppmiracl/source/ -l miracl -lcurl -o dkgsender
 
 
 // https://www.facebook.com/help/105399436216001#What-are-the-guidelines-around-creating-a-custom-username? for more information about which characters that can be used for usernames and profile_ids
@@ -10,6 +10,9 @@
 #define W_LEN 45 // W is actually 44 chars long, 45 because of null termination
 #define V_LEN 45 // V is actually 44 chars long, 45 because of null termination
 #endif
+
+#define THRESHOLD 3
+#define DKG_BASE_ADDR "http://localhost/thesis/dkg"
 
 using namespace std;
 
@@ -442,11 +445,14 @@ int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 
 struct DkgResult {
     G2 Ppub;
-    G1 D;
+    G1 Qpriv;
     G2 P;
 };
 
 DkgResult scrapeDkg(string url);
+Big lagrange(int i, int *reconstructionPoints, int degree, Big order);
+G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order);
+G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order);
 
 int main(void)
 {
@@ -454,21 +460,87 @@ int main(void)
     clock_t begin_time, begin_time1;
     float enc_time, enc_time1, dec_time, dec_time1, dec_time2;
 
-    DkgResult retParams = scrapeDkg(PKG_ADDR);
-
-    /*************************************************
-    *     Generate random symmetric session key      *
-    **************************************************/
     G2 P, Ppub;
+    G1 Qpriv, Qid;
     G1 D;
+    Big order = pfc.order();
 
-    // Get Ppub, P and D from the PKG's XML message
-    P = retParams.P;
-    Ppub = retParams.Ppub;
-    D = retParams.D;
+    // Specify the ids of the dkgs to contact
+    int dkgIds[THRESHOLD] = {1, 2, 3};
+    int dkgIds2[THRESHOLD] = {3, 4, 5};
+
+    const char * id = "Alice";
+    string urls[THRESHOLD];
+    for (int i = 0; i < THRESHOLD; i++) {
+        stringstream ss;
+        ss << DKG_BASE_ADDR << dkgIds[i] << "/?id=" << id;
+        urls[i] = ss.str();
+    }
+    vector <G1> Qprivs;
+    vector <G2> Ppubs;
+    DkgResult retParams;
+
+    pfc.hash_and_map(Qid, (char*)id);
+    for (int i = 0; i < THRESHOLD; i++) {
+        retParams = scrapeDkg(urls[i]);
+        // Get Ppub, P and Qpriv from the PKG's XML message
+        P = retParams.P;
+
+        Qpriv = retParams.Qpriv;
+        Qprivs.push_back(Qpriv);
+
+        Ppub = retParams.Ppub;
+        Ppubs.push_back(Ppub);
+
+        // Verify if the DKG are being honest
+        GT QprivP = pfc.pairing(P, Qpriv);
+        GT QidPpub = pfc.pairing(Ppub, Qid);
+        if (QprivP != QidPpub) {
+            cout << "Server " << dkgIds[i] << " is dishonest. Select another DKG to continue the extraction process." << endl;
+            return 0;
+        }
+    }
+
+    D = getSecretKey(dkgIds, Qprivs, order);
+    Ppub = getPpub(dkgIds, Ppubs, order);
+    cout << "D.g" << endl << D.g << endl;
+    cout << "Ppub.g" << endl << Ppub.g << endl;
+
+    for (int i = 0; i < THRESHOLD; i++) {
+        stringstream ss;
+        ss << DKG_BASE_ADDR << dkgIds2[i] << "/?id=" << id;
+        urls[i] = ss.str();
+    }
+    // TODO: are Ppubs needed?
+    // TODO: write something if DKG is offline
+    Qprivs.clear();
+    Ppubs.clear();
+    for (int i = 0; i < THRESHOLD; i++) {
+        retParams = scrapeDkg(urls[i]);
+        // Get Ppub, P and Qpriv from the PKG's XML message
+        P = retParams.P;
+
+        Qpriv = retParams.Qpriv;
+        Qprivs.push_back(Qpriv);
+
+        Ppub = retParams.Ppub;
+        Ppubs.push_back(Ppub);
+
+        // Verify if the DKG are being honest
+        GT QprivP = pfc.pairing(P, Qpriv);
+        GT QidPpub = pfc.pairing(Ppub, Qid);
+        if (QprivP != QidPpub) {
+            cout << "Server " << dkgIds[i] << " is dishonest. Select another DKG to continue the extraction process." << endl;
+            return 0;
+        }
+    }
+    // This demonstrates that the DKGs are effectively working like they should
+    D = getSecretKey(dkgIds2, Qprivs, order);
+    Ppub = getPpub(dkgIds2, Ppubs, order);
+    cout << "D.g" << endl << D.g << endl;
+    cout << "Ppub.g" << endl << Ppub.g << endl;
 
     PlaintextMessage mes = PlaintextMessage("Dit is een testje");
-    vector<string> testVect = mes.getRecipients();
 
     mes.addRecipient("Andre");
     mes.addRecipient("Adam");
@@ -497,98 +569,9 @@ int main(void)
     mes.addRecipient("Jonas");
     mes.addRecipient("Riek");
     mes.addRecipient("Stefan");
-    mes.addRecipient("Tim");/*
+    mes.addRecipient("Tim");
     // 25
-    mes.addRecipient("Nolan");
-    mes.addRecipient("Vincent");
-    mes.addRecipient("Frederick");
-    mes.addRecipient("Gerrit");
-    mes.addRecipient("Anne-Laure");
-    // 30
-    mes.addRecipient("Jean-Jeacques");
-    mes.addRecipient("Fitzgerald");
-    mes.addRecipient("Anton");
-    mes.addRecipient("Anteun");
-    mes.addRecipient("Antoin");
-    // 35
-    mes.addRecipient("Michael");
-    mes.addRecipient("Alexander");
-    mes.addRecipient("Wouter");
-    mes.addRecipient("Bart");
-    mes.addRecipient("David");
-    // 40
-    mes.addRecipient("Prisca");
-    mes.addRecipient("Isabel");
-    mes.addRecipient("Laure");
-    mes.addRecipient("Tine");
-    mes.addRecipient("Sarah");
-    // 45
-    mes.addRecipient("Joke");
-    mes.addRecipient("Laura");
-    mes.addRecipient("Tess");
-    mes.addRecipient("Evelien");
-    mes.addRecipient("Eline");
-    // 50
-    mes.addRecipient("Jules");
-    mes.addRecipient("Flor");
-    mes.addRecipient("Josef");
-    mes.addRecipient("Joseph");
-    mes.addRecipient("Jozef");
-    // 55
-    mes.addRecipient("Appel");
-    mes.addRecipient("Banaan");
-    mes.addRecipient("Peer");
-    mes.addRecipient("Annanas");
-    mes.addRecipient("Aardbei");
-    // 60
-    mes.addRecipient("Prei");
-    mes.addRecipient("Sla");
-    mes.addRecipient("Tomaat");
-    mes.addRecipient("Boontjes");
-    mes.addRecipient("Fritske");
-    // 65
-    mes.addRecipient("Frankske");
-    mes.addRecipient("Giovannike");
-    mes.addRecipient("Giannike");
-    mes.addRecipient("Kennedyke");
-    mes.addRecipient("Johnny");
-    // 70
-    mes.addRecipient("Astertje");
-    mes.addRecipient("Jonaske");
-    mes.addRecipient("Riekske");
-    mes.addRecipient("Stefanneke");
-    mes.addRecipient("Timpie");
-    // 75
-    mes.addRecipient("Nolaneke");
-    mes.addRecipient("Vincentje");
-    mes.addRecipient("Frederickske");
-    mes.addRecipient("Gerritje");
-    mes.addRecipient("Anne-Lauretje");
-    // 80
-    mes.addRecipient("Fanny");
-    mes.addRecipient("Kiekeboe");
-    mes.addRecipient("Konstantinopel");
-    mes.addRecipient("Moemoe");
-    mes.addRecipient("Goegebhuer");
-    // 85
-    mes.addRecipient("Michaeltje");
-    mes.addRecipient("Alexanderke");
-    mes.addRecipient("Wouterke");
-    mes.addRecipient("Bartje");
-    mes.addRecipient("Davidje");
-    // 90
-    mes.addRecipient("Priscatje");
-    mes.addRecipient("Isabelleke");
-    mes.addRecipient("Lauretje");
-    mes.addRecipient("Tineke");
-    mes.addRecipient("Sarahtje");
-    // 95
-    mes.addRecipient("Joketje");
-    mes.addRecipient("Lauratje");
-    mes.addRecipient("Tesske");
-    mes.addRecipient("Evelientje");
-    mes.addRecipient("Elineke");*/
-    //100
+
     mes.addRecipient("Alice");
 
 
@@ -597,8 +580,6 @@ int main(void)
     begin_time = clock();
 
     EncryptedMessage encMes = mes.encrypt(P, Ppub);
-    string temp = encMes.getMessage();
-    EncryptedMessage encMes2 = EncryptedMessage(temp);
     cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
     begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D);
@@ -658,14 +639,40 @@ DkgResult scrapeDkg(string url) {
     string p = p_node->value();
     string p_pub = p_pub_node->value();
 
-    cout << "d_id" << endl << d_id << endl;
-    cout << "p" << endl << p << endl;
-    cout << "p_pub" << endl << p_pub << endl;
-    cout << "g2From(p_pub).g" << endl << g2From(p_pub).g << endl;
     DkgResult result;
     result.Ppub = g2From(p_pub);
     result.P = g2From(p);
-    result.D = g1From(d_id);
-    cout << "result.Ppub.g" << endl << result.Ppub.g << endl;
+    result.Qpriv = g1From(d_id);
     return result;
+}
+
+G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order) {
+    G1 D;
+    for (int i = 0; i < THRESHOLD; i++) {
+        G1 Q = Qprivs.at(i);
+        Big l = lagrange(i, contactedServers, THRESHOLD, order);
+        D = D + pfc.mult(Q, l);
+    }
+    return D;
+}
+
+G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order) {
+    G2 Ppub;
+    for (int i = 0; i < THRESHOLD; i++) {
+        G2 myPpub = Ppubs.at(i);
+        Big l = lagrange(i, contactedServers, THRESHOLD, order);
+        Ppub = Ppub + pfc.mult(myPpub, l);
+    }
+    return Ppub;
+}
+
+
+Big lagrange(int i, int *reconstructionPoints, int degree, Big order) {
+    Big z = 1;
+    for (int k = 0; k < degree; k++) {
+        if(k != i) {
+            z = modmult(z, moddiv( (order - (Big)reconstructionPoints[k]), ((Big)reconstructionPoints[i] - (Big)reconstructionPoints[k]), order), order);
+        }
+    }
+    return z;
 }
