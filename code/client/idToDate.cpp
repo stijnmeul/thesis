@@ -15,7 +15,7 @@
 #define HOURS_IN_DAY 24
 #define MINUTES_IN_HOUR 60
 #define SECONDS_IN_MINUTE 60
-#define SECONDS_IN_MONTH DAYS_IN_MONTH*HOURS_IN_DAY*MINUTES_IN_HOUR*SECONDS_IN_MINUTE
+#define MINUTES_IN_MONTH DAYS_IN_MONTH*HOURS_IN_DAY*MINUTES_IN_HOUR*
 
 #define DAY_DIVISOR HOURS_IN_DAY*MINUTES_IN_HOUR*SECONDS_IN_MINUTE
 
@@ -48,9 +48,9 @@ int main(void)
     Big seconds = from_binary(sizeof(hash), hash);
     mip->IOBASE = 10;
     cout << "seconds is " << endl << seconds << endl;
-    cout << "seconds in month is " << endl << SECONDS_IN_MONTH << endl;
+    cout << "seconds in month is " << endl << MINUTES_IN_MONTH << endl;
 
-    modulo((Big)(SECONDS_IN_MONTH+1));
+    modulo((Big)(MINUTES_IN_MONTH+1));
     Big timeInMonth = nres(seconds);
     cout << "timeInMonth" << endl << timeInMonth << endl;
     int totalTime = size(timeInMonth.getbig());
@@ -81,12 +81,11 @@ int main(void)
     cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << " and " << sec << " seconds." << endl;*/
 
     time_t begin_time = clock();
-    int day = totalTime / (MINUTES_IN_HOUR * SECONDS_IN_MINUTE * HOURS_IN_DAY);
-    int minute = (totalTime / MINUTES_IN_HOUR) % SECONDS_IN_MINUTE;
-    int hour = (totalTime / (MINUTES_IN_HOUR*SECONDS_IN_MINUTE)) % HOURS_IN_DAY;
-    int sec = (totalTime) % SECONDS_IN_MINUTE;
+    int day = totalTime / (MINUTES_IN_HOUR * HOURS_IN_DAY);
+    int minute = totalTime % SECONDS_IN_MINUTE;
+    int hour = (totalTime / (MINUTES_IN_HOUR)) % HOURS_IN_DAY;
     // ((912415-10*(24*60*60))-(60*60*13))-26*60-55
-    int test = (totalTime - day * (HOURS_IN_DAY*MINUTES_IN_HOUR * SECONDS_IN_MINUTE) - hour * (SECONDS_IN_MINUTE * MINUTES_IN_HOUR) - minute * SECONDS_IN_MINUTE - sec);
+    int test = (totalTime - day * (HOURS_IN_DAY*MINUTES_IN_HOUR) - hour * MINUTES_IN_HOUR) - minute);
     if (  test == 0) {
         cout << "correct conversion from seconds to time" << endl;
     }
