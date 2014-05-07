@@ -1,0 +1,142 @@
+\begin{thebibliography}{10}
+
+\bibitem{BaekIBEandBE}
+J.~Baek, R.~Safavi-Naini, and W.~Susilo.
+\newblock Efficient multi-receiver identity-based encryption and its
+  application to broadcast encryption.
+\newblock In S.~Vaudenay, editor, {\em Public Key Cryptography}, volume 3386 of
+  {\em Lecture Notes in Computer Science}, pages 380--397. Springer, 2005.
+
+\bibitem{BarbosaIBEKEM}
+M.~Barbosa and P.~Farshim.
+\newblock Efficient identity-based key encapsulation to multiple parties.
+\newblock In N.~P. Smart, editor, {\em IMA Int. Conf.}, volume 3796 of {\em
+  Lecture Notes in Computer Science}, pages 428--441. Springer, 2005.
+
+\bibitem{BarthBonehWaters}
+A.~Barth, D.~Boneh, and B.~Waters.
+\newblock Privacy in encrypted content distribution using private broadcast
+  encryption.
+\newblock In G.~D. Crescenzo and A.~D. Rubin, editors, {\em Financial
+  Cryptography}, volume 4107 of {\em Lecture Notes in Computer Science}, pages
+  52--64. Springer, 2006.
+
+\bibitem{BonehBoyenRandomOracles}
+D.~Boneh and X.~Boyen.
+\newblock Secure identity based encryption without random oracles.
+\newblock {\em IACR Cryptology ePrint Archive}, 2004:173, 2004.
+
+\bibitem{BonehFranklinIBE}
+D.~Boneh and M.~K. Franklin.
+\newblock Identity based encryption from the {W}eil pairing.
+\newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
+
+\bibitem{BonehGW05}
+D.~Boneh, C.~Gentry, and B.~Waters.
+\newblock Collusion resistant broadcast encryption with short ciphertexts and
+  private keys.
+\newblock {\em IACR Cryptology ePrint Archive}, 2005:18, 2005.
+
+\bibitem{Canetti}
+R.~Canetti, S.~Halevi, and J.~Katz.
+\newblock A forward-secure public-key encryption scheme.
+\newblock {\em IACR Cryptology ePrint Archive}, 2003:83, 2003.
+
+\bibitem{DelerableeIBBE}
+C.~Delerabl{\'e}e.
+\newblock Identity-based broadcast encryption with constant size ciphertexts
+  and private keys.
+\newblock In K.~Kurosawa, editor, {\em ASIACRYPT}, volume 4833 of {\em Lecture
+  Notes in Computer Science}, pages 200--215. Springer, 2007.
+
+\bibitem{DodisF02}
+Y.~Dodis and N.~Fazio.
+\newblock Public key broadcast encryption for stateless receivers.
+\newblock In J.~Feigenbaum, editor, {\em Digital Rights Management Workshop},
+  volume 2696 of {\em Lecture Notes in Computer Science}, pages 61--80.
+  Springer, 2002.
+
+\bibitem{FazioOutsiderANOBE}
+N.~Fazio and I.~M. Perera.
+\newblock Outsider-anonymous broadcast encryption with sublinear ciphertexts.
+\newblock {\em IACR Cryptology ePrint Archive}, 2012:129, 2012.
+
+\bibitem{FiatBE}
+A.~Fiat and M.~Naor.
+\newblock Broadcast encryption.
+\newblock In D.~R. Stinson, editor, {\em CRYPTO}, volume 773 of {\em Lecture
+  Notes in Computer Science}, pages 480--491. Springer, 1993.
+
+\bibitem{GentryRandomOracles}
+C.~Gentry.
+\newblock Practical identity-based encryption without random oracles.
+\newblock In S.~Vaudenay, editor, {\em Advances in Cryptology - EUROCRYPT
+  2006}, volume 4004 of {\em Lecture Notes in Computer Science}, pages
+  445--464. Springer Berlin Heidelberg, 2006.
+
+\bibitem{GentryW08}
+C.~Gentry and B.~Waters.
+\newblock Adaptive security in broadcast encryption systems.
+\newblock {\em IACR Cryptology ePrint Archive}, 2008:268, 2008.
+
+\bibitem{GoodrichST04}
+M.~T. Goodrich, J.~Z. Sun, and R.~Tamassia.
+\newblock Efficient tree-based revocation in groups of low-state devices.
+\newblock In M.~K. Franklin, editor, {\em CRYPTO}, volume 3152 of {\em Lecture
+  Notes in Computer Science}, pages 511--527. Springer, 2004.
+
+\bibitem{HalevyS02}
+D.~Halevy and A.~Shamir.
+\newblock The lsd broadcast encryption scheme.
+\newblock In M.~Yung, editor, {\em CRYPTO}, volume 2442 of {\em Lecture Notes
+  in Computer Science}, pages 47--60. Springer, 2002.
+
+\bibitem{KrzywieckiKK06}
+L.~Krzywiecki, P.~Kubiak, and M.~Kutylowski.
+\newblock A revocation scheme preserving privacy.
+\newblock In H.~Lipmaa, M.~Yung, and D.~Lin, editors, {\em Inscrypt}, volume
+  4318 of {\em Lecture Notes in Computer Science}, pages 130--143. Springer,
+  2006.
+
+\bibitem{LewkoSW08}
+A.~B. Lewko, A.~Sahai, and B.~Waters.
+\newblock Revocation systems with very small private keys.
+\newblock {\em IACR Cryptology ePrint Archive}, 2008:309, 2008.
+
+\bibitem{LibertANOBE}
+B.~Libert, K.~G. Paterson, and E.~A. Quaglia.
+\newblock Anonymous broadcast encryption: Adaptive security and efficient
+  constructions in the standard model.
+\newblock In M.~Fischlin, J.~Buchmann, and M.~Manulis, editors, {\em Public Key
+  Cryptography}, volume 7293 of {\em Lecture Notes in Computer Science}, pages
+  206--224. Springer, 2012.
+
+\bibitem{NaorNaor}
+D.~Naor, M.~Naor, and J.~B. Lotspiech.
+\newblock Revocation and tracing schemes for stateless receivers.
+\newblock {\em IACR Cryptology ePrint Archive}, 2001:59, 2001.
+
+\bibitem{SakaiF07}
+R.~Sakai and J.~Furukawa.
+\newblock Identity-based broadcast encryption.
+\newblock {\em IACR Cryptology ePrint Archive}, 2007:217, 2007.
+
+\bibitem{DBLP:conf/crypto/Shamir84}
+A.~Shamir.
+\newblock Identity-based cryptosystems and signature schemes.
+\newblock In G.~R. Blakley and D.~Chaum, editors, {\em CRYPTO}, volume 196 of
+  {\em Lecture Notes in Computer Science}, pages 47--53. Springer, 1984.
+
+\bibitem{SmartMKEM}
+N.~P. Smart.
+\newblock Efficient key encapsulation to multiple parties.
+\newblock In C.~Blundo and S.~Cimato, editors, {\em SCN}, volume 3352 of {\em
+  Lecture Notes in Computer Science}, pages 208--219. Springer, 2004.
+
+\bibitem{YuRL10}
+S.~Yu, K.~Ren, and W.~Lou.
+\newblock Attribute-based on-demand multicast group setup with membership
+  anonymity.
+\newblock {\em Computer Networks}, 54(3):377--386, 2010.
+
+\end{thebibliography}
