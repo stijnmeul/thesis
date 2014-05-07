@@ -1,0 +1,60 @@
+===================================================
+* AUTHOR: Andy Huang, Ian Goldberg                *
+* NAME: Distributed Key Generating Animation Demo *
+===================================================
+
+++++++++++++++++++
++ Pre-requisites +
+++++++++++++++++++
+
+1. Necessary files and directories:
+
+	- ./used.txt
+
+	- ./y226huan.py
+
+	- ./Mercator-projection.jpg
+
+	- ./cleaninputdata.py
+
+	- ./getpos.py
+
+	- ./msgData/
+
+	- ./pgu/
+
+	- ./data/
+
+	NOTE: 
+
+	1) 'msgData' could be a symbolic link to another directory.
+
+	2) A sample 'msgData' directory contains files as follow:
+		message_1.log message_2.log message_3.log ... message_10.log
+
+	3) The directories 'pgu' and 'data' are sourses of external libraries enabling the scrollbars.
+
+
+2. Internet access unless you already have a correct 'sitespos.txt' file.
+
+
+
+
++++++++++
++ Steps +
++++++++++
+
+1. 'python getpos.py'
+
+	// This takes 'used.txt' as input, and outputs 'sitespos.txt',
+	// which requres Internet access because it calls the planetlab API.
+	// This might take a while.
+
+2. 'python cleaninputdata.py'
+
+	// This takes 'msgData/' as input, and outputs 'messages.txt',
+	// which does NOT require Internet access
+
+3. 'python y226huan.py'
+
+4. Enjoy the show!

@@ -1,0 +1,87 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass{llncs}
+\usepackage{pdflscape}
+
+
+\begin{document}
+
+\title{}
+
+\author{Filipe Beato \and Stijn Meul \and Bart Preneel}
+\institute{ESAT/COSIC - KU Leuven and iMinds\\ Leuven, Belgium\\
+\email{\{first.lastname\}@esat.kuleuven.be}}
+
+\maketitle   % typeset the title of the contribution
+
+\begin{abstract} Online social networks (OSN) became and important and useful
+communication channel. At the same time, the privacy of the information shared is insufficiently protected by coarse privacy preferences. Naturally cryptography presents an interesting mechanism to protect privacy of users in OSNs. However, such mechanisms face several issues, such as, OSN provider acceptance, user adoption, key management and usability. Whilst the later is a question of design, the others are a question of motivation. In this paper we suggest a novel solution that uses Identity Based Encryption (IBE) with untrusted key servers to simplify the key management and enforce confidentiality of data. 
+\end{abstract}
+
+
+\section{Introduction}
+Online Social Networks (OSNs), such as Facebook and Google+, are increasingly being
+used as a communication channel. Users share information with a limited group of connections, and rely on the privacy preferences offered by the OSNs. These preferences are generally coarse and difficult to user \cite{}, and at the same time do not exclude the provider nor external governments through legal subpoenas~\cite{prism}. 
+
+
+
+
+\section{Related Work}
+In this section we overview related work.
+
+
+
+
+\section{Preliminaries}
+In this section we overview the cryptographic building blocks. For ease of exposition we omit the basic notions on cryptographic primitives, such as hash function and pairings. For further details, we refer the reader to~\cite{}. 
+
+\subsection{Identity Based Encryption}
+The concept of Identity Based Encryption (IBE) was introduced by Shamir in ~\cite{DBLP:conf/crypto/Shamir84}, with the main idea of using any string as the public key, such as, email or telephone, avoiding the need of certificates. Thereby reducing the complexity of establishing and managing public key infrastructure. Later, Boneh and Franklin propose the first practical IBE using bilinear pairings \cite{BonehFranklinIBE}, extended in \cite{GentryRandomOracles}. Hence, a generic IBE scheme is composed by three players that use the four randomized algorithms:
+\begin{description}
+    \item[IBE.Setup:] On the input of a security parameter $\lambda$, outputs a master secret $s$ and the master public parameters $params$. 
+    \item[IBE.Extract:] Takes the public parameters $params$, the master secret $s$, and an ID and returns the private key $d_{ID}$ for the ID.
+    \item[IBE.Encrypt:] Returns the encryption $C$ of the message $m$ on the input of the $params$, the ID, and the arbitrary length message $m$. 
+    \item[IBE.Decrypt:] Using the secret $d_{ID}$, the $params$, and $C$, return $M$.
+\end{description}
+
+The Setup and Extract algorithms are performed by the Private Key Generator (PKG) server. Whereas the Encrypt and Decrypt are performed by two players, e.g., Alice and Bob. Note that the PKG server is required to be trusted.
+
+\subsection{Anonymous Broadcast Encryption}
+Broadcast encryption (BE) scheme concept was introduced by Fiat and Naor~\cite{FiatBE}, as a public-key generalization to a multi user setting. A BE scheme allows a user to encrypt a message to a subset $\mathcal{S}$ of users, such that, only users in that set $\mathcal{S}$ are able to decrypt the message. The overhead of the BE is directly related to the ciphertext and the number of recipient. Therefore, generally the set $\mathcal{S}$ of recipients needs to be known. Barth et al.~\cite{BarthBonehWaters} and Libert et al.~\cite{LibertANOBE} extended the notion of BE and introduced the concept of Anonymous Broadcast Encryption (ANOBE) scheme, such that the recipient set $\mathcal{S}$ is required to be private. 
+A generic BE and ANOBE scheme consists of the four randomized algorithms:
+\begin{description}
+    \item[BE.Setup:] On the input of a security parameter $\lambda$ generates the public parameters of the system.
+    \item[BE.KeyGen:] Takes the public parameters and returns the public and private key ($pk,sk$) for each user.
+    \item[BE.Encrypt:] Generates $C$ for the message $m$ and the set of public keys from each member in $\mathcal{S}$. 
+    \item[BE.Decrypt:] Returns $m$ from $C$ using the private key $sk$ if the corresponding public key $pk \in \mathcal{S}$. Otherwise, return $\bot$.
+\end{description}
+
+Note that the ($pk,sk$) can be represented by used from IBE scheme.
+
+
+\subsection{Shamir Secret Sharing}
+
+
+
+\subsection{Distributed Key Generation}
+
+
+
+
+\section{Model}
+We now turn and overview 
+
+\subsection{Threat Model}
+
+\subsection{Goals}
+
+
+
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{references.bib}
+\end{document}

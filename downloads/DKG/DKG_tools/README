@@ -1,0 +1,51 @@
+-----------------------
+printall.cc
+
+Description: Print out all the data points.
+
+Usage:
+
+1. g++ printall.cc -o printall
+
+2. Put the binary under the root directory like this:
+.
+..
+newdata/
+printall
+
+3. ./printall
+
+4. Now the root directory looks like this:
+.
+..
+newdata/
+printall
+allpoints.dat
+
+-----------------------
+medianh.cc
+
+Description: Print the median runtime and median CPU time for each trial of experiments in a human-readable way.
+
+Usage:
+
+1. ./medianh
+
+2. Now the current directory looks like
+.
+..
+newdata/
+medianh
+eachrun.dat
+
+----------------------
+analyze.cc
+
+Description: Print running time stats for the executions of a specified parameter combination. The format is useful for gnuplot.
+
+FORMAT:
+
+N min first_quartile median second_quartile max average standard_deviation
+
+----------------------
+

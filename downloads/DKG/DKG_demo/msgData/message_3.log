@@ -1,0 +1,1569 @@
+-Run node 3 starting at 1316051238.763585 with version 5.2
+-Function node 3 starting at 1316051248.769695
+LEADER_CHANGE 1 for * SENT from 3 to 1 at 1316051248.772162 standard 1
+COMPUTING_ZR * for * RS from 3 to * at 1316051248.772182
+END_COMPUTING_ZR * for * RS from 3 to * at 1316051248.773224
+COMPUTE_BI * for * RS from 3 to * at 1316051248.773235
+COMPUTE_CM * for * RS from 3 to * at 1316051248.796907
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.602394
+COMPUTE_PL * for * RS from 3 to * at 1316051257.602428
+CVSS_SEND * for * RS from 3 to * at 1316051257.602693
+BEFORE_LOCK * for * SENT from 3 to 1 at 1316051257.602702 standard 1
+AFTER_LOCK * for * SENT from 3 to 1 at 1316051257.602703 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 1 at 1316051257.605887 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 1 at 1316051257.605888 standard 1
+VSS_SEND 3 for * SENT from 3 to 1 at 1316051257.605918 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.605949
+COMPUTE_PL * for * RS from 3 to * at 1316051257.605959
+CVSS_SEND * for * RS from 3 to * at 1316051257.606204
+BEFORE_LOCK * for * SENT from 3 to 2 at 1316051257.606212 standard 1
+AFTER_LOCK * for * SENT from 3 to 2 at 1316051257.606214 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 2 at 1316051257.606239 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 2 at 1316051257.606240 standard 1
+VSS_SEND 4 for * SENT from 3 to 2 at 1316051257.606258 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.606276
+COMPUTE_PL * for * RS from 3 to * at 1316051257.606283
+CVSS_SEND * for * RS from 3 to * at 1316051257.606508
+BEFORE_LOCK * for * SENT from 3 to 3 at 1316051257.606515 standard 1
+AFTER_LOCK * for * SENT from 3 to 3 at 1316051257.606516 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 3 at 1316051257.606590 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 3 at 1316051257.606590 standard 1
+VSS_SEND 5 for * SENT from 3 to 3 at 1316051257.606608 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.606626
+COMPUTE_PL * for * RS from 3 to * at 1316051257.606641
+CVSS_SEND * for * RS from 3 to * at 1316051257.606868
+BEFORE_LOCK * for * SENT from 3 to 4 at 1316051257.606875 standard 1
+AFTER_LOCK * for * SENT from 3 to 4 at 1316051257.606876 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 4 at 1316051257.606901 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 4 at 1316051257.606902 standard 1
+VSS_SEND 6 for * SENT from 3 to 4 at 1316051257.606920 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.606938
+COMPUTE_PL * for * RS from 3 to * at 1316051257.606945
+CVSS_SEND * for * RS from 3 to * at 1316051257.607167
+BEFORE_LOCK * for * SENT from 3 to 5 at 1316051257.607174 standard 1
+AFTER_LOCK * for * SENT from 3 to 5 at 1316051257.607175 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 5 at 1316051257.607245 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 5 at 1316051257.607246 standard 1
+VSS_SEND 7 for * SENT from 3 to 5 at 1316051257.607264 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.607282
+COMPUTE_PL * for * RS from 3 to * at 1316051257.607288
+CVSS_SEND * for * RS from 3 to * at 1316051257.607508
+BEFORE_LOCK * for * SENT from 3 to 6 at 1316051257.607515 standard 1
+AFTER_LOCK * for * SENT from 3 to 6 at 1316051257.607516 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 6 at 1316051257.607534 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 6 at 1316051257.607535 standard 1
+VSS_SEND 8 for * SENT from 3 to 6 at 1316051257.607553 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.607570
+COMPUTE_PL * for * RS from 3 to * at 1316051257.607577
+CVSS_SEND * for * RS from 3 to * at 1316051257.612603
+BEFORE_LOCK * for * SENT from 3 to 7 at 1316051257.612613 standard 1
+AFTER_LOCK * for * SENT from 3 to 7 at 1316051257.612614 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 7 at 1316051257.612629 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 7 at 1316051257.612630 standard 1
+VSS_SEND 9 for * SENT from 3 to 7 at 1316051257.612657 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.612675
+COMPUTE_PL * for * RS from 3 to * at 1316051257.612684
+CVSS_SEND * for * RS from 3 to * at 1316051257.612911
+BEFORE_LOCK * for * SENT from 3 to 8 at 1316051257.612942 standard 1
+AFTER_LOCK * for * SENT from 3 to 8 at 1316051257.612943 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 8 at 1316051257.613000 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 8 at 1316051257.613001 standard 1
+VSS_SEND 10 for * SENT from 3 to 8 at 1316051257.613019 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.613036
+COMPUTE_PL * for * RS from 3 to * at 1316051257.613043
+CVSS_SEND * for * RS from 3 to * at 1316051257.613264
+BEFORE_LOCK * for * SENT from 3 to 9 at 1316051257.613271 standard 1
+AFTER_LOCK * for * SENT from 3 to 9 at 1316051257.613272 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 9 at 1316051257.613295 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 9 at 1316051257.613296 standard 1
+VSS_SEND 11 for * SENT from 3 to 9 at 1316051257.613314 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.613331
+COMPUTE_PL * for * RS from 3 to * at 1316051257.613339
+CVSS_SEND * for * RS from 3 to * at 1316051257.619705
+BEFORE_LOCK * for * SENT from 3 to 10 at 1316051257.619729 standard 1
+AFTER_LOCK * for * SENT from 3 to 10 at 1316051257.619731 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 10 at 1316051257.619812 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 10 at 1316051257.619813 standard 1
+VSS_SEND 12 for * SENT from 3 to 10 at 1316051257.619832 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.619852
+COMPUTE_PL * for * RS from 3 to * at 1316051257.619861
+CVSS_SEND * for * RS from 3 to * at 1316051257.620101
+BEFORE_LOCK * for * SENT from 3 to 11 at 1316051257.620109 standard 1
+AFTER_LOCK * for * SENT from 3 to 11 at 1316051257.620110 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 11 at 1316051257.620130 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 11 at 1316051257.620131 standard 1
+VSS_SEND 13 for * SENT from 3 to 11 at 1316051257.620149 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.620167
+COMPUTE_PL * for * RS from 3 to * at 1316051257.620174
+CVSS_SEND * for * RS from 3 to * at 1316051257.620397
+BEFORE_LOCK * for * SENT from 3 to 12 at 1316051257.620404 standard 1
+AFTER_LOCK * for * SENT from 3 to 12 at 1316051257.620405 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 12 at 1316051257.620472 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 12 at 1316051257.620473 standard 1
+VSS_SEND 14 for * SENT from 3 to 12 at 1316051257.620491 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.620509
+COMPUTE_PL * for * RS from 3 to * at 1316051257.620516
+CVSS_SEND * for * RS from 3 to * at 1316051257.621916
+BEFORE_LOCK * for * SENT from 3 to 13 at 1316051257.621926 standard 1
+AFTER_LOCK * for * SENT from 3 to 13 at 1316051257.621928 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 13 at 1316051257.621999 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 13 at 1316051257.621999 standard 1
+VSS_SEND 15 for * SENT from 3 to 13 at 1316051257.622018 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.622035
+COMPUTE_PL * for * RS from 3 to * at 1316051257.622043
+CVSS_SEND * for * RS from 3 to * at 1316051257.622278
+BEFORE_LOCK * for * SENT from 3 to 14 at 1316051257.622285 standard 1
+AFTER_LOCK * for * SENT from 3 to 14 at 1316051257.622286 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 14 at 1316051257.622305 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 14 at 1316051257.622306 standard 1
+VSS_SEND 16 for * SENT from 3 to 14 at 1316051257.622324 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.622342
+COMPUTE_PL * for * RS from 3 to * at 1316051257.622349
+CVSS_SEND * for * RS from 3 to * at 1316051257.622573
+BEFORE_LOCK * for * SENT from 3 to 15 at 1316051257.622580 standard 1
+AFTER_LOCK * for * SENT from 3 to 15 at 1316051257.622581 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 15 at 1316051257.625896 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 15 at 1316051257.625897 standard 1
+VSS_SEND 17 for * SENT from 3 to 15 at 1316051257.625929 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.625956
+COMPUTE_PL * for * RS from 3 to * at 1316051257.625966
+CVSS_SEND * for * RS from 3 to * at 1316051257.626227
+BEFORE_LOCK * for * SENT from 3 to 16 at 1316051257.626235 standard 1
+AFTER_LOCK * for * SENT from 3 to 16 at 1316051257.626236 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 16 at 1316051257.626339 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 16 at 1316051257.626340 standard 1
+VSS_SEND 18 for * SENT from 3 to 16 at 1316051257.626358 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.626376
+COMPUTE_PL * for * RS from 3 to * at 1316051257.626383
+CVSS_SEND * for * RS from 3 to * at 1316051257.626612
+BEFORE_LOCK * for * SENT from 3 to 17 at 1316051257.626619 standard 1
+AFTER_LOCK * for * SENT from 3 to 17 at 1316051257.626620 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 17 at 1316051257.626650 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 17 at 1316051257.626651 standard 1
+VSS_SEND 19 for * SENT from 3 to 17 at 1316051257.626669 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.626687
+COMPUTE_PL * for * RS from 3 to * at 1316051257.626694
+CVSS_SEND * for * RS from 3 to * at 1316051257.626926
+BEFORE_LOCK * for * SENT from 3 to 18 at 1316051257.626934 standard 1
+AFTER_LOCK * for * SENT from 3 to 18 at 1316051257.626935 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 18 at 1316051257.627007 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 18 at 1316051257.627007 standard 1
+VSS_SEND 20 for * SENT from 3 to 18 at 1316051257.627026 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.627043
+COMPUTE_PL * for * RS from 3 to * at 1316051257.627051
+CVSS_SEND * for * RS from 3 to * at 1316051257.629086
+BEFORE_LOCK * for * SENT from 3 to 19 at 1316051257.629107 standard 1
+AFTER_LOCK * for * SENT from 3 to 19 at 1316051257.629108 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 19 at 1316051257.629138 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 19 at 1316051257.629139 standard 1
+VSS_SEND 21 for * SENT from 3 to 19 at 1316051257.629158 standard 1
+COMPUTE_ZR2 * for * RS from 3 to * at 1316051257.629187
+COMPUTE_PL * for * RS from 3 to * at 1316051257.629197
+CVSS_SEND * for * RS from 3 to * at 1316051257.629447
+BEFORE_LOCK * for * SENT from 3 to 20 at 1316051257.629454 standard 1
+AFTER_LOCK * for * SENT from 3 to 20 at 1316051257.629455 standard 1
+AFTER_AFTER_LOCK * for * SENT from 3 to 20 at 1316051257.629525 standard 1
+AFTER_LOCK2 * for * SENT from 3 to 20 at 1316051257.629526 standard 1
+VSS_SEND 22 for * SENT from 3 to 20 at 1316051257.629544 standard 1
+VSS_READY 204 for 1 RECEIVED from 1 to 3 at 1316051257.629585
+VSS_ECHO 294 for 4 RECEIVED from 1 to 3 at 1316051257.699589
+VSS_SEND 5 for * RECEIVED from 1 to 3 at 1316051257.736299
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.807842
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.807950
+BEFORE_LOCK * for 1 SENT from 3 to 1 at 1316051257.807959 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 1 at 1316051257.807960 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 1 at 1316051257.808098 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 1 at 1316051257.808098 standard 1
+VSS_ECHO 31 for 1 SENT from 3 to 1 at 1316051257.808118 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.808132
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.808211
+BEFORE_LOCK * for 1 SENT from 3 to 2 at 1316051257.808217 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 2 at 1316051257.808219 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 2 at 1316051257.808228 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 2 at 1316051257.808229 standard 1
+VSS_ECHO 32 for 1 SENT from 3 to 2 at 1316051257.808247 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.808261
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.808340
+BEFORE_LOCK * for 1 SENT from 3 to 3 at 1316051257.808346 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 3 at 1316051257.808347 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 3 at 1316051257.808355 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 3 at 1316051257.808356 standard 1
+VSS_ECHO 33 for 1 SENT from 3 to 3 at 1316051257.808374 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.808387
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.808488
+BEFORE_LOCK * for 1 SENT from 3 to 4 at 1316051257.808494 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 4 at 1316051257.808495 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 4 at 1316051257.808550 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 4 at 1316051257.808551 standard 1
+VSS_ECHO 34 for 1 SENT from 3 to 4 at 1316051257.808569 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.808583
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.813752
+BEFORE_LOCK * for 1 SENT from 3 to 5 at 1316051257.813774 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 5 at 1316051257.813776 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 5 at 1316051257.813777 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 5 at 1316051257.813777 standard 1
+VSS_ECHO 35 for 1 SENT from 3 to 5 at 1316051257.813796 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.813818
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.813958
+BEFORE_LOCK * for 1 SENT from 3 to 6 at 1316051257.813965 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 6 at 1316051257.813966 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 6 at 1316051257.813967 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 6 at 1316051257.813968 standard 1
+VSS_ECHO 36 for 1 SENT from 3 to 6 at 1316051257.813985 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.813998
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.814075
+BEFORE_LOCK * for 1 SENT from 3 to 7 at 1316051257.814081 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 7 at 1316051257.814082 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 7 at 1316051257.814120 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 7 at 1316051257.814121 standard 1
+VSS_ECHO 37 for 1 SENT from 3 to 7 at 1316051257.814140 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.814154
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.814232
+BEFORE_LOCK * for 1 SENT from 3 to 8 at 1316051257.814238 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 8 at 1316051257.814239 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 8 at 1316051257.814240 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 8 at 1316051257.814241 standard 1
+VSS_ECHO 38 for 1 SENT from 3 to 8 at 1316051257.814258 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.814270
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.814348
+BEFORE_LOCK * for 1 SENT from 3 to 9 at 1316051257.814354 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 9 at 1316051257.814355 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 9 at 1316051257.814421 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 9 at 1316051257.814421 standard 1
+VSS_ECHO 39 for 1 SENT from 3 to 9 at 1316051257.814441 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.814455
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.814538
+BEFORE_LOCK * for 1 SENT from 3 to 10 at 1316051257.814544 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 10 at 1316051257.814545 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 10 at 1316051257.814563 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 10 at 1316051257.814563 standard 1
+VSS_ECHO 40 for 1 SENT from 3 to 10 at 1316051257.814582 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.814596
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.817128
+BEFORE_LOCK * for 1 SENT from 3 to 11 at 1316051257.817137 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 11 at 1316051257.817138 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 11 at 1316051257.817151 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 11 at 1316051257.817152 standard 1
+VSS_ECHO 41 for 1 SENT from 3 to 11 at 1316051257.817171 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.817188
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.817269
+BEFORE_LOCK * for 1 SENT from 3 to 12 at 1316051257.817275 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 12 at 1316051257.817276 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 12 at 1316051257.817343 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 12 at 1316051257.817344 standard 1
+VSS_ECHO 42 for 1 SENT from 3 to 12 at 1316051257.817383 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.817397
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.817475
+BEFORE_LOCK * for 1 SENT from 3 to 13 at 1316051257.817481 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 13 at 1316051257.817482 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 13 at 1316051257.817483 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 13 at 1316051257.817484 standard 1
+VSS_ECHO 43 for 1 SENT from 3 to 13 at 1316051257.817501 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.817513
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.817591
+BEFORE_LOCK * for 1 SENT from 3 to 14 at 1316051257.817597 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 14 at 1316051257.817598 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 14 at 1316051257.817607 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 14 at 1316051257.817608 standard 1
+VSS_ECHO 44 for 1 SENT from 3 to 14 at 1316051257.817626 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.817647
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.817725
+BEFORE_LOCK * for 1 SENT from 3 to 15 at 1316051257.817730 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 15 at 1316051257.817732 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 15 at 1316051257.817732 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 15 at 1316051257.817733 standard 1
+VSS_ECHO 45 for 1 SENT from 3 to 15 at 1316051257.817750 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.817762
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.817839
+BEFORE_LOCK * for 1 SENT from 3 to 16 at 1316051257.817845 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 16 at 1316051257.817846 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 16 at 1316051257.817920 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 16 at 1316051257.817921 standard 1
+VSS_ECHO 46 for 1 SENT from 3 to 16 at 1316051257.817940 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.817954
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.818032
+BEFORE_LOCK * for 1 SENT from 3 to 17 at 1316051257.818038 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 17 at 1316051257.818039 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 17 at 1316051257.818058 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 17 at 1316051257.818059 standard 1
+VSS_ECHO 47 for 1 SENT from 3 to 17 at 1316051257.818077 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.818091
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.818170
+BEFORE_LOCK * for 1 SENT from 3 to 18 at 1316051257.818176 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 18 at 1316051257.818177 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 18 at 1316051257.818177 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 18 at 1316051257.818178 standard 1
+VSS_ECHO 48 for 1 SENT from 3 to 18 at 1316051257.818195 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.818207
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.818287
+BEFORE_LOCK * for 1 SENT from 3 to 19 at 1316051257.818293 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 19 at 1316051257.818294 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 19 at 1316051257.818295 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 19 at 1316051257.818296 standard 1
+VSS_ECHO 49 for 1 SENT from 3 to 19 at 1316051257.818313 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051257.818325
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051257.818401
+BEFORE_LOCK * for 1 SENT from 3 to 20 at 1316051257.818406 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 20 at 1316051257.818408 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 20 at 1316051257.818472 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 20 at 1316051257.818473 standard 1
+VSS_ECHO 50 for 1 SENT from 3 to 20 at 1316051257.818492 standard 1
+VSS_ECHO 6 for 1 RECEIVED from 12 to 3 at 1316051257.818515
+VSS_ECHO 6 for 1 RECEIVED from 9 to 3 at 1316051257.857264
+VSS_READY 355 for 4 RECEIVED from 1 to 3 at 1316051257.894336
+VSS_ECHO 952 for 3 RECEIVED from 9 to 3 at 1316051257.964143
+VSS_ECHO 900 for 3 RECEIVED from 12 to 3 at 1316051258.005694
+VSS_ECHO 38 for 1 RECEIVED from 1 to 3 at 1316051258.045547
+VSS_READY 54 for 1 RECEIVED from 12 to 3 at 1316051258.087446
+VSS_READY 55 for 1 RECEIVED from 9 to 3 at 1316051258.157217
+
+
+
+============================================
+*1ENOUGH VSS_READY message for 3 at 1316051258.157217
+*Threshold : Ready = 3
+*Received Ready Message Num = 3
+*Ready messages are sending out...
+============================================
+
+BEFORE_LOCK * for 1 SENT from 3 to 1 at 1316051258.232272 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 1 at 1316051258.232274 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 1 at 1316051258.232298 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 1 at 1316051258.232298 standard 1
+VSS_READY 86 for 1 SENT from 3 to 1 at 1316051258.232299 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 2 at 1316051258.244988 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 2 at 1316051258.244990 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 2 at 1316051258.245006 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 2 at 1316051258.245007 standard 1
+VSS_READY 87 for 1 SENT from 3 to 2 at 1316051258.245008 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 3 at 1316051258.247711 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 3 at 1316051258.247712 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 3 at 1316051258.247781 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 3 at 1316051258.247782 standard 1
+VSS_READY 88 for 1 SENT from 3 to 3 at 1316051258.247783 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 4 at 1316051258.260225 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 4 at 1316051258.260226 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 4 at 1316051258.261711 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 4 at 1316051258.261712 standard 1
+VSS_READY 89 for 1 SENT from 3 to 4 at 1316051258.261713 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 5 at 1316051258.267309 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 5 at 1316051258.267311 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 5 at 1316051258.267312 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 5 at 1316051258.267313 standard 1
+VSS_READY 90 for 1 SENT from 3 to 5 at 1316051258.267314 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 6 at 1316051258.280085 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 6 at 1316051258.280087 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 6 at 1316051258.280163 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 6 at 1316051258.280164 standard 1
+VSS_READY 91 for 1 SENT from 3 to 6 at 1316051258.280165 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 7 at 1316051258.287967 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 7 at 1316051258.287969 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 7 at 1316051258.288034 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 7 at 1316051258.288035 standard 1
+VSS_READY 92 for 1 SENT from 3 to 7 at 1316051258.288036 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 8 at 1316051258.296130 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 8 at 1316051258.296131 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 8 at 1316051258.296132 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 8 at 1316051258.296133 standard 1
+VSS_READY 93 for 1 SENT from 3 to 8 at 1316051258.296134 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 9 at 1316051258.306956 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 9 at 1316051258.306958 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 9 at 1316051258.307034 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 9 at 1316051258.307035 standard 1
+VSS_READY 94 for 1 SENT from 3 to 9 at 1316051258.307036 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 10 at 1316051258.311314 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 10 at 1316051258.311316 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 10 at 1316051258.311381 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 10 at 1316051258.311381 standard 1
+VSS_READY 95 for 1 SENT from 3 to 10 at 1316051258.311382 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 11 at 1316051258.323670 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 11 at 1316051258.323672 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 11 at 1316051258.323740 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 11 at 1316051258.323741 standard 1
+VSS_READY 96 for 1 SENT from 3 to 11 at 1316051258.323742 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 12 at 1316051258.330209 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 12 at 1316051258.330211 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 12 at 1316051258.330278 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 12 at 1316051258.330279 standard 1
+VSS_READY 97 for 1 SENT from 3 to 12 at 1316051258.330280 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 13 at 1316051258.342385 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 13 at 1316051258.342386 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 13 at 1316051258.342387 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 13 at 1316051258.342388 standard 1
+VSS_READY 98 for 1 SENT from 3 to 13 at 1316051258.342389 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 14 at 1316051258.351902 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 14 at 1316051258.351904 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 14 at 1316051258.351983 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 14 at 1316051258.351984 standard 1
+VSS_READY 99 for 1 SENT from 3 to 14 at 1316051258.351984 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 15 at 1316051258.356398 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 15 at 1316051258.356400 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 15 at 1316051258.356419 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 15 at 1316051258.356420 standard 1
+VSS_READY 100 for 1 SENT from 3 to 15 at 1316051258.356421 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 16 at 1316051258.373240 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 16 at 1316051258.373242 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 16 at 1316051258.373309 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 16 at 1316051258.373310 standard 1
+VSS_READY 101 for 1 SENT from 3 to 16 at 1316051258.373310 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 17 at 1316051258.380407 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 17 at 1316051258.380409 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 17 at 1316051258.380473 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 17 at 1316051258.380474 standard 1
+VSS_READY 102 for 1 SENT from 3 to 17 at 1316051258.380475 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 18 at 1316051258.385748 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 18 at 1316051258.385749 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 18 at 1316051258.385816 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 18 at 1316051258.385817 standard 1
+VSS_READY 103 for 1 SENT from 3 to 18 at 1316051258.385817 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 19 at 1316051258.397351 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 19 at 1316051258.397352 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 19 at 1316051258.397422 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 19 at 1316051258.397423 standard 1
+VSS_READY 104 for 1 SENT from 3 to 19 at 1316051258.397424 standard 1
+BEFORE_LOCK * for 1 SENT from 3 to 20 at 1316051258.407395 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 20 at 1316051258.407397 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 20 at 1316051258.407463 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 20 at 1316051258.407464 standard 1
+VSS_READY 105 for 1 SENT from 3 to 20 at 1316051258.407465 standard 1
+VSS_ECHO 495 for 5 RECEIVED from 1 to 3 at 1316051258.407533
+DKG_READY 467 for 1 RECEIVED from 2 to 3 at 1316051258.442925
+VSS_READY 88 for 1 RECEIVED from 3 to 3 at 1316051258.451686
+VSS_SEND 5 for * RECEIVED from 3 to 3 at 1316051258.522250
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.607069
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.612725
+BEFORE_LOCK * for 3 SENT from 3 to 1 at 1316051258.612748 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 1 at 1316051258.612750 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 1 at 1316051258.612823 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 1 at 1316051258.612824 standard 1
+VSS_ECHO 125 for 3 SENT from 3 to 1 at 1316051258.612867 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.612891
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.612988
+BEFORE_LOCK * for 3 SENT from 3 to 2 at 1316051258.612994 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 2 at 1316051258.612995 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 2 at 1316051258.613005 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 2 at 1316051258.613006 standard 1
+VSS_ECHO 126 for 3 SENT from 3 to 2 at 1316051258.613024 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.613038
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.613118
+BEFORE_LOCK * for 3 SENT from 3 to 3 at 1316051258.613124 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 3 at 1316051258.613125 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 3 at 1316051258.613134 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 3 at 1316051258.613134 standard 1
+VSS_ECHO 127 for 3 SENT from 3 to 3 at 1316051258.613153 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.613166
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.613243
+BEFORE_LOCK * for 3 SENT from 3 to 4 at 1316051258.613249 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 4 at 1316051258.613250 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 4 at 1316051258.613258 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 4 at 1316051258.613259 standard 1
+VSS_ECHO 128 for 3 SENT from 3 to 4 at 1316051258.613277 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.613290
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.613367
+BEFORE_LOCK * for 3 SENT from 3 to 5 at 1316051258.613372 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 5 at 1316051258.613374 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 5 at 1316051258.613374 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 5 at 1316051258.613375 standard 1
+VSS_ECHO 129 for 3 SENT from 3 to 5 at 1316051258.613392 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.613404
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.613481
+BEFORE_LOCK * for 3 SENT from 3 to 6 at 1316051258.613486 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 6 at 1316051258.613487 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 6 at 1316051258.613583 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 6 at 1316051258.613584 standard 1
+VSS_ECHO 130 for 3 SENT from 3 to 6 at 1316051258.613603 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.613617
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.617214
+BEFORE_LOCK * for 3 SENT from 3 to 7 at 1316051258.617230 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 7 at 1316051258.617231 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 7 at 1316051258.617325 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 7 at 1316051258.617326 standard 1
+VSS_ECHO 131 for 3 SENT from 3 to 7 at 1316051258.617347 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.617364
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.617444
+BEFORE_LOCK * for 3 SENT from 3 to 8 at 1316051258.617450 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 8 at 1316051258.617451 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 8 at 1316051258.617452 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 8 at 1316051258.617452 standard 1
+VSS_ECHO 132 for 3 SENT from 3 to 8 at 1316051258.617469 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.617482
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.617563
+BEFORE_LOCK * for 3 SENT from 3 to 9 at 1316051258.617569 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 9 at 1316051258.617571 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 9 at 1316051258.617591 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 9 at 1316051258.617592 standard 1
+VSS_ECHO 133 for 3 SENT from 3 to 9 at 1316051258.617610 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.617624
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.619258
+BEFORE_LOCK * for 3 SENT from 3 to 10 at 1316051258.619267 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 10 at 1316051258.619268 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 10 at 1316051258.619338 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 10 at 1316051258.619339 standard 1
+VSS_ECHO 134 for 3 SENT from 3 to 10 at 1316051258.619380 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.619396
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.625287
+BEFORE_LOCK * for 3 SENT from 3 to 11 at 1316051258.625306 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 11 at 1316051258.625308 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 11 at 1316051258.625383 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 11 at 1316051258.625384 standard 1
+VSS_ECHO 135 for 3 SENT from 3 to 11 at 1316051258.625405 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.625432
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.625527
+BEFORE_LOCK * for 3 SENT from 3 to 12 at 1316051258.625533 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 12 at 1316051258.625534 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 12 at 1316051258.625544 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 12 at 1316051258.625545 standard 1
+VSS_ECHO 136 for 3 SENT from 3 to 12 at 1316051258.625564 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.625578
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.625674
+BEFORE_LOCK * for 3 SENT from 3 to 13 at 1316051258.625681 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 13 at 1316051258.625682 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 13 at 1316051258.625682 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 13 at 1316051258.625683 standard 1
+VSS_ECHO 137 for 3 SENT from 3 to 13 at 1316051258.625700 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.625713
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.625794
+BEFORE_LOCK * for 3 SENT from 3 to 14 at 1316051258.625800 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 14 at 1316051258.625801 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 14 at 1316051258.625810 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 14 at 1316051258.625811 standard 1
+VSS_ECHO 138 for 3 SENT from 3 to 14 at 1316051258.625829 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.625843
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.626324
+BEFORE_LOCK * for 3 SENT from 3 to 15 at 1316051258.626333 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 15 at 1316051258.626334 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 15 at 1316051258.626345 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 15 at 1316051258.626346 standard 1
+VSS_ECHO 139 for 3 SENT from 3 to 15 at 1316051258.626365 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.626380
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.629206
+BEFORE_LOCK * for 3 SENT from 3 to 16 at 1316051258.629226 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 16 at 1316051258.629227 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 16 at 1316051258.629329 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 16 at 1316051258.629330 standard 1
+VSS_ECHO 140 for 3 SENT from 3 to 16 at 1316051258.629350 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.629368
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.629449
+BEFORE_LOCK * for 3 SENT from 3 to 17 at 1316051258.629455 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 17 at 1316051258.629456 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 17 at 1316051258.629599 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 17 at 1316051258.629600 standard 1
+VSS_ECHO 141 for 3 SENT from 3 to 17 at 1316051258.629627 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.629650
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.629730
+BEFORE_LOCK * for 3 SENT from 3 to 18 at 1316051258.629737 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 18 at 1316051258.629738 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 18 at 1316051258.629824 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 18 at 1316051258.629824 standard 1
+VSS_ECHO 142 for 3 SENT from 3 to 18 at 1316051258.629843 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.630766
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.630886
+BEFORE_LOCK * for 3 SENT from 3 to 19 at 1316051258.630893 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 19 at 1316051258.630894 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 19 at 1316051258.630908 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 19 at 1316051258.630909 standard 1
+VSS_ECHO 143 for 3 SENT from 3 to 19 at 1316051258.630928 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051258.630941
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051258.631020
+BEFORE_LOCK * for 3 SENT from 3 to 20 at 1316051258.631027 standard 1
+AFTER_LOCK * for 3 SENT from 3 to 20 at 1316051258.631028 standard 1
+AFTER_AFTER_LOCK * for 3 SENT from 3 to 20 at 1316051258.631068 standard 1
+AFTER_LOCK2 * for 3 SENT from 3 to 20 at 1316051258.631069 standard 1
+VSS_ECHO 144 for 3 SENT from 3 to 20 at 1316051258.631090 standard 1
+DKG_READY 739 for 1 RECEIVED from 15 to 3 at 1316051258.631121
+VSS_ECHO 120 for 4 RECEIVED from 12 to 3 at 1316051258.638560
+VSS_ECHO 128 for 4 RECEIVED from 9 to 3 at 1316051258.685321
+VSS_ECHO 545 for 2 RECEIVED from 1 to 3 at 1316051258.739044
+VSS_ECHO 528 for 3 RECEIVED from 2 to 3 at 1316051258.791198
+VSS_ECHO 127 for 3 RECEIVED from 3 to 3 at 1316051258.842930
+VSS_ECHO 33 for 1 RECEIVED from 3 to 3 at 1316051258.889792
+VSS_ECHO 880 for 3 RECEIVED from 15 to 3 at 1316051258.942242
+VSS_READY 198 for 4 RECEIVED from 12 to 3 at 1316051258.990333
+VSS_READY 176 for 4 RECEIVED from 9 to 3 at 1316051259.077208
+
+
+
+============================================
+*1ENOUGH VSS_READY message for 3 at 1316051259.077208
+*Threshold : Ready = 3
+*Received Ready Message Num = 3
+*Ready messages are sending out...
+============================================
+
+BEFORE_LOCK * for 4 SENT from 3 to 1 at 1316051259.160028 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 1 at 1316051259.160030 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 1 at 1316051259.160053 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 1 at 1316051259.160054 standard 1
+VSS_READY 177 for 4 SENT from 3 to 1 at 1316051259.160055 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 2 at 1316051259.167513 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 2 at 1316051259.167515 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 2 at 1316051259.169819 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 2 at 1316051259.169820 standard 1
+VSS_READY 178 for 4 SENT from 3 to 2 at 1316051259.169821 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 3 at 1316051259.176569 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 3 at 1316051259.176570 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 3 at 1316051259.176585 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 3 at 1316051259.176586 standard 1
+VSS_READY 179 for 4 SENT from 3 to 3 at 1316051259.176587 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 4 at 1316051259.186304 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 4 at 1316051259.186306 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 4 at 1316051259.186323 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 4 at 1316051259.186324 standard 1
+VSS_READY 180 for 4 SENT from 3 to 4 at 1316051259.186325 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 5 at 1316051259.193542 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 5 at 1316051259.193543 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 5 at 1316051259.193608 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 5 at 1316051259.193609 standard 1
+VSS_READY 181 for 4 SENT from 3 to 5 at 1316051259.193609 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 6 at 1316051259.201844 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 6 at 1316051259.201845 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 6 at 1316051259.201862 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 6 at 1316051259.201863 standard 1
+VSS_READY 182 for 4 SENT from 3 to 6 at 1316051259.201864 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 7 at 1316051259.209946 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 7 at 1316051259.209947 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 7 at 1316051259.210015 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 7 at 1316051259.210016 standard 1
+VSS_READY 183 for 4 SENT from 3 to 7 at 1316051259.210017 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 8 at 1316051259.219068 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 8 at 1316051259.219069 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 8 at 1316051259.219070 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 8 at 1316051259.219071 standard 1
+VSS_READY 184 for 4 SENT from 3 to 8 at 1316051259.219071 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 9 at 1316051259.225529 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 9 at 1316051259.225531 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 9 at 1316051259.227946 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 9 at 1316051259.227947 standard 1
+VSS_READY 185 for 4 SENT from 3 to 9 at 1316051259.227948 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 10 at 1316051259.235955 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 10 at 1316051259.235956 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 10 at 1316051259.236020 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 10 at 1316051259.236021 standard 1
+VSS_READY 186 for 4 SENT from 3 to 10 at 1316051259.236022 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 11 at 1316051259.245746 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 11 at 1316051259.245747 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 11 at 1316051259.245770 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 11 at 1316051259.245771 standard 1
+VSS_READY 187 for 4 SENT from 3 to 11 at 1316051259.245772 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 12 at 1316051259.254495 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 12 at 1316051259.254496 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 12 at 1316051259.254559 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 12 at 1316051259.254560 standard 1
+VSS_READY 188 for 4 SENT from 3 to 12 at 1316051259.254560 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 13 at 1316051259.262619 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 13 at 1316051259.262621 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 13 at 1316051259.262708 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 13 at 1316051259.262708 standard 1
+VSS_READY 189 for 4 SENT from 3 to 13 at 1316051259.262709 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 14 at 1316051259.272695 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 14 at 1316051259.272697 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 14 at 1316051259.272737 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 14 at 1316051259.272738 standard 1
+VSS_READY 190 for 4 SENT from 3 to 14 at 1316051259.272739 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 15 at 1316051259.282235 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 15 at 1316051259.282237 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 15 at 1316051259.282254 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 15 at 1316051259.282255 standard 1
+VSS_READY 191 for 4 SENT from 3 to 15 at 1316051259.282256 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 16 at 1316051259.291164 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 16 at 1316051259.291165 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 16 at 1316051259.291181 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 16 at 1316051259.291182 standard 1
+VSS_READY 192 for 4 SENT from 3 to 16 at 1316051259.291183 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 17 at 1316051259.301013 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 17 at 1316051259.301015 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 17 at 1316051259.301032 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 17 at 1316051259.301033 standard 1
+VSS_READY 193 for 4 SENT from 3 to 17 at 1316051259.301034 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 18 at 1316051259.313121 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 18 at 1316051259.313123 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 18 at 1316051259.313142 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 18 at 1316051259.313143 standard 1
+VSS_READY 194 for 4 SENT from 3 to 18 at 1316051259.313144 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 19 at 1316051259.322053 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 19 at 1316051259.322054 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 19 at 1316051259.322071 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 19 at 1316051259.322072 standard 1
+VSS_READY 195 for 4 SENT from 3 to 19 at 1316051259.322073 standard 1
+BEFORE_LOCK * for 4 SENT from 3 to 20 at 1316051259.329881 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 20 at 1316051259.329882 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 20 at 1316051259.329962 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 20 at 1316051259.329963 standard 1
+VSS_READY 196 for 4 SENT from 3 to 20 at 1316051259.329963 standard 1
+VSS_SEND 5 for * RECEIVED from 5 to 3 at 1316051259.330029
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.426081
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.426183
+BEFORE_LOCK * for 5 SENT from 3 to 1 at 1316051259.426191 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 1 at 1316051259.426193 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 1 at 1316051259.426269 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 1 at 1316051259.426269 standard 1
+VSS_ECHO 198 for 5 SENT from 3 to 1 at 1316051259.426290 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.426304
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.426399
+BEFORE_LOCK * for 5 SENT from 3 to 2 at 1316051259.426405 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 2 at 1316051259.426406 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 2 at 1316051259.426416 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 2 at 1316051259.426416 standard 1
+VSS_ECHO 199 for 5 SENT from 3 to 2 at 1316051259.426435 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.426449
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.426527
+BEFORE_LOCK * for 5 SENT from 3 to 3 at 1316051259.426533 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 3 at 1316051259.426534 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 3 at 1316051259.426542 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 3 at 1316051259.426543 standard 1
+VSS_ECHO 200 for 5 SENT from 3 to 3 at 1316051259.426563 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.426576
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.426764
+BEFORE_LOCK * for 5 SENT from 3 to 4 at 1316051259.426772 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 4 at 1316051259.426773 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 4 at 1316051259.426784 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 4 at 1316051259.426784 standard 1
+VSS_ECHO 201 for 5 SENT from 3 to 4 at 1316051259.426803 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.426817
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.426899
+BEFORE_LOCK * for 5 SENT from 3 to 5 at 1316051259.426905 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 5 at 1316051259.426907 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 5 at 1316051259.426916 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 5 at 1316051259.426917 standard 1
+VSS_ECHO 202 for 5 SENT from 3 to 5 at 1316051259.426935 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.426949
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.427026
+BEFORE_LOCK * for 5 SENT from 3 to 6 at 1316051259.427032 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 6 at 1316051259.427033 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 6 at 1316051259.427042 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 6 at 1316051259.427043 standard 1
+VSS_ECHO 203 for 5 SENT from 3 to 6 at 1316051259.427061 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.427074
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.427155
+BEFORE_LOCK * for 5 SENT from 3 to 7 at 1316051259.427161 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 7 at 1316051259.427162 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 7 at 1316051259.427220 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 7 at 1316051259.427221 standard 1
+VSS_ECHO 204 for 5 SENT from 3 to 7 at 1316051259.427239 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.427253
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.427329
+BEFORE_LOCK * for 5 SENT from 3 to 8 at 1316051259.427335 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 8 at 1316051259.427336 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 8 at 1316051259.427337 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 8 at 1316051259.427338 standard 1
+VSS_ECHO 205 for 5 SENT from 3 to 8 at 1316051259.427382 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.427395
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.427471
+BEFORE_LOCK * for 5 SENT from 3 to 9 at 1316051259.427477 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 9 at 1316051259.427478 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 9 at 1316051259.427502 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 9 at 1316051259.427503 standard 1
+VSS_ECHO 206 for 5 SENT from 3 to 9 at 1316051259.427521 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.427535
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.427611
+BEFORE_LOCK * for 5 SENT from 3 to 10 at 1316051259.427617 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 10 at 1316051259.427618 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 10 at 1316051259.428430 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 10 at 1316051259.428431 standard 1
+VSS_ECHO 207 for 5 SENT from 3 to 10 at 1316051259.428455 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.428472
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.428554
+BEFORE_LOCK * for 5 SENT from 3 to 11 at 1316051259.428560 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 11 at 1316051259.428562 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 11 at 1316051259.428585 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 11 at 1316051259.428586 standard 1
+VSS_ECHO 208 for 5 SENT from 3 to 11 at 1316051259.428604 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.428618
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.428707
+BEFORE_LOCK * for 5 SENT from 3 to 12 at 1316051259.428713 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 12 at 1316051259.428714 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 12 at 1316051259.428732 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 12 at 1316051259.428733 standard 1
+VSS_ECHO 209 for 5 SENT from 3 to 12 at 1316051259.428752 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.428766
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.428847
+BEFORE_LOCK * for 5 SENT from 3 to 13 at 1316051259.428853 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 13 at 1316051259.428854 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 13 at 1316051259.428920 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 13 at 1316051259.428920 standard 1
+VSS_ECHO 210 for 5 SENT from 3 to 13 at 1316051259.428939 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.428953
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.429030
+BEFORE_LOCK * for 5 SENT from 3 to 14 at 1316051259.429037 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 14 at 1316051259.429038 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 14 at 1316051259.429058 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 14 at 1316051259.429059 standard 1
+VSS_ECHO 211 for 5 SENT from 3 to 14 at 1316051259.429079 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.429093
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.429172
+BEFORE_LOCK * for 5 SENT from 3 to 15 at 1316051259.429178 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 15 at 1316051259.429179 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 15 at 1316051259.429196 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 15 at 1316051259.429197 standard 1
+VSS_ECHO 212 for 5 SENT from 3 to 15 at 1316051259.429215 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.429228
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.429305
+BEFORE_LOCK * for 5 SENT from 3 to 16 at 1316051259.429311 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 16 at 1316051259.429312 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 16 at 1316051259.429330 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 16 at 1316051259.429331 standard 1
+VSS_ECHO 213 for 5 SENT from 3 to 16 at 1316051259.429349 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.429382
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.429459
+BEFORE_LOCK * for 5 SENT from 3 to 17 at 1316051259.429465 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 17 at 1316051259.429466 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 17 at 1316051259.429575 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 17 at 1316051259.429576 standard 1
+VSS_ECHO 214 for 5 SENT from 3 to 17 at 1316051259.429595 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.429610
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.430037
+BEFORE_LOCK * for 5 SENT from 3 to 18 at 1316051259.430044 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 18 at 1316051259.430045 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 18 at 1316051259.430123 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 18 at 1316051259.430124 standard 1
+VSS_ECHO 215 for 5 SENT from 3 to 18 at 1316051259.430144 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.430160
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.430239
+BEFORE_LOCK * for 5 SENT from 3 to 19 at 1316051259.430245 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 19 at 1316051259.430246 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 19 at 1316051259.430255 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 19 at 1316051259.430256 standard 1
+VSS_ECHO 216 for 5 SENT from 3 to 19 at 1316051259.430274 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051259.430288
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051259.430368
+BEFORE_LOCK * for 5 SENT from 3 to 20 at 1316051259.430375 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 20 at 1316051259.430376 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 20 at 1316051259.430386 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 20 at 1316051259.430387 standard 1
+VSS_ECHO 217 for 5 SENT from 3 to 20 at 1316051259.430405 standard 1
+VSS_READY 29 for 1 RECEIVED from 13 to 3 at 1316051259.430434
+VSS_READY 586 for 2 RECEIVED from 1 to 3 at 1316051259.513501
+VSS_READY 179 for 4 RECEIVED from 3 to 3 at 1316051259.581256
+VSS_ECHO 901 for 5 RECEIVED from 15 to 3 at 1316051259.650981
+VSS_ECHO 316 for 5 RECEIVED from 12 to 3 at 1316051259.698295
+VSS_ECHO 333 for 5 RECEIVED from 9 to 3 at 1316051259.729084
+VSS_ECHO 33 for 1 RECEIVED from 5 to 3 at 1316051259.774971
+VSS_READY 109 for 4 RECEIVED from 13 to 3 at 1316051259.810070
+VSS_ECHO 6 for 1 RECEIVED from 6 to 3 at 1316051260.380525
+VSS_SEND 5 for * RECEIVED from 2 to 3 at 1316051260.411225
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.508239
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.511944
+BEFORE_LOCK * for 2 SENT from 3 to 1 at 1316051260.511971 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 1 at 1316051260.511973 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 1 at 1316051260.511993 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 1 at 1316051260.511993 standard 1
+VSS_ECHO 268 for 2 SENT from 3 to 1 at 1316051260.512013 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.512035
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.512116
+BEFORE_LOCK * for 2 SENT from 3 to 2 at 1316051260.512122 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 2 at 1316051260.512123 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 2 at 1316051260.512132 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 2 at 1316051260.512133 standard 1
+VSS_ECHO 269 for 2 SENT from 3 to 2 at 1316051260.512151 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.512165
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.512284
+BEFORE_LOCK * for 2 SENT from 3 to 3 at 1316051260.512291 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 3 at 1316051260.512292 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 3 at 1316051260.512351 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 3 at 1316051260.512352 standard 1
+VSS_ECHO 270 for 2 SENT from 3 to 3 at 1316051260.512370 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.512383
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.512465
+BEFORE_LOCK * for 2 SENT from 3 to 4 at 1316051260.512471 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 4 at 1316051260.512472 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 4 at 1316051260.512482 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 4 at 1316051260.512483 standard 1
+VSS_ECHO 271 for 2 SENT from 3 to 4 at 1316051260.512529 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.512543
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.512620
+BEFORE_LOCK * for 2 SENT from 3 to 5 at 1316051260.512626 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 5 at 1316051260.512627 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 5 at 1316051260.512646 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 5 at 1316051260.512647 standard 1
+VSS_ECHO 272 for 2 SENT from 3 to 5 at 1316051260.512666 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.512679
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.512757
+BEFORE_LOCK * for 2 SENT from 3 to 6 at 1316051260.513002 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 6 at 1316051260.513003 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 6 at 1316051260.513026 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 6 at 1316051260.513027 standard 1
+VSS_ECHO 273 for 2 SENT from 3 to 6 at 1316051260.513046 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.513062
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.513141
+BEFORE_LOCK * for 2 SENT from 3 to 7 at 1316051260.513147 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 7 at 1316051260.513148 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 7 at 1316051260.513166 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 7 at 1316051260.513166 standard 1
+VSS_ECHO 274 for 2 SENT from 3 to 7 at 1316051260.513185 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.513199
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.513276
+BEFORE_LOCK * for 2 SENT from 3 to 8 at 1316051260.513282 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 8 at 1316051260.513283 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 8 at 1316051260.513284 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 8 at 1316051260.513285 standard 1
+VSS_ECHO 275 for 2 SENT from 3 to 8 at 1316051260.513301 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.513314
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.513390
+BEFORE_LOCK * for 2 SENT from 3 to 9 at 1316051260.513396 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 9 at 1316051260.513397 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 9 at 1316051260.513415 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 9 at 1316051260.513416 standard 1
+VSS_ECHO 276 for 2 SENT from 3 to 9 at 1316051260.513434 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.513448
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.513525
+BEFORE_LOCK * for 2 SENT from 3 to 10 at 1316051260.513531 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 10 at 1316051260.513533 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 10 at 1316051260.513620 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 10 at 1316051260.513620 standard 1
+VSS_ECHO 277 for 2 SENT from 3 to 10 at 1316051260.513640 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.513654
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.521058
+BEFORE_LOCK * for 2 SENT from 3 to 11 at 1316051260.521069 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 11 at 1316051260.521070 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 11 at 1316051260.521085 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 11 at 1316051260.521086 standard 1
+VSS_ECHO 278 for 2 SENT from 3 to 11 at 1316051260.521105 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.521127
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.521211
+BEFORE_LOCK * for 2 SENT from 3 to 12 at 1316051260.521221 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 12 at 1316051260.521222 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 12 at 1316051260.521230 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 12 at 1316051260.521231 standard 1
+VSS_ECHO 279 for 2 SENT from 3 to 12 at 1316051260.521249 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.521262
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.521359
+BEFORE_LOCK * for 2 SENT from 3 to 13 at 1316051260.521365 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 13 at 1316051260.521366 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 13 at 1316051260.521429 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 13 at 1316051260.521430 standard 1
+VSS_ECHO 280 for 2 SENT from 3 to 13 at 1316051260.521450 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.521464
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.521543
+BEFORE_LOCK * for 2 SENT from 3 to 14 at 1316051260.521549 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 14 at 1316051260.521550 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 14 at 1316051260.521559 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 14 at 1316051260.521559 standard 1
+VSS_ECHO 281 for 2 SENT from 3 to 14 at 1316051260.521578 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.521595
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.521674
+BEFORE_LOCK * for 2 SENT from 3 to 15 at 1316051260.521680 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 15 at 1316051260.521682 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 15 at 1316051260.521690 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 15 at 1316051260.521690 standard 1
+VSS_ECHO 282 for 2 SENT from 3 to 15 at 1316051260.521709 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.521722
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.525151
+BEFORE_LOCK * for 2 SENT from 3 to 16 at 1316051260.525182 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 16 at 1316051260.525183 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 16 at 1316051260.525197 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 16 at 1316051260.525198 standard 1
+VSS_ECHO 283 for 2 SENT from 3 to 16 at 1316051260.525218 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.525235
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.525329
+BEFORE_LOCK * for 2 SENT from 3 to 17 at 1316051260.525335 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 17 at 1316051260.525336 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 17 at 1316051260.525345 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 17 at 1316051260.525346 standard 1
+VSS_ECHO 284 for 2 SENT from 3 to 17 at 1316051260.525364 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.525378
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.525465
+BEFORE_LOCK * for 2 SENT from 3 to 18 at 1316051260.525471 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 18 at 1316051260.525472 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 18 at 1316051260.525480 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 18 at 1316051260.525481 standard 1
+VSS_ECHO 285 for 2 SENT from 3 to 18 at 1316051260.525501 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.525514
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.525593
+BEFORE_LOCK * for 2 SENT from 3 to 19 at 1316051260.525598 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 19 at 1316051260.525600 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 19 at 1316051260.525663 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 19 at 1316051260.525664 standard 1
+VSS_ECHO 286 for 2 SENT from 3 to 19 at 1316051260.525682 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051260.525732
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051260.525822
+BEFORE_LOCK * for 2 SENT from 3 to 20 at 1316051260.525828 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 20 at 1316051260.525830 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 20 at 1316051260.525839 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 20 at 1316051260.525840 standard 1
+VSS_ECHO 287 for 2 SENT from 3 to 20 at 1316051260.525859 standard 1
+DKG_SEND 739 for * RECEIVED from 1 to 3 at 1316051260.531450
+DKG_ECHO 323 for 1 SENT from 3 to 1 at 1316051261.052404 standard 1
+DKG_ECHO 324 for 1 SENT from 3 to 2 at 1316051261.061631 standard 1
+DKG_ECHO 325 for 1 SENT from 3 to 3 at 1316051261.069577 standard 1
+DKG_ECHO 326 for 1 SENT from 3 to 4 at 1316051261.077534 standard 1
+DKG_ECHO 327 for 1 SENT from 3 to 5 at 1316051261.086434 standard 1
+DKG_ECHO 328 for 1 SENT from 3 to 6 at 1316051261.093970 standard 1
+DKG_ECHO 329 for 1 SENT from 3 to 7 at 1316051261.102745 standard 1
+DKG_ECHO 330 for 1 SENT from 3 to 8 at 1316051261.110382 standard 1
+DKG_ECHO 331 for 1 SENT from 3 to 9 at 1316051261.116509 standard 1
+DKG_ECHO 332 for 1 SENT from 3 to 10 at 1316051261.125664 standard 1
+DKG_ECHO 333 for 1 SENT from 3 to 11 at 1316051261.134479 standard 1
+DKG_ECHO 334 for 1 SENT from 3 to 12 at 1316051261.140664 standard 1
+DKG_ECHO 335 for 1 SENT from 3 to 13 at 1316051261.151002 standard 1
+DKG_ECHO 336 for 1 SENT from 3 to 14 at 1316051261.158508 standard 1
+DKG_ECHO 337 for 1 SENT from 3 to 15 at 1316051261.167817 standard 1
+DKG_ECHO 338 for 1 SENT from 3 to 16 at 1316051261.174608 standard 1
+DKG_ECHO 339 for 1 SENT from 3 to 17 at 1316051261.182951 standard 1
+DKG_ECHO 340 for 1 SENT from 3 to 18 at 1316051261.198681 standard 1
+DKG_ECHO 341 for 1 SENT from 3 to 19 at 1316051261.207706 standard 1
+DKG_ECHO 342 for 1 SENT from 3 to 20 at 1316051261.216694 standard 1
+VSS_ECHO 200 for 5 RECEIVED from 3 to 3 at 1316051261.218946
+VSS_ECHO 740 for 3 RECEIVED from 13 to 3 at 1316051261.267740
+VSS_ECHO 442 for 3 RECEIVED from 20 to 3 at 1316051261.315962
+VSS_ECHO 352 for 2 RECEIVED from 12 to 3 at 1316051261.368965
+VSS_ECHO 369 for 2 RECEIVED from 9 to 3 at 1316051261.414675
+VSS_ECHO 6 for 1 RECEIVED from 19 to 3 at 1316051261.462544
+VSS_READY 53 for 1 RECEIVED from 6 to 3 at 1316051261.500203
+VSS_ECHO 33 for 1 RECEIVED from 2 to 3 at 1316051261.588460
+VSS_READY 29 for 1 RECEIVED from 20 to 3 at 1316051261.639699
+VSS_ECHO 6 for 1 RECEIVED from 15 to 3 at 1316051261.728812
+VSS_ECHO 6 for 1 RECEIVED from 16 to 3 at 1316051261.780067
+DKG_ECHO 902 for 1 RECEIVED from 1 to 3 at 1316051261.829584
+VSS_ECHO 270 for 2 RECEIVED from 3 to 3 at 1316051261.837868
+VSS_READY 427 for 2 RECEIVED from 12 to 3 at 1316051261.877273
+VSS_READY 401 for 2 RECEIVED from 9 to 3 at 1316051261.952748
+
+
+
+============================================
+*1ENOUGH VSS_READY message for 3 at 1316051261.952748
+*Threshold : Ready = 3
+*Received Ready Message Num = 3
+*Ready messages are sending out...
+============================================
+
+BEFORE_LOCK * for 2 SENT from 3 to 1 at 1316051262.065937 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 1 at 1316051262.065939 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 1 at 1316051262.066005 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 1 at 1316051262.066006 standard 1
+VSS_READY 404 for 2 SENT from 3 to 1 at 1316051262.066007 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 2 at 1316051262.077790 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 2 at 1316051262.077792 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 2 at 1316051262.077806 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 2 at 1316051262.077807 standard 1
+VSS_READY 405 for 2 SENT from 3 to 2 at 1316051262.077808 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 3 at 1316051262.088838 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 3 at 1316051262.088840 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 3 at 1316051262.088856 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 3 at 1316051262.088857 standard 1
+VSS_READY 406 for 2 SENT from 3 to 3 at 1316051262.088857 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 4 at 1316051262.098197 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 4 at 1316051262.098198 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 4 at 1316051262.098213 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 4 at 1316051262.098214 standard 1
+VSS_READY 407 for 2 SENT from 3 to 4 at 1316051262.098215 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 5 at 1316051262.104236 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 5 at 1316051262.104237 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 5 at 1316051262.104297 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 5 at 1316051262.104298 standard 1
+VSS_READY 408 for 2 SENT from 3 to 5 at 1316051262.104299 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 6 at 1316051262.114973 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 6 at 1316051262.114974 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 6 at 1316051262.115045 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 6 at 1316051262.115046 standard 1
+VSS_READY 409 for 2 SENT from 3 to 6 at 1316051262.115046 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 7 at 1316051262.121906 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 7 at 1316051262.121908 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 7 at 1316051262.121969 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 7 at 1316051262.121970 standard 1
+VSS_READY 410 for 2 SENT from 3 to 7 at 1316051262.121971 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 8 at 1316051262.132116 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 8 at 1316051262.132117 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 8 at 1316051262.132118 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 8 at 1316051262.132119 standard 1
+VSS_READY 411 for 2 SENT from 3 to 8 at 1316051262.132119 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 9 at 1316051262.139857 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 9 at 1316051262.139858 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 9 at 1316051262.139875 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 9 at 1316051262.139875 standard 1
+VSS_READY 412 for 2 SENT from 3 to 9 at 1316051262.139876 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 10 at 1316051262.147977 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 10 at 1316051262.147978 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 10 at 1316051262.148046 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 10 at 1316051262.148047 standard 1
+VSS_READY 413 for 2 SENT from 3 to 10 at 1316051262.148048 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 11 at 1316051262.155206 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 11 at 1316051262.155208 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 11 at 1316051262.155274 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 11 at 1316051262.155275 standard 1
+VSS_READY 414 for 2 SENT from 3 to 11 at 1316051262.155275 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 12 at 1316051262.165700 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 12 at 1316051262.165702 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 12 at 1316051262.165769 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 12 at 1316051262.165770 standard 1
+VSS_READY 415 for 2 SENT from 3 to 12 at 1316051262.165771 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 13 at 1316051262.175808 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 13 at 1316051262.175809 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 13 at 1316051262.175883 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 13 at 1316051262.175884 standard 1
+VSS_READY 416 for 2 SENT from 3 to 13 at 1316051262.175885 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 14 at 1316051262.188476 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 14 at 1316051262.188478 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 14 at 1316051262.188495 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 14 at 1316051262.188495 standard 1
+VSS_READY 417 for 2 SENT from 3 to 14 at 1316051262.188496 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 15 at 1316051262.196129 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 15 at 1316051262.196131 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 15 at 1316051262.196201 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 15 at 1316051262.196202 standard 1
+VSS_READY 418 for 2 SENT from 3 to 15 at 1316051262.196202 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 16 at 1316051262.206691 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 16 at 1316051262.206693 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 16 at 1316051262.208985 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 16 at 1316051262.208985 standard 1
+VSS_READY 419 for 2 SENT from 3 to 16 at 1316051262.208986 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 17 at 1316051262.216998 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 17 at 1316051262.217000 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 17 at 1316051262.217020 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 17 at 1316051262.217021 standard 1
+VSS_READY 420 for 2 SENT from 3 to 17 at 1316051262.217022 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 18 at 1316051262.231527 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 18 at 1316051262.231529 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 18 at 1316051262.231547 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 18 at 1316051262.231547 standard 1
+VSS_READY 421 for 2 SENT from 3 to 18 at 1316051262.231548 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 19 at 1316051262.245727 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 19 at 1316051262.245728 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 19 at 1316051262.245749 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 19 at 1316051262.245750 standard 1
+VSS_READY 422 for 2 SENT from 3 to 19 at 1316051262.245751 standard 1
+BEFORE_LOCK * for 2 SENT from 3 to 20 at 1316051262.256217 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 20 at 1316051262.256219 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 20 at 1316051262.256328 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 20 at 1316051262.256329 standard 1
+VSS_READY 423 for 2 SENT from 3 to 20 at 1316051262.256329 standard 1
+VSS_READY 51 for 1 RECEIVED from 19 to 3 at 1316051262.256419
+VSS_READY 89 for 1 RECEIVED from 2 to 3 at 1316051262.333084
+VSS_READY 102 for 4 RECEIVED from 20 to 3 at 1316051262.409967
+VSS_READY 38 for 1 RECEIVED from 15 to 3 at 1316051262.479994
+VSS_READY 52 for 1 RECEIVED from 16 to 3 at 1316051262.550337
+VSS_ECHO 6 for 1 RECEIVED from 14 to 3 at 1316051262.616632
+VSS_ECHO 6 for 1 RECEIVED from 18 to 3 at 1316051262.659055
+VSS_SEND 5 for * RECEIVED from 4 to 3 at 1316051262.684371
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.744803
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.744908
+BEFORE_LOCK * for 4 SENT from 3 to 1 at 1316051262.744916 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 1 at 1316051262.744918 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 1 at 1316051262.744941 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 1 at 1316051262.744941 standard 1
+VSS_ECHO 467 for 4 SENT from 3 to 1 at 1316051262.744961 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.744975
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.745051
+BEFORE_LOCK * for 4 SENT from 3 to 2 at 1316051262.745057 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 2 at 1316051262.745058 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 2 at 1316051262.745121 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 2 at 1316051262.745122 standard 1
+VSS_ECHO 468 for 4 SENT from 3 to 2 at 1316051262.745141 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.745154
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.746343
+BEFORE_LOCK * for 4 SENT from 3 to 3 at 1316051262.746357 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 3 at 1316051262.746359 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 3 at 1316051262.746432 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 3 at 1316051262.746433 standard 1
+VSS_ECHO 469 for 4 SENT from 3 to 3 at 1316051262.746452 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.746470
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.746549
+BEFORE_LOCK * for 4 SENT from 3 to 4 at 1316051262.746555 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 4 at 1316051262.746556 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 4 at 1316051262.746565 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 4 at 1316051262.746566 standard 1
+VSS_ECHO 470 for 4 SENT from 3 to 4 at 1316051262.746584 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.746597
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.746677
+BEFORE_LOCK * for 4 SENT from 3 to 5 at 1316051262.746683 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 5 at 1316051262.746684 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 5 at 1316051262.746703 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 5 at 1316051262.746704 standard 1
+VSS_ECHO 471 for 4 SENT from 3 to 5 at 1316051262.746723 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.747467
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.747554
+BEFORE_LOCK * for 4 SENT from 3 to 6 at 1316051262.747561 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 6 at 1316051262.747562 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 6 at 1316051262.747582 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 6 at 1316051262.747583 standard 1
+VSS_ECHO 472 for 4 SENT from 3 to 6 at 1316051262.747625 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.747639
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.747739
+BEFORE_LOCK * for 4 SENT from 3 to 7 at 1316051262.747746 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 7 at 1316051262.747747 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 7 at 1316051262.748914 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 7 at 1316051262.748915 standard 1
+VSS_ECHO 473 for 4 SENT from 3 to 7 at 1316051262.748937 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.748954
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.749034
+BEFORE_LOCK * for 4 SENT from 3 to 8 at 1316051262.749041 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 8 at 1316051262.749042 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 8 at 1316051262.749042 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 8 at 1316051262.749043 standard 1
+VSS_ECHO 474 for 4 SENT from 3 to 8 at 1316051262.749060 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.749072
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.749148
+BEFORE_LOCK * for 4 SENT from 3 to 9 at 1316051262.749154 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 9 at 1316051262.749155 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 9 at 1316051262.749180 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 9 at 1316051262.749180 standard 1
+VSS_ECHO 475 for 4 SENT from 3 to 9 at 1316051262.749199 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.749213
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.749291
+BEFORE_LOCK * for 4 SENT from 3 to 10 at 1316051262.749297 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 10 at 1316051262.749298 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 10 at 1316051262.749315 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 10 at 1316051262.749316 standard 1
+VSS_ECHO 476 for 4 SENT from 3 to 10 at 1316051262.749335 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.749348
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.749425
+BEFORE_LOCK * for 4 SENT from 3 to 11 at 1316051262.749431 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 11 at 1316051262.749432 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 11 at 1316051262.749496 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 11 at 1316051262.749497 standard 1
+VSS_ECHO 477 for 4 SENT from 3 to 11 at 1316051262.749516 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.749530
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.749610
+BEFORE_LOCK * for 4 SENT from 3 to 12 at 1316051262.749616 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 12 at 1316051262.749617 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 12 at 1316051262.749635 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 12 at 1316051262.749636 standard 1
+VSS_ECHO 478 for 4 SENT from 3 to 12 at 1316051262.749654 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.749668
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.749744
+BEFORE_LOCK * for 4 SENT from 3 to 13 at 1316051262.749750 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 13 at 1316051262.749751 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 13 at 1316051262.753611 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 13 at 1316051262.753612 standard 1
+VSS_ECHO 479 for 4 SENT from 3 to 13 at 1316051262.753635 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.753659
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.753745
+BEFORE_LOCK * for 4 SENT from 3 to 14 at 1316051262.753752 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 14 at 1316051262.753754 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 14 at 1316051262.753770 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 14 at 1316051262.753771 standard 1
+VSS_ECHO 480 for 4 SENT from 3 to 14 at 1316051262.753789 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.753822
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.753899
+BEFORE_LOCK * for 4 SENT from 3 to 15 at 1316051262.753905 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 15 at 1316051262.753906 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 15 at 1316051262.753967 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 15 at 1316051262.753967 standard 1
+VSS_ECHO 481 for 4 SENT from 3 to 15 at 1316051262.753986 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.753999
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.754076
+BEFORE_LOCK * for 4 SENT from 3 to 16 at 1316051262.754082 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 16 at 1316051262.754083 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 16 at 1316051262.754091 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 16 at 1316051262.754091 standard 1
+VSS_ECHO 482 for 4 SENT from 3 to 16 at 1316051262.754109 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.754122
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.754199
+BEFORE_LOCK * for 4 SENT from 3 to 17 at 1316051262.754205 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 17 at 1316051262.754206 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 17 at 1316051262.754214 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 17 at 1316051262.754214 standard 1
+VSS_ECHO 483 for 4 SENT from 3 to 17 at 1316051262.754232 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.754245
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.754321
+BEFORE_LOCK * for 4 SENT from 3 to 18 at 1316051262.754327 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 18 at 1316051262.754328 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 18 at 1316051262.754345 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 18 at 1316051262.754346 standard 1
+VSS_ECHO 484 for 4 SENT from 3 to 18 at 1316051262.754364 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.754377
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.756778
+BEFORE_LOCK * for 4 SENT from 3 to 19 at 1316051262.757887 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 19 at 1316051262.757888 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 19 at 1316051262.757913 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 19 at 1316051262.757913 standard 1
+VSS_ECHO 485 for 4 SENT from 3 to 19 at 1316051262.757933 standard 1
+VSSECHO_STAGE3 * for * SENT from * to * at 1316051262.757951
+VSSECHO_STAGE4 * for * SENT from * to * at 1316051262.758033
+BEFORE_LOCK * for 4 SENT from 3 to 20 at 1316051262.758039 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 20 at 1316051262.758040 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 20 at 1316051262.758057 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 20 at 1316051262.758058 standard 1
+VSS_ECHO 486 for 4 SENT from 3 to 20 at 1316051262.758076 standard 1
+VSS_READY 31 for 1 RECEIVED from 11 to 3 at 1316051262.758111
+
+
+
+*============================================
+*2ENOUGH VSS_READY message for 3 at 1316051262.758111
+*Threshold : Ready = 12
+*Received Ready Message Num = 12
+*VSS Share is complete for dealer 1
+============================================
+
+BEFORE_LOCK * for 1 SENT from 3 to 1 at 1316051262.827437 standard 1
+AFTER_LOCK * for 1 SENT from 3 to 1 at 1316051262.827439 standard 1
+AFTER_AFTER_LOCK * for 1 SENT from 3 to 1 at 1316051262.828041 standard 1
+AFTER_LOCK2 * for 1 SENT from 3 to 1 at 1316051262.828042 standard 1
+VSS_SHARED 500 for 1 SENT from 3 to 1 at 1316051262.828062 standard 1
+DKG_READY 1062 for 1 RECEIVED from 1 to 3 at 1316051262.828108
+
+
+
+============================================
+*1ENOUGH DKG_READY message for 3 at 1316051262.828108
+*Threshold : Ready = 3
+*Received Ready Message Num = 3
+*DKG_Readys are sent out...
+============================================
+
+DKG_READY 515 for 1 SENT from 3 to 1 at 1316051262.844599 standard 1
+DKG_READY 516 for 1 SENT from 3 to 2 at 1316051262.860897 standard 1
+DKG_READY 517 for 1 SENT from 3 to 3 at 1316051262.870183 standard 1
+DKG_READY 518 for 1 SENT from 3 to 4 at 1316051262.877064 standard 1
+DKG_READY 519 for 1 SENT from 3 to 5 at 1316051262.892821 standard 1
+DKG_READY 520 for 1 SENT from 3 to 6 at 1316051262.902974 standard 1
+DKG_READY 521 for 1 SENT from 3 to 7 at 1316051262.912672 standard 1
+DKG_READY 522 for 1 SENT from 3 to 8 at 1316051262.919529 standard 1
+DKG_READY 523 for 1 SENT from 3 to 9 at 1316051262.927390 standard 1
+DKG_READY 524 for 1 SENT from 3 to 10 at 1316051262.935558 standard 1
+DKG_READY 525 for 1 SENT from 3 to 11 at 1316051262.944729 standard 1
+DKG_READY 526 for 1 SENT from 3 to 12 at 1316051262.952019 standard 1
+DKG_READY 527 for 1 SENT from 3 to 13 at 1316051262.961084 standard 1
+DKG_READY 528 for 1 SENT from 3 to 14 at 1316051262.967525 standard 1
+DKG_READY 529 for 1 SENT from 3 to 15 at 1316051262.974260 standard 1
+DKG_READY 530 for 1 SENT from 3 to 16 at 1316051262.981684 standard 1
+DKG_READY 531 for 1 SENT from 3 to 17 at 1316051262.989624 standard 1
+DKG_READY 532 for 1 SENT from 3 to 18 at 1316051262.997786 standard 1
+DKG_READY 533 for 1 SENT from 3 to 19 at 1316051263.006239 standard 1
+DKG_READY 534 for 1 SENT from 3 to 20 at 1316051263.015694 standard 1
+DKG_ECHO 325 for 1 RECEIVED from 3 to 3 at 1316051263.015750
+VSS_ECHO 998 for 2 RECEIVED from 5 to 3 at 1316051263.024200
+DKG_ECHO 538 for 1 RECEIVED from 12 to 3 at 1316051263.067493
+DKG_ECHO 587 for 1 RECEIVED from 9 to 3 at 1316051263.077745
+VSS_ECHO 119 for 4 RECEIVED from 19 to 3 at 1316051263.087500
+VSS_READY 152 for 2 RECEIVED from 2 to 3 at 1316051263.130880
+VSS_READY 190 for 2 RECEIVED from 20 to 3 at 1316051263.203614
+VSS_ECHO 130 for 4 RECEIVED from 15 to 3 at 1316051263.278867
+VSS_ECHO 130 for 4 RECEIVED from 16 to 3 at 1316051263.324310
+VSS_READY 38 for 1 RECEIVED from 14 to 3 at 1316051263.365133
+VSS_READY 49 for 1 RECEIVED from 18 to 3 at 1316051263.441449
+VSS_ECHO 32 for 1 RECEIVED from 4 to 3 at 1316051263.523071
+VSS_ECHO 100 for 4 RECEIVED from 11 to 3 at 1316051263.566308
+VSS_ECHO 1232 for 3 RECEIVED from 1 to 3 at 1316051263.606681
+VSS_READY 406 for 2 RECEIVED from 3 to 3 at 1316051263.666364
+VSS_ECHO 216 for 4 RECEIVED from 6 to 3 at 1316051263.738419
+VSS_ECHO 615 for 2 RECEIVED from 20 to 3 at 1316051263.790263
+DKG_READY 765 for 1 RECEIVED from 12 to 3 at 1316051263.829262
+DKG_READY 772 for 1 RECEIVED from 9 to 3 at 1316051263.839248
+VSS_READY 184 for 4 RECEIVED from 19 to 3 at 1316051263.846377
+VSS_READY 291 for 4 RECEIVED from 2 to 3 at 1316051263.921686
+DKG_READY 333 for 1 RECEIVED from 20 to 3 at 1316051263.989252
+VSS_READY 206 for 4 RECEIVED from 15 to 3 at 1316051263.996518
+VSS_READY 177 for 4 RECEIVED from 16 to 3 at 1316051264.071190
+VSS_ECHO 127 for 4 RECEIVED from 14 to 3 at 1316051264.143550
+VSS_ECHO 114 for 4 RECEIVED from 18 to 3 at 1316051264.183282
+VSS_READY 70 for 1 RECEIVED from 4 to 3 at 1316051264.233552
+VSS_READY 148 for 4 RECEIVED from 11 to 3 at 1316051264.313612
+VSS_ECHO 469 for 4 RECEIVED from 3 to 3 at 1316051264.389070
+VSS_ECHO 239 for 2 RECEIVED from 6 to 3 at 1316051264.427416
+VSS_ECHO 745 for 5 RECEIVED from 20 to 3 at 1316051264.472489
+VSS_ECHO 296 for 5 RECEIVED from 19 to 3 at 1316051264.521515
+DKG_ECHO 583 for 1 RECEIVED from 2 to 3 at 1316051264.557844
+VSS_ECHO 385 for 4 RECEIVED from 20 to 3 at 1316051264.563939
+VSS_ECHO 333 for 2 RECEIVED from 15 to 3 at 1316051264.608455
+VSS_ECHO 321 for 5 RECEIVED from 16 to 3 at 1316051264.658542
+VSS_READY 177 for 4 RECEIVED from 14 to 3 at 1316051264.718889
+
+
+
+*============================================
+*2ENOUGH VSS_READY message for 3 at 1316051264.718889
+*Threshold : Ready = 12
+*Received Ready Message Num = 12
+*VSS Share is complete for dealer 4
+============================================
+
+BEFORE_LOCK * for 4 SENT from 3 to 1 at 1316051264.802784 standard 1
+AFTER_LOCK * for 4 SENT from 3 to 1 at 1316051264.802786 standard 1
+AFTER_AFTER_LOCK * for 4 SENT from 3 to 1 at 1316051264.802855 standard 1
+AFTER_LOCK2 * for 4 SENT from 3 to 1 at 1316051264.802856 standard 1
+VSS_SHARED 749 for 4 SENT from 3 to 1 at 1316051264.802876 standard 1
+VSS_READY 147 for 4 RECEIVED from 18 to 3 at 1316051264.802926
+VSS_READY 115 for 4 RECEIVED from 4 to 3 at 1316051264.881512
+VSS_ECHO 293 for 5 RECEIVED from 11 to 3 at 1316051264.959754
+DKG_READY 517 for 1 RECEIVED from 3 to 3 at 1316051264.998131
+VSS_ECHO 260 for 3 RECEIVED from 6 to 3 at 1316051265.010559
+VSS_ECHO 362 for 2 RECEIVED from 19 to 3 at 1316051265.060059
+VSS_ECHO 729 for 5 RECEIVED from 2 to 3 at 1316051265.100825
+VSS_READY 394 for 2 RECEIVED from 15 to 3 at 1316051265.137484
+VSS_ECHO 370 for 2 RECEIVED from 16 to 3 at 1316051265.225112
+VSS_ECHO 335 for 5 RECEIVED from 14 to 3 at 1316051265.281953
+VSS_READY 311 for 2 RECEIVED from 18 to 3 at 1316051265.345021
+VSS_ECHO 274 for 4 RECEIVED from 4 to 3 at 1316051265.431849
+VSS_ECHO 342 for 2 RECEIVED from 11 to 3 at 1316051265.483428
+VSS_READY 304 for 4 RECEIVED from 6 to 3 at 1316051265.534172
+VSS_READY 391 for 2 RECEIVED from 19 to 3 at 1316051265.801983
+VSS_ECHO 784 for 2 RECEIVED from 2 to 3 at 1316051265.877446
+DKG_ECHO 502 for 1 RECEIVED from 15 to 3 at 1316051265.920522
+VSS_READY 445 for 2 RECEIVED from 16 to 3 at 1316051265.930108
+VSS_ECHO 378 for 2 RECEIVED from 14 to 3 at 1316051265.998273
+VSS_ECHO 368 for 2 RECEIVED from 18 to 3 at 1316051266.036224
+VSS_ECHO 329 for 5 RECEIVED from 4 to 3 at 1316051266.084998
+
+
+
+============================================
+*ENOUGH VSS_ECHO message for 5 at 1316051266.084998
+*Threshold : echo = 12
+*Received Echo Message Num = 12
+*Ready messages are sending out...
+============================================
+
+PRE_VSS_READY * for 5 SENT from 3 to 1 at 1316051266.151636 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 1 at 1316051266.151659 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 1 at 1316051266.151661 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 1 at 1316051266.151730 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 1 at 1316051266.151731 standard 1
+VSS_READY 845 for 5 SENT from 3 to 1 at 1316051266.151732 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 2 at 1316051266.163647 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 2 at 1316051266.163670 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 2 at 1316051266.163671 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 2 at 1316051266.163787 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 2 at 1316051266.163788 standard 1
+VSS_READY 846 for 5 SENT from 3 to 2 at 1316051266.163789 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 3 at 1316051266.172050 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 3 at 1316051266.172068 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 3 at 1316051266.172070 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 3 at 1316051266.172084 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 3 at 1316051266.172085 standard 1
+VSS_READY 847 for 5 SENT from 3 to 3 at 1316051266.172086 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 4 at 1316051266.180932 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 4 at 1316051266.180945 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 4 at 1316051266.180946 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 4 at 1316051266.180961 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 4 at 1316051266.180962 standard 1
+VSS_READY 848 for 5 SENT from 3 to 4 at 1316051266.180962 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 5 at 1316051266.189476 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 5 at 1316051266.189488 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 5 at 1316051266.189490 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 5 at 1316051266.192914 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 5 at 1316051266.192915 standard 1
+VSS_READY 849 for 5 SENT from 3 to 5 at 1316051266.192916 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 6 at 1316051266.199310 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 6 at 1316051266.199320 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 6 at 1316051266.199321 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 6 at 1316051266.199384 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 6 at 1316051266.199385 standard 1
+VSS_READY 850 for 5 SENT from 3 to 6 at 1316051266.199385 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 7 at 1316051266.206338 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 7 at 1316051266.206355 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 7 at 1316051266.206356 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 7 at 1316051266.207634 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 7 at 1316051266.207636 standard 1
+VSS_READY 851 for 5 SENT from 3 to 7 at 1316051266.207637 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 8 at 1316051266.214453 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 8 at 1316051266.214464 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 8 at 1316051266.214465 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 8 at 1316051266.214466 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 8 at 1316051266.214466 standard 1
+VSS_READY 852 for 5 SENT from 3 to 8 at 1316051266.214467 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 9 at 1316051266.221573 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 9 at 1316051266.221593 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 9 at 1316051266.221594 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 9 at 1316051266.221662 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 9 at 1316051266.221663 standard 1
+VSS_READY 853 for 5 SENT from 3 to 9 at 1316051266.221664 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 10 at 1316051266.233378 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 10 at 1316051266.233390 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 10 at 1316051266.233391 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 10 at 1316051266.233409 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 10 at 1316051266.233410 standard 1
+VSS_READY 854 for 5 SENT from 3 to 10 at 1316051266.233410 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 11 at 1316051266.248207 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 11 at 1316051266.248232 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 11 at 1316051266.248234 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 11 at 1316051266.248255 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 11 at 1316051266.248256 standard 1
+VSS_READY 855 for 5 SENT from 3 to 11 at 1316051266.248257 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 12 at 1316051266.256407 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 12 at 1316051266.256431 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 12 at 1316051266.256433 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 12 at 1316051266.256498 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 12 at 1316051266.256499 standard 1
+VSS_READY 856 for 5 SENT from 3 to 12 at 1316051266.256500 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 13 at 1316051266.268559 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 13 at 1316051266.268587 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 13 at 1316051266.268589 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 13 at 1316051266.270178 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 13 at 1316051266.270178 standard 1
+VSS_READY 857 for 5 SENT from 3 to 13 at 1316051266.270179 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 14 at 1316051266.277100 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 14 at 1316051266.277111 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 14 at 1316051266.277112 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 14 at 1316051266.277126 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 14 at 1316051266.277126 standard 1
+VSS_READY 858 for 5 SENT from 3 to 14 at 1316051266.277127 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 15 at 1316051266.287125 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 15 at 1316051266.287141 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 15 at 1316051266.287142 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 15 at 1316051266.287156 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 15 at 1316051266.287157 standard 1
+VSS_READY 859 for 5 SENT from 3 to 15 at 1316051266.287158 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 16 at 1316051266.297078 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 16 at 1316051266.297089 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 16 at 1316051266.297091 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 16 at 1316051266.297105 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 16 at 1316051266.297105 standard 1
+VSS_READY 860 for 5 SENT from 3 to 16 at 1316051266.297106 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 17 at 1316051266.304066 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 17 at 1316051266.304082 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 17 at 1316051266.304083 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 17 at 1316051266.304143 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 17 at 1316051266.304144 standard 1
+VSS_READY 861 for 5 SENT from 3 to 17 at 1316051266.304145 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 18 at 1316051266.313713 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 18 at 1316051266.313725 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 18 at 1316051266.313727 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 18 at 1316051266.313799 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 18 at 1316051266.313799 standard 1
+VSS_READY 862 for 5 SENT from 3 to 18 at 1316051266.313800 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 19 at 1316051266.323441 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 19 at 1316051266.323453 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 19 at 1316051266.323454 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 19 at 1316051266.323478 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 19 at 1316051266.323479 standard 1
+VSS_READY 863 for 5 SENT from 3 to 19 at 1316051266.323480 standard 1
+PRE_VSS_READY * for 5 SENT from 3 to 20 at 1316051266.331972 standard 1
+BEFORE_LOCK * for 5 SENT from 3 to 20 at 1316051266.331985 standard 1
+AFTER_LOCK * for 5 SENT from 3 to 20 at 1316051266.331986 standard 1
+AFTER_AFTER_LOCK * for 5 SENT from 3 to 20 at 1316051266.332047 standard 1
+AFTER_LOCK2 * for 5 SENT from 3 to 20 at 1316051266.332048 standard 1
+VSS_READY 864 for 5 SENT from 3 to 20 at 1316051266.332049 standard 1
+VSS_READY 381 for 2 RECEIVED from 11 to 3 at 1316051266.332122
+VSS_READY 847 for 5 RECEIVED from 3 to 3 at 1316051266.425735
+VSS_READY 394 for 2 RECEIVED from 6 to 3 at 1316051266.502437
+
+
+
+*============================================
+*2ENOUGH VSS_READY message for 3 at 1316051266.502437
+*Threshold : Ready = 12
+*Received Ready Message Num = 12
+*VSS Share is complete for dealer 2
+============================================
+
+BEFORE_LOCK * for 2 SENT from 3 to 1 at 1316051266.578210 standard 1
+AFTER_LOCK * for 2 SENT from 3 to 1 at 1316051266.578211 standard 1
+AFTER_AFTER_LOCK * for 2 SENT from 3 to 1 at 1316051266.580506 standard 1
+AFTER_LOCK2 * for 2 SENT from 3 to 1 at 1316051266.580506 standard 1
+VSS_SHARED 912 for 2 SENT from 3 to 1 at 1316051266.580529 standard 1
+DKG_ECHO 554 for 1 RECEIVED from 19 to 3 at 1316051266.580582
+VSS_ECHO 964 for 4 RECEIVED from 2 to 3 at 1316051266.588749
+DKG_ECHO 565 for 1 RECEIVED from 16 to 3 at 1316051266.635604
+VSS_READY 438 for 2 RECEIVED from 14 to 3 at 1316051266.650171
+DKG_ECHO 562 for 1 RECEIVED from 18 to 3 at 1316051266.716917
+VSS_ECHO 393 for 2 RECEIVED from 4 to 3 at 1316051266.729774
+DKG_ECHO 559 for 1 RECEIVED from 11 to 3 at 1316051266.767256
+DKG_READY 593 for 1 RECEIVED from 6 to 3 at 1316051266.776897
+DKG_READY 737 for 1 RECEIVED from 19 to 3 at 1316051266.793770
+DKG_READY 773 for 1 RECEIVED from 16 to 3 at 1316051266.802838
+DKG_ECHO 588 for 1 RECEIVED from 14 to 3 at 1316051266.813983
+DKG_READY 703 for 1 RECEIVED from 18 to 3 at 1316051266.829152
+VSS_READY 423 for 2 RECEIVED from 4 to 3 at 1316051266.838748
+DKG_READY 719 for 1 RECEIVED from 11 to 3 at 1316051266.915357
+
+
+
+============================================
+*2ENOUGH DKG_READY message for 3 at 1316051266.915357
+*Threshold : Ready = 12
+*Received Ready Message Num = 12
+============================================
+
+DKG_COMPLETE * for 1 RS from 3 to * at 1316051266.915357 :)

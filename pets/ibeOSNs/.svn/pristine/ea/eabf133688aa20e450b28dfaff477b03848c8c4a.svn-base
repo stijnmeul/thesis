@@ -1,0 +1,123 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass{llncs}
+\usepackage{pdflscape}
+
+
+\begin{document}
+
+\title{}
+
+\author{Filipe Beato \and Stijn Meul \and Bart Preneel}
+\institute{ESAT/COSIC - KU Leuven and iMinds\\ Leuven, Belgium\\
+\email{\{first.lastname\}@esat.kuleuven.be}}
+
+\maketitle   % typeset the title of the contribution
+
+\begin{abstract} Online social networks (OSN) became an important and useful communication channel. At the same time, the privacy of the information shared is insufficiently protected by coarse privacy preferences. Naturally cryptography presents an interesting mechanism to protect privacy of users in OSNs. However, such mechanisms face several issues, such as, OSN provider acceptance, user adoption, key management and usability. Whilst the later is a question of design, the others are a question of motivation. In this paper we suggest a novel solution that uses Identity Based Encryption (IBE) with untrusted key servers to simplify the key management and enforce confidentiality of data. 
+\end{abstract}
+
+
+\section{Introduction}
+Online Social Networks (OSNs), such as Facebook and Google+, are increasingly being
+used as a communication channel. Users share information with a limited group of connections, and rely on the privacy preferences offered by the OSNs. These preferences are generally coarse and difficult to user \cite{}, and at the same time do not exclude the provider nor external governments through legal subpoenas~\cite{prism}. 
+
+
+
+
+
+
+
+
+
+\section{Background}
+In this section we briefly overview the cryptographic building blocks. For sake of exposition we omit the definitions of the underlying cryptographic primitives. 
+
+\subsection{Identity Based Encryption}
+The concept of Identity Based Encryption (IBE) was introduced by Shamir in ~\cite{DBLP:conf/crypto/Shamir84}, with the main idea of using any string as the public key, such as, email or telephone, avoiding the need for certificates. Thereby reducing the complexity of establishing and managing public key infrastructure. Later, Boneh and Franklin propose the first practical IBE using bilinear pairings \cite{BonehFranklinIBE}, extended in \cite{GentryRandomOracles}. Hence, a generic IBE scheme is composed by three players that use the four randomized algorithms:
+\begin{description}
+    \item[IBE.Setup:] On the input of a security parameter $\lambda$, outputs a master secret $s$ and the master public parameters $params$. 
+    \item[IBE.Extract:] Takes the public parameters $params$, the master secret $s$, and an ID and returns the private key $d_{ID}$ for the ID.
+    \item[IBE.Encrypt:] Returns the encryption $C$ of the message $m$ on the input of the $params$, the ID, and the arbitrary length message $m$. 
+    \item[IBE.Decrypt:] Using the secret $d_{ID}$, the $params$, and $C$, return $M$.
+\end{description}
+
+The Setup and Extract algorithms are performed by the Private Key Generator (PKG) server. Whereas the Encrypt and Decrypt are performed by two players, e.g., Alice and Bob. Note that the PKG server holds the master secret key $s$, thus is required to be trusted.
+
+\subsection{Anonymous Broadcast Encryption}
+Broadcast encryption (BE) scheme concept was introduced by Fiat and Naor~\cite{FiatBE}, as a public-key generalization to a multi user setting. A BE scheme allows a user to encrypt a message to a subset $\mathcal{S}$ of users, such that, only users in that set $\mathcal{S}$ are able to decrypt the message. The overhead of the BE is directly related to the ciphertext and the number of recipients. Therefore, generally the set $\mathcal{S}$ of recipients needs to be known. Barth et al.~\cite{BarthBonehWaters} and Libert et al.~\cite{LibertANOBE} extended the notion of BE and introduced the concept of Anonymous Broadcast Encryption (ANOBE) scheme, such that the recipient set $\mathcal{S}$ is required to be private. 
+A generic BE and ANOBE scheme consists of the four randomized algorithms:
+\begin{description}
+    \item[BE.Setup:] On the input of a security parameter $\lambda$ generates the public parameters of the system.
+    \item[BE.KeyGen:] Takes the public parameters and returns the public and private key ($pk,sk$) for each user.
+    \item[BE.Encrypt:] Generates $C$ for the message $m$ and the set of public keys from each member in $\mathcal{S}$. 
+    \item[BE.Decrypt:] Returns $m$ from $C$ using the private key $sk$ if the corresponding public key $pk \in \mathcal{S}$. Otherwise, return $\bot$.
+\end{description}
+
+Note that the ($pk,sk$) can be represented by used from IBE scheme. In addition, Fan et al.~\cite{FanANOMIBE} consider the anonymity of the receivers in an ID-based BE scheme.
+
+
+\subsection{Secret Sharing \& Distributed Key Generation}
+
+Secret sharing was introduced by Shamir~\cite{Shamir1979} and consists of dividing a symmetric secret $k$ into $n$ shares and entities, such that, only a subset of size greater or equal than a threshold $t$ can reconstruct the secret $k$. In practice, the dealer generates a random secret $k$ along with the polynomial $f(x)$ of degree $t-1$ such that $f(0)=k$. Subsequently, the shares $s$ are generated as polynomial evaluations. The player with $t$ or more shares can reconstruct $f(x)$ and further compute $k$, using Lagrange interpolation. Choi et al.~\cite{} suggested Verifiable Secret Sharing (VSS) to allow verification of the shares.  Later, Pedersen~\cite{Pedersen:1991:NIS:646756.705507} extended the VSS scheme from Feldman~\cite{Feldman:1987:PSN:1382440.1383000} to be information theoretical secure and introduced the concept of Distributed Key Generation (DKG). A DKG protocol allows a group of entities to collectively setup a secret sharing environment securely towards a public channel. In a DKG, all entities involved are required to participate and verify the generated shares. Hence, a generic DKG does not require a trusted party, as the master secret is computed as the sum of all the polynomials and can only be retrieved by $t$ shares. A generic DKG protocol consists on two phases:
+
+\begin{description}
+    \item[DKG.Setup:] Every entity $i$ generates a random secret $k_i$ and computes a polynomial of degree $t-1$. Distributes a valid share $s_{ij}$ to each of the other $j$ entities, along with the commitment of the share. Each entity verifies the shares and computes the new share $s_i = \sum_j s_{ij}$. The master secret is unknown by each party, and composed by the origin point on the sum of all polynomials.
+    \item[DKG.Reconstruct:] Each entity $i$ broadcasts its share $s_i$, and for $t \leq n$ shares, one can reconstruct the master secret $s$.
+\end{description}
+
+The DKG protocol is secure for the threshold $t$ if there is no adversary that is able to corrupt at most $t$ parties. 
+
+
+\section{Model}
+We now turn and overview our model. 
+
+\subsection{Threat Model}
+
+\subsection{Goals}
+
+
+\section{IBE for OSNs}
+
+
+In this section, we describe our system. Our main goal is to provide OSN users with a privacy solution at minimal cost in efficiency and key management. At the same time, allow users to enforce access control and introduce multiple identities based on the OSNs used. 
+
+
+\subsection{Simple construction}
+
+
+\subsection{Distributed construction}
+
+
+
+
+\section{Practicalities}
+To demonstrate the viability of our solution, we implemented a proof-of-knowledge prototype of the distributed identity based broadcast encryption scheme for OSNs.\footnote{Source of our implementations is available upon request.}
+
+\paragraph{Implementation}
+For the client component we modified the cryptographic interface of Scramble!~\cite{BeatoScramble} as it is an available open source privacy preserving project. We implemented the multiple PKG servers in PHP. While, for the bilinear pairing and cryptographic blocks implementations we used the multi-precision MIRACL library~\cite{scott2003miracl}. For the DKG library we used the available implementation from~\cite{DBLP:conf/icdcs/KateG09}\footnote{https://crysp.uwaterloo.ca/software/DKG/} to generate the collective master secret key for the $(n,t)-$PKG servers.
+
+
+\paragraph{Performance}
+
+
+
+
+
+\section{Related Work}
+The increase popularity of Online Social Networks (OSNs) and the amount of disseminated information prompted privacy concerns. Consequently, the security research community explored challenges and proposed privacy solutions \cite{claudia}. 
+Guha et al.~\cite{Guha:2008} proposed NOYB a solution that replaces the personal details of users by fake information. Later, FaceCloak~\cite{Luo:2009}and Scramble~\cite{BeatoScramble} make use of cryptographic mechanisms to enforce privacy to the published information. Further, Persona suggest an attribute based encryption scheme for social networks. However, all the aforementioned solutions suffer from the key management issue. 
+
+
+Other solutions take a more drastic approach by proposing novel, privacy-friendly architectures meant to replace existing platforms~\cite{cristofaro11hummingbird,Cutillo09safebook,diaspora,DBLP:journals/corr/abs-1111-5377}. Besides the privacy protection offered, this solutions face the user adoption and move to a new system problem. 
+
+Recently, Jung et al.~\cite{jung} proposed a key management scheme based on dynamical IBE for decentralized OSNs. Their scheme, however, presents several problems. First contains a single point of failure as a trusted party should generate the secret keys for a given ID. Furthermore, it still requires an extra public key for the broadcast, thus, not solving the key management issue.
+
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{references.bib}
+\end{document}

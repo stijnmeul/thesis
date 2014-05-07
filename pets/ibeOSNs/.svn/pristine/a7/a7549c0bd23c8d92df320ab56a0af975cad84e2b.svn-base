@@ -1,0 +1,233 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass{llncs}
+\usepackage{pdflscape}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+
+
+% Custom Macros
+\newcommand{\figref}[1]{{Figure}~\ref{#1}}
+\newcommand{\tabref}[1]{{Table}~\ref{#1}}
+\newcommand{\secref}[1]{{Section}~\ref{#1}}
+\newcommand{\appref}[1]{{Appendix}~\ref{#1}}
+
+
+
+\begin{document}
+
+\title{IBE for OSNs}
+
+\author{Filipe Beato \and Stijn Meul \and Bart Preneel}
+\institute{ESAT/COSIC - KU Leuven and iMinds\\ Leuven, Belgium\\
+\email{\{first.lastname\}@esat.kuleuven.be}}
+
+\maketitle   % typeset the title of the contribution
+
+\begin{abstract}  Nowadays Online social networks (OSNs) constitute an important and useful communication channel. At the same time, the privacy of the information shared is insufficiently protected by coarse privacy preferences. Naturally cryptography presents an interesting mechanism to protect privacy of users in OSNs. However, cryptographic mechanisms face several issues, such as, OSN provider acceptance, user adoption, key management and usability. In this paper, we suggest a novel solution that uses Identity Based Encryption (IBE) with untrusted key servers to simplify the key management and enforce confidentiality of data in OSNs. Moreover, we suggest an anonymous broadcast IBE to disseminate information to multiple users.  Finally, we provide an implementation as an extension to Scramble.
+\end{abstract}
+
+
+\section{Introduction}
+Online Social Networks (OSNs), such as Facebook and Google+, are increasingly being
+used as a communication channel. Users share information with a limited group of connections, and rely on the privacy preferences offered by the OSNs. These preferences are generally coarse and difficult to user and at the same time do not exclude the provider nor external governments through legal subpoenas~\cite{prism}. 
+
+
+
+\paragraph{Roadmap:} The remainder of this paper is organized as follows. \secref{sec:background} overviews briefly the cryptographic background. Then, \secref{sec:model} presents the model followed by the description of the suggested solution in \secref{sec:solution}. \secref{sec:impl} describes the implementation details. Finally, \secref{sec:relwork} reviews related work, and \secref{sec:conc} concludes the paper.
+
+
+\section{Background}\label{sec:background}
+In this section we briefly overview the cryptographic building blocks. For sake of exposition we omit the definitions of the underlying cryptographic primitives. 
+
+\subsection{Identity Based Encryption}
+The concept of Identity Based Encryption (IBE) was introduced by Shamir in ~\cite{DBLP:conf/crypto/Shamir84}, with the main idea of using any string as the public key to avoid extra certificates, such as, email or telephone. Thereby reducing the complexity of establishing and managing public key infrastructure. Later, Boneh and Franklin propose the first practical IBE using bilinear pairings \cite{BonehFranklinIBE}, extended in \cite{GentryRandomOracles}. Hence, a generic IBE scheme is composed by three players that use the four randomized algorithms:
+\begin{description}
+    \item[\texttt{IBE.Setup:}] On the input of a security parameter $\lambda$, outputs a master secret $s$ and the master public parameters $params$. 
+    \item[\texttt{IBE.Extract:}] Takes the public parameters $params$, the master secret $s$, and an ID and returns the private key $d_{ID}$ for the ID.
+    \item[\texttt{IBE.Encrypt:}] Returns the encryption $C$ of the message $m$ on the input of the $params$, the ID, and the arbitrary length message $m$. 
+    \item[\texttt{IBE.Decrypt:}] Using the secret $d_{ID}$, the $params$, and $C$, return $M$.
+\end{description}
+
+The Setup and Extract algorithms are performed by the Private Key Generator (PKG) server. Whereas the Encrypt and Decrypt are performed by two players, e.g., Alice and Bob. Note that the PKG server holds the master secret key $s$, thus is required to be trusted.
+
+\subsection{Anonymous Broadcast Encryption}
+Broadcast encryption (BE) scheme concept was introduced by Fiat and Naor~\cite{FiatBE}, as a public-key generalization to a multi user setting. A BE scheme allows a user to encrypt a message to a subset $\mathcal{S}$ of users, such that, only users in that set $\mathcal{S}$ are able to decrypt the message. The overhead of the BE is directly related to the ciphertext and the number of recipient. Therefore, generally the set $\mathcal{S}$ of recipients needs to be known. Barth et al.~\cite{BarthBonehWaters} and Libert et al.~\cite{LibertANOBE} extended the notion of BE and introduced the concept of Anonymous Broadcast Encryption (ANOBE) scheme, such that the recipient set $\mathcal{S}$ is required to be private. 
+A generic BE and ANOBE scheme consists of the four randomized algorithms:
+\begin{description}
+    \item[\texttt{BE.Setup:}] On the input of a security parameter $\lambda$ generates the public parameters of the system.
+    \item[\texttt{BE.KeyGen:}] Takes the public parameters and returns the public and private key ($pk,sk$) for each user.
+    \item[\texttt{BE.Encrypt:}] Generates $C$ for the message $m$ and the set of public keys from each member in $\mathcal{S}$. 
+    \item[\texttt{BE.Decrypt:}] Returns $m$ from $C$ using the private key $sk$ if the corresponding public key $pk \in \mathcal{S}$. Otherwise, return $\bot$.
+\end{description}
+
+Note that the $pk$) can be represented by the id from the IBE scheme. In addition, Fan et al.~\cite{FanANOMIBE} consider the anonymity of the receivers in an ID-based BE scheme.
+
+
+\subsection{Secret Sharing \& Distributed Key Generation}
+
+Secret sharing was introduced by Shamir~\cite{Shamir1979} and consists of dividing a symmetric secret $k$ into $n$ shares and entities, such that, only a subset of size greater or equal than a threshold $t$ can reconstruct the secret $k$. In practice, the dealer generates a random secret $k$ along with the polynomial $f(x)$ of degree $t-1$ such that $f(0)=k$. Subsequently, the shares $s$ are generated as polynomial evaluations. The player with $t$ or more shares can reconstruct $f(x)$ and further compute $k$, using Lagrange interpolation. Chor et al.~\cite{DBLP:conf/focs/ChorGMA85} suggested Verifiable Secret Sharing (VSS) to allow verification of the shares.  Later, Pedersen~\cite{Pedersen:1991:NIS:646756.705507} extended the VSS scheme from Feldman~\cite{Feldman:1987:PSN:1382440.1383000} to be information theoretical secure and introduced the concept of Distributed Key Generation (DKG). A DKG protocol allows a group of entities to collectively setup a secret sharing environment securely towards a public channel. In a DKG, all entities involved are required to participate and verify the generated shares. Hence, a generic DKG does not require a trusted party, as the master secret is computed as the sum of all the polynomials and can only be retrieved by $t$ shares. A generic DKG protocol consists of two phases:
+
+\begin{description}
+    \item[\texttt{DKG.Setup:}] Every entity $i$ generates a random secret $k_i$ and computes a polynomial of degree $t-1$. Distributes a valid share $s_{ij}$ to each of the other $j$ entities, along with the commitment of the share. Each entity verifies the shares and computes the new share $s_i = \sum_j s_{ij}$. The master secret is unknown by each party, and composed by the origin point on the sum of all polynomials.
+    \item[\texttt{DKG.Reconstruct:}] Each entity $i$ broadcasts its share $s_i$, and for $t \leq n$ shares, one can reconstruct the master secret $s$.
+\end{description}
+
+The DKG protocol is secure for the threshold $t$ if there is no adversary that is able to corrupt at most $t$ parties. 
+
+
+\section{Model}\label{sec:model}
+We now turn and overview our model. We consider that a user $u$ is a member of a OSN, such as Facebook, Twitter or Google+. Thereby, relaxing the definition from Boyd~\cite{boyd2008social}, the user $u$ is connected with other users in the same OSN by a friendship relation $\mathcal{F}$. Inherently, $u$ aims to share the information $m$ with all users, with $\mathcal{F}$, or a subset $\mathcal{S}$, s.t., normally $\mathcal{S} \subset \mathcal{F}$. Each user holds a public and private key pair which is given by an IBE identity server (composed by multiple servers), such that, the public key is represented by the id of the user in the OSN. Note that, each user can be registered into multiple OSNs and hold different public keys.
+
+\subsection{Threat Model}
+We consider an adversary to be any entity attempting to passively access the shared information. We assume that such adversary can monitor the sharing channel but does not have any motivational incentive to tamper with the content. In addition, we assume that such adversary cannot compromise more than $t$ identity servers. The authentication between the user and the identity servers is performed under an authenticated channel, e.g., TLS. Furthermore, we stress that such adversary cannot control the user computing environment, such as the browser and computer. Also, it is hard to protect from a malicious recipient to copy or forward disseminate any shared content. If so, we say that such recipient breaks the social contract. 
+
+
+\subsection{Goals}
+
+
+
+
+\section{IBE for OSNs}\label{sec:solution}
+
+
+In this section, we describe our system. Our main goal is to provide OSN users with a privacy solution at minimal cost in efficiency and key management. At the same time, allow users to enforce access control and introduce multiple identities based on the OSNs used. 
+
+
+\subsection{Proposal}
+
+Considering $\lambda$ to be the security parameter such that a security level of $l$ bits is achieved, $\mathcal{G}$ to be some BDH parameter generator, and $\mathcal{S}$ the set of desired recipients $u_i$ with corresponding $ID_i$ such that $\mathcal{S} = \{u_1,..,u_n\}$. In addition, let $\{ C, T\} \leftarrow \mathtt{E}_k(P_{text},A)$ be any secure authenticated symmetric encryption that takes plaintext $P_{text}$ and header $A$ as input and generates ciphertext $C$ and authentication tag $T$ as output. Similarly, $\{ P_{text}, T \} \leftarrow \mathtt{D}_k(C, A)$ can be any secure authenticated symmetric decryption that takes ciphertext $C$ and header $A$ as input and generates plaintext $P$ and authentication tag $T$ as output. Also, we consider the bilinear map $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.
+
+Our scheme for OSNs is composed by the four randomized algorithms:
+
+\begin{description}
+    \item[\texttt{Setup}:] \hfill
+    \begin{enumerate}
+     \item Run $\mathcal{G}$ on input $\lambda$ to generate a prime $q$, two groups $\mathbb{G}_1, \mathbb{G}_2$ of order $q$, and an admissible bilinear map $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Choose a random generator $P \in \mathbb{G}_1$
+     \item Pick a random $s \in \mathbb{Z}_q$ and set $P_{pub} = sP$
+     \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow \mathbb{G}_1$, $H_2: \mathbb{G}_T \rightarrow \{ 0,1 \}^{l}$, $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ and $H_4: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$. The security analysis will view $H_1, H_2$ as random oracles.
+    \end{enumerate}
+    The system parameters are $params = \{ q, \mathbb{G}_1, \mathbb{G}_2, e, P, P_{pub}, H_1, H_2  \}$ and are published publicly. The master secret key is $s \in \mathbb{Z}_q$.
+    \item[\texttt{KeyGen}:] \hfill
+    \begin{enumerate}
+     \item Compute $Q_{\textrm{\tiny{ID}}_i} = H_1 \left( ID_{i} \right)$
+ \item Set the private key $d_{\textrm{\tiny{ID}}_i}$ to be $d_{\textrm{\tiny{ID}}_i} = s Q_{\textrm{\tiny{ID}}_i}$ where $s$ is the master key.
+ \item Return $d_{\textrm{\tiny{ID}}_i}$ to the corresponding user $u_i$ over a secure channel.
+    \end{enumerate}
+
+    \item[\texttt{Publish}:] \hfill
+    \begin{enumerate}
+     \item Generate a random symmetric session key $k = \{ 0,1 \}^{l}$.
+     \item Choose a random $\sigma \in \{ 0,1 \}^{l}$ and set $r = H_3 \left( \sigma, k \right)$
+     \item For each recipient $u_i \in S$, calculate the ciphertext
+ \begin{equation*}
+  W_i = \sigma \oplus H_2 \left( g_{{\textrm{\tiny{ID}}_i}}^r \right) \; \; \; \textrm{where} \; \; \; g_{\textrm{\tiny{ID}}_i} = e \left( Q_{\textrm{\tiny{ID}}_i}, P_{pub} \right) \in \mathbb{G}_T
+ \end{equation*}
+     \item Let A be a concatenation as follows
+     \begin{equation*}
+     \begin{array}{lcl}
+  A & = & \{ n || rP || K \oplus H_4 \left( \sigma \right) || W_1 || W_2 || .. || W_n \} \\
+    & = & \{ n || U || V || W \} \; \; \; \textrm{where} \; \; \; W = \{ W_1 || W_2 || .. || W_n \}
+     \end{array} 
+     \end{equation*}
+    
+    \item Apply authenticated symmetric encryption
+    \begin{equation*}
+      \{ C, T\} \leftarrow \mathtt{E}_k(P_{text},A)
+    \end{equation*}
+    \item The following message is then broadcasted over an OSN
+ \begin{equation*}
+  M = \{ A || T || C \}
+ \end{equation*}
+    \end{enumerate}
+
+    \item[\texttt{Retrieve}:] \hfill
+    \begin{enumerate}
+     \item Decrypt $\sigma$ using the private key $d_{\textrm{\tiny{ID}}_i}$ by calculating $W_i \oplus H_2 \left( e \left( d_{\textrm{\tiny{ID}}_i}, U \right) \right) = \sigma$
+     \item Compute $V \oplus H_4 \{ \sigma \} = k$
+     \item Set $r = H_3 \left( \sigma, K \right)$. Test that $U = rP$. If not, try next $W_i$ and return to first step of \texttt{Retrieve}. Otherwise go to next step.
+     \item Decrypt $C$ by $\{ P_{text}, T_{rec} \} \leftarrow \mathtt{D}_k(C, A)$
+     \item Verify whether $T_{rec} = T \in M$. If $T_{rec} \neq T$ return $\bot$. Return $P_{text}$ as the broadcasted message otherwise.
+
+    \end{enumerate}
+\end{description}
+
+
+\subsection{Evaluation}
+
+
+\section{Practicalities}\label{sec:impl}
+To demonstrate the viability of our solution, we implemented a proof-of-knowledge prototype of the distributed identity based broadcast encryption scheme for OSNs.\footnote{Source of our implementations is available upon request.}
+
+\paragraph{Implementation:}
+For the client component we modified the cryptographic interface of Scramble!~\cite{BeatoScramble} as it is an available open source privacy preserving project. We implemented the multiple PKG servers in PHP. While, for the bilinear pairing and cryptographic blocks implementations we used the multi-precision {MIRACL} library~\cite{scott2003miracl}. For the DKG library we used the available implementation from~\cite{DBLP:conf/icdcs/KateG09}\footnote{https://crysp.uwaterloo.ca/software/DKG/} to generate the collective master secret key for the $(n,t)-$PKG servers.
+
+
+\paragraph{Performance:} Boneh et al.~\cite{BonehFranklinIBE} require a random oracle assumption to prove the security of the scheme while the IBE implementation from Gentry~\cite{GentryRandomOracles} can be proven secure in the standard model. Both schemes were implemented using MIRACL and compared on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. One can derive from Table~\ref{table:exec_times} that the random oracle assumption is computationally less demanding than the implementation in the standard model.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{ | l || r | r |}
+\hline
+   & Boneh et al. & Gentry \\ \hline
+  IBE.Setup & 368.54 ms &  424.49 ms \\
+  IBE.Extract & 13.98 ms & 37.46 ms \\
+  IBE.Encrypt & 497.35 ms & 1136.65 ms \\
+  IBE.Decrypt & 252.65 ms & 911.32 ms\\ \hline \hline
+  Total time & 1.1325 s & 2.5103 s\\ \hline
+\end{tabular}
+\end{center}
+\caption{Comparison of execution time for different IBE schemes}
+\label{table:exec_times}
+\end{table}
+Based on the results from Table~\ref{table:exec_times} It was decided to use the scheme from Boneh et. al~\cite{BonehFranklinIBE} as a basis for identity-based broadcast encryption. The scheme from Section~\ref{sec:solution} was used to achieve anonymous broadcast encryption. Table~\ref{table:BE_exec_times} lists execution times for the resulting anonymous identity-based broadcasting scheme. The decrypting recipient always had to decrypt until the last encrypted symmetric key before being able to decrypt the broadcasted message.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{ | c || r | r |}
+\hline
+  Number of recipients & Encryption time & Decryption time \\ \hline
+  1 & 270.636 ms & 277.559 ms \\
+  5 & 1278.750 ms & 357.302 ms \\
+  10 & 2564.510 ms & 460.930 ms \\
+  15 & 3799.600 ms & 560.611 ms \\
+  20 & 5029.470 ms & 657.030 ms \\
+  25 & 6258.510 ms & 761.765 ms \\
+  50 & 12300.500 ms & 1237.820 ms \\
+  100 & 25867.700 ms & 2260.230 ms \\ \hline
+\end{tabular}
+\end{center}
+\caption{Execution time of the BE scheme for varying sizes of the recipient set}
+\label{table:BE_exec_times}
+\end{table}
+
+
+\section{Related Work}\label{sec:relwork}
+The increase popularity of Online Social Networks (OSNs) and the amount of disseminated information prompted privacy concerns. Consequently, the security research community explored challenges and proposed privacy solutions \cite{claudia}. 
+Guha et al.~\cite{Guha:2008} proposed NOYB a solution that replaces the personal details of users by fake information. Later, FaceCloak~\cite{Luo:2009}and Scramble~\cite{BeatoScramble} make use of cryptographic mechanisms to enforce privacy to the published information. Further, Persona suggest an attribute based encryption scheme for social networks. However, all the aforementioned solutions suffer from the key management issue. 
+
+
+Other solutions take a more drastic approach by proposing novel, privacy-friendly architectures meant to replace existing platforms~\cite{DBLP:conf/sp/CristofaroSTW12,NYT2010.Diaspora,DBLP:conf/wowmom/CutilloMO11}. Besides the privacy protection offered, this solutions face the user adoption and move to a new system problem. 
+
+Recently, Jung et al.~\cite{jung} proposed a key management scheme based on dynamical IBE for decentralized OSNs. Their scheme, however, presents several problems. First contains a single point of failure as a trusted party should generate the secret keys for a given ID. Furthermore, it still requires an extra public key for the broadcast, thus, not solving the key management issue.
+
+
+
+
+\section{Conclusion}\label{sec:conc}
+
+Identity Based Encryption (IBE) have the desirable properties for
+implementations increasing user defined privacy in OSNs. The minimal
+additional architectural support and the increased ease of use represent a major motivations to implement IBE in OSNs environments. In addition, we show that using secret sharing users can make use ... under the assumption that $t$ of the identity servers are not compromised. In fact, as aforementioned the identity servers can be represented by several OSN providers, where the user requires to choose $t$ of them. At the same time, users are provided with the option to use multiple identities, i.e., multiple public keys, available by each of the used OSNs, e.g., username. Naturally, the higher the level of the threshold $t$, the higher the protection against compromised ID servers.
+
+
+
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{references.bib}
+\end{document}

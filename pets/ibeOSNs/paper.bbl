@@ -1,0 +1,192 @@
+\begin{thebibliography}{10}
+
+\bibitem{BadenPersona}
+R.~Baden, A.~Bender, N.~Spring, B.~Bhattacharjee, and D.~Starin.
+\newblock Persona: an online social network with user-defined privacy.
+\newblock {\em SIGCOMM Comput. Commun. Rev.}, 39(4):135--146, Aug. 2009.
+
+\bibitem{article2400}
+E.~Balsa, L.~Brandimarte, A.~Acquisti, C.~Diaz, and S.~F. G\''urses.
+\newblock {Spiny CACTOS: OSN users attitudes and perceptions towards
+  cryptographic access control tools}.
+\newblock In {\em Workshop on Usable Security}, Lecture Notes in Computer
+  Science, page~10, San Diego,CA,USA, 2014. Springer-Verlag.
+
+\bibitem{BarthBonehWaters}
+A.~Barth, D.~Boneh, and B.~Waters.
+\newblock Privacy in encrypted content distribution using private broadcast
+  encryption.
+\newblock In G.~D. Crescenzo and A.~D. Rubin, editors, {\em Financial
+  Cryptography}, volume 4107 of {\em Lecture Notes in Computer Science}, pages
+  52--64. Springer, 2006.
+
+\bibitem{BeatoScramble}
+F.~Beato, M.~Kohlweiss, and K.~Wouters.
+\newblock Scramble! your social network data.
+\newblock In S.~Fischer-H{\"u}bner and N.~Hopper, editors, {\em PETS}, volume
+  6794 of {\em Lecture Notes in Computer Science}, pages 211--225. Springer,
+  2011.
+
+\bibitem{BonehFranklinIBE}
+D.~Boneh and M.~K. Franklin.
+\newblock Identity based encryption from the {W}eil pairing.
+\newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
+
+\bibitem{bonneau2010privacy}
+J.~Bonneau and S.~Preibusch.
+\newblock The privacy jungle: On the market for data protection in social
+  networks.
+\newblock {\em Economics of Information Security and Privacy}, pages 121--167,
+  2010.
+
+\bibitem{boyd2008social}
+D.~Boyd and N.~Ellison.
+\newblock {Social Network Sites: Definition, History, and Scholarship}.
+\newblock {\em Journal of Computer-Mediated Communication}, 13(1), 2008.
+
+\bibitem{DBLP:conf/focs/ChorGMA85}
+B.~Chor, S.~Goldwasser, S.~Micali, and B.~Awerbuch.
+\newblock Verifiable secret sharing and achieving simultaneity in the presence
+  of faults (extended abstract).
+\newblock In {\em FOCS}, pages 383--395, 1985.
+
+\bibitem{DBLP:conf/sp/CristofaroSTW12}
+E.~D. Cristofaro, C.~Soriente, G.~Tsudik, and A.~Williams.
+\newblock Hummingbird: Privacy at the time of twitter.
+\newblock In {\em IEEE Symposium on Security and Privacy}, pages 285--299.
+  IEEE, 2012.
+
+\bibitem{DBLP:conf/wowmom/CutilloMO11}
+L.~A. Cutillo, R.~Molva, and M.~{\"O}nen.
+\newblock Safebook: A distributed privacy preserving online social network.
+\newblock In {\em WOWMOM}, pages 1--3, 2011.
+
+\bibitem{NYT2010.Diaspora}
+J.~Dwyer.
+\newblock Four nerds and a cry to arms against {Facebook}.
+\newblock May 11, 2010. \url{http://nyti.ms/1hc60kv}. Accessed: Dec 3, 2013.
+
+\bibitem{FazioOutsiderANOBE}
+N.~Fazio and I.~M. Perera.
+\newblock Outsider-anonymous broadcast encryption with sublinear ciphertexts.
+\newblock {\em IACR Cryptology ePrint Archive}, 2012:129, 2012.
+
+\bibitem{Feldman:1987:PSN:1382440.1383000}
+P.~Feldman.
+\newblock A practical scheme for non-interactive verifiable secret sharing.
+\newblock In {\em Proceedings of the 28th Annual Symposium on Foundations of
+  Computer Science}, SFCS '87, pages 427--438, Washington, DC, USA, 1987. IEEE
+  Computer Society.
+
+\bibitem{FiatBE}
+A.~Fiat and M.~Naor.
+\newblock Broadcast encryption.
+\newblock In D.~R. Stinson, editor, {\em CRYPTO}, volume 773 of {\em Lecture
+  Notes in Computer Science}, pages 480--491. Springer, 1993.
+
+\bibitem{fischetti11hacker}
+M.~Fischetti.
+\newblock Data theft: Hackers attack.
+\newblock {\em Scientific American}, 305(100), 2011.
+
+\bibitem{Galbraith:2008:PC:1450345.1450543}
+S.~D. Galbraith, K.~G. Paterson, and N.~P. Smart.
+\newblock Pairings for cryptographers.
+\newblock {\em Discrete Appl. Math.}, 156(16):3113--3121, Sept. 2008.
+
+\bibitem{GentryRandomOracles}
+C.~Gentry.
+\newblock Practical identity-based encryption without random oracles.
+\newblock In S.~Vaudenay, editor, {\em Advances in Cryptology - EUROCRYPT
+  2006}, volume 4004 of {\em Lecture Notes in Computer Science}, pages
+  445--464. Springer Berlin Heidelberg, 2006.
+
+\bibitem{Guha:2008}
+S.~Guha, K.~Tang, and P.~Francis.
+\newblock Noyb: privacy in online social networks.
+\newblock In {\em WOSN}, pages 49--54, New York, NY, USA, 2008. ACM.
+
+\bibitem{dkg-software}
+A.~Huang.
+\newblock {Distributed Key Generator}.
+\newblock \url{https://crysp.uwaterloo.ca/software/DKG/}, 2012.
+
+\bibitem{DBLP:journals/iacr/Joux13}
+A.~Joux.
+\newblock A new index calculus algorithm with complexity l(1/4+o(1)) in very
+  small characteristic.
+\newblock {\em IACR Cryptology ePrint Archive}, 2013:95, 2013.
+
+\bibitem{jung}
+Y.~Jung, Y.~Nam, J.~Kim, W.~Jeon, H.~Lee, and D.~Won.
+\newblock Key management scheme using dynamic identity-based broadcast
+  encryption for social network services.
+\newblock In H.~Y. Jeong, M.~S.~Obaidat, N.~Y. Yen, and J.~J. J.~H. Park,
+  editors, {\em CSA}, volume 279 of {\em LNEE}, pages 435--443. Springer Berlin
+  Heidelberg, 2014.
+
+\bibitem{DBLP:conf/icdcs/KateG09}
+A.~Kate and I.~Goldberg.
+\newblock Distributed key generation for the internet.
+\newblock In {\em ICDCS}, pages 119--128, 2009.
+
+\bibitem{LibertANOBE}
+B.~Libert, K.~G. Paterson, and E.~A. Quaglia.
+\newblock Anonymous broadcast encryption: Adaptive security and efficient
+  constructions in the standard model.
+\newblock In M.~Fischlin, J.~Buchmann, and M.~Manulis, editors, {\em Public Key
+  Cryptography}, volume 7293 of {\em Lecture Notes in Computer Science}, pages
+  206--224. Springer, 2012.
+
+\bibitem{Luo:2009}
+W.~Luo, Q.~Xie, and U.~Hengartner.
+\newblock Facecloak: An architecture for user privacy on social networking
+  sites.
+\newblock In {\em IEEE CSE}, pages 26--33, Washington, DC, USA, 2009. IEEE.
+
+\bibitem{facebook-subpoena}
+C.~Matyszczyk.
+\newblock {If your account is subpoenaed, Facebook sends police, well,
+  everything}.
+\newblock \url{http://preview.tinyurl.com/facebook-subpoena}, 2012.
+
+\bibitem{Pedersen:1991:NIS:646756.705507}
+T.~P. Pedersen.
+\newblock Non-interactive and information-theoretic secure verifiable secret
+  sharing.
+\newblock In {\em Proceedings of the 11th Annual International Cryptology
+  Conference on Advances in Cryptology}, CRYPTO '91, pages 129--140, London,
+  UK, UK, 1992. Springer-Verlag.
+
+\bibitem{prism}
+W.~Post.
+\newblock {NSA} slides explain the {PRISM} data-collection program.
+\newblock June 6, 2013 \url{http://wapo.st/J2gkLY}. Accessed Sept. 6, 2013.
+
+\bibitem{rfc5288}
+J.~Salowey, A.~Choudhury, and D.~McGrew.
+\newblock {AES Galois Counter Mode (GCM) Cipher Suites for TLS}.
+\newblock RFC 5288 (Proposed Standard), August 2008.
+
+\bibitem{scott2003miracl}
+M.~Scott.
+\newblock Miracl--multiprecision integer and rational arithmetic c/c++ library.
+\newblock {\em Shamus Software Ltd, Dublin, Ireland, URL}, 2003.
+
+\bibitem{Shamir1979}
+A.~Shamir.
+\newblock {How to Share a Secret}.
+\newblock {\em Communications of the ACM}, 22(11):612--613, 1979.
+
+\bibitem{DBLP:conf/crypto/Shamir84}
+A.~Shamir.
+\newblock Identity-based cryptosystems and signature schemes.
+\newblock In G.~R. Blakley and D.~Chaum, editors, {\em CRYPTO}, volume 196 of
+  {\em Lecture Notes in Computer Science}, pages 47--53. Springer, 1984.
+
+\bibitem{DBLP:journals/corr/abs-1111-4503}
+J.~Ugander, B.~Karrer, L.~Backstrom, and C.~Marlow.
+\newblock The anatomy of the facebook social graph.
+\newblock {\em CoRR}, abs/1111.4503, 2011.
+
+\end{thebibliography}

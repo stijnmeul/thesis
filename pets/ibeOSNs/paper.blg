@@ -1,0 +1,59 @@
+This is BibTeX, Version 0.99d (TeX Live 2013)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: paper.aux
+The style file: abbrv.bst
+Database file #1: references.bib.bib
+A bad cross reference---entry "DBLP:conf/sp/CristofaroSTW12"
+refers to entry "DBLP:conf/sp/2012", which doesn't exist
+A bad cross reference---entry "DBLP:conf/wowmom/CutilloMO11"
+refers to entry "DBLP:conf/wowmom/2011", which doesn't exist
+A bad cross reference---entry "DBLP:conf/focs/ChorGMA85"
+refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
+A bad cross reference---entry "DBLP:conf/icdcs/KateG09"
+refers to entry "DBLP:conf/icdcs/2009", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/icdcs/2009"
+Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
+Warning--I didn't find a database entry for "DBLP:conf/sp/2012"
+Warning--I didn't find a database entry for "DBLP:conf/wowmom/2011"
+You've used 32 entries,
+            2118 wiz_defined-function locations,
+            755 strings with 10722 characters,
+and the built_in function-call counts, 12174 in all, are:
+= -- 1210
+> -- 521
+< -- 24
++ -- 203
+- -- 167
+* -- 792
+:= -- 1909
+add.period$ -- 109
+call.type$ -- 32
+change.case$ -- 172
+chr.to.int$ -- 0
+cite$ -- 32
+duplicate$ -- 521
+empty$ -- 992
+format.name$ -- 167
+if$ -- 2707
+int.to.chr$ -- 0
+int.to.str$ -- 32
+missing$ -- 27
+newline$ -- 163
+num.names$ -- 78
+pop$ -- 198
+preamble$ -- 1
+purify$ -- 140
+quote$ -- 0
+skip$ -- 416
+stack$ -- 0
+substring$ -- 690
+swap$ -- 193
+text.length$ -- 24
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 128
+warning$ -- 0
+while$ -- 118
+width$ -- 34
+write$ -- 374
+(There were 4 error messages)
