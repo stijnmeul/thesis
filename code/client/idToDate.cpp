@@ -14,10 +14,10 @@
 #define DAYS_IN_MONTH 28
 #define HOURS_IN_DAY 24
 #define MINUTES_IN_HOUR 60
-#define SECONDS_IN_MINUTE 60
-#define MINUTES_IN_MONTH DAYS_IN_MONTH*HOURS_IN_DAY*MINUTES_IN_HOUR*
+#define minutes_IN_MINUTE 60
+#define MINUTES_IN_MONTH DAYS_IN_MONTH*HOURS_IN_DAY*MINUTES_IN_HOUR
 
-#define DAY_DIVISOR HOURS_IN_DAY*MINUTES_IN_HOUR*SECONDS_IN_MINUTE
+#define DAY_DIVISOR HOURS_IN_DAY*MINUTES_IN_HOUR*minutes_IN_MINUTE
 
 
 using namespace std;
@@ -32,7 +32,7 @@ string getMonth();
 
 int main(void)
 {
-    string name = "Alexander";
+    string name = "Stijn";
     mip->IOBASE = 256;
     char hash[HASH_LEN];
     sha256 sh;
@@ -45,53 +45,53 @@ int main(void)
     }
     shs256_hash(&sh,hash);
 
-    Big seconds = from_binary(sizeof(hash), hash);
+    Big minutes = from_binary(sizeof(hash), hash);
     mip->IOBASE = 10;
-    cout << "seconds is " << endl << seconds << endl;
-    cout << "seconds in month is " << endl << MINUTES_IN_MONTH << endl;
+    cout << "minutes is " << endl << minutes << endl;
+    cout << "minutes in month is " << endl << MINUTES_IN_MONTH << endl;
 
     modulo((Big)(MINUTES_IN_MONTH+1));
-    Big timeInMonth = nres(seconds);
+    Big timeInMonth = nres(minutes);
     cout << "timeInMonth" << endl << timeInMonth << endl;
     int totalTime = size(timeInMonth.getbig());
 
 /*    time_t begin_time = clock();
     modulo(days_in_month+1);
-    day = nres(seconds);
+    day = nres(minutes);
 
     modulo(hours_in_day+1);
-    hour = nres(seconds);
+    hour = nres(minutes);
     if(hour == 24) {
         hour = 0;
     }
 
     modulo(min_in_hour+1);
-    minute = nres(seconds);
+    minute = nres(minutes);
     if(minute == 60) {
         minute = 0;
     }
 
     modulo(sec_in_min+1);
-    sec = nres(seconds);
+    sec = nres(minutes);
     if(sec == 60) {
         sec = 0;
     }
     cout << "Execution time mod method is "<< getExecutionTime(begin_time) << " ms" << endl;
 
-    cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << " and " << sec << " seconds." << endl;*/
+    cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << " and " << sec << " minutes." << endl;*/
 
     time_t begin_time = clock();
     int day = totalTime / (MINUTES_IN_HOUR * HOURS_IN_DAY);
-    int minute = totalTime % SECONDS_IN_MINUTE;
+    int minute = totalTime % minutes_IN_MINUTE;
     int hour = (totalTime / (MINUTES_IN_HOUR)) % HOURS_IN_DAY;
     // ((912415-10*(24*60*60))-(60*60*13))-26*60-55
-    int test = (totalTime - day * (HOURS_IN_DAY*MINUTES_IN_HOUR) - hour * MINUTES_IN_HOUR) - minute);
+    int test = (totalTime - day * (HOURS_IN_DAY*MINUTES_IN_HOUR) - hour * MINUTES_IN_HOUR - minute);
     if (  test == 0) {
-        cout << "correct conversion from seconds to time" << endl;
+        cout << "correct conversion from minutes to time" << endl;
     }
 
     cout << "Execution time division method is "<< getExecutionTime(begin_time) << " ms" << endl;
-    cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << " and " << sec << " seconds." << endl;
+    cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << endl;
 
     cout << "Executed sucessfully!" << endl;
     return 0;
