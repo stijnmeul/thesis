@@ -29,39 +29,16 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
         throw invalid_argument("Can not encrypt message if no recipients were specified.");
     }
     G2 myUnitVar;
-    if (P == myUnitVar || P == myUnitVar) {
+    if (P == myUnitVar || Ppub == myUnitVar) {
         throw invalid_argument("Please specify initialised public parameters.");
     }
     time_t begin_time = clock();
     // Add recipients to message
     message = message + toString(recipients);
+
     /************************************************/
-    /*   PREPARE AUTHENTICATED DATA - IBE ENCRYPT   */
+    /*         PREPARE AUTHENTICATED DATA           */
     /************************************************/
-    // Add all recipients to Authenticated data
-    /*
-    for (int i = 0; i < getNbOfRecipients(); i++) {
-        // Add K XOR g_ID = V to Authenticated Data
-        G1 rQ = (*pfc).mult(recipientHashes.at(i), r);
-        Big W = (*pfc).hash_to_aes_key((*pfc).pairing(Ppub, rQ));
-        W = lxor(sigma, W);
-        (*autData).addRecipientKey(W);
-    }
-
-    // U = r.P
-    G2 U = (*pfc).mult(P, r);
-    (*autData).setU(U);
-
-
-    // W = M XOR Hash(sigma)
-    (*pfc).start_hash();
-    (*pfc).add_to_hash(sigma);
-    Big V = (*pfc).finish_hash_to_group();
-    Big ses_key = getSessionKey();
-    cout << "encrypt ses_key is " << endl << ses_key << endl;
-    V = lxor(ses_key, V);
-    (*autData).setV(V);*/
-
     G2 U = (*pfc).mult(P, r);
     (*autData).setU(U);
 
@@ -73,8 +50,6 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
         W = lxor(ses_key, W);
         (*autData).addRecipientKey(W);
     }
-
-
 
     /************************************************/
     /*                 AES ENCRYPT                  */

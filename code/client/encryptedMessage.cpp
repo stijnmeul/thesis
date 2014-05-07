@@ -60,93 +60,14 @@ EncryptedMessage::EncryptedMessage(string encryptedMessage) {
     (*autData).encodeToArray(this->A);
 
 }
-/*
+
 PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PFC *pfc) {
-    // Iterate over all V values until U equals rP.
-    G2 uCalc;
-    G2 U = (*autData).getU();
-    Big ud_hash = (*pfc).hash_to_aes_key((*pfc).pairing(U,D));
-    Big ses_key;
-    int i = 0;
-    int nbOfRecipients = (*autData).getNbOfRecipients();
-    Big V = (*autData).getV();
-    Big W;
-    Big sigma, sigma_hash;
-    vector <Big> ws = (*autData).getRecipientKeys();
-
-    time_t begin_time = clock();
-    while(U != uCalc && i < nbOfRecipients){
-        // sigma = V XOR Hash(e(D,U))
-        W=ws.at(i);
-        sigma = lxor(W, ud_hash);
-
-        // M = W XOR Hash(sigma)
-        (*pfc).start_hash();
-        (*pfc).add_to_hash(sigma);
-        sigma_hash = (*pfc).finish_hash_to_group();
-        ses_key = lxor(V, sigma_hash);
-
-        // r = Hash(sigma,M)
-        (*pfc).start_hash();
-        (*pfc).add_to_hash(sigma);
-        (*pfc).add_to_hash(ses_key);
-        r = (*pfc).finish_hash_to_group();
-        uCalc = (*pfc).mult(P,r);
-
-        i++;
-    }
-
-    cout << "ses_key is " << endl << ses_key << endl;
-
-
-    //       AES GCM part of the decryption step
-    to_binary(ses_key, HASH_LEN, sessionKey, TRUE);
-    char k1[HASH_LEN/2];
-    char iv[HASH_LEN/2];
-    char Tdec[TAG_LEN];
-    char P_text[Clen];
-    memset(P_text, 0, Clen+1);
-
-    getIV(iv);
-    getK1(k1);
-
-
-    //int Alen = (*autData).getLength((*autData).getNbOfRecipients());
-    char A[Alen];
-    (*autData).encodeToArray(A);
-    gcm g;
-    gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
-    gcm_add_header(&g, A, Alen);
-    gcm_add_cipher(&g, GCM_DECRYPTING, P_text, Clen, C);
-    gcm_finish(&g, Tdec);
-
-    bool integrity = true;
-    for (int i = 0; i < TAG_LEN; i++) {
-        if(Tdec[i] != T[i]) {
-            integrity = false;
-        }
-    }
-    cout << endl;
-
-    if(integrity == false) {
-        cout << "Received tag T does not correspond to decrypted T. There are some integrity issues here." << endl;
-    } else {
-        cout << "Successful integrity check!" << endl;
-    }
-
-    message = (string)P_text;
-
-    return PlaintextMessage(message);
-}*/
-// TODO: change to more efficient scheme
-PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PFC *pfc) {
-    // Iterate over all V values until U equals rP.
     G2 uCalc;
     G2 U = (*autData).getU();
     Big ud_hash = (*pfc).hash_to_aes_key((*pfc).pairing(U,D));
     Big ses_key;
     int nbOfRecipients = (*autData).getNbOfRecipients();
-    //Big V = (*autData).getV();
+
     Big W;
     Big sigma, sigma_hash;
     vector <Big> ws = (*autData).getRecipientKeys();
