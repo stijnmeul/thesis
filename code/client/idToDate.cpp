@@ -32,16 +32,19 @@ string getMonth();
 
 int main(void)
 {
-    string name = "Sébastien";
+    string name = "Alexander";
     mip->IOBASE = 256;
     char hash[HASH_LEN];
     sha256 sh;
     char * id = (char *)name.c_str();
     shs256_init(&sh);
-    while (*id!=0) {
-        shs256_process(&sh,*id++);
-        shs256_hash(&sh,hash);
+    int i = 0;
+    while (id[i]!=0) {
+        shs256_process(&sh,id[i]);
+        i++;
     }
+    shs256_hash(&sh,hash);
+
     Big seconds = from_binary(sizeof(hash), hash);
     mip->IOBASE = 10;
     cout << "seconds is " << endl << seconds << endl;
@@ -80,8 +83,13 @@ int main(void)
     time_t begin_time = clock();
     int day = totalTime / (MINUTES_IN_HOUR * SECONDS_IN_MINUTE * HOURS_IN_DAY);
     int minute = (totalTime / MINUTES_IN_HOUR) % SECONDS_IN_MINUTE;
-    int hour = (totalTime / SECONDS_IN_MINUTE) % HOURS_IN_DAY;
-    int sec = (totalTime / MINUTES_IN_HOUR) % SECONDS_IN_MINUTE;
+    int hour = (totalTime / (MINUTES_IN_HOUR*SECONDS_IN_MINUTE)) % HOURS_IN_DAY;
+    int sec = (totalTime) % SECONDS_IN_MINUTE;
+    // ((912415-10*(24*60*60))-(60*60*13))-26*60-55
+    int test = (totalTime - day * (HOURS_IN_DAY*MINUTES_IN_HOUR * SECONDS_IN_MINUTE) - hour * (SECONDS_IN_MINUTE * MINUTES_IN_HOUR) - minute * SECONDS_IN_MINUTE - sec);
+    if (  test == 0) {
+        cout << "correct conversion from seconds to time" << endl;
+    }
 
     cout << "Execution time division method is "<< getExecutionTime(begin_time) << " ms" << endl;
     cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << " and " << sec << " seconds." << endl;

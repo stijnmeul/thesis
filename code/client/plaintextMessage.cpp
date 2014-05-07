@@ -105,8 +105,8 @@ void PlaintextMessage::generateKeys(PFC *pfc) {
 
     for(int i = 0; i < HASH_LEN; i++) {
         shs256_process(&sh,k[i]);
-        shs256_hash(&sh,sessionKey);
     }
+    shs256_hash(&sh,sessionKey);
 
     // Generate random sigma key with AES_LENGTH bits
     (*pfc).rankey(sigma);
