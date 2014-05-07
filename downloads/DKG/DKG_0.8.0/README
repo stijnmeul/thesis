@@ -1,3 +1,0 @@
-src/ -- Source code
-DKG-Executable/ -- Executables that one can use to run the protocol
-PBC/ -- PBC wrapper classes necessary for compiling the source code
