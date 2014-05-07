@@ -39,6 +39,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     /*   PREPARE AUTHENTICATED DATA - IBE ENCRYPT   */
     /************************************************/
     // Add all recipients to Authenticated data
+    /*
     for (int i = 0; i < getNbOfRecipients(); i++) {
         // Add K XOR g_ID = V to Authenticated Data
         G1 rQ = (*pfc).mult(recipientHashes.at(i), r);
@@ -51,6 +52,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     G2 U = (*pfc).mult(P, r);
     (*autData).setU(U);
 
+
     // W = M XOR Hash(sigma)
     (*pfc).start_hash();
     (*pfc).add_to_hash(sigma);
@@ -58,7 +60,21 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     Big ses_key = getSessionKey();
     cout << "encrypt ses_key is " << endl << ses_key << endl;
     V = lxor(ses_key, V);
-    (*autData).setV(V);
+    (*autData).setV(V);*/
+
+    G2 U = (*pfc).mult(P, r);
+    (*autData).setU(U);
+
+    Big ses_key = getSessionKey();
+    cout << "encrypt ses_key is " << endl << ses_key << endl;
+    for (int i = 0; i < getNbOfRecipients(); i++) {
+        G1 rQ = (*pfc).mult(recipientHashes.at(i), r);
+        Big W = (*pfc).hash_to_aes_key((*pfc).pairing(Ppub, rQ));
+        W = lxor(ses_key, W);
+        (*autData).addRecipientKey(W);
+    }
+
+
 
     /************************************************/
     /*                 AES ENCRYPT                  */
