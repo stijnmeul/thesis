@@ -6,17 +6,30 @@ D.~Adams.
 \newblock Del Rey (reprint), 1995.
 \newblock ISBN-13: 978-0345391803.
 
-\bibitem{pratchett06:_good_omens}
-T.~Pratchett and N.~Gaiman.
-\newblock {\em Good Omens: \emph{The Nice and Accurate Prophecies of Agnes
-  Nutter, Witch}}.
-\newblock HarperTorch (reprint), 2006.
-\newblock ISBN-13: 978-0060853983.
+\bibitem{site:Bullas14}
+J.~Bullas.
+\newblock 22 social media facts and statistics you should know in 2014.
+\newblock URL:
+  \url{http://www.jeffbullas.com/2014/01/17/20-social-media-facts-and-statistics-you-should-know-in-2014/},
+  last checked on 2014-05-08.
 
-\bibitem{wiki}
-Wikipedia.
-\newblock Thesis or dissertation.
-\newblock URL: \url{http://en.wikipedia.org/wiki/Thesis_or_dissertation}, last
-  checked on 2010-01-07.
+\bibitem{site:Jones13}
+K.~Jones.
+\newblock The growth of social media v2.0.
+\newblock URL:
+  \url{http://www.searchenginejournal.com/growth-social-media-2-0-infographic/77055/},
+  last checked on 2014-05-08.
+
+\bibitem{site:StatisticBrain}
+StatisticBrain.
+\newblock Social networking statistics.
+\newblock URL:
+  \url{http://www.statisticbrain.com/social-networking-statistics/}, last
+  checked on 2014-05-08.
+
+\bibitem{site:worldometers}
+Worldometers.
+\newblock Worldometers real time world statistics.
+\newblock URL: \url{http://www.worldometers.info/}, last checked on 2014-05-08.
 
 \end{thebibliography}

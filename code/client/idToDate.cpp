@@ -1,4 +1,7 @@
 #include "client_funcs.h"
+#include <ctime>
+#include <langinfo.h>
+#include <locale.h>
 // Compilation command: g++-4.7 idToDate.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp ../cppmiracl/source/mrgcm.c -I ../cppmiracl/include/ ../cppmiracl/source/mraes.c -L ../cppmiracl/source/ -l miracl -lcurl -o idToDate
 
 
@@ -94,13 +97,24 @@ int main(void)
     cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << endl;
 
     cout << "Executed sucessfully!" << endl;
+
+
     return 0;
 }
 
 string getMonth() {
-    return string("April");
+    const nl_item nl_months[12] = {MON_1, MON_2, MON_3, MON_4, MON_5, MON_6,
+                                   MON_7, MON_8, MON_9, MON_10, MON_11, MON_12};
+    time_t t = time(0);   // get time now
+    struct tm * now = localtime( & t );
+    return nl_langinfo(nl_months[now->tm_mon]);
 }
 
 string getYear() {
-    return string("2014");
+    time_t t = time(0);
+    struct tm * now = localtime( & t );
+    stringstream ss;
+    ss << now->tm_year + 1900;
+    return ss.str();
 }
+

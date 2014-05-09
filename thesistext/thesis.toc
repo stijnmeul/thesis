@@ -11,65 +11,65 @@
 \contentsline {chapter}{List of Abbreviations and Symbols}{vi}{chapter*.6}
 \contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Problem Statement}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Previous Work}{1}{section.1.2}
+\contentsline {section}{\numberline {1.2}Previous Work}{2}{section.1.2}
 \contentsline {section}{\numberline {1.3}Goals of this Thesis}{2}{section.1.3}
 \contentsline {section}{\numberline {1.4}Structure of this Thesis}{2}{section.1.4}
-\contentsline {chapter}{\chapternumberline {2}Preliminaries}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Notation}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Group Theory}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}Bilinear Pairings}{3}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Definition}{4}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Bilinear Diffie-Hellman Assumption}{4}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Variants of the Bilinear Diffie-Hellman Assumption}{4}{subsection.2.3.3}
-\contentsline {section}{\numberline {2.4}Commitment Schemes}{5}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Definition}{5}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Pedersen Commitment Scheme}{5}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Proofs of Knowledge}{5}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Definition}{6}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Zero-knowledge Proof}{6}{subsection.2.5.2}
-\contentsline {subsection}{\numberline {2.5.3}Security Model}{6}{subsection.2.5.3}
-\contentsline {subsubsection}{Standard Model}{6}{section*.9}
-\contentsline {subsubsection}{Random Oracle Assumption}{6}{section*.10}
-\contentsline {section}{\numberline {2.6}Conclusion}{7}{section.2.6}
-\contentsline {chapter}{\chapternumberline {3}Literature Review}{9}{chapter.3}
-\contentsline {section}{\numberline {3.1}Public Key Generation}{9}{section.3.1}
-\contentsline {section}{\numberline {3.2}Distributed Key Generation}{9}{section.3.2}
-\contentsline {section}{\numberline {3.3}Identity-Based Encryption}{10}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Definition}{10}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Anonymous Identity-Based Encryption}{10}{subsection.3.3.2}
-\contentsline {section}{\numberline {3.4}Broadcast Encryption}{10}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Definition}{11}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Anonymous Broadcast Encryption}{11}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Outsider-Anonymous Broadcast Encryption}{11}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Conclusion}{11}{section.3.5}
-\contentsline {chapter}{\chapternumberline {4}Anonymous Identity-Based Broadcast Encryption}{13}{chapter.4}
-\contentsline {section}{\numberline {4.1}Security Model}{13}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Threat Model}{13}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Goals}{14}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Proposed Scheme}{14}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Scheme}{14}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Security Proof}{14}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Evaluation}{15}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Conclusion}{15}{section.4.3}
-\contentsline {chapter}{\chapternumberline {5}Implementation}{17}{chapter.5}
-\contentsline {section}{\numberline {5.1}Existing Solutions}{17}{section.5.1}
-\contentsline {section}{\numberline {5.2}Anonymous Identity-Based Broadcasting Implementation}{17}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Implemented Scheme}{18}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Data Structures}{18}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Distributed Key Generation Implementation}{18}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Implemented Scheme}{18}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Data Structures}{18}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Evaluation}{19}{section.5.4}
-\contentsline {section}{\numberline {5.5}Performance Analysis}{19}{section.5.5}
-\contentsline {section}{\numberline {5.6}Conclusion}{19}{section.5.6}
-\contentsline {chapter}{\chapternumberline {6}Conclusion}{21}{chapter.6}
-\contentsline {appendix}{\chapternumberline {A}Installing and Executing the Code}{25}{appendix.A}
-\contentsline {section}{\numberline {A.1}Setting up the DKG}{25}{section.A.1}
-\contentsline {section}{\numberline {A.2}Setting up Scramble}{25}{section.A.2}
-\contentsline {appendix}{\chapternumberline {B}The Last Appendix}{27}{appendix.B}
-\contentsline {section}{\numberline {B.1}Lorem 20-24}{27}{section.B.1}
-\contentsline {section}{\numberline {B.2}Lorem 25-27}{28}{section.B.2}
-\contentsline {chapter}{Bibliography}{29}{section*.12}
+\contentsline {chapter}{\chapternumberline {2}Preliminaries}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Notation}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Group Theory}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Bilinear Pairings}{5}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Definition}{6}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Bilinear Diffie-Hellman Assumption}{6}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Variants of the Bilinear Diffie-Hellman Assumption}{6}{subsection.2.3.3}
+\contentsline {section}{\numberline {2.4}Commitment Schemes}{7}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Definition}{7}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Pedersen Commitment Scheme}{7}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Proofs of Knowledge}{7}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Definition}{8}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Zero-knowledge Proof}{8}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Security Model}{8}{subsection.2.5.3}
+\contentsline {subsubsection}{Standard Model}{8}{section*.9}
+\contentsline {subsubsection}{Random Oracle Assumption}{8}{section*.10}
+\contentsline {section}{\numberline {2.6}Conclusion}{9}{section.2.6}
+\contentsline {chapter}{\chapternumberline {3}Literature Review}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}Public Key Generation}{11}{section.3.1}
+\contentsline {section}{\numberline {3.2}Distributed Key Generation}{11}{section.3.2}
+\contentsline {section}{\numberline {3.3}Identity-Based Encryption}{12}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Definition}{12}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Anonymous Identity-Based Encryption}{12}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Broadcast Encryption}{12}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Definition}{13}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Anonymous Broadcast Encryption}{13}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Outsider-Anonymous Broadcast Encryption}{13}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Conclusion}{13}{section.3.5}
+\contentsline {chapter}{\chapternumberline {4}Anonymous Identity-Based Broadcast Encryption}{15}{chapter.4}
+\contentsline {section}{\numberline {4.1}Security Model}{15}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Threat Model}{15}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Goals}{16}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Proposed Scheme}{16}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Scheme}{16}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Security Proof}{16}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Evaluation}{17}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Conclusion}{17}{section.4.3}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{19}{chapter.5}
+\contentsline {section}{\numberline {5.1}Existing Solutions}{19}{section.5.1}
+\contentsline {section}{\numberline {5.2}Anonymous Identity-Based Broadcasting Implementation}{19}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Implemented Scheme}{20}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Data Structures}{20}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Distributed Key Generation Implementation}{20}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Implemented Scheme}{20}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Data Structures}{20}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Evaluation}{21}{section.5.4}
+\contentsline {section}{\numberline {5.5}Performance Analysis}{21}{section.5.5}
+\contentsline {section}{\numberline {5.6}Conclusion}{21}{section.5.6}
+\contentsline {chapter}{\chapternumberline {6}Conclusion}{23}{chapter.6}
+\contentsline {appendix}{\chapternumberline {A}Installing and Executing the Code}{27}{appendix.A}
+\contentsline {section}{\numberline {A.1}Setting up the DKG}{27}{section.A.1}
+\contentsline {section}{\numberline {A.2}Setting up Scramble}{27}{section.A.2}
+\contentsline {appendix}{\chapternumberline {B}The Last Appendix}{29}{appendix.B}
+\contentsline {section}{\numberline {B.1}Lorem 20-24}{29}{section.B.1}
+\contentsline {section}{\numberline {B.2}Lorem 25-27}{30}{section.B.2}
+\contentsline {chapter}{Bibliography}{31}{section*.12}
 \select@language {english}
 \select@language {english}
 \select@language {english}
