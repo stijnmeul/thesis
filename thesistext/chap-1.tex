@@ -1,54 +1,185 @@
 \chapter{Preliminaries}
 \label{cha:1}
-A chapter is a logical unit. It normally starts with an introduction, which
-you are reading now. The last topic of the chapter holds the conclusion.
+This chapter covers briefly the mathematical knowledge required to understand the mechanics behind cryptographic algorithms presented later in this text. First, next, then, finally,... %TODO: verder aanvullen hoe de structuur van dit hoofdstuk eruit gaat zien
 
-\section{Notation}
-First comes the introduction to this topic.
+Note that this chapter only scratches the surface of cryptographic fundamentals to understand the remainder of the thesis. Definitions are always provided without proof. For a more in depth discussion about the topics in this chapter, the reader is refered to~\cite{book:handbook_of_applied_cryptography} and~\cite{book:survey_of_modern_algebra}.
 
-\lipsum[55]
+If the reader feels he has sufficient background of the concepts covered in this chapter, the chapter can be skipped without loss of comprehension.
 
-\section{Group Theory}
-\lipsum[33]
+\section{Complexity Theory}
 
-\section{Bilinear Pairings}
-\lipsum[64]
+In practice no modern cryptographic agorithm achieves perfect secrecy\footnote{Note that the one-time pad is not taken into account. Although it is the only proven information secure cryptographic algorithm, it is seldom used in practical cryptographic systems.}, i.e. with unbounded computational power all practical cryptographic algorithms can be broken. Therefore a more pragmatic definition of security is always considered, namely security against adversaries that are computationally bound to their finite resources. In this pragmatic view of security an algorithm is considered secure only if the probability of success is smaller than the reciprocal of any polynomial function. The negligible function can be used to exactly describe this notion in a formal way.
+
+\begin{defn}
+\label{def:negligible_function}
+A \textbf{negligible function} in $k$ is a function $\mu \left( k \right): \mathbb{N} \rightarrow \mathbb{R}$ if for every polynomial $p \left( . \right)$ there exists an $N$ such that for all $k > N$~\cite{book:Goldreich97}
+ \begin{equation*}
+  \mu \left( k \right) < \frac{1}{p\left( k \right)} 
+ \end{equation*}
+\end{defn}
+
+The negligible function will be used later on in this chapter to formally describe computationally infeasible problems. In such a context $k$ often represents the security parameter. The larger $k$ will be chosen, the smaller $\mu \left( k \right)$ will be.
+
+\section{Abstract Algebra}
+Abstract algebra is a field of mathematics that studies algebraic structures such as groups, rings and vector spaces. These algebraic structures define a collection of requirements on mathematical sets such as e.g., the natural numbers $\mathbb{N}$ or matrices of dimension 2 x 2 $\mathbb{R}^{2 x 2}$. If these requirements hold, abstract properties can be derived. Once a mathematical set is then categorised as the correct algebraic structure, properties derived for the algebraic structure will hold for the set as a whole.
+
+In the light of our further discussion, especially additive and multiplicative groups prove to be essential concepts. However, algebraic groups come with a specific vocabulary such as binary operation, group order and cyclic group that are defined in this section as well.
+
+\begin{defn}[Binary operation]
+ A \textit{binary operation} * on a set $S$ is a mapping $S \times S \rightarrow S$. That is, a binary operation is a rule which assigns to each ordered pair of elements $a$ and $b$ from $S$ a uniquely defined third element $c = a*b$ in the same set $S$.~\cite{book:handbook_of_applied_cryptography,book:survey_of_modern_algebra}
+\end{defn}
+
+\begin{defn}[Group]
+\label{def:group}
+ A \textit{group} $\left( G, * \right)$ consists of a set $G$ with a binary operation $*$ on $G$ satisfying the following three axioms:
+ \begin{enumerate}
+  \item \textit{Associativity} $\forall a, b, c \in G: a*(b*c) = (a*b)*c$
+  \item \textit{Identity element} $\forall a \in G, \exists e \in G: a*e = e*a = a $ where $e$ denotes the \textit{identity element} of $G$
+  \item \textit{Inverse element} $\forall a \in G, \exists a^{-1}: a*a^{-1} = a^{-1}*a = 1$ where $a^{-1}$ denotes the \textit{inverse element} of $a$
+  \newcounter{enumTemp}
+  \setcounter{enumTemp}{\theenumi}
+ \end{enumerate}
+
+\end{defn}
+
+\begin{defn}[Commutative group]
+ A group $\left( G, * \right)$ is called a \textit{commutative group} or an \textit{abelian group} if in addition to the properties in Definition~\ref{def:group}, also commutativity holds.
+ \begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item \textbf{Commutativity} $\forall a, b \in G: a*b = b*a$
+ \end{enumerate}
+
+\end{defn}
+
+From here on a group $\left( G, * \right)$ will be denoted $\mathbb{G}$. Depending on the group operation~$*$, $\mathbb{G}$ is called either a \textit{multiplicative group} or an \textit{additive group}. In Definition~\ref{def:group} the multiplicative notation is used. For an additive group  the inverse of $a$ is often denoted $-a$~\cite{book:handbook_of_applied_cryptography}.
+
+The perfect example of a commutative group is the set of integers with the addition operation $\left( \mathbb{Z}, + \right)$ since the addition is both associative and commutative in $\mathbb{Z}$. Furthermore, the identity element $e = 0$ and the inverse element $\forall a \in \mathbb{Z}$ is $-a \in \mathbb{Z}$. Note that the set of natural numbers with the addition operation $\left( \mathbb{N}, + \right)$ is not a commutative group because not each element of $\mathbb{N}$ has an inverse element.
+
+\begin{defn}[Cyclic group]
+\label{def:cyclic_group}
+ A group $\mathbb{G}$ is \textit{cyclic} if and only if $\forall b \in \mathbb{G}, \exists g \in \mathbb{G},\exists n \in \mathbb{Z}: g^n = b$. Such an element $g$ is called a \textbf{generator} of $\mathbb{G}$.
+\end{defn}
+
+Definition~\ref{def:cyclic_group} implies that in a cyclic group every element can be written as a power of one of the group's generators.
+
+\begin{defn}[Finite group]
+\label{def:finite_group}
+ A group $\mathbb{G}$ is \textit{finite} if the number of elements in $\mathbb{G}$ denoted $|\mathbb{G}|$ is finite. The number of elements $|\mathbb{G}|$ in a finite group is called the \textit{group order}.
+\end{defn}
+
+The set $\mathbb{Z}_n$ denotes the set of integers modulo $n$. The set $\mathbb{Z}_5$ with the addition operation is a cyclic finite group of order 5. The set $\mathbb{Z}_5 \backslash \{0\}$ with the multiplication operation, often denoted $\mathbb{Z}^{*}_5$, is a cyclic finite group of order 4 where the neutral element $e=1$. Two is an example of a generator in $\mathbb{Z}^{*}_5$ since every element in $\mathbb{Z}^{*}_5$ can be written as $\{ 2^n | n \in \mathbb{Z} \}$.
+
+\begin{defn}[Order of an element]
+\label{def:order_of_an_element}
+Let $\mathbb{G}$ be a group. The \textit{order of an element} $a \in G$ is defined as the least positive integer $t$ such that $a^t = e$. If there exists no such $t$, $t$ is defined as~$\infty$.
+\end{defn}
+
+\begin{thm}
+\label{the:group_modulo_a_prime}
+If the order of a group $G$ equals a prime $p$, the group is cyclic and commutative.
+\end{thm}
+
+
+\section{Number Theoretic Assumptions}
+
+This section presents a collection of number theoretic assumptions. The security of our future constructions falls or stands on these assumptions. If one of these assumptions would prove to be invalid, not only this thesis would be superfluous, society would no longer be protected by cryptographic protocols like RSA or ElGamal encryption~\cite{art:Boneh98,book:handbook_of_applied_cryptography}.
+
+In the definitions that follow $\left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^k \right)$ is defined as the setup algorithm that generates a group $G$ of order $n$, a generator $g \in G$ and an element $a \in G$ on input of the security parameter $k$.
+
+\begin{defn}[DL]
+\label{def:dl}
+The \textit{discrete logarithm problem} is defined as follows. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and an element $a \in G$, find the integer $x, 0 \leq x \leq n-1$ such that $g^x = a$.
+
+The \textit{discrete logarithm assumption} holds if for any algorithm $\mathcal{A} \left( g, g^x \right)$ trying to solve the DL problem there exists a negligible function $\mu \left( k \right)$ such that 
+ \begin{equation*}
+  \textrm{Pr} \left[ \mathcal{A} \left( g, g^x \right) = a \mid \left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{k} \right)\right] \leq \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^k \right)$, the random choice of $a$ in $G$ and the random bits of the algorithm $\mathcal{A}$.
+\end{defn}
+
+
+\begin{defn}[CDH]
+\label{def:cdh}
+The \textit{Computational Diffie-Hellman problem} is defined as follows. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and $g^a, g^b$ with uniformly chosen random independent elements $a, b \in \{ 1, \ldots, | G |\}$ , find the value $g^{ab}$.
+
+
+The \textit{Computational Diffie-Hellman assumption} holds if for any algorithm $\mathcal{A} \left( g, g^a, g^b \right)$ trying to solve the CDH problem there exists a negligible function $\mu \left( k \right)$ such that 
+ \begin{equation*}
+  \textrm{Pr} \left[ \mathcal{A} \left( g, g^a, g^b \right) = g^{ab} \mid \left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{k} \right)\right] \leq \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^k \right)$, the random choice of $a, b$ in $\{ 1, \ldots, | G |\}$ and the random bits of the algorithm $\mathcal{A}$.
+\end{defn}
+
+\begin{defn}[DDH]
+\label{def:ddh}
+The \textit{Decisional Diffie-Hellman problem} is defined as follows. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and $g^a, g^b, g^{ab}, g^c$ with uniformly chosen random independent elements $a, b, c \in \{ 1, \ldots, | G |\}$, distinguish $\left< g, g^a, g^b, g^{ab} \right>$ from $\left< g, g^a, g^b, g^c \right>$.
+
+Define $\mathcal{A} \left( x \right)$ as an algorithm returning \texttt{true} if $x = \left< g, g^a, g^b, g^{ab} \right>$ and \texttt{false} if $x = \left< g, g^a, g^b, g^c \right>$ for $c \neq ab$. The \textit{Decisional Diffie-Hellman assumption} holds if for any such algorithm $\mathcal{A} \left( x \right)$ there exists a negligible function $\mu \left( k \right)$ such that 
+ \begin{equation*}
+  \lvert \textrm{Pr} \left[ \mathcal{A} \left( \left< g, g^a, g^b, g^{ab} \right> \right) = \texttt{true} \right] - \textrm{Pr} \left[ \mathcal{A} \left( \left< g, g^a, g^b, g^{c} \right> \right) = \texttt{true} \right] \rvert \leq \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^k \right)$, the random choice of $a, b, c$ in $\{ 1, \ldots, | G | \} $ and the random bits of the algorithm $\mathcal{A}$.
+\end{defn}
+
+
+Definition~\ref{def:ddh} states that $\left< g, g^a, g^b, g^{ab} \right>$ and $\left< g, g^a, g^b, g^{c} \right>$ are \textit{computationally indistinguishable}. It means that no efficient algorithm exists that can distinguish both arguments with non-negligible probability. The concept of computational indistinguishable arguments bears close resemblance to statiscally indistinguishable ensembles. The reader is refered to~\cite{art:Goldwasser84} and~\cite{art:Goldwasser89} for a more in depth discussion of the topic. The intuitive interpretation of Definition~\ref{def:ddh} is that $g^{ab}$ looks like any other random element in $G$.
+
+Someone with the ability to calculate discrete logarithms could trivially solve the CDH problem. That is, if $a$ and $b$ can be derived only from $\left< g^a, g^b \right>$, it becomes easy to calculate $g^{ab}$. Therefore, a group structure where the CDH assumption holds, immediately implies a group where the DL assumption is valid as well. There is no mathematical proof that supports the inverse relation. Thus, a group where the DL problem is hard not necessarily implies the CDH problem. For specific group structures~\cite{art:MaurerW98} and~\cite{art:MaurerW99} show that CDH immediately follows from the DL assumption, however, their proof can not be generalised to just any group.
+
+There exists a similar relation between the CDH and the DDH problem. If a powerful algorithm could solve CDH, i.e. derive $g^{ab}$ from $\left< g, g^a, g^b \right>$ alone, it would become trivial to distinguish $\left< g, g^a, g^b, g^{ab} \right>$ from $\left< g, g^a, g^b, g^c \right>$. Again, an inverse relation can not be proven. As a matter of fact, concrete examples of groups exist where CDH is hard although DDH is not.
+
+Therefore, the relation between DL, CDH and DDH is often written as follows
+\begin{equation*}
+ DDH \Rightarrow CDH \Rightarrow DL
+\end{equation*}
+The $\Rightarrow$ notation is then translated into "immediately implies". In a group where DDH is hard both CDH and DL will be hard. On the contrary, there exist group structures where the CDH and the DL assumption hold while DDH can be found easily. Such groups are called \textit{Gap Diffie-Hellman Groups}.
+
+\begin{defn}[GDH]
+\label{def:gdh}
+The \textit{Gap Diffie-Hellman problem} is defined as follows. Solve the CDH problem with the help of a DDH oracle. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and $g^a, g^b$ with uniformly chosen random independent elements $a, b \in \{ 1, \ldots, | G |\}$ , find the value $g^{ab}$ with the help of a DDH oracle $\mathcal{DDH} \left( g, g^a, g^b, z \right)$. Where the DDH oracle $\mathcal{DDH} \left( g, g^a, g^b, z \right)$ is defined to return \texttt{true} if $z = g^{ab}$ and \texttt{false} if $z \neq g^{ab}$.
+
+The \textit{Gap Diffie-Hellman assumption} holds if for any algorithm $\mathcal{A} \left( g, g^a, g^b \right)$ trying to solve the CDH problem with the help of a DDH oracle $\mathcal{DDH} \left( g, g^a, g^b, z \right)$ there exists a negligible function $\mu \left( k \right)$ such that 
+ \begin{equation*}
+  \textrm{Pr} \left[ \mathcal{A} \left( g, g^a, g^b \right) = g^{ab} \mid \left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{k} \right)\right] \leq \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^k \right)$, the random choice of $a, b$ in $\{ 1, \ldots, | G |\}$ and the random bits of the algorithm $\mathcal{A}$.
+\end{defn}
+
+As discussed in the next Section~\ref{sec:bilinear_map} bilinear pairings are an example of a practical usable DDH oracle~\cite{art:JouxN03}.
+
+\section{Bilinear Maps}
+\label{sec:bilinear_map}
 
 \subsection{Definition}
-\lipsum[56-57]
+
+\begin{defn}[Admissible bilinear map]
+ Let $G_1, G_2$ and $G_T$ be three groups of order $q$ for some large $q$. An \textit{admissible bilinear map} $e: G_1 \times G_2 \rightarrow G_T$ is defined as a map from the gap groups $G_1$ and $G_2$ to the target group $G_T$ that satisfies the following properties:
+ \begin{enumerate}
+  \item \textit{Bilinearity} $\forall a, b \in \mathbb{Z}, \forall g_1 \in G_1, \forall g_2 \in G_2: e \left( g_1^a, g_2^b \right) = e \left( g_1, g_2 \right)^{ab}$
+  \item \textit{Non-degeneracy} If $g_1$ is a generator of $G_1$ and $g_2$ is a generator of $G_2$, $e \left( g_1, g_2 \right)$ is a generator of $G_T$
+  \item \textit{Computability} There is an efficient algorithm to compute $e \left( g_1, g_2 \right)$ for all $g_1 \in G_1$ and $g_2 \in G_2$
+ \end{enumerate}
+
+\end{defn}
+
 
 \subsection{Bilinear Diffie-Hellman Assumption}
-\lipsum[58]
 
 \subsection{Variants of the Bilinear Diffie-Hellman Assumption}
-\lipsum[59]
 
-\section{Commitment Schemes}
-\lipsum[60]
+\section{Secret Sharing}
 
 \subsection{Definition}
-\lipsum[61]
 
-\subsection{Pedersen Commitment Scheme}
-\lipsum[62]
+\subsection{Verifiable Secret Sharing}
 
-\section{Proofs of Knowledge}
-\lipsum[63]
+\section{Hash Functions}
 
 \subsection{Definition}
-\lipsum[64]
 
-\subsection{Zero-knowledge Proof}
-\lipsum[65]
+\subsection{Standard Model}
 
-\subsection{Security Model}
-\lipsum[66]
-
-\subsubsection{Standard Model}
-\lipsum[67]
-
-\subsubsection{Random Oracle Assumption}
-\lipsum[68]
+\subsection{Random Oracle Assumption}
 
 \section{Conclusion}
 The final section of the chapter gives an overview of the important results

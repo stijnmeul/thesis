@@ -26,8 +26,27 @@
 % Finally the hyperref package is used for pdf files.
 % This can be commented out for printed versions.
 \usepackage[pdfusetitle,plainpages=false]{hyperref}
+
 \usepackage{kulemtx}
 \headstyles{kulemtman}
+%%%%%%
+% Extra packages
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+%%%%%%
+% Make theorem titles bold
+\makeatletter
+\def\th@plain{%
+  \thm@notefont{}% same as heading font
+  \itshape % body font
+}
+\def\th@definition{%
+  \thm@notefont{}% same as heading font
+  \normalfont % body font
+}
+\makeatother
 
 %%%%%%%
 % The lipsum package is used to generate random text.
@@ -37,8 +56,17 @@
  {\newcommand{\lipsum}[1][11-13]{\par And some text: lipsum ##1.\par}}
 %%%%%%%
 
+% Reset theorem numbering for each chapter
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[chapter]
+
+% definition numbers are dependent on the theorem numbers
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+
 %\includeonly{chap-n}
 \begin{document}
+
 
 \begin{preface}
   I would like to thank everybody who kept me busy the last year,

@@ -1,10 +1,21 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{h2g2}
 D.~Adams.
 \newblock {\em The Hitchhiker's Guide to the Galaxy}.
 \newblock Del Rey (reprint), 1995.
 \newblock ISBN-13: 978-0345391803.
+
+\bibitem{book:survey_of_modern_algebra}
+G.~Birkhoff and S.~MacLane.
+\newblock {\em A Survey of Modern Algebra}.
+\newblock The Macmillan Comp., 1965.
+
+\bibitem{art:Boneh98}
+D.~Boneh.
+\newblock The decision diffie-hellman problem.
+\newblock In J.~Buhler, editor, {\em ANTS}, volume 1423 of {\em Lecture Notes
+  in Computer Science}, pages 48--63. Springer, 1998.
 
 \bibitem{site:Bullas14}
 J.~Bullas.
@@ -13,12 +24,52 @@ J.~Bullas.
   \url{http://www.jeffbullas.com/2014/01/17/20-social-media-facts-and-statistics-you-should-know-in-2014/},
   last checked on 2014-05-08.
 
+\bibitem{book:Goldreich97}
+O.~Goldreich.
+\newblock On the foundations of modern cryptography.
+\newblock In B.~S.~K. Jr., editor, {\em CRYPTO}, volume 1294 of {\em Lecture
+  Notes in Computer Science}, pages 46--74. Springer, 1997.
+
+\bibitem{art:Goldwasser84}
+S.~Goldwasser and S.~Micali.
+\newblock Probabilistic encryption.
+\newblock {\em Journal of Computer and System Sciences}, 28(2):270 -- 299,
+  1984.
+
+\bibitem{art:Goldwasser89}
+S.~Goldwasser, S.~Micali, and C.~Rackoff.
+\newblock The knowledge complexity of interactive proof systems.
+\newblock {\em SIAM J. Comput.}, 18(1):186--208, 1989.
+
 \bibitem{site:Jones13}
 K.~Jones.
 \newblock The growth of social media v2.0.
 \newblock URL:
   \url{http://www.searchenginejournal.com/growth-social-media-2-0-infographic/77055/},
   last checked on 2014-05-08.
+
+\bibitem{art:JouxN03}
+A.~Joux and K.~Nguyen.
+\newblock Separating decision diffie-hellman from computational diffie-hellman
+  in cryptographic groups.
+\newblock {\em J. Cryptology}, 16(4):239--247, 2003.
+
+\bibitem{art:MaurerW98}
+U.~M. Maurer and S.~Wolf.
+\newblock Lower bounds on generic algorithms in groups.
+\newblock In K.~Nyberg, editor, {\em EUROCRYPT}, volume 1403 of {\em Lecture
+  Notes in Computer Science}, pages 72--84. Springer, 1998.
+
+\bibitem{art:MaurerW99}
+U.~M. Maurer and S.~Wolf.
+\newblock The relationship between breaking the diffie-hellman protocol and
+  computing discrete logarithms.
+\newblock {\em SIAM J. Comput.}, 28(5):1689--1721, 1999.
+
+\bibitem{book:handbook_of_applied_cryptography}
+A.~Menezes, P.~C. van Oorschot, and S.~A. Vanstone.
+\newblock {\em Handbook of Applied Cryptography}.
+\newblock CRC Press, 1996.
 
 \bibitem{site:StatisticBrain}
 StatisticBrain.

@@ -8,34 +8,35 @@
 \BOOKMARK [1][-]{section.1.3}{Goals of this Thesis}{chapter.1}% 8
 \BOOKMARK [1][-]{section.1.4}{Structure of this Thesis}{chapter.1}% 9
 \BOOKMARK [0][-]{chapter.2}{Preliminaries}{}% 10
-\BOOKMARK [1][-]{section.2.1}{Notation}{chapter.2}% 11
-\BOOKMARK [1][-]{section.2.2}{Group Theory}{chapter.2}% 12
-\BOOKMARK [1][-]{section.2.3}{Bilinear Pairings}{chapter.2}% 13
-\BOOKMARK [1][-]{section.2.4}{Commitment Schemes}{chapter.2}% 14
-\BOOKMARK [1][-]{section.2.5}{Proofs of Knowledge}{chapter.2}% 15
-\BOOKMARK [1][-]{section.2.6}{Conclusion}{chapter.2}% 16
-\BOOKMARK [0][-]{chapter.3}{Literature Review}{}% 17
-\BOOKMARK [1][-]{section.3.1}{Public Key Generation}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.2}{Distributed Key Generation}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.3}{Identity-Based Encryption}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.4}{Broadcast Encryption}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.5}{Conclusion}{chapter.3}% 22
-\BOOKMARK [0][-]{chapter.4}{Anonymous Identity-Based Broadcast Encryption}{}% 23
-\BOOKMARK [1][-]{section.4.1}{Security Model}{chapter.4}% 24
-\BOOKMARK [1][-]{section.4.2}{Proposed Scheme}{chapter.4}% 25
-\BOOKMARK [1][-]{section.4.3}{Conclusion}{chapter.4}% 26
-\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 27
-\BOOKMARK [1][-]{section.5.1}{Existing Solutions}{chapter.5}% 28
-\BOOKMARK [1][-]{section.5.2}{Anonymous Identity-Based Broadcasting Implementation}{chapter.5}% 29
-\BOOKMARK [1][-]{section.5.3}{Distributed Key Generation Implementation}{chapter.5}% 30
-\BOOKMARK [1][-]{section.5.4}{Evaluation}{chapter.5}% 31
-\BOOKMARK [1][-]{section.5.5}{Performance Analysis}{chapter.5}% 32
-\BOOKMARK [1][-]{section.5.6}{Conclusion}{chapter.5}% 33
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 34
-\BOOKMARK [0][-]{appendix.A}{Installing and Executing the Code}{}% 35
-\BOOKMARK [1][-]{section.A.1}{Setting up the DKG}{appendix.A}% 36
-\BOOKMARK [1][-]{section.A.2}{Setting up Scramble}{appendix.A}% 37
-\BOOKMARK [0][-]{appendix.B}{The Last Appendix}{}% 38
-\BOOKMARK [1][-]{section.B.1}{Lorem 20-24}{appendix.B}% 39
-\BOOKMARK [1][-]{section.B.2}{Lorem 25-27}{appendix.B}% 40
-\BOOKMARK [0][-]{section*.12}{Bibliography}{}% 41
+\BOOKMARK [1][-]{section.2.1}{Complexity Theory}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.2}{Abstract Algebra}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.3}{Number Theoretic Assumptions}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.4}{Bilinear Maps}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.5}{Secret Sharing}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.6}{Hash Functions}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.7}{Conclusion}{chapter.2}% 17
+\BOOKMARK [0][-]{chapter.3}{Literature Review}{}% 18
+\BOOKMARK [1][-]{section.3.1}{Public Key Generation}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.2}{Distributed Key Generation}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.3}{Identity-Based Encryption}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.4}{Broadcast Encryption}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.5}{Conclusion}{chapter.3}% 23
+\BOOKMARK [0][-]{chapter.4}{Outsider Anonymous Identity-Based Broadcast Encryption}{}% 24
+\BOOKMARK [1][-]{section.4.1}{Security Model}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.2}{Proposed Scheme}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.3}{Conclusion}{chapter.4}% 27
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 28
+\BOOKMARK [1][-]{section.5.1}{Existing Solutions}{chapter.5}% 29
+\BOOKMARK [1][-]{section.5.2}{Anonymous Identity-Based Broadcasting Implementation}{chapter.5}% 30
+\BOOKMARK [1][-]{section.5.3}{Distributed Key Generation Implementation}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.4}{Evaluation}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.5}{Performance Analysis}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.6}{Conclusion}{chapter.5}% 34
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 35
+\BOOKMARK [0][-]{appendix.A}{Installing and Executing the Code}{}% 36
+\BOOKMARK [1][-]{section.A.1}{Setting up the DKG}{appendix.A}% 37
+\BOOKMARK [1][-]{section.A.2}{Setting up Scramble}{appendix.A}% 38
+\BOOKMARK [0][-]{appendix.B}{The Last Appendix}{}% 39
+\BOOKMARK [1][-]{section.B.1}{Lorem 20-24}{appendix.B}% 40
+\BOOKMARK [1][-]{section.B.2}{Lorem 25-27}{appendix.B}% 41
+\BOOKMARK [0][-]{section*.10}{Bibliography}{}% 42

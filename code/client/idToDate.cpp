@@ -31,7 +31,8 @@ miracl *mip = get_mip();
 int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 
 string getYear();
-string getMonth();
+string getMonthString();
+string getMonthInt();
 
 int main(void)
 {
@@ -94,20 +95,41 @@ int main(void)
     }
 
     cout << "Execution time division method is "<< getExecutionTime(begin_time) << " ms" << endl;
-    cout << name << "s expiry date is on " << day << " " << getMonth() << " " << getYear() << " at " << hour << ":" << minute << endl;
-
+    cout << name << "s expiry date is on " << day << " " << getMonthString() << " " << getYear() << " at " << hour << ":" << minute << endl;
+    cout << name << "'s ID is " << name;
+    if(day < 10)
+        cout << 0;
+    cout << day << getMonthInt() << getYear();
+    if(hour < 10)
+        cout << 0;
+    cout << hour;
+    if(minute < 10)
+        cout << 0;
+    cout << minute << endl;
     cout << "Executed sucessfully!" << endl;
 
 
     return 0;
 }
 
-string getMonth() {
+string getMonthString() {
     const nl_item nl_months[12] = {MON_1, MON_2, MON_3, MON_4, MON_5, MON_6,
                                    MON_7, MON_8, MON_9, MON_10, MON_11, MON_12};
     time_t t = time(0);   // get time now
     struct tm * now = localtime( & t );
     return nl_langinfo(nl_months[now->tm_mon]);
+}
+
+string getMonthInt() {
+    time_t t = time(0);   // get time now
+    struct tm * now = localtime( & t );
+    stringstream ss;
+    if(now->tm_mon + 1 < 10)
+        ss << 0 << now->tm_mon + 1;
+    else {
+        ss << now->tm_mon + 1;
+    }
+    return ss.str();
 }
 
 string getYear() {
