@@ -22,50 +22,51 @@ I was expecting a `,' or a `}'---line 347 of file references.bib
 I'm skipping whatever remains of this entry
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
+Warning--I didn't find a database entry for "art:Massey88"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
 Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Wyseur09
-You've used 36 entries,
+You've used 37 entries,
             2118 wiz_defined-function locations,
-            771 strings with 10918 characters,
-and the built_in function-call counts, 12127 in all, are:
-= -- 1182
-> -- 493
+            776 strings with 11068 characters,
+and the built_in function-call counts, 12410 in all, are:
+= -- 1207
+> -- 512
 < -- 21
-+ -- 202
-- -- 154
-* -- 802
-:= -- 1936
-add.period$ -- 116
-call.type$ -- 36
-change.case$ -- 175
++ -- 208
+- -- 160
+* -- 816
+:= -- 1986
+add.period$ -- 119
+call.type$ -- 37
+change.case$ -- 180
 chr.to.int$ -- 0
-cite$ -- 40
-duplicate$ -- 500
-empty$ -- 1019
-format.name$ -- 160
-if$ -- 2658
+cite$ -- 41
+duplicate$ -- 512
+empty$ -- 1041
+format.name$ -- 166
+if$ -- 2718
 int.to.chr$ -- 0
-int.to.str$ -- 36
-missing$ -- 31
-newline$ -- 181
-num.names$ -- 85
-pop$ -- 196
+int.to.str$ -- 37
+missing$ -- 33
+newline$ -- 186
+num.names$ -- 87
+pop$ -- 206
 preamble$ -- 1
-purify$ -- 143
+purify$ -- 148
 quote$ -- 0
-skip$ -- 387
+skip$ -- 395
 stack$ -- 0
-substring$ -- 716
-swap$ -- 150
+substring$ -- 720
+swap$ -- 151
 text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 137
+type$ -- 139
 warning$ -- 4
-while$ -- 113
-width$ -- 38
-write$ -- 396
+while$ -- 115
+width$ -- 39
+write$ -- 406
 (There were 3 error messages)

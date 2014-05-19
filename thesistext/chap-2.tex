@@ -31,44 +31,41 @@ Suppose Alice and Bob have a lot of secret information to share. This would requ
 Because such large random symmetric keys $k$ are not practical in real-life applications, block cipher modes and stream ciphers are widely used. These are algorithms that accept a fixed size symmetric key but allow to encrypt larger messages $m$ by introducing deterministic pseudo randomness. As already mentioned in Section~\ref{sec:number_theoretic_assumptions}, these algorithms require a more pragmatic view on cryptography because they only ensure that disclosure of information is computationally difficult but not impossible. Common examples of block ciphers are AES and DES. They can be used in CFB, CTR or CFB mode to name a few. Stream ciphers include Trivium and RC4. For more information on block ciphers, stream ciphers and modes of operation the reader is referred to~\cite{book:handbook_of_applied_cryptography}.
 
 \subsection{Asymmetric Cryptography}
-In the information society of today, it would not be practical if Alice should meet Bob in real-life each time she wants to privately agree on a new symmetric key $k$. To solve this issue Diffie and Hellman proposed a key exchange algorithm in 1976, now famously known as Diffie-Hellman key exchange. The algorithm allows two parties that can only communicate over an insecure channel to agree on a secret while no external passive eavesdropper with limited computing power can derive the secret. It would become the reason of existence for public key architectures like Certification Authorities or OpenPGP.
+In the information society of today, it would not be practical if Alice should meet Bob in real-life each time she wants to privately agree on a new symmetric key $k$. Now suppose that it would be possible to encrypt messages with a key $pk$ and decrypt them with a corresponding different key $sk$. In such a setting, Bob could publish his personal encryption key $pk_{Bob}$ while keeping his decryption key $sk_{Bob}$ private thereby allowing Alice to immediately start sending private messages to Bob.
 
-\subsubsection{Diffie-Hellman Key Exchange}
-The basic version of Diffie-Hellman key exchange can be found in Algorithm~\ref{alg:diffie-hellman_key_exchange}. Note that no passive eavesdropper can derive the secret key $k$ from the sent messages $\left< g^x \bmod p \right>$ and $\left< g^y \bmod p \right>$ as long as the Computational Diffie-Hellman assumption and the Decisional Diffie-Hellman assumption hold (Section~\ref{sec:number_theoretic_assumptions}).
+The concept of using a different key for encryption than decryption is often referred to as \textit{asymmetric cryptography}. The term \textit{public-key cryptography} describes the same idea and is interchangeably used in literature.
 
-\begin{algorithm}
-\caption{Diffie-Hellman key exchange~\cite{book:handbook_of_applied_cryptography} }
-\label{alg:diffie-hellman_key_exchange}
- \textbf{Goal}: Two parties $A$ and $B$ want to agree on a secret key $k$ over an insecure channel
- 
- \textbf{Result}: $A$ and $B$ share the same secret key $k$
- \begin{enumerate}
-  \item \textit{One-time Setup} An appropriate prime $p$ and generator $g \in \mathbb{Z}^*_p$ are published such that $2 \leq g \leq p-2$.
-  \item \textit{Protocol}
-  \begin{enumerate}
-   \item $A$ chooses a random secret $x, 1 \leq x \leq p-2$ and sends $B$ the message
-   \begin{equation*}
-    A \rightarrow B: g^x \bmod p
-   \end{equation*}
-   \item $B$ chooses a random secret $y, 1 \leq y \leq p-2$ and sends $A$ the message
-   \begin{equation*}
-    A \leftarrow B: g^y \bmod p
-   \end{equation*}
-   \item $B$ receives $g^x$ and computes the shared key as $k = \left( g^x \right)^y$.
-   \item $A$ receives $g^y$ and computes the shared key as $k = \left( g^y \right)^x$.
-  \end{enumerate}
+The concept of asymmetric cryptography bears close resemblance to the old-school mailbox system. Everyone can put letters in a mailbox, i.e. encrypt, but only a person with a privately owned key can retrieve letters, i.e. decrypt~\cite{book:PaarP10}.
 
- \end{enumerate}
-\end{algorithm}
+\subsubsection{Trapdoor One-way Function}
+Public-key cryptography revolutionised thanks to a paper from Diffie and Hellman in 1976 proposing a private key exchange algorithm, now famously known as Diffie-Hellman key exchange~\cite{art:DiffieH76}\footnote{Diffie-Hellman key exchange allows two parties that can only communicate over an insecure channel to agree on a secret while no external passive eavesdropper with limited computing power can derive the secret.}. Although Diffie-Hellman key exchange simplified the most important key management aspect of symmetric cryptography at the time, the real trigger for asymmetric cryptography appeared to be the introduction of a trapdoor one-way function.
 
-\subsubsection{Authentication}
-Algorithm~\ref{alg:diffie-hellman_key_exchange} only protects against passive adversaries because the messages in the protocol are not authenticated, i.e. there is no proof who the original sender of the message is. Therefore, Diffie-Hellman key exchange is vulnerable to man in the middle attacks. 
+\begin{defn}[One-way Function]
+\label{def:one-way_function}
+ A function $f: \left( 0, 1 \right)^* \rightarrow \left( 0, 1 \right)^*$ that is computable in polynomial time, is said to be a one-way function if for any algorithm $\mathcal{A}\left( f \left( x \right) \right)$ trying to invert $f \left( x \right)$, there exist a negligible function $\mu \left( k \right) $ such that
+ \begin{equation*}
+  \textrm{Pr} \left[ f \left( \mathcal{A} \left( f \left( x \right) \right) \right) = f \left( x \right) \right] \leq \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $x$ from the uniform random distribution on $\left( 0, 1 \right)^k$ and the random bits of the algorithm $\mathcal{A}$.
+\end{defn}
 
-Suppose an active adversary $E$ pretends to be $B$ and exchanges a secret with $A$. At the same time $E$ exchanges another secret with $B$ while impersonating $A$. In this scenario both $A$ and $B$ think they successfully agreed on a secret key and start to send encrypted messages to each other assuming they are having a private conversation. In reality $E$ can decrypt all information as the man in the middle. After decryption, $E$ could encrypt the message with the corresponding negotiated symmetric key such that $A$ and $B$ have no clue what is going on.
+A hash function (Section~\ref{sec:hash_functions}) is a practical implementation of a one-way function.
 
-Algorithm~\ref{alg:diffie-hellman_key_exchange} should be altered such that all messages are authenticated to avoid man in the middle attacks. Authentication is often achieved with the help of signature schemes. An authenticated version of Algorithm~\ref{alg:diffie-hellman_key_exchange} is the Station-to-Station protocol.
+\begin{defn}[Trapdoor one-way function]
+\label{def:one-way_function}
+ A one-way function $f: \left( 0, 1 \right)^* \rightarrow \left( 0, 1 \right)^*$ is said to be a trapdoor one-way function if there exist a specific algorithm $\mathcal{A}' \left( f \left( x \right), \mathcal{H} \right)$ that can invert $f \left( x \right)$ based on an additional hint $\mathcal{H}$, such that for any negligible function $\mu \left( k \right)$ 
+ \begin{equation*}
+  \textrm{Pr} \left[ f \left( \mathcal{A}' \left( f \left( x \right) \right) \right) = f \left( x \right) \right] > \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $x$ from the uniform random distribution on $\left( 0, 1 \right)^k$ and the random bits of the algorithm $\mathcal{A}'$.
+\end{defn} 
 
-\subsubsection{Signatures}
+The Computational Diffie-Hellman problem (Section~\ref{sec:number_theoretic_assumptions}) is a trapdoor one-way function because it is hard to find $g^{ab}$ given $\left< g, g^a, g^b \right>$ but easy given $\left< g, g^a, g^b, \mathcal{H} \right>$ if the hint $\mathcal{H}$ equals $a$ or $b$.
+
+\subsubsection{Practical Encryption Algorithms}
+Trapdoor one-way functions can be used as a generic construction for asymmetric encryption by publishing all the parameters for the one-way function publicly while keeping the corresponding hint $\mathcal{H}$ private.
+
+\subsubsection{Digital Signatures}
 A digital signature resembles a handwritten signature in that it proofs a particular person has approved a particular message. However, a digital signature is harder to forge than its handwritten counterpart due to the computational hardness assumptions digital signatures rely on.
 
 \begin{defn}[Digital signature]
@@ -87,8 +84,8 @@ Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature sc
 \label{alg:generic_signature_scheme}
  In a digital signature scheme each entity $A$ has a publicly known verifying key $vk_A$ and a corresponding private signing key $sk_A$. A generic signature scheme consists of two algorithms:
  \begin{enumerate}
-  \item \texttt{Sign($sk_A, m$)} Entity $A$ signs the message $m$ using its private signing key $sk_A$ resulting in a signature $S_A \left( m \right)$
-  \item \texttt{Verify($pk_A, S_A \left( m \right), m$)} Entity $B$ verifies the signature $S_A \left( m \right)$ with the public verifying key $vk_A$ of $A$. The \textit{Verify} step returns \texttt{true} or \texttt{false} depending on the validity of the signature.
+  \item \texttt{Sign($sk_A, m$)}: Entity $A$ signs the message $m$ using its private signing key $sk_A$ resulting in a signature $S_A \left( m \right)$
+  \item \texttt{Verify($pk_A, S_A \left( m \right), m$)}: Entity $B$ verifies the signature $S_A \left( m \right)$ with the public verifying key $vk_A$ of $A$. The \texttt{Verify} step returns \texttt{true} or \texttt{false} depending on the validity of the signature.
  \end{enumerate}
 \end{algorithm}
 
@@ -96,8 +93,6 @@ Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature sc
 \subsubsection{Certification Authorities} 
 
 \subsubsection{OpenPGP}
-
-Shamir invented the first three-pass protocol in 1980 although he never published his findings~\cite{art:Massey88}.
 
 \section{Secret Sharing}
 

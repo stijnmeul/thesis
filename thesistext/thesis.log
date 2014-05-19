@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  19 MAY 2014 10:35
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  19 MAY 2014 13:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -673,6 +673,9 @@ Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
 \c@thm=\count177
  (./thesis.aux (./intro.aux) (./chap-1.aux) (./chap-2.aux
 
+LaTeX Warning: Label `def:one-way_function' multiply defined.
+
+
 LaTeX Warning: Label `def:threshold_scheme' multiply defined.
 
 ) (./chap-3.aux) (./chap-n.aux
@@ -916,9 +919,12 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) h
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.18 
-      <./img/cryptosystem.pdf>] [14]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 40.
- [15] [16] [17] [18]) [19]
+      <./img/cryptosystem.pdf>] [14] [15]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 83.
+ [16] [17]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18]) [19]
 \openout2 = `chap-3.aux'.
 
  (./chap-3.tex [20
@@ -978,22 +984,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 72--77
  []
 
 
-Underfull \hbox (badness 2698) in paragraph at lines 136--141
+Underfull \hbox (badness 2698) in paragraph at lines 141--146
 []\T1/lmr/m/n/10.95 (+20) K. Jones.  The growth of so-cial me-dia v2.0.  URL: []$\T1/lmtt/m/n/10.95 http : / / www .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--141
+Underfull \hbox (badness 10000) in paragraph at lines 141--146
 \T1/lmtt/m/n/10.95 searchenginejournal . com / growth-[]social-[]media-[]2-[]0-[]infographic /
  []
 
 [34]
-Underfull \hbox (badness 7704) in paragraph at lines 188--193
+Underfull \hbox (badness 7704) in paragraph at lines 194--199
 []\T1/lmr/m/n/10.95 (+20) StatisticBrain.  So-cial net-work-ing statis-tics.  URL: []$\T1/lmtt/m/n/10.95 http : / / www .
  []
 
 
-Underfull \hbox (badness 2799) in paragraph at lines 188--193
+Underfull \hbox (badness 2799) in paragraph at lines 194--199
 \T1/lmtt/m/n/10.95 statisticbrain . com / social-[]networking-[]statistics/$[]\T1/lmr/m/n/10.95 (+20) , last checked on
  []
 
@@ -1023,19 +1029,19 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 143.
  ) 
 Here is how much of TeX's memory you used:
- 13390 strings out of 493315
- 197094 string characters out of 6137904
- 460195 words of memory out of 5000000
- 16137 multiletter control sequences out of 15000+600000
- 95955 words of font info for 163 fonts, out of 8000000 for 9000
+ 13393 strings out of 493315
+ 197150 string characters out of 6137904
+ 460310 words of memory out of 5000000
+ 16139 multiletter control sequences out of 15000+600000
+ 96174 words of font info for 165 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  42i,12n,35p,1254b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsso12.p
 fb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis.pdf (44 pages, 734757 bytes).
+Output written on thesis.pdf (44 pages, 737303 bytes).
 PDF statistics:
- 853 PDF objects out of 1000 (max. 8388607)
- 761 compressed objects within 8 object streams
- 225 named destinations out of 1000 (max. 500000)
+ 847 PDF objects out of 1000 (max. 8388607)
+ 755 compressed objects within 8 object streams
+ 222 named destinations out of 1000 (max. 500000)
  30561 words of extra memory for PDF output out of 35830 (max. 10000000)
 

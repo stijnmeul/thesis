@@ -98,6 +98,11 @@ J.-S. Coron, Y.~Dodis, C.~Malinaud, and P.~Puniya.
 \newblock In V.~Shoup, editor, {\em CRYPTO}, volume 3621 of {\em Lecture Notes
   in Computer Science}, pages 430--448. Springer, 2005.
 
+\bibitem{art:DiffieH76}
+W.~Diffie and M.~E. Hellman.
+\newblock New directions in cryptography.
+\newblock {\em IEEE Transactions on Information Theory}, 22(6):644--654, 1976.
+
 \bibitem{art:Feldman87}
 P.~Feldman.
 \newblock A practical scheme for non-interactive verifiable secret sharing.
@@ -151,11 +156,6 @@ A.~Joux and K.~Nguyen.
   in cryptographic groups.
 \newblock {\em J. Cryptology}, 16(4):239--247, 2003.
 
-\bibitem{art:Massey88}
-J.~Massey.
-\newblock An introduction to contemporary cryptology.
-\newblock {\em Proceedings of the IEEE}, 76(5):533--549, May 1988.
-
 \bibitem{art:MaurerW98}
 U.~M. Maurer and S.~Wolf.
 \newblock Lower bounds on generic algorithms in groups.
@@ -172,6 +172,12 @@ U.~M. Maurer and S.~Wolf.
 A.~Menezes, P.~C. van Oorschot, and S.~A. Vanstone.
 \newblock {\em Handbook of Applied Cryptography}.
 \newblock CRC Press, 1996.
+
+\bibitem{book:PaarP10}
+C.~Paar and J.~Pelzl.
+\newblock {\em Understanding Cryptography - A Textbook for Students and
+  Practitioners}.
+\newblock Springer, 2010.
 
 \bibitem{art:RistenpartSS11}
 T.~Ristenpart, H.~Shacham, and T.~Shrimpton.
