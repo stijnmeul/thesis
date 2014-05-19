@@ -1,105 +1,83 @@
 \chapter{Literature Review}
 \label{cha:2}
 
-\section{Cryptology}
-Cryptology is the science describing how to hide confidential information. Cryptology consists of two complementary fields that continuously try to outwit each other: cryptography and cryptanalysis. On the one hand, cryptography is the practice and study of techniques trying to hide information from undesired third parties. On the other hand, cryptanalysis is the domain of cryptology trying to derive information from hidden data.
+\section{Identity-Based Encryption}
+Shamir~\cite{art:Shamir84} already proposed a concept of identity-based cryptography in 1984. In identity-based cryptography any string can be a valid public key for encryption or signature schemes thereby eliminating the need for digital certificates. Identity-based cryptography proves to be particularly elegant if the public key is related to an attribute that uniquely identifies the identity of the user like an e-mail address, an IP address or a telephone number. Consequently, identity-based cryptography reduces system complexity and the cost for establishing and managing the Public Key Infrastructure~(PKI)~\cite{art:BaekNSS04}. 
 
-\subsection{Symmetric Cryptography}
-Figure~\ref{fig:cryptosystem} shows a typical cryptographic system often shortened to "cryptosystem". In a typical cryptosystem one party (often called Alice) tries to send a message $m$ over an insecure channel to another party (often called Bob). The channel is insecure as third parties like Eve can eavesdrop on the channel to read out data that is being sent over.
 
-\begin{figure}
- \includegraphics[trim=40mm 120mm 40mm 120mm, clip]{img/cryptosystem.pdf}
- \caption{A cryptosystem~\cite{thesis:Wyseur09}}
- \label{fig:cryptosystem}
+\subsection{Definition}
+A generic Identity-Based Encryption (IBE) scheme is composed of four probabilistic polynomial time algorithms:
+\begin{description}
+    \item[\texttt{IBE.Setup($1^k$)}] On input of a security parameter $k$, outputs a master secret $s_k$ and public parameters $params$.
+    \item[\texttt{IBE.Extract($params, s_k, \id{}$):}] Takes public parameters $params$, the master secret $s$, and an \id{} as input and returns the private key $s_{\id{}}$ corresponding to the identity \id{}.
+    \item[\texttt{IBE.Encrypt($params, \id{}, m$):}] Returns the encryption $c$ of the message $m$ on the input of the public parameters $params$, the \id{}, and the arbitrary length message $m$.
+    \item[\texttt{IBE.Decrypt($s_{\id{}}, c$):}] Decrypts the ciphertext $c =$ \texttt{IBE.Encrypt}($params, \id{}, m$) back to the message $m$ on input of the secret key $s_{\id{}}$ corresponding to the receiving identity \id{}.
+\end{description}
+
+\begin{figure}[ht]
+    \begin{center}
+    \scalebox{0.78}{
+        \begin{tikzpicture}[auto, node distance=1mm, align=center,
+            block/.style={rectangle,text width=6em,text centered,minimum height=11mm},
+            line/.style={draw,very thick, ->},
+            line2/.style={draw,very thick, <->},
+            leg/.style={text centered},
+            ]
+            %\draw[help lines] (-6,-5) grid (8,3);
+            \path
+                % Images
+                (-0.5,3) node [block] (pkg) {\includegraphics[scale=0.2]{img/pkg.png}}
+                (-4,0) node [block] (alice) {\includegraphics[scale=0.2]{img/alice.png}}
+                (4,0) node [block] (bob) {\includegraphics[scale=0.2]{img/bob.png}}
+                % Text
+                (-0.5, 0.5) node [leg] (test) {$c$}
+                (2, 2) node [leg] (test2) {$s_{\id{Bob}}$}
+                ;
+                
+       \node[below=of pkg] {\textbf{PKG}};
+       \node[below=of alice] {\textbf{Alice} \\ 3. $c \leftarrow $\texttt{IBE.Encrypt($params, \id{Bob}, m$)}};
+       \node[below=of bob] {\textbf{Bob} \\ 5. $m \leftarrow $\texttt{IBE.Decrypt($s_{\id{Bob}}, \id{Bob}$)}};
+       \node[above=of pkg,align=left] {
+               1. $\left< s_k, params \right> \leftarrow $\texttt{IBE.Setup($1^k$)} \\
+               2. publish $params$ \\
+               \\
+               4. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, s_k, \id{Bob}$)}
+               };
+       \begin{scope}[every path/.style=line]
+        \path (alice.east) -- (bob.west);         
+       \end{scope}
+       \begin{scope}[every path/.style=line2]
+        \path (pkg.south east) -- (bob.north west);    
+       \end{scope}
+
+
+        \end{tikzpicture}
+    }
+    \end{center}
+    \caption{Multiple $(n,t)$-PKG IBE for OSNs overview, for a message $m$ published for the set $\mathcal{S}$ for $t=3$.}
+    \label{fig:overview}
 \end{figure}
 
-\subsubsection{Confidentiality}
-Figure~\ref{fig:cryptosystem} achieves confidentiality, i.e. the information in $m$ is protected from disclosure to unauthorised parties. To prevent eavesdroppers from reading out the message $m$, Alice and Bob have agreed on a key $k$ that is unknown to the outside world. Before sending a message $m$ over the insecure channel, Alice encrypts the message $m$ to a ciphertext $c$ under the secret key $k$ using an encryption algorithm $E_k$ such that $c = E_k \left( m \right)$. Ideally $c$ looks like random gibberish to eavesdroppers like Eve. Bob can then read out the original plaintext message $m$ by applying the decryption algorithm $D_k$ under the same key $k$. Cryptosystems as the one described in Figure~\ref{fig:cryptosystem} are called \textit{symmetric} as both Alice and Bob have to use the same key $k$ for encryption and decryption. 
 
-Most cryptosystems that are practically used today satisfy Kerchoff's principle. Kerchoff's principle states that although the encryption and decryption mechanism are known to the outside world, the cryptosystem assures confidentiality as long as the symmetric key $k$ remains secret.
+Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{art:BonehF01} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{art:BonehF01} still relies on the random oracle assumption. Canetti et al.~\cite{art:CanettiHK03} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare which identity it will target, therefore the scheme in~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity. Gentry~\cite{GentryRandomOracles} proposes a more efficient alternative to this scheme without random oracles while achieving shorter public parameters. 
 
-\subsubsection{One-time Pad}
-A simple symmetric encryption algorithm $E_k$ could be to XOR the binary message $m$ with a binary key $k$ such that the ciphertext is equal to $c = m \oplus k$. Decryption $D_k$ would then consist of an XOR operation with the same binary symmetric key $k$ such that $m = c \oplus k = \left( m \oplus k \right) \oplus k$.  In such a scheme, the key $k$ should be a random binary string with the same length as the plaintext message $m$. This scheme was originally proposed by Vernam and is therefore often called the \textit{Vernam scheme}.
+\subsection{Anonymous Identity-Based Encryption}
 
-Further research on the Vernam scheme by Mauborgne showed that the Vernam scheme can be proven information theoretic secure if $k$ is chosen completely random and used only once. Because of these requirements on the key $k$, the Vernam scheme is more widely known as the \textit{one-time pad}.
+\section{Broadcast Encryption}
 
-\subsubsection{Practical Encryption Algorithms}
-Because the one-time pad is proven information theoretic secure, it can not be broken even if the adversary has access to unlimited computing power. Although this is a desirable property, the one-time pad is not frequently used in modern cryptosystems due to its impractical key management.
+\subsection{Definition}
 
-Suppose Alice and Bob have a lot of secret information to share. This would require that the a priori agreed key $k$ is long enough to hide all this information. Once the size of the message $m$ becomes larger than the key $k$, Alice and Bob should agree on new random bits in $k$ to secure the remainder of their conversation. In fact, they have to agree upfront on as much random bits in $k$ as there will be bits in the message $m$.
+\subsection{Anonymous Broadcast Encryption}
 
-Because such large random symmetric keys $k$ are not practical in real-life applications, block cipher modes and stream ciphers are widely used. These are algorithms that accept a fixed size symmetric key but allow to encrypt larger messages $m$ by introducing deterministic pseudo randomness. As already mentioned in Section~\ref{sec:number_theoretic_assumptions}, these algorithms require a more pragmatic view on cryptography because they only ensure that disclosure of information is computationally difficult but not impossible. Common examples of block ciphers are AES and DES. They can be used in CFB, CTR or CFB mode to name a few. Stream ciphers include Trivium and RC4. For more information on block ciphers, stream ciphers and modes of operation the reader is referred to~\cite{book:handbook_of_applied_cryptography}.
+\subsection{Outsider-Anonymous Broadcast Encryption}
 
-\subsection{Asymmetric Cryptography}
-In the information society of today, it would not be practical if Alice should meet Bob in real-life each time she wants to privately agree on a new symmetric key $k$. Now suppose that it would be possible to encrypt messages with a key $pk$ and decrypt them with a corresponding different key $sk$. In such a setting, Bob could publish his personal encryption key $pk_{Bob}$ while keeping his decryption key $sk_{Bob}$ private thereby allowing Alice to immediately start sending private messages to Bob.
-
-The concept of using a different key for encryption than decryption is often referred to as \textit{asymmetric cryptography}. The term \textit{public-key cryptography} describes the same idea and is interchangeably used in literature.
-
-The concept of asymmetric cryptography bears close resemblance to the old-school mailbox system. Everyone can put letters in a mailbox, i.e. encrypt, but only a person with a privately owned key can retrieve letters, i.e. decrypt~\cite{book:PaarP10}.
-
-\subsubsection{Trapdoor One-way Function}
-Public-key cryptography revolutionised thanks to a paper from Diffie and Hellman in 1976 proposing a private key exchange algorithm, now famously known as Diffie-Hellman key exchange~\cite{art:DiffieH76}\footnote{Diffie-Hellman key exchange allows two parties that can only communicate over an insecure channel to agree on a secret while no external passive eavesdropper with limited computing power can derive the secret.}. Although Diffie-Hellman key exchange simplified the most important key management aspect of symmetric cryptography at the time, the real trigger for asymmetric cryptography appeared to be the introduction of a trapdoor one-way function.
-
-\begin{defn}[One-way Function]
-\label{def:one-way_function}
- A function $f: \left( 0, 1 \right)^* \rightarrow \left( 0, 1 \right)^*$ that is computable in polynomial time, is said to be a one-way function if for any algorithm $\mathcal{A}\left( f \left( x \right) \right)$ trying to invert $f \left( x \right)$, there exist a negligible function $\mu \left( k \right) $ such that
- \begin{equation*}
-  \textrm{Pr} \left[ f \left( \mathcal{A} \left( f \left( x \right) \right) \right) = f \left( x \right) \right] \leq \mu \left( k \right)
- \end{equation*}
- where the probability is over the random choice of $x$ from the uniform random distribution on $\left( 0, 1 \right)^k$ and the random bits of the algorithm $\mathcal{A}$.
-\end{defn}
-
-A hash function (Section~\ref{sec:hash_functions}) is a practical implementation of a one-way function.
-
-\begin{defn}[Trapdoor one-way function]
-\label{def:one-way_function}
- A one-way function $f: \left( 0, 1 \right)^* \rightarrow \left( 0, 1 \right)^*$ is said to be a trapdoor one-way function if there exist a specific algorithm $\mathcal{A}' \left( f \left( x \right), \mathcal{H} \right)$ that can invert $f \left( x \right)$ based on an additional hint $\mathcal{H}$, such that for any negligible function $\mu \left( k \right)$ 
- \begin{equation*}
-  \textrm{Pr} \left[ f \left( \mathcal{A}' \left( f \left( x \right) \right) \right) = f \left( x \right) \right] > \mu \left( k \right)
- \end{equation*}
- where the probability is over the random choice of $x$ from the uniform random distribution on $\left( 0, 1 \right)^k$ and the random bits of the algorithm $\mathcal{A}'$.
-\end{defn} 
-
-The Computational Diffie-Hellman problem (Section~\ref{sec:number_theoretic_assumptions}) is a trapdoor one-way function because it is hard to find $g^{ab}$ given $\left< g, g^a, g^b \right>$ but easy given $\left< g, g^a, g^b, \mathcal{H} \right>$ if the hint $\mathcal{H}$ equals $a$ or $b$.
-
-\subsubsection{Practical Encryption Algorithms}
-Trapdoor one-way functions can be used as a generic construction for asymmetric encryption by publishing all the parameters for the one-way function publicly while keeping the corresponding hint $\mathcal{H}$ private.
-
-\subsubsection{Digital Signatures}
-A digital signature resembles a handwritten signature in that it proofs a particular person has approved a particular message. However, a digital signature is harder to forge than its handwritten counterpart due to the computational hardness assumptions digital signatures rely on.
-
-\begin{defn}[Digital signature]
-\label{def:digital_signature}
- A digital signature $S_A \left( m \right)$ associates a message $m$ with a known sender $A$ in such a way that a recipient $B$ is assured about the following properties:
- \begin{enumerate}
-  \item \textit{Authentication:} $B$ can be certain that $A$ is the sender of the message.
-  \item \textit{Non-repudiation:} $A$ can not deny having sent the message $m$.
-  \item \textit{Integrity:} $B$ can be certain that the message $m$ is delivered consistently, i.e. unaltered from how $A$ originally drafted the message $m$.
- \end{enumerate}
-\end{defn}
-
-Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature scheme is often constructed. The key pair $\left< sk_A, vk_A \right>$ is often  Note that a signature scheme only shifts the authentication problem. Verification of a signature $S_A \left( m \right)$ only ensures the message $m$ originates from the owner of the key pair $\left< sk_A, vk_A \right>$.
-\begin{algorithm}
-\caption{Generic Signature Scheme }
-\label{alg:generic_signature_scheme}
- In a digital signature scheme each entity $A$ has a publicly known verifying key $vk_A$ and a corresponding private signing key $sk_A$. A generic signature scheme consists of two algorithms:
- \begin{enumerate}
-  \item \texttt{Sign($sk_A, m$)}: Entity $A$ signs the message $m$ using its private signing key $sk_A$ resulting in a signature $S_A \left( m \right)$
-  \item \texttt{Verify($pk_A, S_A \left( m \right), m$)}: Entity $B$ verifies the signature $S_A \left( m \right)$ with the public verifying key $vk_A$ of $A$. The \texttt{Verify} step returns \texttt{true} or \texttt{false} depending on the validity of the signature.
- \end{enumerate}
-\end{algorithm}
-
-
-\subsubsection{Certification Authorities} 
-
-\subsubsection{OpenPGP}
 
 \section{Secret Sharing}
 
 \subsection{Definition}
-\begin{defn}[SSS]
+\begin{defn}[Secret Sharing Scheme]
 \label{def:secret_sharing_scheme}
- A \textit{Secret Sharing Scheme} (SSS) is a cryptographic scheme that divides a secret $S$ into $n$ pieces of data $S_1, \ldots, S_n$ called \textit{shares}. Shares are distributed over $n$ different parties called \textit{shareholders} such that specific subsets of the distributed shares allow reconstruction of the original secret $S$.
+ A \textit{Secret Sharing Scheme} is a cryptographic scheme that divides a secret $S$ into $n$ pieces of data $S_1, \ldots, S_n$ called \textit{shares}. Shares are distributed over $n$ different parties called \textit{shareholders} such that specific subsets of the distributed shares allow reconstruction of the original secret $S$.
 \end{defn}
 
 \begin{defn}[Threshold scheme]
@@ -148,20 +126,6 @@ Verifiable secret sharing~\cite{art:ChorGMA85} tries to ensure the participating
 Popular verifiable secret sharing schemes are Feldman's scheme~\cite{art:Feldman87} and Benaloh's scheme~\cite{art:Benaloh86a}. No further details are given as a basic notion of verifiable secret sharing suffices for the remainder of this text.
 
 \section{Distributed Key Generation}
-
-\section{Identity-Based Encryption}
-
-\subsection{Definition}
-
-\subsection{Anonymous Identity-Based Encryption}
-
-\section{Broadcast Encryption}
-
-\subsection{Definition}
-
-\subsection{Anonymous Broadcast Encryption}
-
-\subsection{Outsider-Anonymous Broadcast Encryption}
 
 \section{Conclusion}
 The final section of the chapter gives an overview of the important results of this chapter. This implies that the introductory chapter and the concluding chapter don't need a conclusion.

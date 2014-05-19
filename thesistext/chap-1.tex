@@ -1,4 +1,4 @@
-\chapter{Preliminaries}
+\chapter{Background}
 \label{cha:1}
 This chapter covers briefly the mathematical knowledge required to understand cryptographic algorithms presented later in this text. Although understanding all mathematical details of this chapter can be quite a struggle, the math serves as a fundament of a challenging world containing exciting cryptographic concepts like identity-based encryption.
 
@@ -288,6 +288,99 @@ A \textit{random oracle} is a theoretical black box that returns for each unique
 In a perfect world hash functions can be considered random oracles. That is, if hash functions were perfect, they would behave as random oracles. Therefore, hash functions are often considered random oracles in security proofs. Such security proofs are said to be \textit{proven secure in the random oracle model}. Proofs in the random oracle model first show that an algorithm is secure if a theoretical random oracle would be used. A next step of these security proofs is replacing the random oracle accesses by the computation of an appropriately chosen (hash) function $h$~\cite{art:BellareR93}. Algorithms that do not require such a construction in their security proof are said to be \textit{proven secure in the standard model}.
 
 Although theoretical definitions of random oracles and hash functions are quite similar, some practical implementations of hash functions do not behave like random oracles at all. Canetti at al. show that there exist signature and encryption schemes that are secure in the Random Oracle Model, although any implementation of the random oracle results in insecure schemes~\cite{art:CanettiGH04}. Coron et al. counter these findings with indifferentiability, i.e. if a hash function is indifferentiable from a random oracle the random oracle can be replaced by the hash function while maintaining a valid security proof~\cite{art:CoronDMP05}. Although research results from Coron et al. are debated in~\cite{art:FleischmannGL10} and~\cite{art:RistenpartSS11}, it is a common belief that proofs in the random oracle model provide some evidence that a system is secure. As a matter of fact, indifferentiability from random oracles certainly contributed to the victory of Keccak in the NIST hash function competition for a new SHA-3 hashing standard as all final round hashing algorithms supported this property~\cite{art:BartheGHOB13}.
+
+\section{Cryptology - this section is temporary moved from chapter 3}
+Cryptology is the science describing how to hide confidential information. Cryptology consists of two complementary fields that continuously try to outwit each other: cryptography and cryptanalysis. On the one hand, cryptography is the practice and study of techniques trying to hide information from undesired third parties. On the other hand, cryptanalysis is the domain of cryptology trying to derive information from hidden data.
+
+\subsection{Symmetric Cryptography}
+Figure~\ref{fig:cryptosystem} shows a typical cryptographic system often shortened to "cryptosystem". In a typical cryptosystem one party (often called Alice) tries to send a message $m$ over an insecure channel to another party (often called Bob). The channel is insecure as third parties like Eve can eavesdrop on the channel to read out data that is being sent over.
+
+\begin{figure}
+ \includegraphics[trim=40mm 120mm 40mm 120mm, clip]{img/cryptosystem.pdf}
+ \caption{A cryptosystem~\cite{thesis:Wyseur09}}
+ \label{fig:cryptosystem}
+\end{figure}
+
+\subsubsection{Confidentiality}
+Figure~\ref{fig:cryptosystem} achieves confidentiality, i.e. the information in $m$ is protected from disclosure to unauthorised parties. To prevent eavesdroppers from reading out the message $m$, Alice and Bob have agreed on a key $k$ that is unknown to the outside world. Before sending a message $m$ over the insecure channel, Alice encrypts the message $m$ to a ciphertext $c$ under the secret key $k$ using an encryption algorithm $E_k$ such that $c = E_k \left( m \right)$. Ideally $c$ looks like random gibberish to eavesdroppers like Eve. Bob can then read out the original plaintext message $m$ by applying the decryption algorithm $D_k$ under the same key $k$. Cryptosystems as the one described in Figure~\ref{fig:cryptosystem} are called \textit{symmetric} as both Alice and Bob have to use the same key $k$ for encryption and decryption. 
+
+Most cryptosystems that are practically used today satisfy Kerchoff's principle. Kerchoff's principle states that although the encryption and decryption mechanism are known to the outside world, the cryptosystem assures confidentiality as long as the symmetric key $k$ remains secret.
+
+\subsubsection{One-time Pad}
+A simple symmetric encryption algorithm $E_k$ could be to XOR the binary message $m$ with a binary key $k$ such that the ciphertext is equal to $c = m \oplus k$. Decryption $D_k$ would then consist of an XOR operation with the same binary symmetric key $k$ such that $m = c \oplus k = \left( m \oplus k \right) \oplus k$.  In such a scheme, the key $k$ should be a random binary string with the same length as the plaintext message $m$. This scheme was originally proposed by Vernam and is therefore often called the \textit{Vernam scheme}.
+
+Further research on the Vernam scheme by Mauborgne showed that the Vernam scheme can be proven information theoretic secure if $k$ is chosen completely random and used only once. Because of these requirements on the key $k$, the Vernam scheme is more widely known as the \textit{one-time pad}.
+
+\subsubsection{Practical Encryption Algorithms}
+Because the one-time pad is proven information theoretic secure, it can not be broken even if the adversary has access to unlimited computing power. Although this is a desirable property, the one-time pad is not frequently used in modern cryptosystems due to its impractical key management.
+
+Suppose Alice and Bob have a lot of secret information to share. This would require that the a priori agreed key $k$ is long enough to hide all this information. Once the size of the message $m$ becomes larger than the key $k$, Alice and Bob should agree on new random bits in $k$ to secure the remainder of their conversation. In fact, they have to agree upfront on as much random bits in $k$ as there will be bits in the message $m$.
+
+Because such large random symmetric keys $k$ are not practical in real-life applications, block cipher modes and stream ciphers are widely used. These are algorithms that accept a fixed size symmetric key but allow to encrypt larger messages $m$ by introducing deterministic pseudo randomness. As already mentioned in Section~\ref{sec:number_theoretic_assumptions}, these algorithms require a more pragmatic view on cryptography because they only ensure that disclosure of information is computationally difficult but not impossible. Common examples of block ciphers are AES and DES. They can be used in CFB, CTR or CFB mode to name a few. Stream ciphers include Trivium and RC4. For more information on block ciphers, stream ciphers and modes of operation the reader is referred to~\cite{book:handbook_of_applied_cryptography}.
+
+\subsection{Asymmetric Cryptography}
+In the information society of today, it would not be practical if Alice should meet Bob in real-life each time she wants to privately agree on a new symmetric key $k$. Now suppose that it would be possible to encrypt messages with a key $pk$ and decrypt them with a corresponding different key $sk$. In such a setting, Bob could publish his personal encryption key $pk_{Bob}$ while keeping his decryption key $sk_{Bob}$ private thereby allowing Alice to immediately start sending private messages to Bob.
+
+The concept of using a different key for encryption than decryption is often referred to as \textit{asymmetric cryptography}. The term \textit{public-key cryptography} describes the same idea and is interchangeably used in literature.
+
+The concept of asymmetric cryptography bears close resemblance to the old-school mailbox system. Everyone can put letters in a mailbox, i.e. encrypt, but only a person with a privately owned key can retrieve letters, i.e. decrypt~\cite{book:PaarP10}.
+
+\subsubsection{Trapdoor One-way Function}
+Public-key cryptography revolutionised thanks to a paper from Diffie and Hellman in 1976 proposing a private key exchange algorithm, now famously known as Diffie-Hellman key exchange~\cite{art:DiffieH76}\footnote{Diffie-Hellman key exchange allows two parties that can only communicate over an insecure channel to agree on a secret while no external passive eavesdropper with limited computing power can derive the secret.}. Although Diffie-Hellman key exchange simplified the most important key management aspect of symmetric cryptography at the time, the real trigger for asymmetric cryptography appeared to be the introduction of a trapdoor one-way function.
+
+\begin{defn}[One-way Function]
+\label{def:one-way_function}
+ A function $f: \left( 0, 1 \right)^* \rightarrow \left( 0, 1 \right)^*$ that is computable in polynomial time, is said to be a one-way function if for any algorithm $\mathcal{A}\left( f \left( x \right) \right)$ trying to invert $f \left( x \right)$, there exist a negligible function $\mu \left( k \right) $ such that
+ \begin{equation*}
+  \textrm{Pr} \left[ f \left( \mathcal{A} \left( f \left( x \right) \right) \right) = f \left( x \right) \right] \leq \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $x$ from the uniform random distribution on $\left( 0, 1 \right)^k$ and the random bits of the algorithm $\mathcal{A}$.
+\end{defn}
+
+A hash function (Section~\ref{sec:hash_functions}) is a practical implementation of a one-way function.
+
+\begin{defn}[Trapdoor one-way function]
+\label{def:one-way_function}
+ A one-way function $f: \left( 0, 1 \right)^* \rightarrow \left( 0, 1 \right)^*$ is said to be a trapdoor one-way function if there exist a specific algorithm $\mathcal{A}' \left( f \left( x \right), \mathcal{H} \right)$ that can invert $f \left( x \right)$ based on an additional hint $\mathcal{H}$, such that for any negligible function $\mu \left( k \right)$ 
+ \begin{equation*}
+  \textrm{Pr} \left[ f \left( \mathcal{A}' \left( f \left( x \right) \right) \right) = f \left( x \right) \right] > \mu \left( k \right)
+ \end{equation*}
+ where the probability is over the random choice of $x$ from the uniform random distribution on $\left( 0, 1 \right)^k$ and the random bits of the algorithm $\mathcal{A}'$.
+\end{defn} 
+
+The Computational Diffie-Hellman problem (Section~\ref{sec:number_theoretic_assumptions}) is a trapdoor one-way function because it is hard to find $g^{ab}$ given $\left< g, g^a, g^b \right>$ but easy given $\left< g, g^a, g^b, \mathcal{H} \right>$ if the hint $\mathcal{H}$ equals $a$ or $b$.
+
+\subsubsection{Practical Encryption Algorithms}
+Trapdoor one-way functions can be used as a generic construction for asymmetric encryption by publishing all the parameters for the one-way function publicly while keeping the corresponding hint $\mathcal{H}$ private.
+
+\subsubsection{Digital Signatures}
+A digital signature resembles a handwritten signature in that it proofs a particular person has approved a particular message. However, a digital signature is harder to forge than its handwritten counterpart due to the computational hardness assumptions digital signatures rely on.
+
+\begin{defn}[Digital signature]
+\label{def:digital_signature}
+ A digital signature $S_A \left( m \right)$ associates a message $m$ with a known sender $A$ in such a way that a recipient $B$ is assured about the following properties:
+ \begin{enumerate}
+  \item \textit{Authentication:} $B$ can be certain that $A$ is the sender of the message.
+  \item \textit{Non-repudiation:} $A$ can not deny having sent the message $m$.
+  \item \textit{Integrity:} $B$ can be certain that the message $m$ is delivered consistently, i.e. unaltered from how $A$ originally drafted the message $m$.
+ \end{enumerate}
+\end{defn}
+
+Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature scheme is often constructed. The key pair $\left< sk_A, vk_A \right>$ is often  Note that a signature scheme only shifts the authentication problem. Verification of a signature $S_A \left( m \right)$ only ensures the message $m$ originates from the owner of the key pair $\left< sk_A, vk_A \right>$.
+\begin{algorithm}
+\caption{Generic Signature Scheme }
+\label{alg:generic_signature_scheme}
+ In a digital signature scheme each entity $A$ has a publicly known verifying key $vk_A$ and a corresponding private signing key $sk_A$. A generic signature scheme consists of two algorithms:
+ \begin{enumerate}
+  \item \texttt{Sign($sk_A, m$)}: Entity $A$ signs the message $m$ using its private signing key $sk_A$ resulting in a signature $S_A \left( m \right)$
+  \item \texttt{Verify($pk_A, S_A \left( m \right), m$)}: Entity $B$ verifies the signature $S_A \left( m \right)$ with the public verifying key $vk_A$ of $A$. The \texttt{Verify} step returns \texttt{true} or \texttt{false} depending on the validity of the signature.
+ \end{enumerate}
+\end{algorithm}
+
+
+\subsubsection{Certification Authorities} 
+
+\subsubsection{OpenPGP}
 
 \section{Conclusion}
 The first part of this chapter introduced the concepts of a negligible function as well as algebraic structures such as groups and finite fields. These basic notions were used further on to define number theoretic hard problems that serve as a basis for security. Starting from the discrete logarithm assumption, several variants of the Diffie-Hellman problem were introduced eventually leading to the Gap Diffie-Hellman assumption. Notion of the Gap Diffie-Hellman assumption allowed to uncover gap groups and their use in admissible bilinear maps. The Bilinear Diffie-Hellman assumption was defined as a computationally infeasible problem for the construction of cryptographic protocols relying on bilinear maps. Finally, this chapter concluded with differences between security under random oracle assumptions and security in the standard model. 

@@ -2,7 +2,7 @@
 \setup{title={Practical Identity-Based Encryption for Online Social Networks},
   author={Stijn Meul},
   promotor={Prof.\,dr.\,ir.\ Bart Preneel \and Prof.\,dr.\,ir.\ Vincent Rijmen},
-  assessor={Prof.\,dr.\,Claudia Diaz\and Prof.\,dr.\,ir.\ Frank Piessens},
+  assessor={Prof.\,dr.\,ir.\,Claudia Diaz\and Prof.\,dr.\,ir.\ Frank Piessens},
   assistant={Filipe Beato}}
 % The following \setup may be removed entirely if no filing card is wanted
 \setup{filingcard,
@@ -36,6 +36,8 @@
 \usepackage{amsmath}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
 
 %%%%%%
 % Make theorem titles bold
@@ -65,6 +67,8 @@
 % definition numbers are dependent on the theorem numbers
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Definition}
+
+\newcommand{\id}[1]{\ensuremath{\mathtt{id}_{#1}}}
 
 %\includeonly{chap-n}
 \begin{document}
@@ -97,7 +101,7 @@
 \section*{Abbreviations}
 \begin{flushleft}
   \renewcommand{\arraystretch}{1.1}
-  \begin{tabularx}{\textwidth}{@{}p{12mm}X@{}}
+  \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
     LoG   & Laplacian-of-Gaussian \\
     MSE   & Mean Square error \\
     PSNR  & Peak Signal-to-Noise ratio \\
@@ -105,15 +109,13 @@
 \end{flushleft}
 \section*{Symbols}
 \begin{flushleft}
-  \renewcommand{\arraystretch}{1.1}
-  \begin{tabularx}{\textwidth}{@{}p{12mm}X@{}}
-    42    & ``The Answer to the Ultimate Question of Life, the Universe,
-            and Everything'' according to \cite{h2g2} \\
-    $c$   & Speed of light \\
-    $E$   & Energy \\
-    $m$   & Mass \\
-    $\pi$ & The number pi \\
-  \end{tabularx}
+ \renewcommand{\arraystretch}{1.1}
+ \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
+  $G$ & A group $\left( G, * \right)$ \\
+  $S_A \left( m \right)$ & Signature of entity $A$ on message $m$ \\
+  $e: G_1 \times G_2 \rightarrow G_T$ & Admissible bilinear map \\
+  $e \left( P, Q \right)$ & Admissible bilinear map $P \in G_1, Q \in G_2, e \left( P, Q \right) \in G_T$ \\  
+ \end{tabularx}
 \end{flushleft}
 
 % Now comes the main text

@@ -11,62 +11,63 @@ A level-1 auxiliary file: app-A.aux
 A level-1 auxiliary file: app-n.aux
 The style file: abbrv.bst
 Database file #1: references.bib
-Repeated entry---line 241 of file references.bib
+Repeated entry---line 226 of file references.bib
  : @proceedings{DBLP:conf/pairing/2013
  :                                    ,
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 347 of file references.bib
+I was expecting a `,' or a `}'---line 332 of file references.bib
  : 
  : @inproceedings{art:Blakley79,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
-Warning--I didn't find a database entry for "art:Massey88"
+Warning--I didn't find a database entry for "GentryRandomOracles"
+Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
-Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
+Warning--to sort, need author or key in thesis:Wyseur09
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Wyseur09
-You've used 37 entries,
+You've used 39 entries,
             2118 wiz_defined-function locations,
-            776 strings with 11068 characters,
-and the built_in function-call counts, 12410 in all, are:
-= -- 1207
-> -- 512
-< -- 21
-+ -- 208
-- -- 160
-* -- 816
-:= -- 1986
-add.period$ -- 119
-call.type$ -- 37
-change.case$ -- 180
+            791 strings with 11576 characters,
+and the built_in function-call counts, 13414 in all, are:
+= -- 1304
+> -- 561
+< -- 24
++ -- 227
+- -- 176
+* -- 892
+:= -- 2137
+add.period$ -- 125
+call.type$ -- 39
+change.case$ -- 194
 chr.to.int$ -- 0
-cite$ -- 41
-duplicate$ -- 512
-empty$ -- 1041
-format.name$ -- 166
-if$ -- 2718
+cite$ -- 43
+duplicate$ -- 554
+empty$ -- 1119
+format.name$ -- 182
+if$ -- 2942
 int.to.chr$ -- 0
-int.to.str$ -- 37
-missing$ -- 33
-newline$ -- 186
-num.names$ -- 87
-pop$ -- 206
+int.to.str$ -- 39
+missing$ -- 34
+newline$ -- 195
+num.names$ -- 93
+pop$ -- 218
 preamble$ -- 1
-purify$ -- 148
+purify$ -- 159
 quote$ -- 0
-skip$ -- 395
+skip$ -- 430
 stack$ -- 0
-substring$ -- 720
-swap$ -- 151
-text.length$ -- 19
+substring$ -- 784
+swap$ -- 171
+text.length$ -- 22
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 139
+type$ -- 149
 warning$ -- 4
-while$ -- 115
-width$ -- 39
-write$ -- 406
+while$ -- 126
+width$ -- 41
+write$ -- 429
 (There were 3 error messages)

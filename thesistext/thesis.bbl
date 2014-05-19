@@ -8,17 +8,17 @@ Pairing based cryptography.
 White-box cryptography.
 \newblock Master's thesis, KU Leuven, 2009.
 
-\bibitem{h2g2}
-D.~Adams.
-\newblock {\em The Hitchhiker's Guide to the Galaxy}.
-\newblock Del Rey (reprint), 1995.
-\newblock ISBN-13: 978-0345391803.
-
 \bibitem{art:AdjMOR13}
 G.~Adj, A.~Menezes, T.~Oliveira, and F.~Rodr\'{\i}guez-Henr\'{\i}quez.
 \newblock Weakness of x25;$_{\mbox{3$^{\mbox{6$\cdot$509}}$}}$ for discrete
   logarithm cryptography.
 \newblock In Cao and Zhang \cite{DBLP:conf/pairing/2013}, pages 20--44.
+
+\bibitem{art:BaekNSS04}
+J.~Baek, J.~Newmarch, R.~Safavi-naini, and W.~Susilo.
+\newblock A survey of identity-based cryptography.
+\newblock In {\em Proc. of Australian Unix Users Group Annual Conference},
+  pages 95--102, 2004.
 
 \bibitem{art:BarbulescuGJT14}
 R.~Barbulescu, P.~Gaudry, A.~Joux, and E.~Thom{\'e}.
@@ -79,6 +79,11 @@ J.~Bullas.
 R.~Canetti, O.~Goldreich, and S.~Halevi.
 \newblock The random oracle methodology, revisited.
 \newblock {\em J. ACM}, 51(4):557--594, 2004.
+
+\bibitem{art:CanettiHK03}
+R.~Canetti, S.~Halevi, and J.~Katz.
+\newblock A forward-secure public-key encryption scheme.
+\newblock {\em IACR Cryptology ePrint Archive}, 2003:83, 2003.
 
 \bibitem{DBLP:conf/pairing/2013}
 Z.~Cao and F.~Zhang, editors.
@@ -189,6 +194,12 @@ T.~Ristenpart, H.~Shacham, and T.~Shrimpton.
 A.~Shamir.
 \newblock How to share a secret.
 \newblock {\em Commun. ACM}, 22(11):612--613, 1979.
+
+\bibitem{art:Shamir84}
+A.~Shamir.
+\newblock Identity-based cryptosystems and signature schemes.
+\newblock In G.~R. Blakley and D.~Chaum, editors, {\em CRYPTO}, volume 196 of
+  {\em Lecture Notes in Computer Science}, pages 47--53. Springer, 1984.
 
 \bibitem{site:StatisticBrain}
 StatisticBrain.
