@@ -15,60 +15,69 @@
 \contentsline {section}{\numberline {1.3}Goals of this Thesis}{1}{section.1.3}
 \contentsline {section}{\numberline {1.4}Structure of this Thesis}{1}{section.1.4}
 \contentsline {chapter}{\chapternumberline {2}Preliminaries}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Complexity Theory}{3}{section.2.1}
+\contentsline {section}{\numberline {2.1}Negligible Function}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Abstract Algebra}{4}{section.2.2}
-\contentsline {section}{\numberline {2.3}Number Theoretic Assumptions}{5}{section.2.3}
-\contentsline {section}{\numberline {2.4}Bilinear Maps}{7}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Definition}{7}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Bilinear Diffie-Hellman Assumption}{8}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Variants of the Bilinear Diffie-Hellman Assumption}{8}{subsection.2.4.3}
-\contentsline {section}{\numberline {2.5}Secret Sharing}{8}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Definition}{8}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Verifiable Secret Sharing}{8}{subsection.2.5.2}
-\contentsline {section}{\numberline {2.6}Hash Functions}{8}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}Definition}{8}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {2.6.2}Standard Model}{8}{subsection.2.6.2}
-\contentsline {subsection}{\numberline {2.6.3}Random Oracle Assumption}{8}{subsection.2.6.3}
-\contentsline {section}{\numberline {2.7}Conclusion}{8}{section.2.7}
-\contentsline {chapter}{\chapternumberline {3}Literature Review}{9}{chapter.3}
-\contentsline {section}{\numberline {3.1}Public Key Generation}{9}{section.3.1}
-\contentsline {section}{\numberline {3.2}Distributed Key Generation}{9}{section.3.2}
-\contentsline {section}{\numberline {3.3}Identity-Based Encryption}{10}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Definition}{10}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Anonymous Identity-Based Encryption}{10}{subsection.3.3.2}
-\contentsline {section}{\numberline {3.4}Broadcast Encryption}{10}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Definition}{11}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Anonymous Broadcast Encryption}{11}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Outsider-Anonymous Broadcast Encryption}{11}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Conclusion}{11}{section.3.5}
-\contentsline {chapter}{\chapternumberline {4}Outsider Anonymous Identity-Based Broadcast Encryption}{13}{chapter.4}
-\contentsline {section}{\numberline {4.1}Security Model}{13}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Threat Model}{13}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Goals}{14}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}Proposed Scheme}{14}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Scheme}{14}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Security Proof}{14}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Evaluation}{15}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Conclusion}{15}{section.4.3}
-\contentsline {chapter}{\chapternumberline {5}Implementation}{17}{chapter.5}
-\contentsline {section}{\numberline {5.1}Existing Solutions}{17}{section.5.1}
-\contentsline {section}{\numberline {5.2}Anonymous Identity-Based Broadcasting Implementation}{17}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Implemented Scheme}{18}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Data Structures}{18}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Distributed Key Generation Implementation}{18}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Implemented Scheme}{18}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Data Structures}{18}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Evaluation}{19}{section.5.4}
-\contentsline {section}{\numberline {5.5}Performance Analysis}{19}{section.5.5}
-\contentsline {section}{\numberline {5.6}Conclusion}{19}{section.5.6}
-\contentsline {chapter}{\chapternumberline {6}Conclusion}{21}{chapter.6}
-\contentsline {appendix}{\chapternumberline {A}Installing and Executing the Code}{25}{appendix.A}
-\contentsline {section}{\numberline {A.1}Setting up the DKG}{25}{section.A.1}
-\contentsline {section}{\numberline {A.2}Setting up Scramble}{25}{section.A.2}
-\contentsline {appendix}{\chapternumberline {B}The Last Appendix}{27}{appendix.B}
-\contentsline {section}{\numberline {B.1}Lorem 20-24}{27}{section.B.1}
-\contentsline {section}{\numberline {B.2}Lorem 25-27}{28}{section.B.2}
-\contentsline {chapter}{Bibliography}{29}{section*.10}
+\contentsline {section}{\numberline {2.3}Number Theoretic Assumptions}{7}{section.2.3}
+\contentsline {section}{\numberline {2.4}Bilinear Maps}{9}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Definition}{9}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Bilinear Diffie-Hellman Assumption}{10}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Hash Functions}{10}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Definition}{10}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Random Oracles}{11}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Conclusion}{12}{section.2.6}
+\contentsline {chapter}{\chapternumberline {3}Literature Review}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Cryptology}{13}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Symmetric Cryptography}{13}{subsection.3.1.1}
+\contentsline {subsubsection}{Confidentiality}{14}{section*.9}
+\contentsline {subsubsection}{One-time Pad}{14}{section*.10}
+\contentsline {subsubsection}{Practical Encryption Algorithms}{14}{section*.11}
+\contentsline {subsection}{\numberline {3.1.2}Asymmetric Cryptography}{15}{subsection.3.1.2}
+\contentsline {subsubsection}{Diffie-Hellman Key Exchange}{15}{section*.12}
+\contentsline {subsubsection}{Authentication}{16}{section*.13}
+\contentsline {subsubsection}{Signatures}{16}{section*.14}
+\contentsline {subsubsection}{Certification Authorities}{16}{section*.15}
+\contentsline {subsubsection}{OpenPGP}{16}{section*.16}
+\contentsline {section}{\numberline {3.2}Secret Sharing}{17}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Definition}{17}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Shamir Secret Sharing}{17}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Verifiable Secret Sharing}{18}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Distributed Key Generation}{19}{section.3.3}
+\contentsline {section}{\numberline {3.4}Identity-Based Encryption}{19}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Definition}{19}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Anonymous Identity-Based Encryption}{19}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Broadcast Encryption}{19}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Definition}{19}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Anonymous Broadcast Encryption}{19}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Outsider-Anonymous Broadcast Encryption}{19}{subsection.3.5.3}
+\contentsline {section}{\numberline {3.6}Conclusion}{19}{section.3.6}
+\contentsline {chapter}{\chapternumberline {4}Outsider Anonymous Identity-Based Broadcast Encryption}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}Security Model}{21}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Threat Model}{21}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Goals}{21}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Proposed Scheme}{21}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Scheme}{21}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Security Proof}{21}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Evaluation}{21}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Conclusion}{21}{section.4.3}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{23}{chapter.5}
+\contentsline {section}{\numberline {5.1}Existing Solutions}{23}{section.5.1}
+\contentsline {section}{\numberline {5.2}Anonymous Identity-Based Broadcasting Implementation}{23}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Implemented Scheme}{23}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Data Structures}{23}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Distributed Key Generation Implementation}{23}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Implemented Scheme}{23}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Data Structures}{23}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Evaluation}{23}{section.5.4}
+\contentsline {section}{\numberline {5.5}Performance Analysis}{23}{section.5.5}
+\contentsline {section}{\numberline {5.6}Conclusion}{23}{section.5.6}
+\contentsline {chapter}{\chapternumberline {6}Conclusion}{25}{chapter.6}
+\contentsline {appendix}{\chapternumberline {A}Installing and Executing the Code}{29}{appendix.A}
+\contentsline {section}{\numberline {A.1}Setting up the DKG}{29}{section.A.1}
+\contentsline {section}{\numberline {A.2}Setting up Scramble}{29}{section.A.2}
+\contentsline {appendix}{\chapternumberline {B}The Last Appendix}{31}{appendix.B}
+\contentsline {section}{\numberline {B.1}Lorem 20-24}{31}{section.B.1}
+\contentsline {section}{\numberline {B.2}Lorem 25-27}{31}{section.B.2}
+\contentsline {chapter}{Bibliography}{33}{section*.18}
 \select@language {english}
 \select@language {english}
 \select@language {english}

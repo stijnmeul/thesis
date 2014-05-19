@@ -1,15 +1,61 @@
 \begin{thebibliography}{10}
 
+\bibitem{thesis:Maas04}
+Pairing based cryptography.
+\newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
+
+\bibitem{thesis:Wyseur09}
+White-box cryptography.
+\newblock Master's thesis, KU Leuven, 2009.
+
 \bibitem{h2g2}
 D.~Adams.
 \newblock {\em The Hitchhiker's Guide to the Galaxy}.
 \newblock Del Rey (reprint), 1995.
 \newblock ISBN-13: 978-0345391803.
 
+\bibitem{art:AdjMOR13}
+G.~Adj, A.~Menezes, T.~Oliveira, and F.~Rodr\'{\i}guez-Henr\'{\i}quez.
+\newblock Weakness of x25;$_{\mbox{3$^{\mbox{6$\cdot$509}}$}}$ for discrete
+  logarithm cryptography.
+\newblock In Cao and Zhang \cite{DBLP:conf/pairing/2013}, pages 20--44.
+
+\bibitem{art:BarbulescuGJT14}
+R.~Barbulescu, P.~Gaudry, A.~Joux, and E.~Thom{\'e}.
+\newblock A heuristic quasi-polynomial algorithm for discrete logarithm in
+  finite fields of small characteristic.
+\newblock In P.~Q. Nguyen and E.~Oswald, editors, {\em EUROCRYPT}, volume 8441
+  of {\em Lecture Notes in Computer Science}, pages 1--16. Springer, 2014.
+
+\bibitem{art:BartheGHOB13}
+G.~Barthe, B.~Gr{\'e}goire, S.~Heraud, F.~Olmedo, and S.~Z. B{\'e}guelin.
+\newblock Verified indifferentiable hashing into elliptic curves.
+\newblock {\em Journal of Computer Security}, 21(6):881--917, 2013.
+
+\bibitem{art:BellareR93}
+M.~Bellare and P.~Rogaway.
+\newblock Random oracles are practical: A paradigm for designing efficient
+  protocols.
+\newblock In D.~E. Denning, R.~Pyle, R.~Ganesan, R.~S. Sandhu, and V.~Ashby,
+  editors, {\em ACM Conference on Computer and Communications Security}, pages
+  62--73. ACM, 1993.
+
+\bibitem{art:Benaloh86a}
+J.~C. Benaloh.
+\newblock Secret sharing homomorphisms: Keeping shares of a secret sharing.
+\newblock In A.~M. Odlyzko, editor, {\em CRYPTO}, volume 263 of {\em Lecture
+  Notes in Computer Science}, pages 251--260. Springer, 1986.
+
 \bibitem{book:survey_of_modern_algebra}
 G.~Birkhoff and S.~MacLane.
 \newblock {\em A Survey of Modern Algebra}.
 \newblock The Macmillan Comp., 1965.
+
+\bibitem{art:Blakley79}
+G.~Blakley.
+\newblock Safeguarding cryptographic keys.
+\newblock In {\em Proceedings of the 1979 AFIPS National Computer Conference},
+  pages 313--317, Monval, NJ, USA, 1979. AFIPS Press.
 
 \bibitem{art:Boneh98}
 D.~Boneh.
@@ -17,12 +63,57 @@ D.~Boneh.
 \newblock In J.~Buhler, editor, {\em ANTS}, volume 1423 of {\em Lecture Notes
   in Computer Science}, pages 48--63. Springer, 1998.
 
+\bibitem{art:BonehF01}
+D.~Boneh and M.~K. Franklin.
+\newblock Identity based encryption from the {W}eil pairing.
+\newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
+
 \bibitem{site:Bullas14}
 J.~Bullas.
 \newblock 22 social media facts and statistics you should know in 2014.
 \newblock URL:
   \url{http://www.jeffbullas.com/2014/01/17/20-social-media-facts-and-statistics-you-should-know-in-2014/},
   last checked on 2014-05-08.
+
+\bibitem{art:CanettiGH04}
+R.~Canetti, O.~Goldreich, and S.~Halevi.
+\newblock The random oracle methodology, revisited.
+\newblock {\em J. ACM}, 51(4):557--594, 2004.
+
+\bibitem{DBLP:conf/pairing/2013}
+Z.~Cao and F.~Zhang, editors.
+\newblock {\em Pairing-Based Cryptography - Pairing 2013 - 6th International
+  Conference, Beijing, China, November 22-24, 2013, Revised Selected Papers},
+  volume 8365 of {\em Lecture Notes in Computer Science}. Springer, 2014.
+
+\bibitem{art:ChorGMA85}
+B.~Chor, S.~Goldwasser, S.~Micali, and B.~Awerbuch.
+\newblock Verifiable secret sharing and achieving simultaneity in the presence
+  of faults (extended abstract).
+\newblock In {\em FOCS}, pages 383--395, 1985.
+
+\bibitem{art:CoronDMP05}
+J.-S. Coron, Y.~Dodis, C.~Malinaud, and P.~Puniya.
+\newblock Merkle-damg{\aa}rd revisited: How to construct a hash function.
+\newblock In V.~Shoup, editor, {\em CRYPTO}, volume 3621 of {\em Lecture Notes
+  in Computer Science}, pages 430--448. Springer, 2005.
+
+\bibitem{art:Feldman87}
+P.~Feldman.
+\newblock A practical scheme for non-interactive verifiable secret sharing.
+\newblock In {\em FOCS}, pages 427--437. IEEE Computer Society, 1987.
+
+\bibitem{art:FleischmannGL10}
+E.~Fleischmann, M.~Gorski, and S.~Lucks.
+\newblock Some observations on indifferentiability.
+\newblock {\em IACR Cryptology ePrint Archive}, 2010:222, 2010.
+
+\bibitem{art:FreyMR99}
+G.~Frey, M.~M{\"u}ller, and H.-G. R{\"u}ck.
+\newblock The tate pairing and the discrete logarithm applied to elliptic curve
+  cryptosystems.
+\newblock {\em IEEE Transactions on Information Theory}, 45(5):1717--1719,
+  1999.
 
 \bibitem{book:Goldreich97}
 O.~Goldreich.
@@ -48,11 +139,22 @@ K.~Jones.
   \url{http://www.searchenginejournal.com/growth-social-media-2-0-infographic/77055/},
   last checked on 2014-05-08.
 
+\bibitem{art:Joux13}
+A.~Joux.
+\newblock A new index calculus algorithm with complexity l(1/4+o(1)) in very
+  small characteristic.
+\newblock {\em IACR Cryptology ePrint Archive}, 2013:95, 2013.
+
 \bibitem{art:JouxN03}
 A.~Joux and K.~Nguyen.
 \newblock Separating decision diffie-hellman from computational diffie-hellman
   in cryptographic groups.
 \newblock {\em J. Cryptology}, 16(4):239--247, 2003.
+
+\bibitem{art:Massey88}
+J.~Massey.
+\newblock An introduction to contemporary cryptology.
+\newblock {\em Proceedings of the IEEE}, 76(5):533--549, May 1988.
 
 \bibitem{art:MaurerW98}
 U.~M. Maurer and S.~Wolf.
@@ -71,6 +173,17 @@ A.~Menezes, P.~C. van Oorschot, and S.~A. Vanstone.
 \newblock {\em Handbook of Applied Cryptography}.
 \newblock CRC Press, 1996.
 
+\bibitem{art:RistenpartSS11}
+T.~Ristenpart, H.~Shacham, and T.~Shrimpton.
+\newblock Careful with composition: Limitations of indifferentiability and
+  universal composability.
+\newblock {\em IACR Cryptology ePrint Archive}, 2011:339, 2011.
+
+\bibitem{art:Shamir79}
+A.~Shamir.
+\newblock How to share a secret.
+\newblock {\em Commun. ACM}, 22(11):612--613, 1979.
+
 \bibitem{site:StatisticBrain}
 StatisticBrain.
 \newblock Social networking statistics.
@@ -78,9 +191,20 @@ StatisticBrain.
   \url{http://www.statisticbrain.com/social-networking-statistics/}, last
   checked on 2014-05-08.
 
+\bibitem{site:proofwiki_lagrange}
+P.~Wiki.
+\newblock Lagrange interpolation formula.
+\newblock URL:
+  \url{http://www.proofwiki.org/wiki/Lagrange_Interpolation_Formula}.
+
 \bibitem{site:worldometers}
 Worldometers.
 \newblock Worldometers real time world statistics.
 \newblock URL: \url{http://www.worldometers.info/}, last checked on 2014-05-08.
+
+\bibitem{art:ZhangW13}
+X.~Zhang and K.~Wang.
+\newblock Fast symmetric pairing revisited.
+\newblock In Cao and Zhang \cite{DBLP:conf/pairing/2013}, pages 131--148.
 
 \end{thebibliography}

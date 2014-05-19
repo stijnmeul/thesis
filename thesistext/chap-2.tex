@@ -1,38 +1,175 @@
 \chapter{Literature Review}
 \label{cha:2}
-\lipsum[77]
 
-\section{Public Key Generation}
-\lipsum[84]
+\section{Cryptology}
+Cryptology is the science describing how to hide confidential information. Cryptology consists of two complementary fields that continuously try to outwit each other: cryptography and cryptanalysis. On the one hand, cryptography is the practice and study of techniques trying to hide information from undesired third parties. On the other hand, cryptanalysis is the domain of cryptology trying to derive information from hidden data.
+
+\subsection{Symmetric Cryptography}
+Figure~\ref{fig:cryptosystem} shows a typical cryptographic system often shortened to "cryptosystem". In a typical cryptosystem one party (often called Alice) tries to send a message $m$ over an insecure channel to another party (often called Bob). The channel is insecure as third parties like Eve can eavesdrop on the channel to read out data that is being sent over.
+
+\begin{figure}
+ \includegraphics[trim=40mm 120mm 40mm 120mm, clip]{img/cryptosystem.pdf}
+ \caption{A cryptosystem~\cite{thesis:Wyseur09}}
+ \label{fig:cryptosystem}
+\end{figure}
+
+\subsubsection{Confidentiality}
+Figure~\ref{fig:cryptosystem} achieves confidentiality, i.e. the information in $m$ is protected from disclosure to unauthorised parties. To prevent eavesdroppers from reading out the message $m$, Alice and Bob have agreed on a key $k$ that is unknown to the outside world. Before sending a message $m$ over the insecure channel, Alice encrypts the message $m$ to a ciphertext $c$ under the secret key $k$ using an encryption algorithm $E_k$ such that $c = E_k \left( m \right)$. Ideally $c$ looks like random gibberish to eavesdroppers like Eve. Bob can then read out the original plaintext message $m$ by applying the decryption algorithm $D_k$ under the same key $k$. Cryptosystems as the one described in Figure~\ref{fig:cryptosystem} are called \textit{symmetric} as both Alice and Bob have to use the same key $k$ for encryption and decryption. 
+
+Most cryptosystems that are practically used today satisfy Kerchoff's principle. Kerchoff's principle states that although the encryption and decryption mechanism are known to the outside world, the cryptosystem assures confidentiality as long as the symmetric key $k$ remains secret.
+
+\subsubsection{One-time Pad}
+A simple symmetric encryption algorithm $E_k$ could be to XOR the binary message $m$ with a binary key $k$ such that the ciphertext is equal to $c = m \oplus k$. Decryption $D_k$ would then consist of an XOR operation with the same binary symmetric key $k$ such that $m = c \oplus k = \left( m \oplus k \right) \oplus k$.  In such a scheme, the key $k$ should be a random binary string with the same length as the plaintext message $m$. This scheme was originally proposed by Vernam and is therefore often called the \textit{Vernam scheme}.
+
+Further research on the Vernam scheme by Mauborgne showed that the Vernam scheme can be proven information theoretic secure if $k$ is chosen completely random and used only once. Because of these requirements on the key $k$, the Vernam scheme is more widely known as the \textit{one-time pad}.
+
+\subsubsection{Practical Encryption Algorithms}
+Because the one-time pad is proven information theoretic secure, it can not be broken even if the adversary has access to unlimited computing power. Although this is a desirable property, the one-time pad is not frequently used in modern cryptosystems due to its impractical key management.
+
+Suppose Alice and Bob have a lot of secret information to share. This would require that the a priori agreed key $k$ is long enough to hide all this information. Once the size of the message $m$ becomes larger than the key $k$, Alice and Bob should agree on new random bits in $k$ to secure the remainder of their conversation. In fact, they have to agree upfront on as much random bits in $k$ as there will be bits in the message $m$.
+
+Because such large random symmetric keys $k$ are not practical in real-life applications, block cipher modes and stream ciphers are widely used. These are algorithms that accept a fixed size symmetric key but allow to encrypt larger messages $m$ by introducing deterministic pseudo randomness. As already mentioned in Section~\ref{sec:number_theoretic_assumptions}, these algorithms require a more pragmatic view on cryptography because they only ensure that disclosure of information is computationally difficult but not impossible. Common examples of block ciphers are AES and DES. They can be used in CFB, CTR or CFB mode to name a few. Stream ciphers include Trivium and RC4. For more information on block ciphers, stream ciphers and modes of operation the reader is referred to~\cite{book:handbook_of_applied_cryptography}.
+
+\subsection{Asymmetric Cryptography}
+In the information society of today, it would not be practical if Alice should meet Bob in real-life each time she wants to privately agree on a new symmetric key $k$. To solve this issue Diffie and Hellman proposed a key exchange algorithm in 1976, now famously known as Diffie-Hellman key exchange. The algorithm allows two parties that can only communicate over an insecure channel to agree on a secret while no external passive eavesdropper with limited computing power can derive the secret. It would become the reason of existence for public key architectures like Certification Authorities or OpenPGP.
+
+\subsubsection{Diffie-Hellman Key Exchange}
+The basic version of Diffie-Hellman key exchange can be found in Algorithm~\ref{alg:diffie-hellman_key_exchange}. Note that no passive eavesdropper can derive the secret key $k$ from the sent messages $\left< g^x \bmod p \right>$ and $\left< g^y \bmod p \right>$ as long as the Computational Diffie-Hellman assumption and the Decisional Diffie-Hellman assumption hold (Section~\ref{sec:number_theoretic_assumptions}).
+
+\begin{algorithm}
+\caption{Diffie-Hellman key exchange~\cite{book:handbook_of_applied_cryptography} }
+\label{alg:diffie-hellman_key_exchange}
+ \textbf{Goal}: Two parties $A$ and $B$ want to agree on a secret key $k$ over an insecure channel
+ 
+ \textbf{Result}: $A$ and $B$ share the same secret key $k$
+ \begin{enumerate}
+  \item \textit{One-time Setup} An appropriate prime $p$ and generator $g \in \mathbb{Z}^*_p$ are published such that $2 \leq g \leq p-2$.
+  \item \textit{Protocol}
+  \begin{enumerate}
+   \item $A$ chooses a random secret $x, 1 \leq x \leq p-2$ and sends $B$ the message
+   \begin{equation*}
+    A \rightarrow B: g^x \bmod p
+   \end{equation*}
+   \item $B$ chooses a random secret $y, 1 \leq y \leq p-2$ and sends $A$ the message
+   \begin{equation*}
+    A \leftarrow B: g^y \bmod p
+   \end{equation*}
+   \item $B$ receives $g^x$ and computes the shared key as $k = \left( g^x \right)^y$.
+   \item $A$ receives $g^y$ and computes the shared key as $k = \left( g^y \right)^x$.
+  \end{enumerate}
+
+ \end{enumerate}
+\end{algorithm}
+
+\subsubsection{Authentication}
+Algorithm~\ref{alg:diffie-hellman_key_exchange} only protects against passive adversaries because the messages in the protocol are not authenticated, i.e. there is no proof who the original sender of the message is. Therefore, Diffie-Hellman key exchange is vulnerable to man in the middle attacks. 
+
+Suppose an active adversary $E$ pretends to be $B$ and exchanges a secret with $A$. At the same time $E$ exchanges another secret with $B$ while impersonating $A$. In this scenario both $A$ and $B$ think they successfully agreed on a secret key and start to send encrypted messages to each other assuming they are having a private conversation. In reality $E$ can decrypt all information as the man in the middle. After decryption, $E$ could encrypt the message with the corresponding negotiated symmetric key such that $A$ and $B$ have no clue what is going on.
+
+Algorithm~\ref{alg:diffie-hellman_key_exchange} should be altered such that all messages are authenticated to avoid man in the middle attacks. Authentication is often achieved with the help of signature schemes. An authenticated version of Algorithm~\ref{alg:diffie-hellman_key_exchange} is the Station-to-Station protocol.
+
+\subsubsection{Signatures}
+A digital signature resembles a handwritten signature in that it proofs a particular person has approved a particular message. However, a digital signature is harder to forge than its handwritten counterpart due to the computational hardness assumptions digital signatures rely on.
+
+\begin{defn}[Digital signature]
+\label{def:digital_signature}
+ A digital signature $S_A \left( m \right)$ associates a message $m$ with a known sender $A$ in such a way that a recipient $B$ is assured about the following properties:
+ \begin{enumerate}
+  \item \textit{Authentication:} $B$ can be certain that $A$ is the sender of the message.
+  \item \textit{Non-repudiation:} $A$ can not deny having sent the message $m$.
+  \item \textit{Integrity:} $B$ can be certain that the message $m$ is delivered consistently, i.e. unaltered from how $A$ originally drafted the message $m$.
+ \end{enumerate}
+\end{defn}
+
+Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature scheme is often constructed. The key pair $\left< sk_A, vk_A \right>$ is often  Note that a signature scheme only shifts the authentication problem. Verification of a signature $S_A \left( m \right)$ only ensures the message $m$ originates from the owner of the key pair $\left< sk_A, vk_A \right>$.
+\begin{algorithm}
+\caption{Generic Signature Scheme }
+\label{alg:generic_signature_scheme}
+ In a digital signature scheme each entity $A$ has a publicly known verifying key $vk_A$ and a corresponding private signing key $sk_A$. A generic signature scheme consists of two algorithms:
+ \begin{enumerate}
+  \item \texttt{Sign($sk_A, m$)} Entity $A$ signs the message $m$ using its private signing key $sk_A$ resulting in a signature $S_A \left( m \right)$
+  \item \texttt{Verify($pk_A, S_A \left( m \right), m$)} Entity $B$ verifies the signature $S_A \left( m \right)$ with the public verifying key $vk_A$ of $A$. The \textit{Verify} step returns \texttt{true} or \texttt{false} depending on the validity of the signature.
+ \end{enumerate}
+\end{algorithm}
+
+
+\subsubsection{Certification Authorities} 
+
+\subsubsection{OpenPGP}
+
+Shamir invented the first three-pass protocol in 1980 although he never published his findings~\cite{art:Massey88}.
+
+\section{Secret Sharing}
+
+\subsection{Definition}
+\begin{defn}[SSS]
+\label{def:secret_sharing_scheme}
+ A \textit{Secret Sharing Scheme} (SSS) is a cryptographic scheme that divides a secret $S$ into $n$ pieces of data $S_1, \ldots, S_n$ called \textit{shares}. Shares are distributed over $n$ different parties called \textit{shareholders} such that specific subsets of the distributed shares allow reconstruction of the original secret $S$.
+\end{defn}
+
+\begin{defn}[Threshold scheme]
+\label{def:threshold_scheme}
+ A $\left( t, n \right)$ \textit{threshold scheme} $\left( t \leq n \right)$ is a secret sharing scheme by which a trusted party securely distributes $n$ different shares $S_i$ to $n$ different parties $P_i$ for $1 \leq i \leq n$ such that any subset of $t$ or more different shares $S_i$ easily allows to reconstruct the original secret $S$. Knowledge of $t-1$ or less shares is insufficient to reconstruct the original secret $S$.
+\end{defn}
+
+\begin{defn}[Perfect threshold scheme]
+\label{def:threshold_scheme}
+ A $\left( t, n \right)$ threshold scheme is said to be \textit{perfect} if no subset of fewer than $t$ shareholders can derive any partial information in the information theoretic sense about the original secret $S$ even with infinite computational resources.
+\end{defn}
+
+\subsection{Shamir Secret Sharing}
+In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} independently found an algorithm achieving perfect threshold secret sharing. Shamir's solution was based on polynomial interpolation while Blakley's algorithm relied on finite geometries. Blakley secret sharing uses more bits than necessary as it describes multidimensional planes. In contrast, Shamir secret sharing requires as many bits for each share as the length of the original secret. Therefore Shamir secret sharing has gained more popularity in both research communities and in practical implementations.
+
+\begin{algorithm}
+\caption{Shamir's $\left( t, n \right)$ threshold scheme~\cite{book:handbook_of_applied_cryptography} }
+\label{alg:shamirs_threshold_sheme}
+ \textbf{Goal}: A trusted party $T$ distributes shares of a secret $S$ to $n$ parties.
+ 
+ \textbf{Result}: If a subset of at least $t$ out of $n$ shareholders collaborates, they can reconstruct the original secret $S$.
+ \begin{enumerate}
+  \item \textit{Setup} The trusted party T begins with a secret integer $S \geq 0$ it wishes to distribute among $n$ parties
+   \begin{enumerate}
+    \item T chooses a prime $p > \max \left( S, n \right)$ and defines $a_0 = S$
+    \item $T$ selects $t-1$ random, independent coefficients $a_1, \ldots, a_{t-1}, 0 \leq a_j \leq p-1$ defining the random polynomial over $\mathcal{Z}_p$, $f \left( x \right) = \sum^{t-1}_{j=0} a_j x^j$
+    \item $T$ computes $S_i = f \left( i \right) \bmod p, 1 \leq i \leq n$ and securely transfers the share $S_i$ to shareholder $P_i$, along with a public index $i$.
+   \end{enumerate}
+   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, S_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
+ \begin{equation*}
+  f \left( 0 \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = S
+ \end{equation*}
+ \end{enumerate}
+\end{algorithm}
+
+The idea behind Shamir secret sharing is elegant in its simplicity. Any polynomial $f \left( x \right)$ of degree $t-1$ is uniquely defined by $t$ points lying on the polynomial. For example, it is possible to draw only one straight line between 2 different coordinates, a quadratic is fully defined by 3 different coordinates and so on. If the trusted party randomly generates a polynomial of degree $t-1$ it suffices to securely distribute one of $n$ different coordinates on the curve to each party $P_i, 0 \leq i \leq n$. A subset of at least $t$ different shareholders has to collaborate in order to reconstruct the original polynomial by interpolation. For security reasons the polynomial $f \left( x \right)$ is calculated in a finite field modulo a large prime number $p$. The complete mechanism of Shamir's threshold scheme can be found in Algorithm~\ref{alg:shamirs_threshold_sheme}. The mechanism behind reconstruction in Algorithm~\ref{alg:shamirs_threshold_sheme} is explained because the coefficients of an unknown polynomial $f \left( x \right)$ of degree less than $t$, defined by points $\left( x_i, y_i \right), 1 \leq i \leq t$ are given by the Lagrange interpolation formula
+
+\begin{equation*}
+ f \left( x \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x-x_j}{x_i-x_j}
+\end{equation*}
+A proof of this formula is omitted but can be found in~\cite{site:proofwiki_lagrange}.
+
+\subsection{Verifiable Secret Sharing}
+Verifiable secret sharing~\cite{art:ChorGMA85} tries to ensure the participating parties that their received shares are consistent by providing a verification mechanism. This verification mechanism can either detect an unfair dealer during setup or participants submitting incorrect shares during the reconstruction phase. The first verifiable secret sharing schemes were \textit{interactive}, i.e. interaction between shareholders and the trusted party was required to verify their shares. In \textit{non-interactive verifiable secret sharing} only the trusted party is allowed to send messages to the future shareholders. Shareholders can not communicate with each other neither can they send messages back to the trusted party. Non-interactive verifiable secret sharing is preferred over interactive alternatives as their is no chance of shareholders accidentally leaking too much information.
+
+Popular verifiable secret sharing schemes are Feldman's scheme~\cite{art:Feldman87} and Benaloh's scheme~\cite{art:Benaloh86a}. No further details are given as a basic notion of verifiable secret sharing suffices for the remainder of this text.
 
 \section{Distributed Key Generation}
-\lipsum[85]
 
 \section{Identity-Based Encryption}
-\lipsum[78]
 
 \subsection{Definition}
-\lipsum[79]
 
 \subsection{Anonymous Identity-Based Encryption}
-\lipsum[80]
 
 \section{Broadcast Encryption}
-\lipsum[81]
 
 \subsection{Definition}
-\lipsum[82]
 
 \subsection{Anonymous Broadcast Encryption}
-\lipsum[83]
 
 \subsection{Outsider-Anonymous Broadcast Encryption}
-\lipsum[84]
 
 \section{Conclusion}
-The final section of the chapter gives an overview of the important results
-of this chapter. This implies that the introductory chapter and the
-concluding chapter don't need a conclusion.
+The final section of the chapter gives an overview of the important results of this chapter. This implies that the introductory chapter and the concluding chapter don't need a conclusion.
 
 \lipsum[66]
 

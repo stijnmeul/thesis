@@ -11,44 +11,61 @@ A level-1 auxiliary file: app-A.aux
 A level-1 auxiliary file: app-n.aux
 The style file: abbrv.bst
 Database file #1: references.bib
-You've used 14 entries,
+Repeated entry---line 241 of file references.bib
+ : @proceedings{DBLP:conf/pairing/2013
+ :                                    ,
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 347 of file references.bib
+ : 
+ : @inproceedings{art:Blakley79,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+A bad cross reference---entry "art:ChorGMA85"
+refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
+Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
+Warning--to sort, need author or key in thesis:Wyseur09
+Warning--to sort, need author or key in thesis:Maas04
+Warning--empty author in thesis:Maas04
+Warning--empty author in thesis:Wyseur09
+You've used 36 entries,
             2118 wiz_defined-function locations,
-            606 strings with 6436 characters,
-and the built_in function-call counts, 4271 in all, are:
-= -- 406
-> -- 162
-< -- 6
-+ -- 69
-- -- 49
-* -- 256
-:= -- 699
-add.period$ -- 46
-call.type$ -- 14
-change.case$ -- 62
+            771 strings with 10918 characters,
+and the built_in function-call counts, 12127 in all, are:
+= -- 1182
+> -- 493
+< -- 21
++ -- 202
+- -- 154
+* -- 802
+:= -- 1936
+add.period$ -- 116
+call.type$ -- 36
+change.case$ -- 175
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 174
-empty$ -- 387
-format.name$ -- 49
-if$ -- 932
+cite$ -- 40
+duplicate$ -- 500
+empty$ -- 1019
+format.name$ -- 160
+if$ -- 2658
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 13
-newline$ -- 74
-num.names$ -- 34
-pop$ -- 87
+int.to.str$ -- 36
+missing$ -- 31
+newline$ -- 181
+num.names$ -- 85
+pop$ -- 196
 preamble$ -- 1
-purify$ -- 51
+purify$ -- 143
 quote$ -- 0
-skip$ -- 130
+skip$ -- 387
 stack$ -- 0
-substring$ -- 232
-swap$ -- 44
-text.length$ -- 6
+substring$ -- 716
+swap$ -- 150
+text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 50
-warning$ -- 0
-while$ -- 41
-width$ -- 16
-write$ -- 153
+type$ -- 137
+warning$ -- 4
+while$ -- 113
+width$ -- 38
+write$ -- 396
+(There were 3 error messages)
