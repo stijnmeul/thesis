@@ -4,6 +4,10 @@
 Pairing based cryptography.
 \newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
 
+\bibitem{thesis:Alfredo08}
+Public-key encryption with oblivious keyword search. priced oblivious transfer.
+\newblock Master's thesis, KU Leuven, 2008.
+
 \bibitem{thesis:Wyseur09}
 White-box cryptography.
 \newblock Master's thesis, KU Leuven, 2009.
@@ -57,11 +61,23 @@ G.~Blakley.
 \newblock In {\em Proceedings of the 1979 AFIPS National Computer Conference},
   pages 313--317, Monval, NJ, USA, 1979. AFIPS Press.
 
+\bibitem{art:BoldyrevaGK12}
+A.~Boldyreva, V.~Goyal, and V.~Kumar.
+\newblock Identity-based encryption with efficient revocation.
+\newblock {\em IACR Cryptology ePrint Archive}, 2012:52, 2012.
+
 \bibitem{art:Boneh98}
 D.~Boneh.
 \newblock The decision diffie-hellman problem.
 \newblock In J.~Buhler, editor, {\em ANTS}, volume 1423 of {\em Lecture Notes
   in Computer Science}, pages 48--63. Springer, 1998.
+
+\bibitem{art:BonehDTW01}
+D.~Boneh, X.~Ding, G.~Tsudik, and C.-M. Wong.
+\newblock A method for fast revocation of public key certificates and security
+  capabilities.
+\newblock In D.~S. Wallach, editor, {\em USENIX Security Symposium}. USENIX,
+  2001.
 
 \bibitem{art:BonehF01}
 D.~Boneh and M.~K. Franklin.
@@ -142,6 +158,13 @@ S.~Goldwasser, S.~Micali, and C.~Rackoff.
 \newblock The knowledge complexity of interactive proof systems.
 \newblock {\em SIAM J. Comput.}, 18(1):186--208, 1989.
 
+\bibitem{art:HanaokaHSI05}
+Y.~Hanaoka, G.~Hanaoka, J.~Shikata, and H.~Imai.
+\newblock Identity-based hierarchical strongly key-insulated encryption and its
+  application.
+\newblock In B.~K. Roy, editor, {\em ASIACRYPT}, volume 3788 of {\em Lecture
+  Notes in Computer Science}, pages 495--514. Springer, 2005.
+
 \bibitem{site:Jones13}
 K.~Jones.
 \newblock The growth of social media v2.0.
@@ -160,6 +183,12 @@ A.~Joux and K.~Nguyen.
 \newblock Separating decision diffie-hellman from computational diffie-hellman
   in cryptographic groups.
 \newblock {\em J. Cryptology}, 16(4):239--247, 2003.
+
+\bibitem{art:LibertQ03}
+B.~Libert and J.-J. Quisquater.
+\newblock Efficient revocation and threshold pairing based cryptosystems.
+\newblock In E.~Borowsky and S.~Rajsbaum, editors, {\em PODC}, pages 163--171.
+  ACM, 2003.
 
 \bibitem{art:MaurerW98}
 U.~M. Maurer and S.~Wolf.

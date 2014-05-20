@@ -6,7 +6,7 @@ Shamir~\cite{art:Shamir84} already proposed a concept of identity-based cryptogr
 
 
 \subsection{Definition}
-A generic Identity-Based Encryption (IBE) scheme is composed of four probabilistic polynomial time algorithms:
+A generic Identity-Based Encryption (IBE) scheme is composed of four probabilistic polynomial time algorithms~\cite{art:BonehF01}:
 \begin{description}
     \item[\texttt{IBE.Setup($1^k$)}] On input of a security parameter $k$, outputs a master secret $s_k$ and public parameters $params$.
     \item[\texttt{IBE.Extract($params, s_k, \id{}$):}] Takes public parameters $params$, the master secret $s$, and an \id{} as input and returns the private key $s_{\id{}}$ corresponding to the identity \id{}.
@@ -30,38 +30,57 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
                 (-4,0) node [block] (alice) {\includegraphics[scale=0.2]{img/alice.png}}
                 (4,0) node [block] (bob) {\includegraphics[scale=0.2]{img/bob.png}}
                 % Text
-                (-0.5, 0.5) node [leg] (test) {$c$}
-                (2, 2) node [leg] (test2) {$s_{\id{Bob}}$}
+                (-0.5, 0.5) node [leg, color=orange] (c) {$c$}
+                (1.5, 1.2) node [leg] (id_bob) {$s_{\id{Bob}}$}
+                (3.5,2) node [leg] (bob_authenticates) {4. Bob authenticates}
                 ;
                 
        \node[below=of pkg] {\textbf{PKG}};
        \node[below=of alice] {\textbf{Alice} \\ 3. $c \leftarrow $\texttt{IBE.Encrypt($params, \id{Bob}, m$)}};
-       \node[below=of bob] {\textbf{Bob} \\ 5. $m \leftarrow $\texttt{IBE.Decrypt($s_{\id{Bob}}, \id{Bob}$)}};
+       \node[below=of bob] {\textbf{Bob} \\ 6. $m \leftarrow $\texttt{IBE.Decrypt($s_{\id{Bob}}, \id{Bob}$)}};
        \node[above=of pkg,align=left] {
                1. $\left< s_k, params \right> \leftarrow $\texttt{IBE.Setup($1^k$)} \\
                2. publish $params$ \\
                \\
-               4. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, s_k, \id{Bob}$)}
+               5. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, s_k, \id{Bob}$)}
                };
        \begin{scope}[every path/.style=line]
-        \path (alice.east) -- (bob.west);         
-       \end{scope}
-       \begin{scope}[every path/.style=line2]
-        \path (pkg.south east) -- (bob.north west);    
+        \path[color=orange] (alice.east) -- (bob.west);
+        \path (2.8,1) -- (1,2.2);
+        \path (0.9,2.1) -- (2.7,0.9);
        \end{scope}
 
 
         \end{tikzpicture}
     }
     \end{center}
-    \caption{Multiple $(n,t)$-PKG IBE for OSNs overview, for a message $m$ published for the set $\mathcal{S}$ for $t=3$.}
-    \label{fig:overview}
+    \caption{Generic identity-based encryption scheme. The orange arrow denotes an insecure channel that can be eavesdropped.}
+    \label{fig:generic_ibe_scheme}
 \end{figure}
 
+These generic algorithms are best explained using Figure~\ref{fig:generic_ibe_scheme}. A trusted Public Key Generator (PKG) generates a master secret key $s_k$ and public parameters $params$ on input of the security parameter $k$. Next, the PKG publishes the public parameters $params$ while storing $s_k$ preferably in encrypted fashion on a local disk. When Alice wants to send a message $m$ to Bob, it suffices for her to know the public parameters $params$ and his id $\id{Bob}$ uniquely identifying Bob. Alice encrypts the message to a ciphertext $c$ that is sent over to Bob. On receipt of the ciphertext, Bob authenticates to the PKG over a secure channel to request his secret key $s_{\id{Bob}}$. Next, the PKG generates the secret key $s_{\id{Bob}}$ corresponding to Bob's identity $\id{Bob}$ on input of the master secret key $s_k$, Bob's id $\id{Bob}$ and public parameters $params$. Subsequently, the PKG sends $s_{\id{Bob}}$ back again over a secure channel. Finally, Bob has all the required information to decrypt the ciphertext $c$ to its original plaintext message $m$.
 
+\subsection{Advantages and Drawbacks of IBE}
+Note that it is important that the PKG can be fully trusted as it will generate all the secret keys $s_{\id{}}$ in the system. Referring to Figure~\ref{fig:generic_ibe_scheme}, a malicious PKG server could use this information to start eavesdropping on the insecure channel between Alice and Bob while decrypting all ciphertexts that are being sent over. The undesired property that private keys have to be shared with a trusted third party is often called \textit{key escrow} in literature.
+
+Another drawback from the scheme in Figure~\ref{fig:generic_ibe_scheme} is that keys can not be revoked in the system. However, Bob's secret key $s_{\id{Bob}}$ can still get compromised if he is careless with the storage of his secret key. In fact, a lot of research has been done in literature on the revocation of IBE keys~\cite{art:BoldyrevaGK12,art:BonehDTW01,art:HanaokaHSI05,art:LibertQ03}. Key revocation often requires additional infrastructure that complicates the elegancy of the currently proposed IBE scheme. As a matter of fact, the major drawback of revoking Bobs key is that Bob can no longer receive encrypted messages because his public key is part of his identity. Therefore, a pragmatic solution to this issue could be to append expiration dates to the public keys. Consequently, public keys will only be valid for a limited amount of time thereby restricting the damage that could be done with a compromised secret key~\cite{art:BonehF01}.
+
+The scheme from Figure~\ref{fig:generic_ibe_scheme} has some desired properties as well. For starters, only one PKG suffices to realise the system, which relaxes expensive requirements on the public key infrastructure. Furthermore, once the PKG has successfully delivered all the secret keys in the system, it can go offline as the scheme does not require any future interactions between the PKG and the users in the system.
+
+Another useful property of an IBE scheme is that Bob does not need to subscribe to a hierarchy of Certification Authorities neither a chain of trust before Alice can start sending him messages. In this way, the possibility to send encrypted messages becomes inherently part of any system in which the users are assigned unique identifiers. This is particularly useful in systems where the majority of the users has no knowledge about cryptographic primitives.  Users do no longer need to generate a key pair neither subscribe to a third party infrastructure. It suffices to recall how their connections can be uniquely identified in the system to know their public keys.
+
+\subsection{Security of IBE}
+A cryptographic scheme should meet two properties in order to be of practical use. First, the scheme should be consistent, i.e. decryption reverses encryption. Second, the scheme should be secure. The definition of security is more subtle as different levels of security can be defined. In IBE \textit{indistinguishability under chosen plaintext attack} (IND-CPA) and \textit{indistinguishability under chosen ciphertext attack} (IND-CCA) are often considered. Anonymity of the encryption scheme is an additional property of the scheme that is often desired~\cite{thesis:Alfredo08}.
+
+\subsubsection{Indistinguishability Under Chosen Plaintext Attack}
+\subsubsection{Indistinguishability Under Chosen Ciphertext Attack}
+\subsubsection{Anonymous Identity-Based Encryption}
+
+
+\subsection{Evolution of IBE}
 Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{art:BonehF01} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{art:BonehF01} still relies on the random oracle assumption. Canetti et al.~\cite{art:CanettiHK03} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare which identity it will target, therefore the scheme in~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity. Gentry~\cite{GentryRandomOracles} proposes a more efficient alternative to this scheme without random oracles while achieving shorter public parameters. 
 
-\subsection{Anonymous Identity-Based Encryption}
+
 
 \section{Broadcast Encryption}
 

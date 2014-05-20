@@ -13,7 +13,7 @@
 \addvspace {10pt}
 \contentsline {figure}{\numberline {2.1}{\ignorespaces A cryptosystem~\cite {thesis:Wyseur09}}}{12}{figure.2.1}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Multiple $(n,t)$-PKG IBE for OSNs overview, for a message $m$ published for the set $\mathcal {S}$ for $t=3$.}}{18}{figure.3.1}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Generic identity-based encryption scheme. The orange arrow denotes an insecure channel that can be eavesdropped.}}{18}{figure.3.1}
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
