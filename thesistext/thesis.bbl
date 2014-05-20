@@ -12,6 +12,13 @@ Public-key encryption with oblivious keyword search. priced oblivious transfer.
 White-box cryptography.
 \newblock Master's thesis, KU Leuven, 2009.
 
+\bibitem{art:AbdallaBCKKLMNPS05}
+M.~Abdalla, M.~Bellare, D.~Catalano, E.~Kiltz, T.~Kohno, T.~Lange,
+  J.~Malone-Lee, G.~Neven, P.~Paillier, and H.~Shi.
+\newblock Searchable encryption revisited: Consistency properties, relation to
+  anonymous ibe, and extensions.
+\newblock In Shoup \cite{DBLP:conf/crypto/2005}, pages 205--222.
+
 \bibitem{art:AdjMOR13}
 G.~Adj, A.~Menezes, T.~Oliveira, and F.~Rodr\'{\i}guez-Henr\'{\i}quez.
 \newblock Weakness of x25;$_{\mbox{3$^{\mbox{6$\cdot$509}}$}}$ for discrete
@@ -84,6 +91,13 @@ D.~Boneh and M.~K. Franklin.
 \newblock Identity based encryption from the {W}eil pairing.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
 
+\bibitem{art:BoyenW06}
+X.~Boyen and B.~Waters.
+\newblock Anonymous hierarchical identity-based encryption (without random
+  oracles).
+\newblock In C.~Dwork, editor, {\em CRYPTO}, volume 4117 of {\em Lecture Notes
+  in Computer Science}, pages 290--307. Springer, 2006.
+
 \bibitem{site:Bullas14}
 J.~Bullas.
 \newblock 22 social media facts and statistics you should know in 2014.
@@ -116,8 +130,7 @@ B.~Chor, S.~Goldwasser, S.~Micali, and B.~Awerbuch.
 \bibitem{art:CoronDMP05}
 J.-S. Coron, Y.~Dodis, C.~Malinaud, and P.~Puniya.
 \newblock Merkle-damg{\aa}rd revisited: How to construct a hash function.
-\newblock In V.~Shoup, editor, {\em CRYPTO}, volume 3621 of {\em Lecture Notes
-  in Computer Science}, pages 430--448. Springer, 2005.
+\newblock In Shoup \cite{DBLP:conf/crypto/2005}, pages 430--448.
 
 \bibitem{art:DiffieH76}
 W.~Diffie and M.~E. Hellman.
@@ -140,6 +153,12 @@ G.~Frey, M.~M{\"u}ller, and H.-G. R{\"u}ck.
   cryptosystems.
 \newblock {\em IEEE Transactions on Information Theory}, 45(5):1717--1719,
   1999.
+
+\bibitem{art:Gentry06}
+C.~Gentry.
+\newblock Practical identity-based encryption without random oracles.
+\newblock In S.~Vaudenay, editor, {\em EUROCRYPT}, volume 4004 of {\em Lecture
+  Notes in Computer Science}, pages 445--464. Springer, 2006.
 
 \bibitem{book:Goldreich97}
 O.~Goldreich.
@@ -230,12 +249,32 @@ A.~Shamir.
 \newblock In G.~R. Blakley and D.~Chaum, editors, {\em CRYPTO}, volume 196 of
   {\em Lecture Notes in Computer Science}, pages 47--53. Springer, 1984.
 
+\bibitem{DBLP:conf/crypto/2005}
+V.~Shoup, editor.
+\newblock {\em Advances in Cryptology - CRYPTO 2005: 25th Annual International
+  Cryptology Conference, Santa Barbara, California, USA, August 14-18, 2005,
+  Proceedings}, volume 3621 of {\em Lecture Notes in Computer Science}.
+  Springer, 2005.
+
 \bibitem{site:StatisticBrain}
 StatisticBrain.
 \newblock Social networking statistics.
 \newblock URL:
   \url{http://www.statisticbrain.com/social-networking-statistics/}, last
   checked on 2014-05-08.
+
+\bibitem{art:Waters05}
+B.~Waters.
+\newblock Efficient identity-based encryption without random oracles.
+\newblock In R.~Cramer, editor, {\em EUROCRYPT}, volume 3494 of {\em Lecture
+  Notes in Computer Science}, pages 114--127. Springer, 2005.
+
+\bibitem{art:Waters09}
+B.~Waters.
+\newblock Dual system encryption: Realizing fully secure ibe and hibe under
+  simple assumptions.
+\newblock In S.~Halevi, editor, {\em CRYPTO}, volume 5677 of {\em Lecture Notes
+  in Computer Science}, pages 619--636. Springer, 2009.
 
 \bibitem{site:proofwiki_lagrange}
 P.~Wiki.

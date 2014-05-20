@@ -72,15 +72,97 @@ Another useful property of an IBE scheme is that Bob does not need to subscribe 
 \subsection{Security of IBE}
 A cryptographic scheme should meet two properties in order to be of practical use. First, the scheme should be consistent, i.e. decryption reverses encryption. Second, the scheme should be secure. The definition of security is more subtle as different levels of security can be defined. In IBE \textit{indistinguishability under chosen plaintext attack} (IND-CPA) and \textit{indistinguishability under chosen ciphertext attack} (IND-CCA) are often considered. Anonymity of the encryption scheme is an additional property of the scheme that is often desired~\cite{thesis:Alfredo08}.
 
+Note that both the notion of IND-CPA, IND-CCA and anonymity are only introduced in an informal way in this section to give a basic understanding of these concepts to the reader. If a more formal description of IND-CPA and IND-CCA is required, the reader is referred to~\cite{art:BonehF01}. For a more formal description of ciphertext anonymity the reader is referred to~\cite{art:AbdallaBCKKLMNPS05}.
+
 \subsubsection{Indistinguishability Under Chosen Plaintext Attack}
+Indistinguishability under chosen plaintext attack (IND-CPA) means that an adversary has no advantage in trying to determine which of both given plaintext messages $m_0$ and $m_1$ generated a ciphertext $c$. It captures the notion of \textit{semantic security}, i.e. that every ciphertext $c$ should not give any more information about the original plaintext $m$ than any other random binary string of the same length.
+
+IND-CPA is best defined with the help of a game that challenges the adversary. If the adversary has negligible advantage trying to win the IND-CPA game in Algorithm~\ref{alg:ind_cpa_game}, the IBE system is said to be IND-CPA secure.
+
+\begin{algorithm}
+\caption{Generic IBE-IND-CPA Game~\cite{thesis:Alfredo08}}
+\label{alg:ind_cpa_game}
+ \textbf{Goal}: An adversary is challenged by a game to check the IND-CPA security of an IBE scheme.
+ 
+ \textbf{Result}: This IBE-IND-CPA Game helps to define the concept of IND-CPA security for IBE schemes.
+
+ \begin{enumerate}
+  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^k$)} and returns $params$ to the adversary.
+  \item \label{item:firs_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item The adversary picks two equal length plaintext messages $m_0$ and $m_1$ and an identity $\id{encrypt}$. The adversary honestly passes $\left< m_0, m_1, \id{encrypt} \right>$ to the challenger.
+  \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{}, m_b$)}. The challenger gives $c$ to the adversary.
+  \item \label{item:second_oracle_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
+  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. If $b \neq b'$ or if the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{encrypt}$ during step~\ref{item:firs_oracle_query} or step~\ref{item:second_oracle_query}, the adversary loses the game.
+ \end{enumerate}
+\end{algorithm}
+
 \subsubsection{Indistinguishability Under Chosen Ciphertext Attack}
+Indistinguishability under chosen ciphertext (IND-CCA) is a more demanding level of security. Therefore, an algorithm that is IND-CCA secure is considered more secure than an IND-CPA secure algorithm. IND-CCA security means that an adversary has no advantage in trying to determine which of both given plaintext messages $m_0$ and $m_1$ generated a ciphertext $c$ even if the adversary has access to a list of plaintext, ciphertext tuples.
+
+IND-CCA is easiest to define with the help of a game that challenges an adversary similar to the IND-CPA game. The IND-CCA game contains two additional steps compared to the IND-CPA game in which the adversary gets access to another oracle. If the adversary has negligible advantage trying to win the IND-CCA game from Algorithm~\ref{alg:ind_cca_game}, the IBE system is said to be IND-CCA secure.
+
+In literature a distinction is often made between a \textit{non-adaptive} case (IND-CCA1) and an \textit{adaptive} case (IND-CCA2) of IND-CCA. In the non-adaptive case, step 6 of Algorithm~\ref{alg:ind_cca_game} is not allowed. More precisely, an IBE scheme that satisfies Algorithm~\ref{alg:ind_cca_game} is said to be IND-CCA2 secure.
+
+\begin{algorithm}
+\caption{Generic IBE-IND-CCA Game~\cite{thesis:Alfredo08}}
+\label{alg:ind_cca_game}
+ \textbf{Goal}: An adversary is challenged by a game to check the IND-CCA security of an IBE scheme.
+ 
+ \textbf{Result}: This IBE-IND-CCA Game helps to define the concept of IND-CPA security for IBE schemes.
+
+ \begin{enumerate}
+  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^k$)} and returns $params$ to the adversary.
+  \item \label{item:cca_first_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item \label{item:cca_first_decryption_query} The adversary can start querying another oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ that returns a plaintext $m_j \leftarrow$ \texttt{IBE.Decrypt($s_{\id{i}}, c_j$)} corresponding to an adversary defined ciphertext $c_j$ and identity $\id{i}$.
+  \item The adversary picks two equal length plaintext messages $m_0$ and $m_1$ and an identity $\id{encrypt}$. The adversary honestly passes $\left< m_0, m_1, \id{encrypt} \right>$ to the challenger.
+  \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{}, m_b$)}. The challenger gives $c$ to the adversary.
+  \item \label{item:cca_second_oracle_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
+  \item \label{item:cca_second_decryption_query} The adversary continues querying the oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ adaptively.
+  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. If $b \neq b'$, if the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{encrypt}$ during step~\ref{item:cca_first_oracle_query} or step~\ref{item:cca_second_oracle_query} or if the adversary queried the oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ with $c_j = c$ during step~\ref{item:cca_first_decryption_query} or step~\ref{item:cca_second_decryption_query}, the adversary loses the game.
+ \end{enumerate}
+\end{algorithm}
+
 \subsubsection{Anonymous Identity-Based Encryption}
+An IBE scheme is called anonymous (ANO-IBE) when the ciphertext does not leak the identity of the recipient. In the case of Figure~\ref{fig:generic_ibe_scheme}, this would mean that no eavesdropper on the insecure channel between Alice and Bob could derive that Bob is the recipient based on the information in the ciphertext $c$ alone~\cite{art:BoyenW06}.
 
+ANO-IBE is easiest to define with the help of a game that challenges an adversary similar to the IND-CPA game. If the adversary has negligible advantage trying to win the ANO-IBE game in Algorithm~\ref{alg:ano_ibe}, the IBE system is said to be anonymous.
 
+Gentry~\cite{art:Gentry06} is the first to combine the notions of IND-CPA and IND-CCA with ANO-IBE. A system is then said to be IND-ANO-CPA secure or IND-ANO-CCA secure if it satisfies a modified version of the game in Algorithm~\ref{alg:ano_ibe}. For a more detailed discussion on the topic the reader is referred to the original paper~\cite{art:Gentry06}.
+
+\begin{algorithm}
+\caption{Generic ANO-IBE Game~\cite{thesis:Alfredo08}}
+\label{alg:ano_ibe}
+ \textbf{Goal}: An adversary is challenged by a game to check the ANO-IBE security of an IBE scheme.
+ 
+ \textbf{Result}: This ANO-IBE Game helps to define the concept of ANO-IBE security for IBE schemes.
+ \begin{enumerate}
+  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^k$)} and returns $params$ to the adversary.
+  \item \label{item:first_ano_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item The adversary picks a plaintext message $m$ and two identities \id{0} and \id{1}. The adversary honestly passes $\left< m, \id{0}, \id{1} \right>$ to the challenger.
+  \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{b}, m$)}. The challenger gives $c$ to the adversary.
+  \item \label{item:second_ano_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
+  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. If $b \neq b'$ or if the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{1}$ or $\id{i} = \id{2}$ during step~\ref{item:first_ano_query} or step~\ref{item:second_ano_query}, the adversary loses the game.
+ \end{enumerate}
+\end{algorithm}
+
+% Todo: kijk security levels na: ind-cpa, ind-cca enzoverder adhv winter lecture. Ik vermoed dat daar nog ergens een fout zit.
+
+% Uiteenzetting hoe we tot BF-IBE DKG komen:
+%    -> BF-IBE is anoniem, BB is NIET anoniem
+%            => zie winter lecture op 
+%                  https://www.youtube.com/watch?v=Tt7cJnZDth0&index=8&list=PLXF_IJaFk-9C4p3b2tK7H9a9axOm3EtjA
+%    -> SK-IBE en BB vereisen communicatie tussen DKGs
+%       tijdens extractie stap.
+%    -> SK-IBE berust op BDHI veronderstelling = niet leuk
+%    -> BB is vorm van HIBE => totaal aantal gebruikers moet op voorhand worden vastgelegd = niet leuk
 \subsection{Evolution of IBE}
-Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{art:BonehF01} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{art:BonehF01} still relies on the random oracle assumption. Canetti et al.~\cite{art:CanettiHK03} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare which identity it will target, therefore the scheme in~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity. Gentry~\cite{GentryRandomOracles} proposes a more efficient alternative to this scheme without random oracles while achieving shorter public parameters. 
+Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{art:BonehF01} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{art:BonehF01} still relies on the random oracle assumption. Canetti et al.~\cite{art:CanettiHK03} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare which identity \id{} that will be targeted during step 5 of the CCA Game (Algorithm~\ref{alg:ind_cca_game}) and step 4 of the CPA Game, therefore the scheme in~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity.  
+% TODO: BB hier ergens tussen steken en zeggen dat dat niet anoniem is.
+Waters~\cite{art:Waters05} is the first to present a scheme that is IND-CCA secure in the standard model. Drawback of the scheme from Waters~\cite{art:Waters05} is that it requires large public parameters. Gentry~\cite{art:Gentry06} proposes a more efficient alternative to this scheme in the standard model while achieving shorter public parameters. The scheme from Gentry relies on a complicated hardness assumption called q-BDHE. It is only after the introduction of the Dual System paradigm by Waters~\cite{art:Waters09} in 2009 that IND-CCA security can be achieved in the standard model based on reasonable assumptions.
 
+Although all these contributions were a step forward in the evolution of IBE, not all schemes are ANO-IBE. All IBE systems in the random oracle model can be proven anonymous. Therefore, the IBE scheme from Boneh and Franklin~\cite{art:BonehF01} is IND-ANO-CCA. In the standard model, it appears to be harder to construct ANO-IBE schemes. The scheme from Gentry~\cite{art:Gentry06} was the first anonymous IBE scheme in the standard model. Boyen and Waters~\cite{art:BoyenW06} published almost synchronously another IBE scheme in the standard model that is also IND-ANO-CCA secure.
 
+\subsection{Boneh and Franklin IBE}
 
 \section{Broadcast Encryption}
 

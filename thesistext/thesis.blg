@@ -20,9 +20,12 @@ I was expecting a `,' or a `}'---line 339 of file references.bib
  : @inproceedings{art:Blakley79,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Repeated entry---line 749 of file references.bib
+ : @proceedings{DBLP:conf/crypto/2005
+ :                                   ,
+I'm skipping whatever remains of this entry
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
-Warning--I didn't find a database entry for "GentryRandomOracles"
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
 Warning--to sort, need author or key in thesis:Wyseur09
@@ -31,45 +34,45 @@ Warning--to sort, need author or key in thesis:Alfredo08
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
-You've used 44 entries,
+You've used 50 entries,
             2118 wiz_defined-function locations,
-            832 strings with 12969 characters,
-and the built_in function-call counts, 15299 in all, are:
-= -- 1485
-> -- 655
-< -- 27
-+ -- 263
-- -- 206
-* -- 1022
-:= -- 2438
-add.period$ -- 142
-call.type$ -- 44
-change.case$ -- 222
+            875 strings with 14627 characters,
+and the built_in function-call counts, 17972 in all, are:
+= -- 1752
+> -- 764
+< -- 38
++ -- 304
+- -- 241
+* -- 1208
+:= -- 2833
+add.period$ -- 163
+call.type$ -- 50
+change.case$ -- 255
 chr.to.int$ -- 0
-cite$ -- 50
-duplicate$ -- 634
-empty$ -- 1269
-format.name$ -- 212
-if$ -- 3357
+cite$ -- 56
+duplicate$ -- 754
+empty$ -- 1474
+format.name$ -- 249
+if$ -- 3964
 int.to.chr$ -- 0
-int.to.str$ -- 44
-missing$ -- 38
-newline$ -- 219
-num.names$ -- 107
-pop$ -- 250
+int.to.str$ -- 50
+missing$ -- 43
+newline$ -- 248
+num.names$ -- 128
+pop$ -- 284
 preamble$ -- 1
-purify$ -- 182
+purify$ -- 210
 quote$ -- 0
-skip$ -- 489
+skip$ -- 597
 stack$ -- 0
-substring$ -- 872
-swap$ -- 198
-text.length$ -- 25
+substring$ -- 1042
+swap$ -- 259
+text.length$ -- 34
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 169
+type$ -- 192
 warning$ -- 6
-while$ -- 142
-width$ -- 46
-write$ -- 485
-(There were 3 error messages)
+while$ -- 167
+width$ -- 52
+write$ -- 554
+(There were 4 error messages)

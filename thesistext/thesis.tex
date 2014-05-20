@@ -102,9 +102,10 @@
 \begin{flushleft}
   \renewcommand{\arraystretch}{1.1}
   \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
-    LoG   & Laplacian-of-Gaussian \\
-    MSE   & Mean Square error \\
-    PSNR  & Peak Signal-to-Noise ratio \\
+    IBE   & Identity-Based Encryption \\
+    PKG   & Public Key Generator \\
+    IND-CPA  & Indistinguishability under Chosen Plaintext Attack  \\
+    IND-CCA & Indistinguishability under Chosen Ciphertext Attack \\
   \end{tabularx}
 \end{flushleft}
 \section*{Symbols}
@@ -115,6 +116,8 @@
   $S_A \left( m \right)$ & Signature of entity $A$ on message $m$ \\
   $e: G_1 \times G_2 \rightarrow G_T$ & Admissible bilinear map \\
   $e \left( P, Q \right)$ & Admissible bilinear map $P \in G_1, Q \in G_2, e \left( P, Q \right) \in G_T$ \\  
+  $\mathcal{A} \left( a, b \right)$ & An algorithm $\mathcal{A}$ with parameters $a$ and $b$ \\
+  $\left< a, b, c \right> \leftarrow \mathcal{A}( d, e )$ & Algorithm $\mathcal{A}$ with parameters $d$ and $e$ returns the collection of values $a, b, c$ \\
  \end{tabularx}
 \end{flushleft}
 

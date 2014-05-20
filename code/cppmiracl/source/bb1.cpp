@@ -50,6 +50,8 @@
 // Observe that every major operation benefits from precomputation!
 //
 
+float getExecutionTime(float begin_time);
+
 int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
@@ -59,6 +61,9 @@ int main()
 	G2 ghat,ghat1,hhat,ghat0,da0,da1;
 	G1 g,gone,h,c2,c3;
 	GT v;
+	float ext_time, set_time, enc_time, dec_time;
+	clock_t begin_time;
+
 	char message[12];
 	int lsb;
 	time_t seed;
@@ -67,7 +72,7 @@ int main()
     irand((long)seed);
 
 // common values
-
+    begin_time = clock();
 	pfc.random(alpha);
 	pfc.random(g);
 	// g_1 = g^alpha
@@ -86,17 +91,19 @@ int main()
 	pfc.precomp_for_mult(gone);
 	pfc.precomp_for_mult(ghat);
 	pfc.precomp_for_mult(ghat1);
-
+	set_time = getExecutionTime(begin_time);
 //extract
+	begin_time = clock();
 	a=pfc.hash_to_group((char *)"Alice");
 	pfc.random(r);
 	da0=ghat0+pfc.mult(hhat+pfc.mult(ghat1,a),r);
 	da1=pfc.mult(ghat,r);	da1=-da1;
 	pfc.precomp_for_pairing(da0);  // Alice precomputes on her private key !
 	pfc.precomp_for_pairing(da1);
-
+	ext_time = getExecutionTime(begin_time);
 
 //encrypt
+	begin_time = clock();
 	mip->IOBASE=256;
 	M=(char *)"test message"; // to be encrypted to Alice
 	cout << "Message to be encrypted=   " << M << endl;
@@ -109,9 +116,10 @@ int main()
 	c2=pfc.mult(g,s);
 	// C_3 = (hg_1^a)^s
 	c3=pfc.mult(h+pfc.mult(gone,a),s);
+	enc_time = getExecutionTime(begin_time);
 
 //decrypt
-
+	begin_time = clock();
 	G1 *g1[2];
 	G2 *g2[2];
 	g1[0]=&c2; g1[1]=&c3;
@@ -120,7 +128,20 @@ int main()
 	// in the paper: A XOR H(e(B,d_0)/e(C_1,d_1)) = A XOR H(e(c2,da0)/e(c1,da1))
 	M=lxor(c1,pfc.hash_to_aes_key(pfc.multi_pairing(2,g2,g1)));	// Use private key
 	mip->IOBASE=256;
+	dec_time = getExecutionTime(begin_time);
+
 	cout << "Decrypted message=         " << M << endl;
+	cout << endl;
+	cout << "Setup time:      " << set_time << endl;
+	cout << "Extract time:    " << ext_time << endl;
+	cout << "Encryption time: " << enc_time << endl;
+	cout << "Decryption time: " << dec_time << endl;
+	cout << "               + --------" << endl;
+	cout << "Total time:      " << set_time + ext_time + enc_time + dec_time << endl;
 
     return 0;
+}
+
+float getExecutionTime(float begin_time) {
+	return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }
