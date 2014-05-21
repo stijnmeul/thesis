@@ -79,6 +79,18 @@ D.~Boneh.
 \newblock In J.~Buhler, editor, {\em ANTS}, volume 1423 of {\em Lecture Notes
   in Computer Science}, pages 48--63. Springer, 1998.
 
+\bibitem{art:BonehB04}
+D.~Boneh and X.~Boyen.
+\newblock Efficient selective-id secure identity-based encryption without
+  random oracles.
+\newblock In C.~Cachin and J.~Camenisch, editors, {\em EUROCRYPT}, volume 3027
+  of {\em Lecture Notes in Computer Science}, pages 223--238. Springer, 2004.
+
+\bibitem{art:BonehBG05}
+D.~Boneh, X.~Boyen, and E.-J. Goh.
+\newblock Hierarchical identity based encryption with constant size ciphertext.
+\newblock In Cramer \cite{DBLP:conf/eurocrypt/2005}, pages 440--456.
+
 \bibitem{art:BonehDTW01}
 D.~Boneh, X.~Ding, G.~Tsudik, and C.-M. Wong.
 \newblock A method for fast revocation of public key certificates and security
@@ -132,15 +144,41 @@ J.-S. Coron, Y.~Dodis, C.~Malinaud, and P.~Puniya.
 \newblock Merkle-damg{\aa}rd revisited: How to construct a hash function.
 \newblock In Shoup \cite{DBLP:conf/crypto/2005}, pages 430--448.
 
+\bibitem{DBLP:conf/eurocrypt/2005}
+R.~Cramer, editor.
+\newblock {\em Advances in Cryptology - EUROCRYPT 2005, 24th Annual
+  International Conference on the Theory and Applications of Cryptographic
+  Techniques, Aarhus, Denmark, May 22-26, 2005, Proceedings}, volume 3494 of
+  {\em Lecture Notes in Computer Science}. Springer, 2005.
+
 \bibitem{art:DiffieH76}
 W.~Diffie and M.~E. Hellman.
 \newblock New directions in cryptography.
 \newblock {\em IEEE Transactions on Information Theory}, 22(6):644--654, 1976.
 
+\bibitem{art:DodisF02}
+Y.~Dodis and N.~Fazio.
+\newblock Public key broadcast encryption for stateless receivers.
+\newblock In J.~Feigenbaum, editor, {\em Digital Rights Management Workshop},
+  volume 2696 of {\em Lecture Notes in Computer Science}, pages 61--80.
+  Springer, 2002.
+
+\bibitem{art:Ducas10}
+L.~Ducas.
+\newblock Anonymity from asymmetry: New constructions for anonymous hibe.
+\newblock In J.~Pieprzyk, editor, {\em CT-RSA}, volume 5985 of {\em Lecture
+  Notes in Computer Science}, pages 148--164. Springer, 2010.
+
 \bibitem{art:Feldman87}
 P.~Feldman.
 \newblock A practical scheme for non-interactive verifiable secret sharing.
 \newblock In {\em FOCS}, pages 427--437. IEEE Computer Society, 1987.
+
+\bibitem{art:FiatN93}
+A.~Fiat and M.~Naor.
+\newblock Broadcast encryption.
+\newblock In D.~R. Stinson, editor, {\em CRYPTO}, volume 773 of {\em Lecture
+  Notes in Computer Science}, pages 480--491. Springer, 1993.
 
 \bibitem{art:FleischmannGL10}
 E.~Fleischmann, M.~Gorski, and S.~Lucks.
@@ -177,6 +215,18 @@ S.~Goldwasser, S.~Micali, and C.~Rackoff.
 \newblock The knowledge complexity of interactive proof systems.
 \newblock {\em SIAM J. Comput.}, 18(1):186--208, 1989.
 
+\bibitem{art:GoodrichST04}
+M.~T. Goodrich, J.~Z. Sun, and R.~Tamassia.
+\newblock Efficient tree-based revocation in groups of low-state devices.
+\newblock In M.~K. Franklin, editor, {\em CRYPTO}, volume 3152 of {\em Lecture
+  Notes in Computer Science}, pages 511--527. Springer, 2004.
+
+\bibitem{art:HalevyS02}
+D.~Halevy and A.~Shamir.
+\newblock The lsd broadcast encryption scheme.
+\newblock In M.~Yung, editor, {\em CRYPTO}, volume 2442 of {\em Lecture Notes
+  in Computer Science}, pages 47--60. Springer, 2002.
+
 \bibitem{art:HanaokaHSI05}
 Y.~Hanaoka, G.~Hanaoka, J.~Shikata, and H.~Imai.
 \newblock Identity-based hierarchical strongly key-insulated encryption and its
@@ -203,6 +253,11 @@ A.~Joux and K.~Nguyen.
   in cryptographic groups.
 \newblock {\em J. Cryptology}, 16(4):239--247, 2003.
 
+\bibitem{art:LewkoSW08}
+A.~B. Lewko, A.~Sahai, and B.~Waters.
+\newblock Revocation systems with very small private keys.
+\newblock {\em IACR Cryptology ePrint Archive}, 2008:309, 2008.
+
 \bibitem{art:LibertQ03}
 B.~Libert and J.-J. Quisquater.
 \newblock Efficient revocation and threshold pairing based cryptosystems.
@@ -225,6 +280,11 @@ U.~M. Maurer and S.~Wolf.
 A.~Menezes, P.~C. van Oorschot, and S.~A. Vanstone.
 \newblock {\em Handbook of Applied Cryptography}.
 \newblock CRC Press, 1996.
+
+\bibitem{art:NaorNL01}
+D.~Naor, M.~Naor, and J.~B. Lotspiech.
+\newblock Revocation and tracing schemes for stateless receivers.
+\newblock {\em IACR Cryptology ePrint Archive}, 2001:59, 2001.
 
 \bibitem{book:PaarP10}
 C.~Paar and J.~Pelzl.
@@ -266,8 +326,7 @@ StatisticBrain.
 \bibitem{art:Waters05}
 B.~Waters.
 \newblock Efficient identity-based encryption without random oracles.
-\newblock In R.~Cramer, editor, {\em EUROCRYPT}, volume 3494 of {\em Lecture
-  Notes in Computer Science}, pages 114--127. Springer, 2005.
+\newblock In Cramer \cite{DBLP:conf/eurocrypt/2005}, pages 114--127.
 
 \bibitem{art:Waters09}
 B.~Waters.

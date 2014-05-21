@@ -97,28 +97,46 @@
 \listoffiguresandtables
 % The list of symbols is also optional.
 % This list must be created manually, e.g., as follows:
-\chapter{List of Abbreviations and Symbols}
-\section*{Abbreviations}
+\chapter{List of Abbreviations}
 \begin{flushleft}
   \renewcommand{\arraystretch}{1.1}
   \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
     IBE   & Identity-Based Encryption \\
     PKG   & Public Key Generator \\
+    DKG   & Distributed Key Generator \\
     IND-CPA  & Indistinguishability under Chosen Plaintext Attack  \\
     IND-CCA & Indistinguishability under Chosen Ciphertext Attack \\
+    ANO-IBE & Anonymous IBE \\
+    ANO-IND-CPA & Anonymity preserving IBE scheme that is indistinguishable under chosen plaintext attacks \\
+    ANO-IND-CCA & Anonymity preserving IBE scheme that is indistinguishable under chosen ciphertext attacks \\ 
+    OSN & Online Social Network \\
   \end{tabularx}
 \end{flushleft}
-\section*{Symbols}
+\chapter{List of Symbols}
 \begin{flushleft}
  \renewcommand{\arraystretch}{1.1}
  \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
+  $\lambda$ & Security parameter denoting the level of security \\
+  $l$ & The number of bits required to realise security level $\lambda$ \\
+  $s$ & A secret \\
+  $sk_i$ & The secret key corresponding to the public key $pk_i$ \\
+  $pk_i$ & A public key with corresponding secret key $sk_i$ \\
+  $m$ & A bit sequence representing a message \\
+  $c$ & A bit sequence representing a ciphertext \\
+  $v, w$ & Small letters represent binary bit sequences \\
+  \id{Alice} & A bit sequence uniquely identifying Alice \\ 
+  $s_{\id{Alice}}$ & The corresponding IBE secret key to the identifier \id{Alice} serving as an IBE public key \\
+  $k$ & A symmetric session key \\
+  $E_k \left( m \right)$ & Symmetric encryption of the message $m$ under session key $k$ \\
+  $D_k \left( c \right)$ & Symmetric decryption of the ciphertext $c$ under session key $k$ \\
   $G$ & A group $\left( G, * \right)$ \\
   $S_A \left( m \right)$ & Signature of entity $A$ on message $m$ \\
   $e: G_1 \times G_2 \rightarrow G_T$ & Admissible bilinear map \\
+  $U, P, Q$ & Points on an elliptic curve \\
   $e \left( P, Q \right)$ & Admissible bilinear map $P \in G_1, Q \in G_2, e \left( P, Q \right) \in G_T$ \\  
   $\mathcal{A} \left( a, b \right)$ & An algorithm $\mathcal{A}$ with parameters $a$ and $b$ \\
   $\left< a, b, c \right> \leftarrow \mathcal{A}( d, e )$ & Algorithm $\mathcal{A}$ with parameters $d$ and $e$ returns the collection of values $a, b, c$ \\
- \end{tabularx}
+  \end{tabularx}
 \end{flushleft}
 
 % Now comes the main text

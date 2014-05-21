@@ -1,6 +1,9 @@
 \chapter{Literature Review}
 \label{cha:2}
 
+% TODO: write intro
+% TODO: gebruik Martijn Maas thesis om iets te zeggen over public crypto, CA's en openPGP
+
 \section{Identity-Based Encryption}
 Shamir~\cite{art:Shamir84} already proposed a concept of identity-based cryptography in 1984. In identity-based cryptography any string can be a valid public key for encryption or signature schemes thereby eliminating the need for digital certificates. Identity-based cryptography proves to be particularly elegant if the public key is related to an attribute that uniquely identifies the identity of the user like an e-mail address, an IP address or a telephone number. Consequently, identity-based cryptography reduces system complexity and the cost for establishing and managing the Public Key Infrastructure~(PKI)~\cite{art:BaekNSS04}. 
 
@@ -8,8 +11,8 @@ Shamir~\cite{art:Shamir84} already proposed a concept of identity-based cryptogr
 \subsection{Definition}
 A generic Identity-Based Encryption (IBE) scheme is composed of four probabilistic polynomial time algorithms~\cite{art:BonehF01}:
 \begin{description}
-    \item[\texttt{IBE.Setup($1^k$)}] On input of a security parameter $k$, outputs a master secret $s_k$ and public parameters $params$.
-    \item[\texttt{IBE.Extract($params, s_k, \id{}$):}] Takes public parameters $params$, the master secret $s$, and an \id{} as input and returns the private key $s_{\id{}}$ corresponding to the identity \id{}.
+    \item[\texttt{IBE.Setup($1^{\lambda}$)}] On input of a security parameter $\lambda$, outputs a master secret $s_k$ and public parameters $params$.
+    \item[\texttt{IBE.Extract($params, s_k, \id{}$):}] Takes public parameters $params$, the master secret $s_k$, and an \id{} as input and returns the private key $s_{\id{}}$ corresponding to the identity \id{}.
     \item[\texttt{IBE.Encrypt($params, \id{}, m$):}] Returns the encryption $c$ of the message $m$ on the input of the public parameters $params$, the \id{}, and the arbitrary length message $m$.
     \item[\texttt{IBE.Decrypt($s_{\id{}}, c$):}] Decrypts the ciphertext $c =$ \texttt{IBE.Encrypt}($params, \id{}, m$) back to the message $m$ on input of the secret key $s_{\id{}}$ corresponding to the receiving identity \id{}.
 \end{description}
@@ -32,14 +35,14 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
                 % Text
                 (-0.5, 0.5) node [leg, color=orange] (c) {$c$}
                 (1.5, 1.2) node [leg] (id_bob) {$s_{\id{Bob}}$}
-                (3.5,2) node [leg] (bob_authenticates) {4. Bob authenticates}
+                (4.3,2) node [leg] (bob_authenticates) {4. Bob authenticates as \id{Bob}}
                 ;
                 
        \node[below=of pkg] {\textbf{PKG}};
        \node[below=of alice] {\textbf{Alice} \\ 3. $c \leftarrow $\texttt{IBE.Encrypt($params, \id{Bob}, m$)}};
-       \node[below=of bob] {\textbf{Bob} \\ 6. $m \leftarrow $\texttt{IBE.Decrypt($s_{\id{Bob}}, \id{Bob}$)}};
+       \node[below=of bob] {\textbf{Bob} \\ 6. $m \leftarrow $\texttt{IBE.Decrypt($s_{\id{Bob}}, \id{Bob}, c$)}};
        \node[above=of pkg,align=left] {
-               1. $\left< s_k, params \right> \leftarrow $\texttt{IBE.Setup($1^k$)} \\
+               1. $\left< s_k, params \right> \leftarrow $\texttt{IBE.Setup($1^{\lambda}$)} \\
                2. publish $params$ \\
                \\
                5. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, s_k, \id{Bob}$)}
@@ -87,7 +90,7 @@ IND-CPA is best defined with the help of a game that challenges the adversary. I
  \textbf{Result}: This IBE-IND-CPA Game helps to define the concept of IND-CPA security for IBE schemes.
 
  \begin{enumerate}
-  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^k$)} and returns $params$ to the adversary.
+  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
   \item \label{item:firs_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
   \item The adversary picks two equal length plaintext messages $m_0$ and $m_1$ and an identity $\id{encrypt}$. The adversary honestly passes $\left< m_0, m_1, \id{encrypt} \right>$ to the challenger.
   \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{}, m_b$)}. The challenger gives $c$ to the adversary.
@@ -111,7 +114,7 @@ In literature a distinction is often made between a \textit{non-adaptive} case (
  \textbf{Result}: This IBE-IND-CCA Game helps to define the concept of IND-CPA security for IBE schemes.
 
  \begin{enumerate}
-  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^k$)} and returns $params$ to the adversary.
+  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
   \item \label{item:cca_first_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
   \item \label{item:cca_first_decryption_query} The adversary can start querying another oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ that returns a plaintext $m_j \leftarrow$ \texttt{IBE.Decrypt($s_{\id{i}}, c_j$)} corresponding to an adversary defined ciphertext $c_j$ and identity $\id{i}$.
   \item The adversary picks two equal length plaintext messages $m_0$ and $m_1$ and an identity $\id{encrypt}$. The adversary honestly passes $\left< m_0, m_1, \id{encrypt} \right>$ to the challenger.
@@ -136,12 +139,12 @@ Gentry~\cite{art:Gentry06} is the first to combine the notions of IND-CPA and IN
  
  \textbf{Result}: This ANO-IBE Game helps to define the concept of ANO-IBE security for IBE schemes.
  \begin{enumerate}
-  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^k$)} and returns $params$ to the adversary.
-  \item \label{item:first_ano_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
-  \item The adversary picks a plaintext message $m$ and two identities \id{0} and \id{1}. The adversary honestly passes $\left< m, \id{0}, \id{1} \right>$ to the challenger.
-  \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{b}, m$)}. The challenger gives $c$ to the adversary.
+  \item The challenger runs $\left< s_k, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
+  \item \label{item:first_ano_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a secret key $s_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, s_k, \id{i}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item The adversary picks a plaintext message $m$ and an identity \id{encrypt}. The adversary honestly passes $\left< m, \id{encrypt} \right>$ to the challenger.
+  \item The challenger picks a random bit $b$ and computes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{encrypt}, m$)} if $b=0$. If $b=1$, the challenger computes $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{encrypt}, r$)} where $r$ is a random bit sequence with the same length as the message $m$. The challenger gives $c$ to the adversary.
   \item \label{item:second_ano_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
-  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. If $b \neq b'$ or if the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{1}$ or $\id{i} = \id{2}$ during step~\ref{item:first_ano_query} or step~\ref{item:second_ano_query}, the adversary loses the game.
+  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. If $b \neq b'$ or if the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{encrypt}$ during step~\ref{item:first_ano_query} or step~\ref{item:second_ano_query}, the adversary loses the game.
  \end{enumerate}
 \end{algorithm}
 
@@ -156,22 +159,143 @@ Gentry~\cite{art:Gentry06} is the first to combine the notions of IND-CPA and IN
 %    -> SK-IBE berust op BDHI veronderstelling = niet leuk
 %    -> BB is vorm van HIBE => totaal aantal gebruikers moet op voorhand worden vastgelegd = niet leuk
 \subsection{Evolution of IBE}
-Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{art:BonehF01} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{art:BonehF01} still relies on the random oracle assumption. Canetti et al.~\cite{art:CanettiHK03} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare which identity \id{} that will be targeted during step 5 of the CCA Game (Algorithm~\ref{alg:ind_cca_game}) and step 4 of the CPA Game, therefore the scheme in~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity.  
-% TODO: BB hier ergens tussen steken en zeggen dat dat niet anoniem is.
+\label{sec:evolution_of_ibe}
+Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. In~\cite{art:BonehF01} Boneh and Franklin propose the first practically usable IBE scheme based on the Weil pairing. However, the security proof in~\cite{art:BonehF01} still relies on the random oracle assumption. Canetti et al.~\cite{art:CanettiHK03} succeed in proposing a secure IBE scheme without having to rely on the random oracle model. However, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare which identity \id{} that will be targeted during step 5 of the CCA Game (Algorithm~\ref{alg:ind_cca_game}) and step 4 of the CPA Game, therefore the scheme in~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity. Boneh and Boyen~\cite{art:BonehB04} present a variant to~\cite{art:CanettiHK03} which also realises only selective ID security.  
+
 Waters~\cite{art:Waters05} is the first to present a scheme that is IND-CCA secure in the standard model. Drawback of the scheme from Waters~\cite{art:Waters05} is that it requires large public parameters. Gentry~\cite{art:Gentry06} proposes a more efficient alternative to this scheme in the standard model while achieving shorter public parameters. The scheme from Gentry relies on a complicated hardness assumption called q-BDHE. It is only after the introduction of the Dual System paradigm by Waters~\cite{art:Waters09} in 2009 that IND-CCA security can be achieved in the standard model based on reasonable assumptions.
 
-Although all these contributions were a step forward in the evolution of IBE, not all schemes are ANO-IBE. All IBE systems in the random oracle model can be proven anonymous. Therefore, the IBE scheme from Boneh and Franklin~\cite{art:BonehF01} is IND-ANO-CCA. In the standard model, it appears to be harder to construct ANO-IBE schemes. The scheme from Gentry~\cite{art:Gentry06} was the first anonymous IBE scheme in the standard model. Boyen and Waters~\cite{art:BoyenW06} published almost synchronously another IBE scheme in the standard model that is also IND-ANO-CCA secure.
+Although all these contributions were a step forward in the evolution of IBE, not all schemes are ANO-IBE. However, most IBE systems in the random oracle model can be proven anonymous. Therefore, the IBE scheme from Boneh and Franklin~\cite{art:BonehF01} is IND-ANO-CCA secure. In the standard model, it appeared to be harder to construct ANO-IBE schemes at first sight, e.g. it can be proven that the scheme from Boneh and Boyen~\cite{art:BonehB04} is not anonymous in its original form. The scheme from Gentry~\cite{art:Gentry06} was the first anonymous IBE scheme in the standard model. Boyen and Waters~\cite{art:BoyenW06} published almost synchronously another IBE scheme in the standard model that is also IND-ANO-CCA secure. In 2010, Ducas~\cite{art:Ducas10} also showed that even schemes that were first considered not anonymous like the one from Boneh and Boyen~\cite{art:BonehB04} but also~\cite{art:BonehBG05,art:Waters05} can be proven anonymous when relying on asymmetric pairings thereby making anonymity more a rule than an exception in IBE schemes.
 
 \subsection{Boneh and Franklin IBE}
+Boneh and Franklin~\cite{art:BonehF01} propose two IBE algorithms called \texttt{BasicIndent} and \texttt{FullIndent} that will prove particularly useful in the remainder of this text. \texttt{BasicIndent} can be proven IND-CPA secure while \texttt{FullIndent} is proven IND-CCA secure. \texttt{BasicIndent} can be found in Algorithm~\ref{alg:basic_indent} while \texttt{FullIndent} is found in Algorithm~\ref{alg:full_indent}.
+
+As already mentioned in Section~\ref{sec:evolution_of_ibe}, the scheme from Boneh and Franklin relies on the random oracle assumption. Furthermore, both schemes are ANO-IBE.
+
+\begin{algorithm}
+\caption{BasicIndent~\cite{art:BonehF01}}
+\label{alg:basic_indent}
+ \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
+ 
+ \textbf{Result}: Alice sends an IBE encrypted ciphertext $c$ that is successfully decrypted by Bob.
+ \begin{enumerate}
+  \item \texttt{Setup($1^{\lambda}$)}: Let $\lambda$ be the security parameter for a security level of $l$ bits.
+  \begin{enumerate}
+   \item Execute setup algorithm $\left< q, G_1, G_2, e: G_1 \times G_2 \rightarrow G_T, P \in G_1 \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ to generate the parameters
+    \begin{enumerate}
+     \item A large prime $q$
+     \item Gap groups $G_1$ and $G_2$ of order q
+     \item An admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$
+     \item A random generator $P \in G_1$
+   \end{enumerate}
+   \item Choose a uniformly random $s_k \in \mathbb{Z}^{*}_q$ and calculate
+   \begin{equation*}
+    P_{pub} = s_k P
+   \end{equation*}
+   \item Choose cryptographic hash functions
+    \begin{enumerate}
+     \item $H_1: \left( 0,1  \right)^* \rightarrow G_1$
+     \item $H_2: G_2 \rightarrow \left( 0,1 \right)^l$
+    \end{enumerate}
+  \end{enumerate}
+  \item \texttt{Extract($params, s_k, \id{}$)}:
+   \begin{enumerate}
+    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right) \in G_1$
+    \item Set the private key of $\id{}$ to $s_{\id{}} = s_k Q_{\id{}}$
+   \end{enumerate}
+   \item \texttt{Encrypt($params, \id{}, m$)}:
+   \begin{enumerate}
+    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right)$
+    \item Choose a random $r \in Z_q$
+    \item Encrypt the plaintext message $m$ to the ciphertext $c$ as
+    \begin{equation*}
+     c = \left< rP, m \oplus H_2 \left( g_{\id{}^r} \right) \right> = \left< U, v \right> \; \; \textrm{with} \; \; g_{\id{}} = e \left( Q_{\id{}}, P_{pub} \right) \in G_T
+    \end{equation*}
+   \end{enumerate}
+   \item \texttt{Decrypt($s_{\id{}}, c$)}: Decrypt the ciphertext $c$ back to the plaintext message $m$ as
+   \begin{equation*}
+    m = v \oplus H_2 \left( e \left( s_{\id{}}, U \right) \right)
+   \end{equation*}
+ \end{enumerate}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{FullIndent~\cite{art:BonehF01}}
+\label{alg:full_indent}
+ \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
+ 
+ \textbf{Result}: Alice sends an IBE encrypted ciphertext $c$ that is successfully decrypted by Bob.
+ \begin{enumerate}
+  \item \texttt{Setup($1^k$)}: 
+  \begin{enumerate}
+   \item As in the BasicIndent scheme
+   \item As in the BasicIndent scheme
+   \item Choose cryptographic hash functions
+    \begin{enumerate}
+     \item $H_1: \left( 0,1  \right)^* \rightarrow G_1$
+     \item $H_2: G_2 \rightarrow \left( 0,1 \right)^l$
+     \item $H_3: \left( 0,1 \right)^l \rightarrow \left( 0,1 \right)^l$
+    \end{enumerate}
+  \end{enumerate}
+  \item \texttt{Extract($params, s_k, \id{}$)}: As in the BasicIndent scheme
+   \item \texttt{Encrypt($params, \id{}, m$)}:
+   \begin{enumerate}
+    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right)$
+    \item Choose a random $sigma \in \left( 0,1 \right)^l$
+    \item Compute $r = H_3 \left( sigma, m \right)$
+    \item Encrypt the plaintext message $m$ to the ciphertext $c$ as
+    \begin{equation*}
+     \begin{split}
+      c = \left< rP, sigma \oplus H_2 \left( g_{\id{}}^r\right), m \oplus H_3 \left( sigma \right) \right> = \left< U, v, w \right> \\ 
+     \; \; \textrm{with} \; \; g_{\id{}} = e \left( Q_{\id{}}, P_pub \right) \in G_T
+     \end{split}
+    \end{equation*}
+   \end{enumerate}
+   \item \texttt{Decrypt($s_{\id{}}, c$)}: Decrypt the ciphertext $c$ back to the plaintext message $m$ as follows
+   \begin{enumerate}
+    \item Compute $sigma = v \oplus H_2 \left( e \left( s_{\id{}}, U \right) \right)$
+    \item Compute $m = w \oplus H_3 \left( sigma \right)$
+    \item Set $r = H_3 \left( sigma, m \right)$. Test that $U = rP$. If not, reject the ciphertext.
+    \item Output $m$ as the decryption of $c$
+    \end{enumerate}
+ \end{enumerate}
+\end{algorithm}
+
+
 
 \section{Broadcast Encryption}
+Broadcast encryption (BE) was introduced by Fiat and Naor~\cite{art:FiatN93}, as a public-key generalisation to a multi user setting. A BE scheme allows a user to encrypt a message $m$ to a subset $\mathcal{S}$ of users from all users in a public key system, such that, only users in the set $\mathcal{S}$ are able to decrypt the message. The computational overhead of the BE is generally bound to the ciphertext and the number of recipients.
 
 \subsection{Definition}
+A generic Broadcast Encryption (BE) scheme is composed of four probabilistic polynomial time algorithms:
+
+\begin{description}
+    \item[\texttt{BE.Setup($1^{\lambda}$)}]: On input of a security parameter $\lambda$, generates the public parameters $params$ of the system.
+    \item[\texttt{BE.KeyGen($params$)}]: Returns the public and private key ($pk_i,sk_i$) for each user $i$ while taking the public parameters $params$ into account.
+    \item[\texttt{BE.Encrypt}]: Takes a set of public key values $\mathcal{S}=\{pk_i \ldots pk_{|\mathcal{S}|}\}$ corresponding to users $i$ in the system along with a plaintext message $m$ to generate a corresponding ciphertext $c$.
+    \item[\texttt{BE.Decrypt:}] Reconstructs $m$ from $c$ using the private key $sk_i$ if the corresponding public key $pk_i \in \mathcal{S}$. Otherwise, return $\bot$.
+\end{description}
+
+Note that this definition is stated generically enough to allow all kinds of public keys to be used. Therefore, not only traditional PKIs can benefit from BE schemes, but also IBE schemes in which a public identifier \id{i} serves as a public key $pk_i$.
+
+\subsection{Evolution of Broadcast Encryption}
+The problem of BE has been widely studied in literature since its first introduction by Fiat and Naor~\cite{art:FiatN93}. This section highlights the most important evolutions of BE in literature. The summary that follows is far from complete as it only considers publications that are relevant to our final goal: achieving user-friendly broadcast encryption for OSNs.
+
+\subsubsection{Broadcast Encryption}
+The implementation from Fiat and Naor~\cite{art:FiatN93} requires a ciphertext of size $O \left( t \log^2 t \log n \right)$ to be secure against $t$ colluding users. The first fully collusion resistant scheme was proposed in~\cite{art:NaorNL01} by Naor et al. thereby making the ciphertext size independent of the number of colluding users. Halevy and Shamir further reduce the required ciphertext length for collusion resistant schemes in~\cite{art:HalevyS02}. It is the first paper in a series of many~\cite{art:DodisF02,art:GoodrichST04,art:LewkoSW08} that achieves ciphertext sizes only dependent on the number of revoked users $O \left( r \right)$. Boneh, Gentry and Waters~\cite{art:BonehBG05} are the first to consider utilisation of bilinear maps to realise constant size ciphertexts and $O \left( n \right)$ public keys.
+
+\subsubsection{Identity-Based Broadcast Encryption}
+Sakai and Furukawa are the first to define a collusion resistant identity based broadcast encryption (IBBE) scheme in~\cite{SakaiF07}. A collusion resistant IBBE scheme refers to an identity-based broadcast encryption scheme that is secure even if all users that are not in the recipient set $\mathcal{S}$ would collaborate. Independently from~\cite{SakaiF07} Delerabl\'{e}e realises a similar IBBE scheme and claims to be the first as well in~\cite{DelerableeIBBE}.  The size of the public key in both~\cite{SakaiF07} and~\cite{DelerableeIBBE} is proportional to the maximum size of the intended set of recipients while realising short ciphertexts and private keys. 
+
+Baek et al.~\cite{BaekIBEandBE} define an IBBE scheme that requires only one pairing computation. The scheme in~\cite{BaekIBEandBE} is proven secure under the random oracle assumption where the attacker ties himself to a selective-ID attack. Gentry and Waters achieve identity based broadcast encryption with sublinear ciphertexts in~\cite{GentryW08}. Their scheme is proven secure against a stronger notion of adaptive security where the attacker can adaptively alter its queries depending on earlier received information. Barbosa and Farshim~\cite{BarbosaIBEKEM} proposed an identity-based key encapsulation scheme for multiple parties which is an extension of \textit{mKEM} as considered by Smart~\cite{SmartMKEM} to the identity-based setting. An mKEM is a Key Encapsulation Mechanism which takes multiple public keys as input. An encrypted message under mKEM consists of an encapsulated session key $k$ and a symmetric encryption $E_k \left( m \right)$ of the plaintext message $m$ under $k$.
+% Nog iets over random oracle assumptions?
 
 \subsection{Anonymous Broadcast Encryption}
+All earlier mentioned references describing BE require the intended set of recipients to be published to realise a higher efficiency. Barth, Boneh and Waters~\cite{BarthBonehWaters} are the first to design a BE scheme that takes the anonymity of the recipient into account. The proposed anonymous broadcast encryption (ANOBE) scheme imposes a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{LibertANOBE} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{BarthBonehWaters} and~\cite{LibertANOBE} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users. In~\cite{YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set.
 
 \subsection{Outsider-Anonymous Broadcast Encryption}
+Fazio and Perera introduce the notion of outsider anonymous broadcast encryption in~\cite{FazioOutsiderANOBE}. The scheme relies on IBE to encode where a recipient is positioned in a publicly published tree to achieve sublinear ciphertexts. It is remarkable that sublinear ciphertexts are achieved while attaining recipient anonymity to all users that are outside the intended set of receivers. However, the scheme has the drawback of immediately fixing the total number of users that are allowed in the system. Furthermore, an additional architecture is required to maintain the tree of subscribed users. Finally, although IBE is used, the scheme does not allow to represent public keys of users by their public identifiers because the public key needs to be the position of a user in the tree structure of the external architecture. In this way, most of the desirable properties of IBE cancel out.
 
+Although the scheme from Fazio and Perera does not fit the requirements for user-friendly broadcast-encryption in OSNs, it is useful to remember their definition of outsider-anonymity.
 
 \section{Secret Sharing}
 

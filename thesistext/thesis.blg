@@ -24,8 +24,23 @@ Repeated entry---line 749 of file references.bib
  : @proceedings{DBLP:conf/crypto/2005
  :                                   ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 904 of file references.bib
+ : @proceedings{DBLP:conf/eurocrypt/2005
+ :                                      ,
+I'm skipping whatever remains of this entry
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
+Warning--I didn't find a database entry for "SakaiF07"
+Warning--I didn't find a database entry for "DelerableeIBBE"
+Warning--I didn't find a database entry for "BaekIBEandBE"
+Warning--I didn't find a database entry for "GentryW08"
+Warning--I didn't find a database entry for "BarbosaIBEKEM"
+Warning--I didn't find a database entry for "SmartMKEM"
+Warning--I didn't find a database entry for "BarthBonehWaters"
+Warning--I didn't find a database entry for "LibertANOBE"
+Warning--I didn't find a database entry for "KrzywieckiKK06"
+Warning--I didn't find a database entry for "YuRL10"
+Warning--I didn't find a database entry for "FazioOutsiderANOBE"
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
 Warning--to sort, need author or key in thesis:Wyseur09
@@ -34,45 +49,45 @@ Warning--to sort, need author or key in thesis:Alfredo08
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
-You've used 50 entries,
+You've used 60 entries,
             2118 wiz_defined-function locations,
-            875 strings with 14627 characters,
-and the built_in function-call counts, 17972 in all, are:
-= -- 1752
-> -- 764
-< -- 38
-+ -- 304
-- -- 241
-* -- 1208
-:= -- 2833
-add.period$ -- 163
-call.type$ -- 50
-change.case$ -- 255
+            976 strings with 17298 characters,
+and the built_in function-call counts, 22080 in all, are:
+= -- 2161
+> -- 929
+< -- 53
++ -- 365
+- -- 291
+* -- 1490
+:= -- 3454
+add.period$ -- 198
+call.type$ -- 60
+change.case$ -- 306
 chr.to.int$ -- 0
-cite$ -- 56
-duplicate$ -- 754
-empty$ -- 1474
-format.name$ -- 249
-if$ -- 3964
+cite$ -- 66
+duplicate$ -- 940
+empty$ -- 1802
+format.name$ -- 301
+if$ -- 4895
 int.to.chr$ -- 0
-int.to.str$ -- 50
-missing$ -- 43
-newline$ -- 248
-num.names$ -- 128
-pop$ -- 284
+int.to.str$ -- 60
+missing$ -- 52
+newline$ -- 297
+num.names$ -- 161
+pop$ -- 334
 preamble$ -- 1
-purify$ -- 210
+purify$ -- 252
 quote$ -- 0
-skip$ -- 597
+skip$ -- 755
 stack$ -- 0
-substring$ -- 1042
-swap$ -- 259
-text.length$ -- 34
+substring$ -- 1288
+swap$ -- 344
+text.length$ -- 47
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 192
+type$ -- 231
 warning$ -- 6
-while$ -- 167
-width$ -- 52
-write$ -- 554
-(There were 4 error messages)
+while$ -- 208
+width$ -- 62
+write$ -- 671
+(There were 5 error messages)
