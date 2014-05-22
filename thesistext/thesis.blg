@@ -11,83 +11,70 @@ A level-1 auxiliary file: app-A.aux
 A level-1 auxiliary file: app-n.aux
 The style file: abbrv.bst
 Database file #1: references.bib
-Repeated entry---line 233 of file references.bib
+Repeated entry---line 251 of file references.bib
  : @proceedings{DBLP:conf/pairing/2013
  :                                    ,
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 339 of file references.bib
+I was expecting a `,' or a `}'---line 357 of file references.bib
  : 
  : @inproceedings{art:Blakley79,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Repeated entry---line 749 of file references.bib
+Repeated entry---line 767 of file references.bib
  : @proceedings{DBLP:conf/crypto/2005
  :                                   ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 904 of file references.bib
+Repeated entry---line 922 of file references.bib
  : @proceedings{DBLP:conf/eurocrypt/2005
  :                                      ,
 I'm skipping whatever remains of this entry
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
-Warning--I didn't find a database entry for "SakaiF07"
-Warning--I didn't find a database entry for "DelerableeIBBE"
-Warning--I didn't find a database entry for "BaekIBEandBE"
-Warning--I didn't find a database entry for "GentryW08"
-Warning--I didn't find a database entry for "BarbosaIBEKEM"
-Warning--I didn't find a database entry for "SmartMKEM"
-Warning--I didn't find a database entry for "BarthBonehWaters"
-Warning--I didn't find a database entry for "LibertANOBE"
-Warning--I didn't find a database entry for "KrzywieckiKK06"
-Warning--I didn't find a database entry for "YuRL10"
-Warning--I didn't find a database entry for "FazioOutsiderANOBE"
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
-Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--to sort, need author or key in thesis:Alfredo08
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Alfredo08
-Warning--empty author in thesis:Wyseur09
-You've used 60 entries,
+You've used 83 entries,
             2118 wiz_defined-function locations,
-            976 strings with 17298 characters,
-and the built_in function-call counts, 22080 in all, are:
-= -- 2161
-> -- 929
-< -- 53
-+ -- 365
-- -- 291
-* -- 1490
-:= -- 3454
-add.period$ -- 198
-call.type$ -- 60
-change.case$ -- 306
+            1136 strings with 22709 characters,
+and the built_in function-call counts, 30698 in all, are:
+= -- 2991
+> -- 1307
+< -- 71
++ -- 508
+- -- 408
+* -- 2082
+:= -- 4829
+add.period$ -- 279
+call.type$ -- 83
+change.case$ -- 426
 chr.to.int$ -- 0
-cite$ -- 66
-duplicate$ -- 940
-empty$ -- 1802
-format.name$ -- 301
-if$ -- 4895
+cite$ -- 87
+duplicate$ -- 1298
+empty$ -- 2525
+format.name$ -- 418
+if$ -- 6800
 int.to.chr$ -- 0
-int.to.str$ -- 60
-missing$ -- 52
-newline$ -- 297
-num.names$ -- 161
-pop$ -- 334
+int.to.str$ -- 83
+missing$ -- 71
+newline$ -- 414
+num.names$ -- 229
+pop$ -- 461
 preamble$ -- 1
-purify$ -- 252
+purify$ -- 348
 quote$ -- 0
-skip$ -- 755
+skip$ -- 1028
 stack$ -- 0
-substring$ -- 1288
-swap$ -- 344
-text.length$ -- 47
+substring$ -- 1762
+swap$ -- 474
+text.length$ -- 65
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 231
-warning$ -- 6
-while$ -- 208
-width$ -- 62
-write$ -- 671
+type$ -- 325
+warning$ -- 4
+while$ -- 294
+width$ -- 85
+write$ -- 942
 (There were 5 error messages)

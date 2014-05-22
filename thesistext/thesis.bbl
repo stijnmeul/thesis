@@ -8,10 +8,6 @@ Pairing based cryptography.
 Public-key encryption with oblivious keyword search. priced oblivious transfer.
 \newblock Master's thesis, KU Leuven, 2008.
 
-\bibitem{thesis:Wyseur09}
-White-box cryptography.
-\newblock Master's thesis, KU Leuven, 2009.
-
 \bibitem{art:AbdallaBCKKLMNPS05}
 M.~Abdalla, M.~Bellare, D.~Catalano, E.~Kiltz, T.~Kohno, T.~Lange,
   J.~Malone-Lee, G.~Neven, P.~Paillier, and H.~Shi.
@@ -31,12 +27,26 @@ J.~Baek, J.~Newmarch, R.~Safavi-naini, and W.~Susilo.
 \newblock In {\em Proc. of Australian Unix Users Group Annual Conference},
   pages 95--102, 2004.
 
+\bibitem{art:BarbosaF05}
+M.~Barbosa and P.~Farshim.
+\newblock Efficient identity-based key encapsulation to multiple parties.
+\newblock In N.~P. Smart, editor, {\em IMA Int. Conf.}, volume 3796 of {\em
+  Lecture Notes in Computer Science}, pages 428--441. Springer, 2005.
+
 \bibitem{art:BarbulescuGJT14}
 R.~Barbulescu, P.~Gaudry, A.~Joux, and E.~Thom{\'e}.
 \newblock A heuristic quasi-polynomial algorithm for discrete logarithm in
   finite fields of small characteristic.
 \newblock In P.~Q. Nguyen and E.~Oswald, editors, {\em EUROCRYPT}, volume 8441
   of {\em Lecture Notes in Computer Science}, pages 1--16. Springer, 2014.
+
+\bibitem{art:BarthBW06}
+A.~Barth, D.~Boneh, and B.~Waters.
+\newblock Privacy in encrypted content distribution using private broadcast
+  encryption.
+\newblock In G.~D. Crescenzo and A.~D. Rubin, editors, {\em Financial
+  Cryptography}, volume 4107 of {\em Lecture Notes in Computer Science}, pages
+  52--64. Springer, 2006.
 
 \bibitem{art:BartheGHOB13}
 G.~Barthe, B.~Gr{\'e}goire, S.~Heraud, F.~Olmedo, and S.~Z. B{\'e}guelin.
@@ -103,6 +113,12 @@ D.~Boneh and M.~K. Franklin.
 \newblock Identity based encryption from the {W}eil pairing.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
 
+\bibitem{art:Boyen08}
+X.~Boyen.
+\newblock A tapestry of identity-based encryption: practical frameworks
+  compared.
+\newblock {\em IJACT}, 1(1):3--21, 2008.
+
 \bibitem{art:BoyenW06}
 X.~Boyen and B.~Waters.
 \newblock Anonymous hierarchical identity-based encryption (without random
@@ -110,12 +126,23 @@ X.~Boyen and B.~Waters.
 \newblock In C.~Dwork, editor, {\em CRYPTO}, volume 4117 of {\em Lecture Notes
   in Computer Science}, pages 290--307. Springer, 2006.
 
+\bibitem{art:BrassardCC88}
+G.~Brassard, D.~Chaum, and C.~Cr{\'e}peau.
+\newblock Minimum disclosure proofs of knowledge.
+\newblock {\em J. Comput. Syst. Sci.}, 37(2):156--189, 1988.
+
 \bibitem{site:Bullas14}
 J.~Bullas.
 \newblock 22 social media facts and statistics you should know in 2014.
 \newblock URL:
   \url{http://www.jeffbullas.com/2014/01/17/20-social-media-facts-and-statistics-you-should-know-in-2014/},
   last checked on 2014-05-08.
+
+\bibitem{rfc4880}
+J.~Callas, L.~Donnerhacke, H.~Finney, D.~Shaw, and R.~Thayer.
+\newblock {OpenPGP Message Format}.
+\newblock RFC 4880 (Proposed Standard), Nov. 2007.
+\newblock Updated by RFC 5581.
 
 \bibitem{art:CanettiGH04}
 R.~Canetti, O.~Goldreich, and S.~Halevi.
@@ -132,6 +159,17 @@ Z.~Cao and F.~Zhang, editors.
 \newblock {\em Pairing-Based Cryptography - Pairing 2013 - 6th International
   Conference, Beijing, China, November 22-24, 2013, Revised Selected Papers},
   volume 8365 of {\em Lecture Notes in Computer Science}. Springer, 2014.
+
+\bibitem{art:CaroIP10}
+A.~D. Caro, V.~Iovino, and G.~Persiano.
+\newblock Fully secure anonymous hibe and secret-key anonymous ibe with short
+  ciphertexts.
+\newblock {\em IACR Cryptology ePrint Archive}, 2010:197, 2010.
+
+\bibitem{art:ChenC05}
+L.~Chen and Z.~Cheng.
+\newblock Security proof of sakai-kasahara's identity-based encryption scheme.
+\newblock {\em IACR Cryptology ePrint Archive}, 2005:226, 2005.
 
 \bibitem{art:ChorGMA85}
 B.~Chor, S.~Goldwasser, S.~Micali, and B.~Awerbuch.
@@ -151,10 +189,12 @@ R.~Cramer, editor.
   Techniques, Aarhus, Denmark, May 22-26, 2005, Proceedings}, volume 3494 of
   {\em Lecture Notes in Computer Science}. Springer, 2005.
 
-\bibitem{art:DiffieH76}
-W.~Diffie and M.~E. Hellman.
-\newblock New directions in cryptography.
-\newblock {\em IEEE Transactions on Information Theory}, 22(6):644--654, 1976.
+\bibitem{art:Delerablee07}
+C.~Delerabl{\'e}e.
+\newblock Identity-based broadcast encryption with constant size ciphertexts
+  and private keys.
+\newblock In K.~Kurosawa, editor, {\em ASIACRYPT}, volume 4833 of {\em Lecture
+  Notes in Computer Science}, pages 200--215. Springer, 2007.
 
 \bibitem{art:DodisF02}
 Y.~Dodis and N.~Fazio.
@@ -168,6 +208,11 @@ L.~Ducas.
 \newblock Anonymity from asymmetry: New constructions for anonymous hibe.
 \newblock In J.~Pieprzyk, editor, {\em CT-RSA}, volume 5985 of {\em Lecture
   Notes in Computer Science}, pages 148--164. Springer, 2010.
+
+\bibitem{art:FazioP12}
+N.~Fazio and I.~M. Perera.
+\newblock Outsider-anonymous broadcast encryption with sublinear ciphertexts.
+\newblock {\em IACR Cryptology ePrint Archive}, 2012:129, 2012.
 
 \bibitem{art:Feldman87}
 P.~Feldman.
@@ -185,6 +230,13 @@ E.~Fleischmann, M.~Gorski, and S.~Lucks.
 \newblock Some observations on indifferentiability.
 \newblock {\em IACR Cryptology ePrint Archive}, 2010:222, 2010.
 
+\bibitem{art:Freeman10}
+D.~M. Freeman.
+\newblock Converting pairing-based cryptosystems from composite-order groups to
+  prime-order groups.
+\newblock In H.~Gilbert, editor, {\em EUROCRYPT}, volume 6110 of {\em Lecture
+  Notes in Computer Science}, pages 44--61. Springer, 2010.
+
 \bibitem{art:FreyMR99}
 G.~Frey, M.~M{\"u}ller, and H.-G. R{\"u}ck.
 \newblock The tate pairing and the discrete logarithm applied to elliptic curve
@@ -192,11 +244,22 @@ G.~Frey, M.~M{\"u}ller, and H.-G. R{\"u}ck.
 \newblock {\em IEEE Transactions on Information Theory}, 45(5):1717--1719,
   1999.
 
+\bibitem{art:GennaroJKR07}
+R.~Gennaro, S.~Jarecki, H.~Krawczyk, and T.~Rabin.
+\newblock Secure distributed key generation for discrete-log based
+  cryptosystems.
+\newblock {\em J. Cryptology}, 20(1):51--83, 2007.
+
 \bibitem{art:Gentry06}
 C.~Gentry.
 \newblock Practical identity-based encryption without random oracles.
 \newblock In S.~Vaudenay, editor, {\em EUROCRYPT}, volume 4004 of {\em Lecture
   Notes in Computer Science}, pages 445--464. Springer, 2006.
+
+\bibitem{art:GentryW08}
+C.~Gentry and B.~Waters.
+\newblock Adaptive security in broadcast encryption systems.
+\newblock {\em IACR Cryptology ePrint Archive}, 2008:268, 2008.
 
 \bibitem{book:Goldreich97}
 O.~Goldreich.
@@ -220,6 +283,17 @@ M.~T. Goodrich, J.~Z. Sun, and R.~Tamassia.
 \newblock Efficient tree-based revocation in groups of low-state devices.
 \newblock In M.~K. Franklin, editor, {\em CRYPTO}, volume 3152 of {\em Lecture
   Notes in Computer Science}, pages 511--527. Springer, 2004.
+
+\bibitem{rfc6509}
+M.~Groves.
+\newblock {MIKEY-SAKKE: Sakai-Kasahara Key Encryption in Multimedia Internet
+  KEYing (MIKEY)}.
+\newblock RFC 6509 (Informational), Feb. 2012.
+
+\bibitem{rfc6508}
+M.~Groves.
+\newblock {Sakai-Kasahara Key Encryption (SAKKE)}.
+\newblock RFC 6508 (Informational), Feb. 2012.
 
 \bibitem{art:HalevyS02}
 D.~Halevy and A.~Shamir.
@@ -253,16 +327,51 @@ A.~Joux and K.~Nguyen.
   in cryptographic groups.
 \newblock {\em J. Cryptology}, 16(4):239--247, 2003.
 
+\bibitem{art:KrzywieckiKK06}
+L.~Krzywiecki, P.~Kubiak, and M.~Kutylowski.
+\newblock A revocation scheme preserving privacy.
+\newblock In H.~Lipmaa, M.~Yung, and D.~Lin, editors, {\em Inscrypt}, volume
+  4318 of {\em Lecture Notes in Computer Science}, pages 130--143. Springer,
+  2006.
+
+\bibitem{art:LeeL10}
+K.~Lee and D.~H. Lee.
+\newblock New techniques for anonymous hibe with short ciphertexts in prime
+  order groups.
+\newblock {\em TIIS}, 4(5):968--988, 2010.
+
+\bibitem{art:Lewko12}
+A.~B. Lewko.
+\newblock Tools for simulating features of composite order bilinear groups in
+  the prime order setting.
+\newblock In D.~Pointcheval and T.~Johansson, editors, {\em EUROCRYPT}, volume
+  7237 of {\em Lecture Notes in Computer Science}, pages 318--335. Springer,
+  2012.
+
 \bibitem{art:LewkoSW08}
 A.~B. Lewko, A.~Sahai, and B.~Waters.
 \newblock Revocation systems with very small private keys.
 \newblock {\em IACR Cryptology ePrint Archive}, 2008:309, 2008.
+
+\bibitem{art:LibertPQ12}
+B.~Libert, K.~G. Paterson, and E.~A. Quaglia.
+\newblock Anonymous broadcast encryption: Adaptive security and efficient
+  constructions in the standard model.
+\newblock In M.~Fischlin, J.~Buchmann, and M.~Manulis, editors, {\em Public Key
+  Cryptography}, volume 7293 of {\em Lecture Notes in Computer Science}, pages
+  206--224. Springer, 2012.
 
 \bibitem{art:LibertQ03}
 B.~Libert and J.-J. Quisquater.
 \newblock Efficient revocation and threshold pairing based cryptosystems.
 \newblock In E.~Borowsky and S.~Rajsbaum, editors, {\em PODC}, pages 163--171.
   ACM, 2003.
+
+\bibitem{rfc5409}
+L.~Martin and M.~Schertler.
+\newblock {Using the Boneh-Franklin and Boneh-Boyen Identity-Based Encryption
+  Algorithms with the Cryptographic Message Syntax (CMS)}.
+\newblock RFC 5409 (Informational), Jan. 2009.
 
 \bibitem{art:MaurerW98}
 U.~M. Maurer and S.~Wolf.
@@ -286,17 +395,33 @@ D.~Naor, M.~Naor, and J.~B. Lotspiech.
 \newblock Revocation and tracing schemes for stateless receivers.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:59, 2001.
 
-\bibitem{book:PaarP10}
-C.~Paar and J.~Pelzl.
-\newblock {\em Understanding Cryptography - A Textbook for Students and
-  Practitioners}.
-\newblock Springer, 2010.
+\bibitem{art:Pedersen91a}
+T.~P. Pedersen.
+\newblock A threshold cryptosystem without a trusted party (extended abstract).
+\newblock In D.~W. Davies, editor, {\em EUROCRYPT}, volume 547 of {\em Lecture
+  Notes in Computer Science}, pages 522--526. Springer, 1991.
+
+\bibitem{art:SakaiOK01}
+M.~K. R~Sakai, K~Ohgishi.
+\newblock Cryptosystem based on pairing over elliptic curve (in {J}apanese).
+\newblock In {\em The 2001 Symposium on Cryptography and Information Security,
+  Oiso, Japan, January}, 2001.
 
 \bibitem{art:RistenpartSS11}
 T.~Ristenpart, H.~Shacham, and T.~Shrimpton.
 \newblock Careful with composition: Limitations of indifferentiability and
   universal composability.
 \newblock {\em IACR Cryptology ePrint Archive}, 2011:339, 2011.
+
+\bibitem{art:SakaiF07}
+R.~Sakai and J.~Furukawa.
+\newblock Identity-based broadcast encryption.
+\newblock {\em IACR Cryptology ePrint Archive}, 2007:217, 2007.
+
+\bibitem{art:SakaiK03}
+R.~Sakai and M.~Kasahara.
+\newblock Id based cryptosystems with pairing on elliptic curve.
+\newblock {\em IACR Cryptology ePrint Archive}, 2003:54, 2003.
 
 \bibitem{art:Shamir79}
 A.~Shamir.
@@ -315,6 +440,12 @@ V.~Shoup, editor.
   Cryptology Conference, Santa Barbara, California, USA, August 14-18, 2005,
   Proceedings}, volume 3621 of {\em Lecture Notes in Computer Science}.
   Springer, 2005.
+
+\bibitem{art:Smart04}
+N.~P. Smart.
+\newblock Efficient key encapsulation to multiple parties.
+\newblock In C.~Blundo and S.~Cimato, editors, {\em SCN}, volume 3352 of {\em
+  Lecture Notes in Computer Science}, pages 208--219. Springer, 2004.
 
 \bibitem{site:StatisticBrain}
 StatisticBrain.
@@ -335,6 +466,12 @@ B.~Waters.
 \newblock In S.~Halevi, editor, {\em CRYPTO}, volume 5677 of {\em Lecture Notes
   in Computer Science}, pages 619--636. Springer, 2009.
 
+\bibitem{art:WhittenT99}
+A.~Whitten and J.~D. Tygar.
+\newblock Why johnny can't encrypt: A usability evaluation of pgp 5.0.
+\newblock In G.~W. Treese, editor, {\em USENIX Security}. USENIX Association,
+  1999.
+
 \bibitem{site:proofwiki_lagrange}
 P.~Wiki.
 \newblock Lagrange interpolation formula.
@@ -345,6 +482,12 @@ P.~Wiki.
 Worldometers.
 \newblock Worldometers real time world statistics.
 \newblock URL: \url{http://www.worldometers.info/}, last checked on 2014-05-08.
+
+\bibitem{art:YuRL10}
+S.~Yu, K.~Ren, and W.~Lou.
+\newblock Attribute-based on-demand multicast group setup with membership
+  anonymity.
+\newblock {\em Computer Networks}, 54(3):377--386, 2010.
 
 \bibitem{art:ZhangW13}
 X.~Zhang and K.~Wang.

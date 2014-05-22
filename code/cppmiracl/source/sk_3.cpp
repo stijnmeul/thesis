@@ -45,9 +45,14 @@
 
 #include "pairing_3.h"
 
+float getExecutionTime(float begin_time);
+
 int main()
 {
 	PFC pfc(AES_SECURITY);  // initialise pairing-friendly curve
+	float ext_time, set_time, enc_time, dec_time;
+	clock_t begin_time;
+
 
 	Big q=pfc.order();
 
@@ -61,6 +66,7 @@ int main()
     irand((long)seed);
 
 // setup
+    begin_time = clock();
 	pfc.random(P);
 	pfc.random(Q);
 	g=pfc.pairing(Q,P);
@@ -71,13 +77,16 @@ int main()
 
 	Z=pfc.mult(P,z);
 	pfc.precomp_for_mult(Q);
+	set_time = getExecutionTime(begin_time);
 
 // extract private key for Robert
+	begin_time = clock();
 	b=pfc.hash_to_group((char *)"Robert");
 	KB=pfc.mult(Q,inverse(b+z,q));
+	ext_time = getExecutionTime(begin_time);
 
+	begin_time = clock();
 // verify private key
-
 	pfc.precomp_for_pairing(KB);  // Bob can precompute on his own private key
 	if (pfc.pairing(KB,pfc.mult(P,b)+Z)!=g)
 	{
@@ -98,9 +107,9 @@ int main()
 	t=pfc.hash_to_aes_key(pfc.power(g,r));
 	H=lxor(SSV,t);
 	cout << "Encryption key= " << SSV << endl;
-
+	enc_time = getExecutionTime(begin_time);
 // Receiver
-
+	begin_time = clock();
 	t=pfc.hash_to_aes_key(pfc.pairing(KB,R));
 	SSV=lxor(H,t);
 	pfc.start_hash();
@@ -111,6 +120,19 @@ int main()
 		cout << "Decryption key= " << SSV << endl;
 	else
 		cout << "The key is BAD - do not use!" << endl;
+	dec_time = getExecutionTime(begin_time);
+
+
+	cout << "Setup time:      " << set_time << endl;
+	cout << "Extract time:    " << ext_time << endl;
+	cout << "Encryption time: " << enc_time << endl;
+	cout << "Decryption time: " << dec_time << endl;
+	cout << "               + --------" << endl;
+	cout << "Total time:      " << set_time + ext_time + enc_time + dec_time << endl;
 
     return 0;
+}
+
+float getExecutionTime(float begin_time) {
+	return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }
