@@ -14,10 +14,10 @@
 \BOOKMARK [1][-]{section.2.3}{Abstract Algebra}{chapter.2}% 14
 \BOOKMARK [1][-]{section.2.4}{Number Theoretic Assumptions}{chapter.2}% 15
 \BOOKMARK [1][-]{section.2.5}{Bilinear Maps}{chapter.2}% 16
-\BOOKMARK [1][-]{section.2.6}{Cryptographic Building Blocks}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.6}{Cryptography}{chapter.2}% 17
 \BOOKMARK [1][-]{section.2.7}{Summary}{chapter.2}% 18
 \BOOKMARK [0][-]{chapter.3}{Literature Review}{}% 19
-\BOOKMARK [1][-]{section.3.1}{Asymmetric Cryptography}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.1}{Public Key Infrastructures}{chapter.3}% 20
 \BOOKMARK [1][-]{section.3.2}{Identity-Based Encryption}{chapter.3}% 21
 \BOOKMARK [1][-]{section.3.3}{Broadcast Encryption}{chapter.3}% 22
 \BOOKMARK [1][-]{section.3.4}{Secret Sharing}{chapter.3}% 23
@@ -41,4 +41,4 @@
 \BOOKMARK [0][-]{appendix.B}{The Last Appendix}{}% 41
 \BOOKMARK [1][-]{section.B.1}{Lorem 20-24}{appendix.B}% 42
 \BOOKMARK [1][-]{section.B.2}{Lorem 25-27}{appendix.B}% 43
-\BOOKMARK [0][-]{section*.21}{Bibliography}{}% 44
+\BOOKMARK [0][-]{section*.27}{Bibliography}{}% 44

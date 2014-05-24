@@ -8,12 +8,23 @@ Pairing based cryptography.
 Public-key encryption with oblivious keyword search. priced oblivious transfer.
 \newblock Master's thesis, KU Leuven, 2008.
 
+\bibitem{thesis:Wyseur09}
+White-box cryptography.
+\newblock Master's thesis, KU Leuven, 2009.
+
 \bibitem{art:AbdallaBCKKLMNPS05}
 M.~Abdalla, M.~Bellare, D.~Catalano, E.~Kiltz, T.~Kohno, T.~Lange,
   J.~Malone-Lee, G.~Neven, P.~Paillier, and H.~Shi.
 \newblock Searchable encryption revisited: Consistency properties, relation to
   anonymous ibe, and extensions.
 \newblock In Shoup \cite{DBLP:conf/crypto/2005}, pages 205--222.
+
+\bibitem{art:AbelsonHARBMBJBMDWGJNGRLSISB97}
+H.~Abelson, R.~Anderson, S.~M. Bellovin, J.~Benalob, M.~Blaze, W.~Diffie,
+  J.~Gilmore, P.~G. Neumann, R.~L. Rivest, J.~I. Schiller, and B.~Schneier.
+\newblock The risks of key recovery, key escrow, and trusted third-party
+  encryption.
+\newblock {\em World Wide Web J.}, 2(3):241--257, June 1997.
 
 \bibitem{art:AdjMOR13}
 G.~Adj, A.~Menezes, T.~Oliveira, and F.~Rodr\'{\i}guez-Henr\'{\i}quez.
@@ -52,6 +63,12 @@ A.~Barth, D.~Boneh, and B.~Waters.
 G.~Barthe, B.~Gr{\'e}goire, S.~Heraud, F.~Olmedo, and S.~Z. B{\'e}guelin.
 \newblock Verified indifferentiable hashing into elliptic curves.
 \newblock {\em Journal of Computer Security}, 21(6):881--917, 2013.
+
+\bibitem{art:BellareBDP01}
+M.~Bellare, A.~Boldyreva, A.~Desai, and D.~Pointcheval.
+\newblock Key-privacy in public-key encryption.
+\newblock In C.~Boyd, editor, {\em ASIACRYPT}, volume 2248 of {\em Lecture
+  Notes in Computer Science}, pages 566--582. Springer, 2001.
 
 \bibitem{art:BellareR93}
 M.~Bellare and P.~Rogaway.
@@ -464,6 +481,11 @@ StatisticBrain.
 \newblock URL:
   \url{http://www.statisticbrain.com/social-networking-statistics/}, last
   checked on 2014-05-08.
+
+\bibitem{art:Kerckhoffs1883}
+A.~K. (von Nieuwenhof).
+\newblock La cryptographie militaire. ({French}) [{Military} cryptography].
+\newblock {\em Journal des Sciences Militaires}, IX:5--38, Jan. 1883.
 
 \bibitem{art:Waters05}
 B.~Waters.

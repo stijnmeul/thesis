@@ -4,17 +4,8 @@ This chapter overviews cryptographic building blocks used to construct an encryp
 
 This chapter is organised as follows. An introduction is given to asymmetric cryptography and its drawbacks. In a next section, identity-based encryption (IBE) is proposed as a possible alternative to the existing asymmetric approaches. An introduction is given to the basic concept of identity-based encryption, its drawbacks and advantages, the different security definitions and the evolution of IBE in literature. This is followed by an elaborate discussion on broadcast encryption (BE) and secret sharing. Finally, distributed key generation is described as a possible solution to the inherent key escrow problem of IBE.
 
-\section{Asymmetric Cryptography}
-The idea behind asymmetric cryptography is to use a different key for encryption than decryption, thereby making secure communication easier between parties who have never met before. A background on the basic concepts of traditional asymmetric cryptography allows to put the conclusions of this chapter into context.
-
-\subsection{Definition}
-In a public key system each entity $A$ has a key pair $\left< pk_A, sk_A \right>$ where $pk_A$ and $sk_A$ denote the public and the private key of entity $A$ respectively. The public key is publicly available, while the private key often remains secret and only known by $A$. The domain of cryptography describing the concept of these key pairs is often called \textit{asymmetric cryptography}. 
-
-Key pair generation is a two step process. In the first step, the private key $sk$ is chosen uniformly random. In the next step the public key $pk$ is derived by applying a one-way function to $sk$. The one-way property of the applied function implies that it is computationally hard to derive the public key from the private key, e.g. in the ElGamal encryption scheme~\cite{art:Elgamal85} the public key is calculated as $pk = g^{sk}$ in a group $\mathbb{Z}_p$ for some large prime $p$. As long as the DL assumption from Definition~\ref{def:dl} holds it is infeasible to derive $sk$ from $pk$.
-
-The concept of two different keys enables a wide plethora of useful applications. Once all public keys of a PKI system are known, two entities who never met before can immediately setup secure communication by encrypting under the correct public keys. Asymmetric crypto also enables these entities to authenticate their messages by relying on signature schemes. Authenticity of signatures then immediately follows from the privacy of $sk$.
-
-However, public key systems only shift the problem from trusting the users to trusting their keys. For example, if Eve would succeed in authenticating her own public key $pk_{Eve}$ as the public key of Alice $pk_{Alice}$, Eve would be able to read all confidential information that is intended to Alice as she obviously has the private key $sk_{Eve}$ corresponding to $pk_{Eve}$. Therefore, it is important that public key system rely on an architecture that authenticates whether keypairs belong to the claimed owner. In practice this is mostly achieved with the help of Public Key Infrastructures (PKIs) such as certification authorities or a web of trust.
+\section{Public Key Infrastructures}
+Section~\ref{sec:asymmetric_cryptography} already introduced the concept of a Public Key Infrastructure (PKI). However, PKI systems only shift the problem from trusting the users to trusting their keys. For example, if Eve could make the PKI system believe that her own public key $pk_{Eve}$ actually represents the public key of Alice $pk_{Alice}$, Eve would be able to read all Alice's confidential communication as she obviously has the private key $sk_{Eve}$ corresponding to $pk_{Eve}$. Therefore, it is important that public key systems rely on an architecture that authenticates whether keypairs belong to the claimed owner. In practice this is mostly achieved with the help of certification authorities or a web of trust.
 
 \subsection{Certification Authorities}
 In a traditional PKI system, all entities in the system trust a central party called the \textit{Certification Authority} (CA). It is the CA that guarantees public keys belong to the claimed owner.
@@ -23,13 +14,13 @@ Suppose Alice wants to start using a key pair $\left< pk_A, sk_A \right>$. She h
 
 Once the CA is convinced of the authenticity of Alice's public key, it distributes a certificate approving that $pk_A$ effectively belongs to Alice. To avoid forged certificates, the CA signs Alice's certificate with its private key $sk_{CA}$. Anyone doubting the authenticity of the public key $pk_A$ can get convinced $pk_A$ effectively belongs to Alice by checking the signature of the CA with the CA's public key $pk_{CA}$.
 
-In practice, CAs often approve each others trustworthiness by issuing certificates on their signing keys. In this way, often highly complex hierarchical architectures are achieved that boil down to the trust in one signing key of the highest authority. This puts heavy requirements on the CA's infrastructure as a compromised CA signing key can break the system completely. Indeed, a compromised signing key would allow to sign certificates of unauthenticated public keys or even certificates of public keys that belong to malicious entities.
+In practice, CAs often approve the trustworthiness of other CAs by issuing certificates on their signing keys. In this way, often highly complex hierarchical architectures are achieved that boil down to the trust in one signing key of the highest authority. This puts heavy requirements on the CA's infrastructure as a compromised CA signing key can break the system completely. Indeed, a compromised signing key would allow to sign certificates of unauthenticated public keys or even certificates of public keys that belong to malicious entities.
 
-If an entity's private key would get compromised, it can be revoked by the CA. CAs achieve this by periodic publication of \textit{revocation lists}. These revocation lists contain all public keys of entities who lost or even revealed their private keys. Users relying on a PKI should therefore always check these continuously growing lists before trusting a keypair. Therefore, revocation lists not only make the system less transparent, they also put high demands on the infrastructure of entities relying on the PKI.
+If an entity's private key is lost or leaked to a third party, it can be revoked by the CA. CAs achieve this by periodic publication of \textit{revocation lists}. These revocation lists contain all compromised public keys. Consequently, users relying on a PKI should always verify these continuously growing lists before trusting a keypair. Thereby, revocation lists not only make the system less transparent, they also impose high demands on the infrastructure of entities relying on the PKI.
 
-To partially get around the issue of revocation lists, certificates contain an expiration date. After expiry of a certificate it should no longer be trusted. However, this requires keypair owners to contact CAs more frequently to sign new certificates each time the previous one has expired. Clearly, this puts a higher computational demand on the authentication procedure of the CAs as well.
+To partially get around the issue of revocation lists, certificates contain an expiration date. After expiration, a certificate should no longer be trusted. However, this requires keypair owners to contact CAs more frequently to sign new certificates each time the previous one has expired. Clearly, this puts a high computational demand on the authentication procedure of the CAs as well.
 
-\subsection{OpenPGP and Webs of Trust}
+\subsection{OpenPGP and Web of Trust}
 An alternative to the traditional PKI setting relying on CAs is a \textit{web of trust}. In a web of trust any entity can rate the trustworthiness of a public key. For example, if Bob receives Alice's public key personally during a date, the public key can be considered more trustworthy than when Bob receives Alice's key via e-mail. Web of trust systems allow users to vet for the authenticity other users' keys in the system. A standardised web of trust system is OpenPGP~\cite{rfc4880}.
 
 The major advantage of a web of trust is that there no longer needs to be a CA with highly secure infrastructure as the publication of certificates now becomes a shared responsibility.
@@ -95,26 +86,26 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
     \label{fig:generic_ibe_scheme}
 \end{figure}
 
-These generic algorithms are best explained using Figure~\ref{fig:generic_ibe_scheme}. A trusted Public Key Generator (PKG) generates a master private key $s_k$ and public parameters $params$ on input of the security parameter $k$. Next, the PKG publishes the public parameters $params$ while storing $s_k$ preferably in encrypted fashion on a local disk. When Alice wants to send a message $m$ to Bob, it suffices for her to know the public parameters $params$ and his id $\id{Bob}$ uniquely identifying Bob. Alice encrypts the message to a ciphertext $c$ that is sent over to Bob. On receipt of the ciphertext, Bob authenticates to the PKG over a secure channel to request his private key $s_{\id{Bob}}$. Subsequently, the PKG generates the private key $s_{\id{Bob}}$ corresponding to Bob's identity $\id{Bob}$ on input of the master private key $s_k$, Bob's id $\id{Bob}$ and public parameters $params$. Subsequently, the PKG sends $s_{\id{Bob}}$ back again over a secure channel. Finally, Bob has all the required information to decrypt the ciphertext $c$ to its original plaintext message $m$.
+Figure~\ref{fig:generic_ibe_scheme} illustrates these generic algorithms. A trusted Public Key Generator (PKG) generates a master private key $s_k$ and public parameters $params$ on input of the security parameter $\lambda$. Next, the PKG publishes the public parameters $params$ while storing $s_k$ preferably in encrypted format on a local disk. If Alice wants to send a message $m$ to Bob, it suffices for her to know the public parameters $params$ and the id $\id{Bob}$, uniquely identifying Bob. Then, Alice encrypts the message to a ciphertext $c$ that is sent over an insecure channel to Bob. On receipt of the ciphertext, Bob authenticates to the PKG over a secure channel to request his private key $s_{\id{Bob}}$. Subsequently, the PKG generates the private key $s_{\id{Bob}}$ corresponding to Bob's identity $\id{Bob}$ on input of the master private key $s_k$, Bob's id $\id{Bob}$ and public parameters $params$. Subsequently, the PKG sends $s_{\id{Bob}}$ back again over a secure channel. Bob has now all the required information to decrypt the ciphertext $c$ to its original plaintext message $m$.
 
-\subsection{Advantages and Drawbacks of IBE}
-Note that it is important that the PKG can be fully trusted as it will generate all the private keys $s_{\id{}}$ in the system. Referring to Figure~\ref{fig:generic_ibe_scheme}, a malicious PKG server could use this information to start eavesdropping on the insecure channel between Alice and Bob while decrypting all ciphertexts that are being sent over. The undesired property that private keys have to be shared with a trusted third party is often called \textit{key escrow} in literature.
+\subsection{Pros and Cons of IBE}
+Note that it is important that the PKG can be fully trusted as it generates all the private keys $s_{\id{}}$ in the system. A malicious PKG server could use this information to start eavesdropping on the insecure channel between Alice and Bob (the orange arrow in Figure~\ref{fig:generic_ibe_scheme}) while decrypting all ciphertexts that are being sent over. The undesired property that private keys have to be shared with a trusted third party is often called \textit{key escrow} in literature~\cite{art:AbelsonHARBMBJBMDWGJNGRLSISB97}.
 
-Another drawback from the scheme in Figure~\ref{fig:generic_ibe_scheme} is that keys can not be revoked in the system. However, Bob's private key $s_{\id{Bob}}$ can still get compromised if he is careless with the storage of his private key. In fact, a lot of research has been done in literature on the revocation of IBE keys~\cite{art:BoldyrevaGK12,art:BonehDTW01,art:HanaokaHSI05,art:LibertQ03}. Key revocation often requires additional infrastructure that complicates the elegancy of the currently proposed IBE scheme. As a matter of fact, the major drawback of revoking Bobs key is that Bob can no longer receive encrypted messages because his public key is part of his identity. Therefore, a pragmatic solution to this issue could be to append expiration dates to the public keys. Consequently, public keys will only be valid for a limited amount of time thereby restricting the damage that could be done with a compromised private key~\cite{art:BonehF01}.
+Another problem from the generic scheme shown in Figure~\ref{fig:generic_ibe_scheme} is that keys can not be revoked in the system. However, Bob's private key $s_{\id{Bob}}$ can still get compromised if he is careless with its storage. In fact, the research community has been focused on the revocation of IBE keys extensively~\cite{art:BoldyrevaGK12,art:BonehDTW01,art:HanaokaHSI05,art:LibertQ03}. Key revocation often requires additional infrastructure that complicates the elegancy of the currently proposed IBE scheme. As a matter of fact, the major drawback of revoking Bobs key is that Bob can no longer receive encrypted messages because his public key is part of his identity. Therefore, a pragmatic solution to this issue could be to append expiration dates to the public keys. Consequently, public keys will only be valid for a limited amount of time thereby restricting the damage that could be done with a compromised private key~\cite{art:BonehF01}.
 
-The scheme from Figure~\ref{fig:generic_ibe_scheme} has some desired properties as well. For starters, only one PKG suffices to realise the system, which relaxes expensive requirements on the public key infrastructure. Furthermore, once the PKG has successfully delivered all the private keys in the system, it can go offline as the scheme does not require any future interactions between the PKG and the users in the system.
+IBE schemes have some desired properties as well. For starters, only one PKG suffices to realise the system, which relaxes expensive infrastructure requirements on the PKI. Furthermore, once the PKG has successfully delivered all the private keys in the system, it can go offline as the scheme does not require any future interactions between the PKG and the users in the system.
 
-Another useful property of an IBE scheme is that Bob does not need to subscribe to a hierarchy of Certification Authorities neither a chain of trust before Alice can start sending him messages. In this way, the possibility to send encrypted messages becomes inherently part of any system in which the users are assigned unique identifiers. This is particularly useful in systems where the majority of the users has no knowledge about cryptographic primitives.  Users do no longer need to generate a key pair neither subscribe to a third party infrastructure. It suffices to recall how their connections can be uniquely identified in the system to know their public keys.
+Another useful property of an IBE scheme is that Bob does not need to subscribe to a hierarchy of CAs neither a web of trust before Alice can start sending him messages. In this way, the possibility to send encrypted messages becomes inherently part of any system in which the users are assigned unique identifiers. This is particularly useful in systems where the majority of the users has no knowledge about cryptographic primitives.  Users do no longer need to generate a key pair neither subscribe to a third party infrastructure. It suffices to recall how their connections can be uniquely identified in the system to know their public keys.
 
 \subsection{Security of IBE}
-A cryptographic scheme should meet two properties in order to be of practical use. First, the scheme should be consistent, i.e. decryption reverses encryption. Second, the scheme should be secure. The definition of security is more subtle as different levels of security can be defined. In IBE \textit{indistinguishability under chosen plaintext attack} (IND-CPA) and \textit{indistinguishability under chosen ciphertext attack} (IND-CCA) are often considered. Anonymity of the encryption scheme is an additional property of the scheme that is often desired~\cite{thesis:Alfredo08}.
+Definitions of security are often subtle as different levels of security can be defined. In IBE \textit{indistinguishability under chosen plaintext attack} (IND-CPA) and \textit{indistinguishability under chosen ciphertext attack} (IND-CCA) are considered. Anonymity of the encryption scheme is an additional property of the scheme that is often desired~\cite{art:BellareBDP01}.
 
-Note that both the notion of IND-CPA, IND-CCA and anonymity are only introduced in an informal way in this section to give a basic understanding of these concepts to the reader. If a more formal description of IND-CPA and IND-CCA is required, the reader is referred to~\cite{art:BonehF01}. For a more formal description of ciphertext anonymity the reader is referred to~\cite{art:AbdallaBCKKLMNPS05}.
+Note that both the notion of IND-CPA, IND-CCA and anonymity are only introduced in an informal way in this section to give a basic understanding of these concepts to the reader. For a more formal description of IND-CPA and IND-CCA, the reader is referred to~\cite{art:BonehF01}, whereas for a more formal description of ciphertext anonymity the reader is referred to~\cite{art:AbdallaBCKKLMNPS05}.
 
 \subsubsection{Indistinguishability Under Chosen Plaintext Attack}
-Indistinguishability under chosen plaintext attack (IND-CPA) means that an adversary has no advantage in trying to determine which of both given plaintext messages $m_0$ and $m_1$ generated a ciphertext $c$. It captures the notion of \textit{semantic security}, i.e. that any ciphertext $c$ should not give more information about the original plaintext $m$ than any other random binary string of the same length.
+Indistinguishability under chosen plaintext attack (IND-CPA) is described by the negligible advantage an adversary has in trying to distinguish which of both given plaintext messages $m_0$ and $m_1$ generated a ciphertext $c$. It captures the notion of \textit{semantic security}, i.e. that any ciphertext $c$ should not give more information about the original plaintext $m$ than any other random binary string of the same length.
 
-IND-CPA is best defined with the help of a game that challenges the adversary. If the adversary has negligible advantage trying to win the IND-CPA game in Algorithm~\ref{game:ind_cpa_game}, the IBE system is said to be IND-CPA secure.
+IND-CPA is best defined with the help of a game that challenges the adversary. If the adversary has negligible advantage trying to win the IND-CPA game in Game~\ref{game:ind_cpa_game}, the IBE system is said to be IND-CPA secure.
 
 \begin{game}
 \caption{Generic IBE-IND-CPA Game~\cite{thesis:Alfredo08}}
@@ -136,11 +127,11 @@ IND-CPA is best defined with the help of a game that challenges the adversary. I
 \end{game}
 
 \subsubsection{Indistinguishability Under Chosen Ciphertext Attack}
-Indistinguishability under chosen ciphertext (IND-CCA) is a more demanding level of security. Therefore, an algorithm that is IND-CCA secure is considered more secure than an IND-CPA secure algorithm. IND-CCA security means that an adversary has no advantage in trying to determine which of both given plaintext messages $m_0$ and $m_1$ generated a ciphertext $c$ even if the adversary has access to a list of (plaintext, ciphertext)-tuples.
+Indistinguishability under chosen ciphertext (IND-CCA) is a more demanding level of security. Therefore, an algorithm that is IND-CCA secure is considered more secure than an IND-CPA secure algorithm. IND-CCA security means that an adversary has no advantage in trying to distinguish which of both given plaintext messages $m_0$ and $m_1$ generated a ciphertext $c$ even if the adversary has access to a list of (plaintext, ciphertext)-tuples.
 
-IND-CCA is easiest to define with the help of a game that challenges an adversary similar to the IND-CPA game. The IND-CCA game contains two additional steps compared to the IND-CPA game in which the adversary gets access to another oracle. If the adversary has negligible advantage trying to win the IND-CCA game from Algorithm~\ref{game:ind_cca_game}, the IBE system is said to be IND-CCA secure.
+IND-CCA is defined with the help of a game that challenges an adversary similar to the IND-CPA game. Compared to the IND-CPA game, the IND-CCA game contains two additional steps in which the adversary gets access to another oracle. If the adversary has negligible advantage trying to win the IND-CCA game from Game~\ref{game:ind_cca_game}, the IBE system is said to be IND-CCA secure.
 
-In literature a distinction is often made between a \textit{non-adaptive} case (IND-CCA1) and an \textit{adaptive} case (IND-CCA2) of IND-CCA. In the non-adaptive case, step 6 of Algorithm~\ref{game:ind_cca_game} is not allowed. More precisely, an IBE scheme that satisfies Algorithm~\ref{game:ind_cca_game} is said to be IND-CCA2 secure.
+In literature a distinction is often made between a \textit{non-adaptive} case (IND-CCA1) and an \textit{adaptive} case (IND-CCA2) of IND-CCA. In the non-adaptive case, step 6 from Game~\ref{game:ind_cca_game} is not allowed. More precisely, an IBE scheme that satisfies Game~\ref{game:ind_cca_game} is said to be IND-CCA2 secure.
 
 \begin{game}
 \caption{Generic IBE-IND-CCA Game~\cite{thesis:Alfredo08}}
@@ -159,16 +150,16 @@ In literature a distinction is often made between a \textit{non-adaptive} case (
   \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{}, m_b$)}. The challenger gives $c$ to the adversary.
   \item \label{item:cca_second_oracle_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
   \item \label{item:cca_second_decryption_query} The adversary continues querying the oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ adaptively.
-  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. If $b \neq b'$, if the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{encrypt}$ during step~\ref{item:cca_first_oracle_query} or step~\ref{item:cca_second_oracle_query} or if the adversary queried the oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ with $c_j = c$ during step~\ref{item:cca_first_decryption_query} or step~\ref{item:cca_second_decryption_query}, the adversary loses the game.
+  \item The adversary outputs a bit $b'$ based on the ciphertext $c$. If $b = b'$ the adversary wins the game. Otherwise, the adversary loses the game. If the adversary queried the oracle $O_{Extract} \left( \id{i} \right)$ with $\id{i} = \id{encrypt}$ during step~\ref{item:cca_first_oracle_query} or step~\ref{item:cca_second_oracle_query} or if the adversary queried the oracle $O_{Decrypt} \left( s_{\id{i}}, c_j \right)$ with $c_j = c$ during step~\ref{item:cca_first_decryption_query} or step~\ref{item:cca_second_decryption_query}, the adversary loses the game as well.
  \end{enumerate}
 \end{game}
 
 \subsubsection{Anonymous Identity-Based Encryption}
 An IBE scheme is called anonymous (ANO-IBE) when the ciphertext does not leak the identity of the recipient. In the overview illustrated in Figure~\ref{fig:generic_ibe_scheme}, this implies that no eavesdropper on the insecure channel between Alice and Bob could derive that Bob is the recipient based on the information in the ciphertext $c$ alone~\cite{art:BoyenW06}.
 
-ANO-IBE is easiest to define with the help of a game that challenges an adversary similar to the IND-CPA game. If the adversary has negligible advantage trying to win the ANO-IBE game in Algorithm~\ref{game:ano_ibe}, the IBE system is said to be anonymous.
+ANO-IBE is defined with the help of a game that challenges an adversary similar to the IND-CPA game. If the adversary has negligible advantage trying to win the ANO-IBE game in Game~\ref{game:ano_ibe}, the IBE system is said to be anonymous.
 
-Gentry~\cite{art:Gentry06} is the first to combine the notions of IND-CPA and IND-CCA with ANO-IBE. A system is then said to be IND-ANO-CPA secure or IND-ANO-CCA secure if it satisfies a modified version of the game in Algorithm~\ref{game:ano_ibe}. For a more detailed discussion on the topic the reader is referred to the original paper~\cite{art:Gentry06}.
+Gentry~\cite{art:Gentry06} presents the first scheme which combines the notions of IND-CPA and IND-CCA with ANO-IBE. Therefore, system is then said to be IND-ANO-CPA secure or IND-ANO-CCA secure if it satisfies a modified version of the game in Game~\ref{game:ano_ibe}. For a more detailed discussion on the topic the reader is referred to the original paper~\cite{art:Gentry06}.
 
 \begin{game}
 \caption{Generic ANO-IBE Game~\cite{thesis:Alfredo08}}
@@ -201,7 +192,7 @@ Gentry~\cite{art:Gentry06} is the first to combine the notions of IND-CPA and IN
 %    -> BB is enkel selective-ID CCA secure = niet leuk
 \subsection{Historical Overview on IBE}
 \label{sec:evolution_of_ibe}
-Although Shamir easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. Boneh and Franklin~\cite{art:BonehF01} proposed the first practically usable IBE scheme based on the Weil pairing, however, the security proof still relies on the random oracle assumption. At the same time, Sakai and Kasahara~\cite{art:SakaiOK01} proposed a different IBE scheme independently from Boneh and Franklin. The scheme from Sakai and Kasahara initially received less attention though, because the original presentation is in Japanese and lacking a security proof. Subsequently, Sakai and Kasahara~\cite{art:SakaiK03} proposed an extended version of their original scheme which is proven to be IND-CCA secure in the random oracle model by Chen et al.~\cite{art:ChenC05} 
+Although Shamir~\cite{art:Shamir84} easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. Boneh and Franklin~\cite{art:BonehF01} proposed the first practically usable IBE scheme based on the Weil pairing, however, the security proof still relies on the random oracle assumption. At the same time, Sakai and Kasahara~\cite{art:SakaiOK01} proposed a different IBE scheme independently from Boneh and Franklin. The scheme from Sakai and Kasahara initially received less attention though, because the original presentation is in Japanese and lacking a security proof. Subsequently, Sakai and Kasahara~\cite{art:SakaiK03} proposed an extended version of their original scheme which is proven to be IND-CCA secure in the random oracle model by Chen et al.~\cite{art:ChenC05} 
 
 Canetti et al.~\cite{art:CanettiHK03} introduced the first secure IBE scheme without relying on the random oracle model. Nevertheless, the attacker model in~\cite{art:CanettiHK03} requires the adversary to declare upfront which identity \id{} is targeted during step 5 of the CCA Game (Algorithm~\ref{game:ind_cca_game}) and step 4 of the CPA Game. Therefore, the scheme by Boneh and Franklin~\cite{art:BonehF01} is considered more secure as attackers can adaptively choose the targeted identity. Later, Boneh and Boyen~\cite{art:BonehB04} presented a variant to~\cite{art:CanettiHK03} which also realises only selective ID security.
 
@@ -210,15 +201,14 @@ Waters~\cite{art:Waters05} is the first to present a scheme that is IND-CCA secu
 Although all these contributions were a step forward in the evolution of IBE, not all of these schemes are ANO-IBE. Most IBE systems in the random oracle model can be proven anonymous. Therefore, the IBE scheme from Boneh and Franklin~\cite{art:BonehF01} is IND-ANO-CCA secure. In the standard model, it appeared to be harder to construct ANO-IBE schemes at first sight, e.g. it can be proven that the scheme from Boneh and Boyen~\cite{art:BonehB04} is not anonymous in its original form. The scheme from Gentry~\cite{art:Gentry06} was the first anonymous IBE scheme in the standard model. Boyen and Waters~\cite{art:BoyenW06} published almost synchronously another IBE scheme in the standard model that is also IND-ANO-CCA secure. In 2010, Ducas~\cite{art:Ducas10} showed that even schemes that were first considered not anonymous like the one from Boneh and Boyen~\cite{art:BonehB04} but also~\cite{art:BonehBG05,art:Waters05} can be proven anonymous when relying on asymmetric pairings thereby making anonymity a more common property in IBE schemes.
 
 \subsection{Most Attractive IBE Schemes}
-From all schemes discussed in Section~\ref{sec:evolution_of_ibe} the ones initially developed by Boneh and Franklin~\cite{art:BonehF01} and Sakai and Kasahara~\cite{art:SakaiK03} are the most attractive ones in the random oracle model because of their anonymity and non-selective security. Consequently, it is not a coincidence that both schemes have found description in an informational RFC document. Sakai and Kasahara IBE is described in RFC 6508~\cite{rfc6508} and RFC 6509~\cite{rfc6509}. Boneh and Franklin IBE can be found in RFC 5409~\cite{rfc5409}. 
-
 In the standard model mainly the anonymous IBE constructions from Gentry~\cite{art:Gentry06} and De Caro et al.~\cite{art:CaroIP10} have the most satisfying properties. However, IBE constructions in the standard model often come at the cost of higher computational requirements~\cite{art:Boyen08}. Certainly the scheme from De Caro demands a higher amount of computational resources since it relies on composite order groups. Although methods~\cite{art:Freeman10,art:Lewko12} have been developed to convert IBE schemes from composite order groups to single order prime groups, these methods do not apply to the scheme from De Caro et al.~\cite{art:LeeL10}
 
-\subsection{Boneh and Franklin IBE}
-Boneh and Franklin~\cite{art:BonehF01} propose two IBE algorithms called \texttt{BasicIndent} and \texttt{FullIndent} that will prove particularly useful in the remainder of this text. \texttt{BasicIndent} can be proven IND-ANO-CPA secure while \texttt{FullIndent} is proven IND-ANO-CCA secure. \texttt{BasicIndent} can be found in Algorithm~\ref{alg:basic_indent} while \texttt{FullIndent} is explained in Algorithm~\ref{alg:full_indent}. As already mentioned in Section~\ref{sec:evolution_of_ibe}, the scheme from Boneh and Franklin relies on the random oracle assumption and is therefore more efficient than similar schemes in the standard model. 
+From all schemes discussed in Section~\ref{sec:evolution_of_ibe} the ones initially developed by Boneh and Franklin~\cite{art:BonehF01} and Sakai and Kasahara~\cite{art:SakaiK03} are the most attractive ones in the random oracle model because of their anonymity and non-selective security. Consequently, it is not a coincidence that both schemes have found description in an informational RFC document. Sakai and Kasahara IBE is described in RFC 6508~\cite{rfc6508} and RFC 6509~\cite{rfc6509}. Boneh and Franklin IBE can be found in RFC 5409~\cite{rfc5409}. 
+
+Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Boneh an Franklin~\cite{art:BonehF01} are important for the remainder of this text, they are both included in Algorithm~\ref{alg:basic_indent} and Algorithm~\ref{alg:full_indent} respectively.
 
 \begin{algorithm}
-\caption{BasicIndent~\cite{art:BonehF01}}
+\caption{IND-ANO-CPA Boneh and Franklin IBE~\cite{art:BonehF01}}
 \label{alg:basic_indent}
 \begin{description}
  \item \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
@@ -267,7 +257,7 @@ Boneh and Franklin~\cite{art:BonehF01} propose two IBE algorithms called \texttt
 \end{algorithm}
 
 \begin{algorithm}
-\caption{FullIndent~\cite{art:BonehF01}}
+\caption{IND-ANO-CCA Boneh and Franklin IBE~\cite{art:BonehF01}}
 \label{alg:full_indent}
 \begin{description}
  \item \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
@@ -379,27 +369,27 @@ In earlier paragraphs of this chapter, identity-based encryption was already exp
 \end{defn}
 
 \subsection{Shamir Secret Sharing}
-In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} independently found an algorithm achieving perfect threshold secret sharing. Shamir's solution was based on polynomial interpolation while Blakley's algorithm relied on finite geometries. Blakley secret sharing uses more bits than necessary as it describes multidimensional planes. In contrast, Shamir secret sharing requires as many bits for each share as the length of the original secret. Therefore Shamir secret sharing has gained more popularity in both research communities and in practical implementations.
+In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} independently proposed an algorithm achieving perfect threshold secret sharing. Shamir's solution was based on polynomial interpolation while Blakley's algorithm relied on finite geometries. Blakley secret sharing uses more bits than necessary as it describes multidimensional planes. In contrast, Shamir secret sharing requires as many bits for each share as the length of the original secret. Therefore Shamir secret sharing has gained more popularity in both research communities and in practical implementations.
 
 \begin{algorithm}
 \caption{Shamir's $\left( t, n \right)$ threshold scheme~\cite{book:handbook_of_applied_cryptography} }
 \label{alg:shamirs_threshold_sheme}
 \begin{description}
- \item \textbf{Goal}: A trusted party $T$ distributes shares of a secret $S$ to $n$ parties.
+ \item \textbf{Goal}: A dealer $D$ distributes shares of a secret $s$ to $n$ parties.
  
- \item \textbf{Result}: If a subset of at least $t$ out of $n$ shareholders collaborates, they can reconstruct the original secret $S$.
+ \item \textbf{Result}: If a subset of at least $t$ out of $n$ shareholders collaborates, they can reconstruct the original secret $s$.
 \end{description}
 
  \begin{enumerate}
-  \item \textit{Setup} The trusted party T begins with a secret integer $S \geq 0$ it wishes to distribute among $n$ parties
+  \item \textit{Setup} A dealer $D$ begins with a secret integer $s \geq 0$ it wishes to distribute among $n$ parties
    \begin{enumerate}
-    \item T chooses a prime $p > \max \left( S, n \right)$ and defines $a_0 = S$
-    \item $T$ selects $t-1$ random, independent coefficients $a_1, \ldots, a_{t-1}, 0 \leq a_j \leq p-1$ defining the random polynomial over $\mathbb{Z}_p$, $f \left( x \right) = \sum^{t-1}_{j=0} a_j x^j$
-    \item $T$ computes $S_i = f \left( i \right) \bmod p, 1 \leq i \leq n$ and securely transfers the share $S_i$ to shareholder $P_i$, along with a public index $i$.
+    \item $D$ chooses a prime $p > \max \left( s, n \right)$ and defines $a_0 = s$
+    \item $D$ selects $t-1$ random, independent coefficients $a_1, \ldots, a_{t-1}, 0 \leq a_j \leq p-1$ defining the random polynomial over $\mathbb{Z}_p$, $f \left( x \right) = \sum^{t-1}_{j=0} a_j x^j$
+    \item $D$ computes $\sigma_i = f \left( i \right) \bmod p, 1 \leq i \leq n$ and securely transfers the share $\sigma_i$ to shareholder $P_i$, along with a public index $i$.
    \end{enumerate}
-   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, S_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
+   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, \sigma_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
  \begin{equation*}
-  f \left( 0 \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = S
+  f \left( 0 \right) = \sum^t_{i=1}y_i b_i = s \; \; \; \textrm{with} \; \; \; b_i = \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = s
  \end{equation*}
  \end{enumerate}
 \end{algorithm}
@@ -407,7 +397,7 @@ In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} indepe
 The idea behind Shamir secret sharing is elegant in its simplicity. Any polynomial $f \left( x \right)$ of degree $t-1$ is uniquely defined by $t$ points lying on the polynomial. For example, it is possible to draw only one straight line between 2 different coordinates, a quadratic is fully defined by 3 different coordinates and so on. If the trusted party randomly generates a polynomial of degree $t-1$ it suffices to securely distribute one of $n$ different coordinates on the curve to each party $P_i, 0 \leq i \leq n$. A subset of at least $t$ different shareholders has to collaborate in order to reconstruct the original polynomial by interpolation. For security reasons the polynomial $f \left( x \right)$ is calculated in a finite field modulo a large prime number $p$. The complete mechanism of Shamir's threshold scheme can be found in Algorithm~\ref{alg:shamirs_threshold_sheme}. The mechanism behind reconstruction in Algorithm~\ref{alg:shamirs_threshold_sheme} is explained because the coefficients of an unknown polynomial $f \left( x \right)$ of degree less than $t$, defined by points $\left( x_i, y_i \right), 1 \leq i \leq t$ are given by the Lagrange interpolation formula
 
 \begin{equation*}
- f \left( x \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x-x_j}{x_i-x_j}
+ f \left( x \right) = \sum^t_{i=1}y_i b_i \; \; \; \textrm{with} \; \; \; b_i = \prod_{1 \leq j \leq t, j \neq i} \frac{x-x_j}{x_i-x_j}
 \end{equation*}
 A proof of this formula is omitted but can be found in~\cite{site:proofwiki_lagrange}.
 
@@ -417,26 +407,13 @@ Verifiable secret sharing~\cite{art:ChorGMA85} tries to ensure the participating
 Popular verifiable secret sharing schemes are Feldman's scheme~\cite{art:Feldman87} and Benaloh's scheme~\cite{art:Benaloh86a}. No further details are given as a basic notion of verifiable secret sharing suffices for the remainder of this text.
 
 \section{Distributed Key Generation}
-Distributed key generation is inspired on secret sharing. The idea behind distributed key generation is that a secret $s$ can be shared among $n$ shareholders without the requirement for a trusted party. In this way a secret can be negotiated between all shareholders without any of the shareholders explicitly computing the secret. The major advantage of such a scheme is that no party in the scheme requires a higher level of trust like the trusted party $T$ in the Shamir secret sharing scheme. Similarly to the Shamir secret sharing scheme a group of $t$ or more shareholders will need to pool their shares in order to reconstruct the secret $s$.
+Distributed key generation is inspired on secret sharing. The idea behind distributed key generation is that a secret $s$ can be shared among $n$ shareholders without the requirement for a centralised dealer $D$ as in Algorithm~\ref{alg:shamirs_threshold_sheme}. In this way, a secret can be negotiated between all shareholders without any of the shareholders explicitly computing the secret. The major advantage of such a scheme is that no party in the scheme requires a higher level of trust since no party explicitly knows the secret. Similarly to the Shamir secret sharing scheme a group of $t$ or more shareholders will need to pool their shares in order to reconstruct the secret $s$.
 
 \subsection{Definition}
 \begin{defn}[Distributed key generation scheme]
 \label{def:dkg_scheme}
  A \textit{distributed key generation scheme} is a $\left( t,n \right)$ perfect threshold scheme $\left( t \leq n \right)$ that requires no trusted party. That is, a distributed key generation scheme is a cryptographic scheme that negotiates a secret $s$ with $n$ different parties $P_1, \ldots, P_n$ by letting each party $P_i$ distribute shares $s_{ij}$ of its own private secret $s_i$ with all other parties $P_i$ where $1 \leq i \leq n, 1 \leq j \leq n$. At least $t$ out of $n$ parties will need to collude in order to compute the original secret $s$ explicitly.
 \end{defn}
-
-\subsection{Commitment Schemes}
-To fully appreciate most distributed key generation schemes the reader should be familiar with commitment schemes. A commitment scheme is a cryptographic scheme that will allow to commit to a certain value while keeping the exact value private. The value can be revealed later giving anyone who received the commitment the possibility to check whether the value was changed between the commitment phase and the revealing of the value.
-
-More formally, a generic commitment scheme is composed of three probabilistic polynomial time algorithms:
-
-\begin{description}
- \item \texttt{CS.Setup($1^{\lambda}$):} On input of a security parameter $\lambda$, generates the public parameters $params$ of the system
- \item \texttt{CS.Commit($params, m, r$):} Returns a commitment $c_{m,r}$ to a message $m$ and a random binary sequence $r$.
- \item \texttt{CS.Open($params, c_{m,r}, m', r'$):} On input of public parameters $params$, a commitment $c_{m,r}$, a message $m$ and a random binary sequence $r$ it returns \texttt{true} if $c_{m,r} \leftarrow $\texttt{CS.Commit($params, m, r$)} with $m = m'$ and $r = r'$ and \texttt{false} otherwise.
-\end{description}
-
-For a more elaborate discussion on commitment schemes the reader is referred to the original paper formalising commitment schemes from Brassard et al.~\cite{art:BrassardCC88}.
 
 \subsection{Pedersen Distributed Key Generation}
 The first usable distributed key generation protocol was defined by Pedersen~\cite{art:Pedersen91a}. A later publication from Gennaro et al.~\cite{art:GennaroJKR07} proves the Pedersen scheme to be insecure in its original form in the presence of malicious Distritubed Key Generators (DKGs).

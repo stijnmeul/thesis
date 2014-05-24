@@ -32,49 +32,51 @@ A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
+Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--to sort, need author or key in thesis:Alfredo08
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Alfredo08
-You've used 85 entries,
+Warning--empty author in thesis:Wyseur09
+You've used 89 entries,
             2118 wiz_defined-function locations,
-            1149 strings with 22993 characters,
-and the built_in function-call counts, 31310 in all, are:
-= -- 3052
-> -- 1327
-< -- 71
-+ -- 517
-- -- 414
-* -- 2128
-:= -- 4931
-add.period$ -- 285
-call.type$ -- 85
-change.case$ -- 435
+            1178 strings with 24059 characters,
+and the built_in function-call counts, 32896 in all, are:
+= -- 3202
+> -- 1420
+< -- 73
++ -- 555
+- -- 447
+* -- 2263
+:= -- 5191
+add.period$ -- 297
+call.type$ -- 89
+change.case$ -- 463
 chr.to.int$ -- 0
-cite$ -- 89
-duplicate$ -- 1320
-empty$ -- 2579
-format.name$ -- 424
-if$ -- 6929
+cite$ -- 95
+duplicate$ -- 1374
+empty$ -- 2687
+format.name$ -- 457
+if$ -- 7256
 int.to.chr$ -- 0
-int.to.str$ -- 85
-missing$ -- 73
-newline$ -- 424
-num.names$ -- 233
-pop$ -- 466
+int.to.str$ -- 89
+missing$ -- 76
+newline$ -- 443
+num.names$ -- 241
+pop$ -- 491
 preamble$ -- 1
-purify$ -- 355
+purify$ -- 379
 quote$ -- 0
-skip$ -- 1043
+skip$ -- 1082
 stack$ -- 0
-substring$ -- 1815
-swap$ -- 476
-text.length$ -- 65
+substring$ -- 1901
+swap$ -- 491
+text.length$ -- 67
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 333
-warning$ -- 4
-while$ -- 300
-width$ -- 87
-write$ -- 964
+type$ -- 349
+warning$ -- 6
+while$ -- 312
+width$ -- 91
+write$ -- 1008
 (There were 5 error messages)

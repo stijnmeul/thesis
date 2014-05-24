@@ -28,79 +28,80 @@
 \contentsline {section}{\numberline {2.5}Bilinear Maps}{9}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}Definition}{9}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Bilinear Diffie-Hellman Assumption}{10}{subsection.2.5.2}
-\contentsline {section}{\numberline {2.6}Cryptographic Building Blocks}{11}{section.2.6}
+\contentsline {section}{\numberline {2.6}Cryptography}{11}{section.2.6}
 \contentsline {subsection}{\numberline {2.6.1}Symmetric Cryptography}{11}{subsection.2.6.1}
-\contentsline {subsection}{\numberline {2.6.2}Asymmetric Cryptography}{11}{subsection.2.6.2}
-\contentsline {subsubsection}{Signature Schemes}{11}{section*.8}
-\contentsline {subsubsection}{Commitment Schemes}{11}{section*.9}
-\contentsline {subsection}{\numberline {2.6.3}Hash Functions}{11}{subsection.2.6.3}
-\contentsline {subsubsection}{Definition}{11}{section*.10}
-\contentsline {subsubsection}{Random Oracles}{11}{section*.11}
-\contentsline {section}{\numberline {2.7}Summary}{12}{section.2.7}
-\contentsline {chapter}{\chapternumberline {3}Literature Review}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}Asymmetric Cryptography}{13}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Definition}{13}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Certification Authorities}{14}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}OpenPGP and Webs of Trust}{15}{subsection.3.1.3}
-\contentsline {section}{\numberline {3.2}Identity-Based Encryption}{15}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Definition}{15}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Advantages and Drawbacks of IBE}{17}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Security of IBE}{17}{subsection.3.2.3}
-\contentsline {subsubsection}{Indistinguishability Under Chosen Plaintext Attack}{18}{section*.13}
-\contentsline {subsubsection}{Indistinguishability Under Chosen Ciphertext Attack}{19}{section*.14}
-\contentsline {subsubsection}{Anonymous Identity-Based Encryption}{19}{section*.15}
-\contentsline {subsection}{\numberline {3.2.4}Historical Overview on IBE}{19}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Most Attractive IBE Schemes}{22}{subsection.3.2.5}
-\contentsline {subsection}{\numberline {3.2.6}Boneh and Franklin IBE}{22}{subsection.3.2.6}
-\contentsline {section}{\numberline {3.3}Broadcast Encryption}{22}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Definition}{25}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Historical Overview on Broadcast Encryption}{25}{subsection.3.3.2}
-\contentsline {subsubsection}{Broadcast Encryption}{25}{section*.16}
-\contentsline {subsubsection}{Identity-Based Broadcast Encryption}{26}{section*.17}
-\contentsline {subsubsection}{Anonymous Broadcast Encryption}{26}{section*.18}
-\contentsline {subsubsection}{Outsider-Anonymous Broadcast Encryption}{26}{section*.19}
-\contentsline {subsection}{\numberline {3.3.3}Most Attractive BE Schemes}{27}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Secret Sharing}{27}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Definition}{27}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Shamir Secret Sharing}{28}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Verifiable Secret Sharing}{29}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Distributed Key Generation}{29}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Definition}{30}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Commitment Schemes}{30}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Pedersen Distributed Key Generation}{30}{subsection.3.5.3}
-\contentsline {chapter}{\chapternumberline {4}Outsider Anonymous Identity-Based Broadcast Encryption}{33}{chapter.4}
-\contentsline {section}{\numberline {4.1}Online Social Network}{33}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Definition}{33}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}Model}{34}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}Problem Statement}{34}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Existing Solutions}{34}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Security Model}{34}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Threat Model}{34}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Goals}{34}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}Proposed Scheme}{34}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Scheme}{34}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}Security Proof}{34}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}Evaluation}{34}{subsection.4.3.3}
-\contentsline {section}{\numberline {4.4}Conclusion}{34}{section.4.4}
-\contentsline {chapter}{\chapternumberline {5}Implementation}{35}{chapter.5}
-\contentsline {section}{\numberline {5.1}Existing Solutions}{35}{section.5.1}
-\contentsline {section}{\numberline {5.2}Outsider Anonymous Identity-Based Broadcasting Implementation}{35}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Implemented Scheme}{35}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Data Structures}{35}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Distributed Key Generation Implementation}{35}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Implemented Scheme}{35}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Data Structures}{35}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Evaluation}{35}{section.5.4}
-\contentsline {section}{\numberline {5.5}Performance Analysis}{35}{section.5.5}
-\contentsline {section}{\numberline {5.6}Conclusion}{35}{section.5.6}
-\contentsline {chapter}{\chapternumberline {6}Conclusion}{37}{chapter.6}
-\contentsline {appendix}{\chapternumberline {A}Installing and Executing the Code}{41}{appendix.A}
-\contentsline {section}{\numberline {A.1}Setting up the DKG}{41}{section.A.1}
-\contentsline {section}{\numberline {A.2}Setting up Scramble}{41}{section.A.2}
-\contentsline {appendix}{\chapternumberline {B}The Last Appendix}{43}{appendix.B}
-\contentsline {section}{\numberline {B.1}Lorem 20-24}{43}{section.B.1}
-\contentsline {section}{\numberline {B.2}Lorem 25-27}{43}{section.B.2}
-\contentsline {chapter}{Bibliography}{45}{section*.21}
+\contentsline {subsubsection}{Confidentiality}{11}{section*.9}
+\contentsline {subsubsection}{One-time Pad}{12}{section*.10}
+\contentsline {subsubsection}{Practical Encryption Algorithms}{12}{section*.11}
+\contentsline {subsection}{\numberline {2.6.2}Asymmetric Cryptography}{13}{subsection.2.6.2}
+\contentsline {subsubsection}{Definition}{13}{section*.12}
+\contentsline {subsubsection}{Signature Schemes}{13}{section*.13}
+\contentsline {subsubsection}{Commitment Schemes}{14}{section*.14}
+\contentsline {subsection}{\numberline {2.6.3}Hash Functions}{14}{subsection.2.6.3}
+\contentsline {subsubsection}{Definition}{15}{section*.15}
+\contentsline {subsubsection}{Random Oracles}{15}{section*.16}
+\contentsline {section}{\numberline {2.7}Summary}{16}{section.2.7}
+\contentsline {chapter}{\chapternumberline {3}Literature Review}{17}{chapter.3}
+\contentsline {section}{\numberline {3.1}Public Key Infrastructures}{17}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Certification Authorities}{17}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}OpenPGP and Web of Trust}{18}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Identity-Based Encryption}{19}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Definition}{19}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Pros and Cons of IBE}{20}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Security of IBE}{21}{subsection.3.2.3}
+\contentsline {subsubsection}{Indistinguishability Under Chosen Plaintext Attack}{21}{section*.18}
+\contentsline {subsubsection}{Indistinguishability Under Chosen Ciphertext Attack}{21}{section*.19}
+\contentsline {subsubsection}{Anonymous Identity-Based Encryption}{22}{section*.20}
+\contentsline {subsection}{\numberline {3.2.4}Historical Overview on IBE}{24}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Most Attractive IBE Schemes}{25}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Broadcast Encryption}{28}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Definition}{28}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Historical Overview on Broadcast Encryption}{28}{subsection.3.3.2}
+\contentsline {subsubsection}{Broadcast Encryption}{28}{section*.21}
+\contentsline {subsubsection}{Identity-Based Broadcast Encryption}{29}{section*.22}
+\contentsline {subsubsection}{Anonymous Broadcast Encryption}{29}{section*.23}
+\contentsline {subsubsection}{Outsider-Anonymous Broadcast Encryption}{30}{section*.24}
+\contentsline {subsection}{\numberline {3.3.3}Most Attractive BE Schemes}{30}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Secret Sharing}{30}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Definition}{31}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Shamir Secret Sharing}{31}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Verifiable Secret Sharing}{32}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Distributed Key Generation}{33}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Definition}{33}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Pedersen Distributed Key Generation}{33}{subsection.3.5.2}
+\contentsline {chapter}{\chapternumberline {4}Outsider Anonymous Identity-Based Broadcast Encryption}{35}{chapter.4}
+\contentsline {section}{\numberline {4.1}Online Social Network}{35}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Definition}{35}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Model}{36}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Problem Statement}{38}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Existing Solutions}{38}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Security Model}{38}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Threat Model}{38}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Goals}{38}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Proposed Scheme}{38}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Scheme}{38}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Security Proof}{38}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Evaluation}{38}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Conclusion}{38}{section.4.4}
+\contentsline {chapter}{\chapternumberline {5}Implementation}{39}{chapter.5}
+\contentsline {section}{\numberline {5.1}Existing Solutions}{39}{section.5.1}
+\contentsline {section}{\numberline {5.2}Outsider Anonymous Identity-Based Broadcasting Implementation}{39}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Implemented Scheme}{39}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Data Structures}{39}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Distributed Key Generation Implementation}{39}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Implemented Scheme}{39}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Data Structures}{39}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Evaluation}{39}{section.5.4}
+\contentsline {section}{\numberline {5.5}Performance Analysis}{39}{section.5.5}
+\contentsline {section}{\numberline {5.6}Conclusion}{39}{section.5.6}
+\contentsline {chapter}{\chapternumberline {6}Conclusion}{41}{chapter.6}
+\contentsline {appendix}{\chapternumberline {A}Installing and Executing the Code}{45}{appendix.A}
+\contentsline {section}{\numberline {A.1}Setting up the DKG}{45}{section.A.1}
+\contentsline {section}{\numberline {A.2}Setting up Scramble}{45}{section.A.2}
+\contentsline {appendix}{\chapternumberline {B}The Last Appendix}{47}{appendix.B}
+\contentsline {section}{\numberline {B.1}Lorem 20-24}{47}{section.B.1}
+\contentsline {section}{\numberline {B.2}Lorem 25-27}{47}{section.B.2}
+\contentsline {chapter}{Bibliography}{49}{section*.27}
 \select@language {english}
 \select@language {english}
 \select@language {english}
