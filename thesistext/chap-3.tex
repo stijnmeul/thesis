@@ -1,6 +1,48 @@
 \chapter{Outsider Anonymous Identity-Based Broadcast Encryption}
 \label{cha:n}
 
+\section{Online Social Network}
+OSNs are getting more and more aware of the rising privacy concerns among their users. Therefore, most OSN services like Google+ and Facebook try to offer preferences that allow the user to determine their privacy up to a certain extent. In practice, most OSNs realise this by offering user specified groups of friends that can be selected when broadcasting a message over the OSNs' network. The OSN provider then ensures that the broadcasted message is only shown to members inside the user specified group.
+
+\subsection{Definition}
+It might be useful to take one step back and define what an online social network actually is. Different definitions have found their way in literature but the most commonly accepted is the definition of a \textit{Social Networking Service} (SNS) from Boyd et al~\cite{art:BoydE08}.
+
+\begin{defn}[Definition of a SNS by Boyd et al~\cite{art:BoydE08}]
+\label{def:osn_boyd}
+ A \textit{social networking service} (SNS) is a web-based service that allows individuals to:
+ \begin{enumerate}
+  \item Construct a public or semi-public profile within a bounded system
+  \item Articulate a list of other users with whom they share a connection.
+  \item View and traverse their list of connections and those made by others within the system
+  \setcounter{enumTemp}{\theenumi}
+ \end{enumerate}
+\end{defn}
+
+Definition~\ref{def:osn_boyd} is at the same time generic enough to cover all kinds of social networking services, as well as specific enough to distinguish SNSs from other web-based applications. However, Definition~\ref{def:osn_boyd} is still too generic for our purposes as we only consider one specific type of SNS, namely the SNSs from Definition~\ref{def:osn_boyd} that offer the ability to broadcast messages. Therefore, an \textit{Online Social Network} (OSN) is redefined in Definition~\ref{def:osn}. For the sake of clarity, from this moment onwards SNS will refer to a Social Networking Service as in Definition~\ref{def:osn_boyd} while OSN will denote an Online Social Network as in Definition~\ref{def:osn}.
+
+\begin{defn}[OSN]
+\label{def:osn}
+ An \textit{Online Social Network} (OSN) is a social networking service (SNS), that in addition to the possibilities from Definition~\ref{def:osn_boyd} also allows its users to
+ \begin{enumerate}
+  \setcounter{enumi}{\theenumTemp}
+  \item Distribute messages to anyone visiting the system, any user of the system or subsets thereof.
+ \end{enumerate}
+\end{defn}
+
+
+\subsection{Model}
+
+\begin{defn}[User of an OSN]
+\label{def:user}
+ A \textit{user of an OSN} $U$ is any identity that has a profile on the OSN and is thus identifiable by a unique identifier \id{U}. 
+\end{defn}
+
+
+
+\subsection{Problem Statement}
+
+\subsection{Existing Solutions}
+
 \section{Security Model}
 
 \subsection{Threat Model}

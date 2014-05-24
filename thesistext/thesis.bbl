@@ -113,6 +113,11 @@ D.~Boneh and M.~K. Franklin.
 \newblock Identity based encryption from the {W}eil pairing.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
 
+\bibitem{art:BoydE08}
+D.~M. Boyd and N.~B. Ellison.
+\newblock Social network sites: Definition, history, and scholarship.
+\newblock {\em J. Computer-Mediated Communication}, 13(1):210--230, 2007.
+
 \bibitem{art:Boyen08}
 X.~Boyen.
 \newblock A tapestry of identity-based encryption: practical frameworks
@@ -243,6 +248,12 @@ G.~Frey, M.~M{\"u}ller, and H.-G. R{\"u}ck.
   cryptosystems.
 \newblock {\em IEEE Transactions on Information Theory}, 45(5):1717--1719,
   1999.
+
+\bibitem{art:Elgamal85}
+T.~E. Gamal.
+\newblock A public key cryptosystem and a signature scheme based on discrete
+  logarithms.
+\newblock {\em IEEE Transactions on Information Theory}, 31(4):469--472, 1985.
 
 \bibitem{art:GennaroJKR07}
 R.~Gennaro, S.~Jarecki, H.~Krawczyk, and T.~Rabin.

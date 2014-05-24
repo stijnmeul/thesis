@@ -37,6 +37,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{tikz}
+\usepackage{caption}
 \usetikzlibrary{arrows,positioning}
 
 %%%%%%
@@ -59,6 +60,10 @@
  {\usepackage{lipsum}\setlipsumdefault{11-13}}%
  {\newcommand{\lipsum}[1][11-13]{\par And some text: lipsum ##1.\par}}
 %%%%%%%
+
+\newenvironment{game}
+  {\begin{algorithm}\floatname{algorithm}{Game}
+  }{\end{algorithm}}
 
 % Reset theorem numbering for each chapter
 \theoremstyle{plain}
@@ -116,26 +121,28 @@
 \begin{flushleft}
  \renewcommand{\arraystretch}{1.1}
  \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
-  $\lambda$ & Security parameter denoting the level of security \\
+  $\lambda$ & Security parameter \\
   $l$ & The number of bits required to realise security level $\lambda$ \\
-  $s$ & A secret \\
-  $sk_i$ & The secret key corresponding to the public key $pk_i$ \\
-  $pk_i$ & A public key with corresponding secret key $sk_i$ \\
-  $m$ & A bit sequence representing a message \\
-  $c$ & A bit sequence representing a ciphertext \\
-  $v, w$ & Small letters represent binary bit sequences \\
-  \id{Alice} & A bit sequence uniquely identifying Alice \\ 
-  $s_{\id{Alice}}$ & The corresponding IBE secret key to the identifier \id{Alice} serving as an IBE public key \\
-  $k$ & A symmetric session key \\
+  $s$ & Secret \\
+  $sk_i$ & Private key corresponding to the public key $pk_i$ \\
+  $pk_i$ & Public key with corresponding private key $sk_i$ \\
+  $\{ 0,1 \}^l$ & Binary bit sequence of length $l$ \\
+  $\{ 0,1 \}^*$ & Binary bit sequence of variable length \\
+  $m$ & Message \\
+  $c$ & Ciphertext \\
+  $v, w$ & Binary bit sequences \\
+  \id{Alice} & Identity of Alice \\ 
+  $s_{\id{Alice}}$ & IBE private key corresponding to the identifier \id{Alice} \\
+  $k$ & Generic symmetric session key \\
   $E_k \left( m \right)$ & Symmetric encryption of the message $m$ under session key $k$ \\
   $D_k \left( c \right)$ & Symmetric decryption of the ciphertext $c$ under session key $k$ \\
-  $G$ & A group $\left( G, * \right)$ \\
+  $G$ & Group $\left( G, * \right)$ \\
   $S_A \left( m \right)$ & Signature of entity $A$ on message $m$ \\
-  $e: G_1 \times G_2 \rightarrow G_T$ & Admissible bilinear map \\
+  $e: G_1 \times G_2 \rightarrow G_T$ & Bilinear map \\
   $U, P, Q$ & Points on an elliptic curve \\
-  $e \left( P, Q \right)$ & Admissible bilinear map $P \in G_1, Q \in G_2, e \left( P, Q \right) \in G_T$ \\  
-  $\mathcal{A} \left( a, b \right)$ & An algorithm $\mathcal{A}$ with parameters $a$ and $b$ \\
-  $\left< a, b, c \right> \leftarrow \mathcal{A}( d, e )$ & Algorithm $\mathcal{A}$ with parameters $d$ and $e$ returns the collection of values $a, b, c$ \\
+  $e \left( P, Q \right)$ & Bilinear map  for the points $P \in G_1, Q \in G_2$ such that $e \left( P, Q \right) \in G_T$ \\  
+  $\mathcal{A} \left( a, b \right)$ & Algorithm $\mathcal{A}$ with parameters $a$ and $b$ \\
+  $\left< a, b, c \right> \leftarrow \mathcal{A}( d, e )$ & Algorithm $\mathcal{A}$ with parameters $d$ and $e$, returns the collection of values $a, b, c$ \\
   \end{tabularx}
 \end{flushleft}
 
