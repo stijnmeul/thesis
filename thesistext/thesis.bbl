@@ -32,6 +32,12 @@ G.~Adj, A.~Menezes, T.~Oliveira, and F.~Rodr\'{\i}guez-Henr\'{\i}quez.
   logarithm cryptography.
 \newblock In Cao and Zhang \cite{DBLP:conf/pairing/2013}, pages 20--44.
 
+\bibitem{art:BadenBSBS09}
+R.~Baden, A.~Bender, N.~Spring, B.~Bhattacharjee, and D.~Starin.
+\newblock Persona: an online social network with user-defined privacy.
+\newblock In P.~Rodriguez, E.~W. Biersack, K.~Papagiannaki, and L.~Rizzo,
+  editors, {\em SIGCOMM}, pages 135--146. ACM, 2009.
+
 \bibitem{art:BaekNSS04}
 J.~Baek, J.~Newmarch, R.~Safavi-naini, and W.~Susilo.
 \newblock A survey of identity-based cryptography.
@@ -63,6 +69,13 @@ A.~Barth, D.~Boneh, and B.~Waters.
 G.~Barthe, B.~Gr{\'e}goire, S.~Heraud, F.~Olmedo, and S.~Z. B{\'e}guelin.
 \newblock Verified indifferentiable hashing into elliptic curves.
 \newblock {\em Journal of Computer Security}, 21(6):881--917, 2013.
+
+\bibitem{art:BeatoKW11}
+F.~Beato, M.~Kohlweiss, and K.~Wouters.
+\newblock Scramble! your social network data.
+\newblock In S.~Fischer-H{\"u}bner and N.~Hopper, editors, {\em PETS}, volume
+  6794 of {\em Lecture Notes in Computer Science}, pages 211--225. Springer,
+  2011.
 
 \bibitem{art:BellareBDP01}
 M.~Bellare, A.~Boldyreva, A.~Desai, and D.~Pointcheval.
@@ -323,6 +336,12 @@ M.~Groves.
 \newblock {Sakai-Kasahara Key Encryption (SAKKE)}.
 \newblock RFC 6508 (Informational), Feb. 2012.
 
+\bibitem{art:GuhaSTF08}
+S.~Guha, K.~Tang, and P.~Francis.
+\newblock Noyb: Privacy in online social networks.
+\newblock In {\em Proceedings of the First Workshop on Online Social Networks},
+  WOSN '08, pages 49--54, New York, NY, USA, 2008. ACM.
+
 \bibitem{art:HalevyS02}
 D.~Halevy and A.~Shamir.
 \newblock The lsd broadcast encryption scheme.
@@ -395,6 +414,18 @@ B.~Libert and J.-J. Quisquater.
 \newblock In E.~Borowsky and S.~Rajsbaum, editors, {\em PODC}, pages 163--171.
   ACM, 2003.
 
+\bibitem{art:LucasB09}
+M.~M. Lucas and N.~Borisov.
+\newblock flybynight: mitigating the privacy risks of social networking.
+\newblock In L.~F. Cranor, editor, {\em SOUPS}, ACM International Conference
+  Proceeding Series. ACM, 2009.
+
+\bibitem{art:LuoXH09}
+W.~Luo, Q.~Xie, and U.~Hengartner.
+\newblock Facecloak: An architecture for user privacy on social networking
+  sites.
+\newblock In {\em CSE (3)}, pages 26--33. IEEE Computer Society, 2009.
+
 \bibitem{rfc5409}
 L.~Martin and M.~Schertler.
 \newblock {Using the Boneh-Franklin and Boneh-Boyen Identity-Based Encryption
@@ -440,6 +471,11 @@ T.~Ristenpart, H.~Shacham, and T.~Shrimpton.
 \newblock Careful with composition: Limitations of indifferentiability and
   universal composability.
 \newblock {\em IACR Cryptology ePrint Archive}, 2011:339, 2011.
+
+\bibitem{art:SahaiW04}
+A.~Sahai and B.~Waters.
+\newblock Fuzzy identity based encryption.
+\newblock {\em IACR Cryptology ePrint Archive}, 2004:86, 2004.
 
 \bibitem{art:SakaiF07}
 R.~Sakai and J.~Furukawa.

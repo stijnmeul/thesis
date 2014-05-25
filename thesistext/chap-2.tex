@@ -58,7 +58,7 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
                 (-4,0) node [block] (alice) {\includegraphics[scale=0.2]{img/alice.png}}
                 (4,0) node [block] (bob) {\includegraphics[scale=0.2]{img/bob.png}}
                 % Text
-                (-0.5, 0.5) node [leg, color=orange] (c) {$c$}
+                (-0.5, 0.5) node [leg, color=cyan] (c) {$c$}
                 (1.5, 1.2) node [leg] (id_bob) {$s_{\id{Bob}}$}
                 (4.3,2) node [leg] (bob_authenticates) {4. Bob authenticates as \id{Bob}}
                 ;
@@ -73,7 +73,7 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
                5. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, s_k, \id{Bob}$)}
                };
        \begin{scope}[every path/.style=line]
-        \path[color=orange] (alice.east) -- (bob.west);
+        \path[color=cyan] (alice.east) -- (bob.west);
         \path (2.8,1) -- (1,2.2);
         \path (0.9,2.1) -- (2.7,0.9);
        \end{scope}
@@ -82,7 +82,7 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
         \end{tikzpicture}
     }
     \end{center}
-    \caption{Generic identity-based encryption scheme. The orange arrow denotes an insecure channel that can be eavesdropped.}
+    \caption{Generic identity-based encryption scheme. The blue arrow denotes an insecure channel that can be eavesdropped.}
     \label{fig:generic_ibe_scheme}
 \end{figure}
 
@@ -330,7 +330,7 @@ Sakai and Furukawa are the first to define a collusion resistant identity based 
 Baek et al.~\cite{art:BaekNSS04} define an IBBE scheme that requires only one pairing computation. The scheme in~\cite{art:BaekNSS04} is proven secure under the random oracle assumption where the attacker ties himself to a selective-ID attack. Gentry and Waters achieve identity based broadcast encryption with sublinear ciphertexts in~\cite{art:GentryW08}. Their scheme is proven secure against a stronger notion of adaptive security where the attacker can adaptively alter its queries depending on earlier received information. Barbosa and Farshim~\cite{art:BarbosaF05} proposed an identity-based key encapsulation scheme for multiple parties which is an extension of \textit{mKEM} as considered by Smart~\cite{art:Smart04} to the identity-based setting. An mKEM is a Key Encapsulation Mechanism which takes multiple public keys as input. An encrypted message under mKEM consists of an encapsulated session key $k$ and a symmetric encryption $E_k \left( m \right)$ of the plaintext message $m$ under $k$. However, the scheme from Smart~\cite{art:Smart04} is only proven secure under the random oracle assumption.
 
 \subsubsection{Anonymous Broadcast Encryption}
-All earlier mentioned references describing BE require the intended set of recipients to be published to realise higher efficiency. Barth, Boneh and Waters~\cite{art:BarthBW06} are the first to design a BE scheme that takes the anonymity of the recipient into account. The proposed anonymous broadcast encryption (ANOBE) scheme imposes a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{art:LibertPQ12} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{art:BarthBW06} and~\cite{art:LibertPQ12} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{art:KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users, although the security proof is rather informal. In~\cite{art:YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set using Attribute Based Encryption (ABE)~\cite{art:FazioP12}.
+All earlier mentioned references describing BE require the intended set of recipients to be published to realise higher efficiency. Barth, Boneh and Waters~\cite{art:BarthBW06} are the first to design a BE scheme that takes the anonymity of the recipient into account. The proposed anonymous broadcast encryption (ANOBE) scheme imposes a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{art:LibertPQ12} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{art:BarthBW06} and~\cite{art:LibertPQ12} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{art:KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users, although the security proof is rather informal. In~\cite{art:YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set using Attribute Based Encryption (ABE)~\cite{art:SahaiW04}.~\cite{art:FazioP12}
 
 However, ABE requires that all users are assigned attributes such that all users who have sufficient attributes in common can decrypt the message. In networks where the total number of users is large it can be a work intensive task to label each user with the correct attributes.
 

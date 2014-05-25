@@ -38,45 +38,45 @@ Warning--to sort, need author or key in thesis:Alfredo08
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
-You've used 89 entries,
+You've used 95 entries,
             2118 wiz_defined-function locations,
-            1178 strings with 24059 characters,
-and the built_in function-call counts, 32896 in all, are:
-= -- 3202
-> -- 1420
-< -- 73
-+ -- 555
-- -- 447
-* -- 2263
-:= -- 5191
-add.period$ -- 297
-call.type$ -- 89
-change.case$ -- 463
+            1233 strings with 25878 characters,
+and the built_in function-call counts, 35551 in all, are:
+= -- 3463
+> -- 1554
+< -- 78
++ -- 604
+- -- 490
+* -- 2443
+:= -- 5608
+add.period$ -- 320
+call.type$ -- 95
+change.case$ -- 499
 chr.to.int$ -- 0
-cite$ -- 95
-duplicate$ -- 1374
-empty$ -- 2687
-format.name$ -- 457
-if$ -- 7256
+cite$ -- 101
+duplicate$ -- 1488
+empty$ -- 2896
+format.name$ -- 500
+if$ -- 7854
 int.to.chr$ -- 0
-int.to.str$ -- 89
-missing$ -- 76
-newline$ -- 443
-num.names$ -- 241
-pop$ -- 491
+int.to.str$ -- 95
+missing$ -- 82
+newline$ -- 473
+num.names$ -- 259
+pop$ -- 531
 preamble$ -- 1
-purify$ -- 379
+purify$ -- 409
 quote$ -- 0
-skip$ -- 1082
+skip$ -- 1169
 stack$ -- 0
-substring$ -- 1901
-swap$ -- 491
-text.length$ -- 67
+substring$ -- 2037
+swap$ -- 535
+text.length$ -- 72
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 349
+type$ -- 373
 warning$ -- 6
-while$ -- 312
-width$ -- 91
-write$ -- 1008
+while$ -- 337
+width$ -- 97
+write$ -- 1082
 (There were 5 error messages)
