@@ -49,7 +49,6 @@ In the light of our further discussion, especially additive and multiplicative g
   \item \textit{Associativity} $\forall a, b, c \in G: a*(b*c) = (a*b)*c$
   \item \textit{Identity element} $\forall a \in G, \exists \; e \in G: a*e = e*a = a $ where $e$ denotes the \textit{identity element} of $G$
   \item \textit{Inverse element} $\forall a \in G, \exists \; a^{-1}: a*a^{-1} = a^{-1}*a = 1$ where $a^{-1}$ denotes the \textit{inverse element} of $a$
-  \newcounter{enumTemp}
   \setcounter{enumTemp}{\theenumi}
  \end{enumerate}
 
@@ -306,6 +305,16 @@ Suppose Alice and Bob have a lot of secret information to share. This would requ
 
 Because such large random symmetric keys $k$ are not practical in real-life applications, block cipher modes and stream ciphers are widely used. These are algorithms that accept a fixed size symmetric key but allow to encrypt larger messages $m$ by introducing deterministic pseudo randomness. As already mentioned in Section~\ref{sec:number_theoretic_assumptions}, these algorithms require a more pragmatic view on cryptography because they only ensure that disclosure of information is computationally difficult but not impossible. Common examples of block ciphers are AES and DES. They can be used in CFB, CTR or CFB mode to name a few. Stream ciphers include Trivium and RC4. For more information on block ciphers, stream ciphers and modes of operation the reader is referred to~\cite{book:handbook_of_applied_cryptography}.
 
+\subsubsection{Authenticated Encryption}
+\label{sec:authenticated_encryption}
+An authenticated encryption scheme consists of two generic probabilistic polynomial time algorithms:
+
+\begin{description}
+ \item \texttt{AE.Encrypt($m, k$):} Encrypt is a secure symmetric encryption scheme that takes as input a plaintext $m$ and a symmetric key $k$. As a result \texttt{AE.Encrypt} generates ciphertext $c$ and authentication tag $t$ as output. Symbolically this is often denoted as  $\left< c, t \right> \leftarrow \mathtt{E}_k(m)$
+ \item \texttt{AE.Decrypt($c, k$):} Decrypt is a secure symmetric decryption scheme that takes as input a ciphertext $c$ and a symmetric key $k$. As a result \texttt{AE.Decrypt} generates the original plaintext $m$ and an authentication tag $t$ as output. Symbolically this is often denoted as $\left< m, t \right> \leftarrow \mathtt{D}_k(c)$
+\end{description}
+
+The properties of a secure authenticated encryption scheme are such that it is hard to change the plaintext message $m$, the symmetric key $k$ or the ciphertext $c$ without altering the returned authentication tag $t$. Therefore, a recipient of a ciphertext $c$ and an authentication tag $t_1$ should only compare the returned authentication tag $t_2$ from $\left< m, t_2 \right> \leftarrow \mathtt{D}_k(c)$ with the received tag $t_1$ to be convinced that the ciphertext $c$ was generate on input of the same symmetric key $k$ and plaintext message $m$.
 
 \subsection{Asymmetric Cryptography}
 \label{sec:asymmetric_cryptography}

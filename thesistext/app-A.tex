@@ -1,10 +1,63 @@
-\chapter{Installing and Executing the Code}
-\label{app:A}
-Appendices hold useful data which is not essential to understand the work done in the master thesis. An example is a (program) source. An appendix can also have sections as well as figures and references\cite{h2g2}.
+\chapter{Gentry's IBE Scheme}
+\label{app:gentrys_ibe_scheme}
+\textcolor{red}{TODO for this Appendix: change the notation such that it corresponds to all other pairing based computations in this thesis}
+Gentry~\cite{art:Gentry06} proposed the first IND-ANO-CCA secure scheme in the random oracle model. The original proposed scheme from Gentry relies on symmetric pairings. A transformed version of the algorithm to the asymmetric setting can be found in Algorithm~\ref{alg:gentrys_scheme}.
 
-\section{Setting up the DKG}
+The correctness of the transformed scheme in Algorithm~\ref{alg:gentrys_scheme} can be proven as follows.
 
-\section{Setting up Scramble}
+\begin{equation*}
+ \begin{split}
+  e \left( u, h_{\textrm{\tiny{ID}},2} h_{\textrm{\tiny{ID}},3}^{\beta} \right) v^{ r_{\textrm{\tiny{ID}},2} + r_{\textrm{\tiny{ID}},3} \beta} \\
+  & \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace\negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace = e \left( p_1^{s\left( \alpha - \textrm{\tiny{ID}} \right)}, \left( h_{2}h_{3}^{\beta} \right)^{\frac{1}{\alpha - \textrm{\tiny{ID}}}} q_2^{\frac{- \left( r_{\textrm{\tiny{ID}},2} + r_{\textrm{\tiny{ID}},3} \beta \right)}{\alpha - \textrm{\tiny{ID}}}} \right) e \left( p_1, q_2 \right)^{s \left( r_{\textrm{\tiny{ID}},2} + r_{\textrm{\tiny{ID}},3} \beta \right)} \\
+ & \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace \negthickspace = e \left( p_1^{s\left( \alpha - \textrm{\tiny{ID}} \right)}, \left( h_{2}h_{3}^{\beta} \right)^{\frac{1}{\alpha - \textrm{\tiny{ID}}}} \right) = e \left( p_1, h_2 \right)^s e \left( p_1, h_3\right)^{s \beta}
+ \end{split}
+\end{equation*}
+
+
+Thus, the check passes. Moreover, as in the ANO-IND-CPA scheme,
+
+\begin{equation*}
+ e \left( u, h_{\textrm{\tiny{ID}}} \right) v^{r_{ \textrm{\tiny{ID}},1}} = e \left( p_1^{s\left( \alpha - \textrm{\tiny{ID}} \right)}, h^{\frac{1}{\alpha - \textrm{\tiny{ID}}}} q_2^{\frac{- r_{\textrm{\tiny{ID}},1}}{\alpha - \textrm{\tiny{ID}}}} \right) e \left( p_1, q_2 \right)^{s r_{\textrm{\tiny{ID}},1}} = e \left( p_1, h\right)^s,
+\end{equation*}
+
+as required.
+
+\begin{algorithm}
+\caption{Gentry's asymmetric IBE Scheme~\cite{art:Gentry06}}
+\label{alg:gentrys_scheme}
+Let $G_1 , G_2$ and $G_T$ be groups of order $p$ and let $e : G_1 \times G_2 \rightarrow G_T$ be the bilinear map. The IBE system works as follows.
+
+\begin{description}
+\item \textbf{\textit{Setup:}} The PKG picks random generators $p_1, g_1 \in G_1$, generators $q_2, h_1, h_2, h_3 \in G_2$ and a random $\alpha \in \mathbb{Z}_p$. It sets $g_1 = p_1^{\alpha} \in G_1$. It chooses a hash function $H_1$ and $H_2: \{ 0,1 \}^* \rightarrow \{ 0 , 1 \}^n$ from a family of universal one-way hash functions. The public $params$ and private $masterkey$ are given by
+\begin{equation*}
+ params = \left( p_1,q_2,h_1,h_2,h_3,H_1,H_2\right) \; \; \; \; \; masterkey = \alpha
+\end{equation*}
+
+\item \textbf{\textit{KeyGen:}} To generate a private key for identity ID $\in \mathbb{Z}_p$, the PKG generates random $r_{\textrm{\tiny{ID}},i} \in \mathbb{Z}_p$ for $i \in \{1,2,3\}$, and outputs the private key
+\begin{equation*}
+ d_{\textrm{\tiny{ID}}} = \{ \left( r_{\textrm{\tiny{ID}},i}, h_{\textrm{\tiny{ID}},i} \right) : i \in \{ 1, 2, 3\}\}, \; \; \textrm{where} \; \; h_{\textrm{\tiny{ID}},i} = \left( h_{i}q_2^{-r_{\textrm{\tiny{ID}},i}} \right)^{\frac{1}{\alpha-\textrm{\tiny{ID}}}} \in G_2
+\end{equation*}
+If ID $ = \alpha $, the PKG aborts. As before, we require that the PKG always use the same random values $\{r_{\textrm{\tiny{ID}},i}\}$ for ID.
+
+\item \textbf{\textit{Encrypt:}} To encrypt $m \in \{ 1, 0 \}^n$ using identity ID $\in \mathbb{Z}_p$, the sender generates random $s \in \mathbb{Z}_p$, and sends the ciphertext
+\begin{equation*}
+ \begin{array}{lcl}
+  C & = & \left( g_{1}^{s}p_1^{-s\cdot\textrm{\tiny{ID}}}, \; e \left( p_1, q_2\right)^s, \; m \oplus H_2 \{ e \left( p_1, h_1 \right)^s \}, \; e \left( p_1, h_2 \right)^s e \left( p_1, h_3\right)^{s \beta} \right) \\ & = & \left( u, v, w, y \right)
+ \end{array}
+\end{equation*}
+Note that $u \in G_1, v \in G_T,  w \in \{ 1, 0 \}^n$ and $y \in G_T$. We set $\beta = H_1 \{ u, v, w \}$. Encryption does not require any pairing computations once $e \left( p_1, q_2 \right)$, and $\{ e \left( p_1, h_i \right) \}$ have been pre-computed or alternatively included in $params$.
+
+\item \textbf{\textit{Decrypt:}} To decrypt ciphertext $C = \left( u, v, w, y \right)$ with ID, the recipient sets $\beta=H_1 \{ u, v, w \}$ and tests whether
+\begin{equation*}
+ y = e \left( u, h_{\textrm{\tiny{ID}}, 2}h_{\textrm{\tiny{ID}}, 3}^{\beta} \right)v^{r_{\textrm{\tiny{ID}},2}+r_{\textrm{\tiny{ID}},3}\beta}
+\end{equation*}
+If the check fails, the recipient outputs $\bot$. Otherwise, it outputs
+\begin{equation*}
+ m = w \oplus H_2 \{ e \left( u, h_{\textrm{\tiny{ID}}, 1} \right) v^{r_{\textrm{\tiny{ID}}, 1}} \}
+\end{equation*}
+
+\end{description}
+\end{algorithm}
 
 %%% Local Variables: 
 %%% mode: latex

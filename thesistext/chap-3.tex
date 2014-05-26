@@ -1,237 +1,88 @@
-\chapter{Outsider Anonymous Identity-Based Broadcast Encryption}
+\chapter{Design of a Practical Encryption Scheme for Online Social Networks}
 \label{cha:n}
 
-\section{Online Social Network}
-OSNs are getting more and more aware of the rising privacy concerns among their users. Therefore, most OSN services like Google+ and Facebook try to offer preferences that allow the user to determine their privacy up to a certain extent. In practice, most OSNs realise this by offering user specified groups of friends that can be selected when broadcasting a message over the OSNs' network. The OSN provider then ensures that the broadcasted message is only shown to members inside the user specified group. However, these methods are insufficient for most privacy aware users.
 
-\subsection{Definition}
-It might be useful to take one step back and define what an online social network actually is. Different definitions have found their way in literature but the most commonly accepted is the definition of a \textit{Social Networking Service} (SNS) from Boyd et al.~\cite{art:BoydE08}
-
-\begin{defn}[Definition of a SNS by Boyd et al~\cite{art:BoydE08}]
-\label{def:osn_boyd}
- A \textit{social networking service} (SNS) is a web-based service that allows individuals to:
- \begin{enumerate}
-  \item Construct a public or semi-public profile within a bounded system
-  \item Articulate a list of other users with whom they share a connection.
-  \item View and traverse their list of connections and those made by others within the system
-  \setcounter{enumTemp}{\theenumi}
- \end{enumerate}
-\end{defn}
-
-Definition~\ref{def:osn_boyd} is at the same time generic enough to cover all kinds of social networking services, as well as specific enough to distinguish SNSs from other web-based applications. However, Definition~\ref{def:osn_boyd} is still too generic for our purposes as we only consider one specific type of SNS, namely the SNSs from Definition~\ref{def:osn_boyd} that offer the ability to broadcast messages. Therefore, an \textit{Online Social Network} (OSN) is redefined in Definition~\ref{def:osn}. For the sake of clarity, from this moment onwards SNS will refer to a Social Networking Service as in Definition~\ref{def:osn_boyd} while OSN will denote an Online Social Network as in Definition~\ref{def:osn}.
-
-\begin{defn}[OSN]
-\label{def:osn}
- An \textit{Online Social Network} (OSN) is a social networking service (SNS), that in addition to the possibilities from Definition~\ref{def:osn_boyd} also allows its users to
- \begin{enumerate}
-  \setcounter{enumi}{\theenumTemp}
-  \item Distribute messages to anyone visiting the system, any user of the system or subsets thereof.
- \end{enumerate}
-\end{defn}
-
-
-\subsection{Model}
-\label{sec:model}
-\begin{defn}[OSN user]
-\label{def:user}
- An \textit{OSN user} $U$ is any entity that has a profile on the OSN and thus identifiable by a unique identifier \id{U}. The set containing all users of an OSN is denoted $\mathcal{U}$.
-\end{defn}
-
-An OSN user can perform different activities within the infrastructure of the OSN. Depending on the performed activity, the user is labeled as one of three different roles: a sender, a friend or a recipient.
-
-\begin{defn}[Sender]
-\label{def:sender}
- A \textit{sender} $B$ is an OSN user who broadcasts a message $m$ over the OSN infrastructure to varying subsets of OSN users, called the \textit{intended recipient set} $\mathcal{S}$ such that $\mathcal{S} \subseteq \mathcal{U}$.
-\end{defn}
-
-\begin{defn}[Intended recipient]
-\label{def:recipient}
- An \textit{intended recipient} $R$ of a message $m$ is an OSN user who is explicitly designated by a sender $B$ to be part of the intended recipient set $\mathcal{S}$ of that message $m$. The intended recipient set $\mathcal{S}$ takes the form of a list of \id{}'s uniquely identifying other users' profiles in the OSN infrastructure.
-\end{defn}
-
-\begin{defn}[Friend]
-\label{def:friend}
- An OSN user who shares a connection with another OSN user $U$ in the OSN infrastructure, is called a \textit{friend of the user $U$}. The set of all friends associated to a user $U$ is denoted $\mathcal{F}_U$ such that $\mathcal{F}_U \subseteq \mathcal{U}$.
-\end{defn}
-
-Currently, other entities than OSN users $U \in \mathcal{U}$ associated with a profile $\id{U}$, can access the OSN services as well. Therefore, it is required to define another group of entities called \textit{the viewers}.
-
-\begin{defn}[Viewer]
-\label{def:viewer}
- Any virtual or real world entity that is given access to the OSN belongs to the set of viewers $\mathcal{V}$. All viewers with access to the profile $\id{U}$ of a user $U$ are in the set $\mathcal{V}_U \subseteq \mathcal{V}$.
-\end{defn}
-
-In modern day OSN infrastructures, many different entities are part of the set of viewers $\mathcal{V}$, i.e. OSN users, advertising companies, system administrators of the OSN, software applications specifically developed for the OSN, etc. Note that these entities do not have to be users neither real life persons. Companies or software code can be part of the set of viewers $\mathcal{V}$ as well. Usually, the OSN determines which entities are member of the set of viewers $\mathcal{V}$. Therefore, the user often has no control in who is a member of $\mathcal{V}_U$. That is, the user $U$ can not determine which entities have access to his profile $\id{U}$.
-
-Figure~\ref{fig:current_model} illustrates previous definitions applied to an OSN as it is often encountered on the internet. The different sets in Figure~\ref{fig:current_model} are defined as follows:
-\begin{itemize}
- \item The intended recipient set,
- \begin{equation*}
-  \mathcal{S} = \{ \textrm{Recipient 1}, \textrm{Recipient 2} \}
- \end{equation*}
- \item The set of friends of user $B$,
- \begin{equation*}
-  \mathcal{F}_B = \{ \textrm{Recipient 1}, \textrm{Recipient 2}, \textrm{Friend 1}, \textrm{Friend 2} \}
- \end{equation*}
- \item The set of viewers who have access to the profile of user $B$,
- \begin{equation*}
-  \begin{split}
-   \mathcal{V}_B = \{ \textrm{Recipient 1}, \textrm{Recipient 2}, \textrm{Friend 1}, \textrm{Friend 2}, \textrm{Sender } B, \textrm{Advertiser 1}, \\
-   \textrm{Application 1} \}
-  \end{split}
- \end{equation*}
- \item The set of entities with access to the OSN,
-\begin{equation*}
-\begin{split}
- \mathcal{V} = \{ \textrm{Recipient 1}, \textrm{Recipient 2}, \textrm{Friend 1}, \textrm{Friend 2}, \textrm{Sender } B, \textrm{Advertiser 1},\\
-  \textrm{Application 1}, \textrm{User 1}, \textrm{User 2}, \textrm{Advertiser 2}, \textrm{Application 2} \}
-\end{split}
-\end{equation*}
-\item The set of all users in the OSN,
-\begin{equation*}
- \mathcal{U} = \{ \textrm{Recipient 1}, \textrm{Recipient 2}, \textrm{Friend 1}, \textrm{Friend 2}, \textrm{Sender } B, \textrm{User 1}, \textrm{User 2}\}
-\end{equation*}
-\end{itemize}
-
-
-\begin{figure}[ht]
-    \begin{center}
-    \scalebox{0.78}{
-        \begin{tikzpicture}[auto, node distance=-2mm, align=center,
-            block/.style={rectangle,text width=6em,text centered,minimum height=9mm},
-            line/.style={draw,very thick, ->},
-            line2/.style={draw,very thick, <->},
-            leg/.style={text centered},
-            ]
-            % Recipient set polygon
-            \draw[dashed,color=cyan] (3.5,4) -- (8.5,4) -- (8.5,1.75) -- (3.5,1.75) -- (3.5,4);
-            % Friends polygon
-            \draw[dashed] (3,4.5) -- (9,4.5) -- (9,-0.25) -- (3,-0.25) -- (3,4.5);
-            % Viewers Polygon
-            \draw[dashed] (-5,5) -- (9.5,5) -- (9.5,-0.75) -- (-5,-0.75) -- (-5,5);
-            % OSN Polygon
-            \draw[dashed] (-5.5,5.5) -- (10,5.5) -- (10,-2.75) -- (-5.5,-2.75) -- (-5.5,5.5);
-            %\draw[help lines] (-6,-5) grid (8,6);
-            \path
-                % Images
-                (0,3) node [block] (pkg) {\includegraphics[scale=0.15]{img/bluepkg.png}}
-                (-4,3) node [block] (alice) {\includegraphics[scale=0.15]{img/bluealice.png}}
-                (5,3) node [block] (bob) {\includegraphics[scale=0.15]{img/bluebob.png}}
-                (7,3) node [block] (bob1) {\includegraphics[scale=0.15]{img/bluebob.png}}
-                (5,1) node [block] (bob2) {\includegraphics[scale=0.15]{img/bob.png}}
-                (7,1) node [block] (alice1) {\includegraphics[scale=0.15]{img/alice.png}}
-                (-1.5,1) node [block] (adv) {\includegraphics[scale=0.15]{img/bluemoneyman.png}}
-                (1.5,1) node [block] (app) {\includegraphics[scale=0.15]{img/blueapp.png}}
-                
-                (1.5,-1.5) node [block] (app2) {\includegraphics[scale=0.15]{img/app.png}}
-                (-1.5,-1.5) node [block] (adv2) {\includegraphics[scale=0.15]{img/moneyman.png}}
-                
-                
-                (5,-1.5) node [block] (alice2) {\includegraphics[scale=0.15]{img/alice.png}}
-                (7,-1.5) node [block] (bob3) {\includegraphics[scale=0.15]{img/bob.png}}
-                
-                (-1.5,-4) node [block] (spy1) {\includegraphics[scale=0.15]{img/spy.png}}
-                (1.5,-4) node [block] (spy2) {\includegraphics[scale=0.15]{img/spy.png}}
-                % Text
-                (0,5.5) node [leg,fill=white] (white_block) {Entities with access to the OSN $\mathcal{V}$}
-                (0,5) node [leg,fill=white] (white_block) {Entities with access to $B$'s Profile $\mathcal{V}_B$}
-                (6,4) node [color=cyan,leg,fill=white] (white_block) {Intended Recipient Set $\mathcal{S}$}
-                (6,4.5) node [leg,fill=white] (white_block) {Friends Set $\mathcal{F}_B$}
-                (-2,3.25) node [leg,color=cyan] (white_block) {$m, \mathcal{S}$}
-                ;
-                
-       \node[node distance=2mm, above=of pkg,color=cyan] {\textbf{OSN Broadcast Server}};
-       \node[below=of adv,color=cyan] {Advertiser 1};
-       \node[below=of adv2] {Advertiser 2};
-       \node[below=of app2] {Application 2};
-       \node[below=of alice2] {User 1};
-       \node[below=of bob3] {User 2};
-       \node[below=of bob,color=cyan] {Recipient 1};
-       \node[below=of bob1,color=cyan] {Recipient 2};
-       \node[below=of bob2] {Friend 1};
-       \node[below=of alice1] {Friend 2};
-       \node[below=of app2] {Application 2};
-       \node[below=of alice,color=cyan] {Sender $B$};
-       \node[below=of app,color=cyan] {Application 1};
-       \node[node distance=-6mm,below=of spy1] {Outsider 1};
-       \node[node distance=-6mm,below=of spy2] {Outsider 2};
-       \begin{scope}[every path/.style=line,color=cyan]
-        \path (alice.east) -- (pkg.west);
-        %\path (pkg.south west) -- (adv.north);
-        \path (-0.7, 2.3) -- (adv.north);
-        \path (0.7,2.3) -- (app.north);
-        \path (pkg.east) -- (3.5,3);
-       \end{scope}
-
-
-        \end{tikzpicture}
-    }
-    \end{center}
-    \caption{Model of the current OSN situation}
-    \label{fig:current_model}
-\end{figure}
-
-Figure~\ref{fig:current_model} illustrates the situation in which Sender $B$ wants to broadcast a message over the OSN infrastructure to the intended recipient set $\mathcal{S}$. As Sender $B$ only wants to share her message with a specific group of friends, she defines the intended recipient set such that $\mathcal{S} \subset \mathcal{F}_B$. Next, she sends the message $m$ to the OSN's distribution server along with the intended recipient set $\mathcal{S}$. The OSN Server further distributes the message to all users in the recipient set $\mathcal{S}$. Also a subset of third party applications and advertisers get access to the distributed message if they are inside the viewers group $\mathcal{V}_B$. Every entity who has access to the message is coloured blue in Figure~\ref{fig:current_model}.
-
-The infrastructure of the OSN stores almost everything within the viewer set $\mathcal{V}$. The profiles of all users within the friends set $\mathcal{F}_B$, the list of \id{}'s within the intended recipient set $\mathcal{S}$, access rights of applications and advertisers that are part of $\mathcal{V}_B$ and access rights of entities within the set $\mathcal{V}$ are all explicitly stored somewhere on the servers of the OSN. The OSN broadcast server in Figure~\ref{fig:current_model} only models one specific task of the OSN, i.e. broadcasting messages $m$ to every entity who should have access to the message $m$.
-
-Note that not all OSNs support the functionality to define intended recipient sets $\mathcal{S}$ on a per message basis. In OSNs like Twitter the standard privacy settings are such that message are always published publicly. Therefore, the model from Figure~\ref{fig:current_model} only holds for a specific subset of OSNs like Facebook or Google+. More public OSNs like Twitter would require less sets of entities to model their behaviour.
-
-It requires almost no additional effort to transform the model from Figure~\ref{fig:current_model} such that it also takes the sharing of other media than messages into account. The model could then adopted for use on SNSs like Youtube or Instagram as well. However, this falls out of the scope of this thesis.
-
-\subsection{Problem Statement}
-\label{sec:problem_statement}
-The situation illustrated by Figure~\ref{fig:current_model} might raise the eyebrows of a critical reader since there are several issues with the current OSN situation as modelled in Figure~\ref{fig:current_model}.
-
-First, there is a clear mismatch between the expectations of Sender $B$ and the functionality of the OSN. When a privacy-aware user like sender $B$ takes the effort to define an intended recipient set $\mathcal{S}$, she expects to have full control on who has access to her messages $m$. In reality, sender $B$ only has partial control since the OSN determines all other entities in $\mathcal{V}_B$ that are not part of sender $B$'s friend list $\mathcal{F}_B$. In some OSNs a user first has to give permission to third party applications before access is granted to the user's content. Note that this gives more control to OSN users on determining who is inside the viewers set $\mathcal{V}_B$. Nevertheless, in practice it is still hard to get a concise overview from the OSN on everyone inside $\mathcal{V}_B$.
-
-Second, any user broadcasting messages over the OSN infrastructure has to trust the OSN that it effectively operates as claimed. If the OSN broadcast server in Figure~\ref{fig:current_model} would accidentally broadcast messages publicly despite of the sender's privacy settings, it would be hard for the Sender to find out.
-
-Furthermore, the users of the OSN have to rely on the security of the OSN's infrastructure. If one of the outsiders in Figure~\ref{fig:current_model} would succeed in hacking the OSN's digital infrastructure, he would have immediate access to all sensible information stored on the OSN's servers. Similarly, governments can subpoena the OSN to disclose sensible information on certain users with the argument of national security.
-
-Another significant point is that the OSN fully determines which access policies are supported. As already mentioned in Section~\ref{sec:model}, not all OSNs offer the definition of an intended recipient set on a per message basis. Even OSNs currently supporting this functionality can suddenly stop offering the service. Moreover, nothing prevents OSN providers from changing their privacy policy on a regular basis, thereby complicating users to define the access policy of their choice.
-
-Besides the earlier mentioned issues, the OSN often operates with a corporate mentality. The OSN has no initiative to stop adding advertisers and applications to the set of entities with access to a user's profile $\mathcal{V}_B$. The more information advertising companies receive from the OSN provider, the better they can tailor advertisements to the user. The more third party applications rely on the OSNs infrastructure, the more appealing the OSN business model looks like. Therefore, OSNs have often no initiative to offer stricter access control policies to their users.
-
-\subsection{Existing Solutions}
-\label{sec:existing_solutions}
-Several existing solutions have been proposed in literature, all trying to solve most of the earlier mentioned issues in OSNs.
-
-\paragraph{flyByNight~\cite{art:LucasB09}} is a Facebook application that protects user data by storing it in encrypted form on Facebook. It relies on Facebook servers for its key management and is therefore not secure against active attacks by Facebook itself.
-
-\paragraph{NOYB (None Of Your Business)~\cite{art:GuhaSTF08}} replaces the details of user $A$ with those of random users $B$ and $C$ thereby making this process only reversible by friends who are allowed to see the profile of user $A$. However this can not be applied to user messages or status updates that are the most frequently used features in the OSNs considered in this thesis.
-
-\paragraph{FaceCloak~\cite{art:LuoXH09}} stores published Facebook data on its servers in encrypted form and replaces the data on Facebook with random text fetched from Wikipedia. This could be a useful mechanism to prevent OSNs from blocking security aware users because they are scared to see their advertising revenues shrink. However, this approach has the disadvantage that other users could take this data to be genuine user content. Furthermore, FaceCloaks architecture leads to an inefficient key distribution system.
-
-\paragraph{Persona~\cite{art:BadenBSBS09}} is a scheme that can be used as a Firefox extension to let users of an OSN determine their own privacy by supporting the ability to encrypt messages to a group of earlier defined friends based on \textit{attribute-based encryption (ABE)}\cite{art:SahaiW04}. The scheme supports lots of useful use cases such as sending messages to all friends that are related to a certain attribute or even encrypting messages to friends of friends. The major drawback of this system however is that every new friend has to exchange a public key before he is able to interact in the privacy preserving architecture consequently requiring an infrastructure for broadcasting and storing public keys. Furthermore, to support the encryption of messages to friends of friends, user defined groups should be made available publicly thereby making the public key distribution system even more complicated. Finally the proposed ABE encryption scheme is 100 to 1000 times slower than a standard RSA operation~\cite{art:BadenBSBS09}.
-
-\paragraph{Scramble~\cite{art:BeatoKW11}} is a Firefox extension that allows defining groups of friends that are given access to certain social network updates. The tool uses public key encryption based on OpenPGP~\cite{rfc4880} to broadcast encrypted messages on almost any platform. Furthermore Scramble provides the implementation of a tiny link server such that OSN policies not allowing to post encrypted data are bypassed. However, as indicated by usability studies~\cite{art:WhittenT99} OpenPGP has a higher usage threshold because an average user does not manage to understand OpenPGP properly. Additionally, Scramble has to rely on the security decisions of the web of thrust. It therefore inherits the unpleasant property of OpenPGP that the user can not be sure that the used PGP key actually belongs to the intended Facebook profile.
-
-The most unattractive property of all the above applications is that they have to rely on a rather complex infrastructure. Persona has to support an extended public key distribution system and Scramble relies on the leap-of-faith OpenPGP web of trust. All proposed solutions require users with no cryptographic background on asymmetric cryptography to make responsible decisions concerning the management of their keys. Furthermore, maintaining such complex key infrastructures gets more and more complex as more users subscribe.
-
-\section{Goals}
-The goal of this thesis is to develop an architecture that circumvents the issues discussed in Section~\ref{sec:problem_statement} thereby taking the challenges and pitfalls from earlier solutions in Section~\ref{sec:existing_solutions} into account. Specifically the architecture should have the following properties:
-\begin{itemize}
- \item \textbf{User friendly:} An average OSN user should be able to use the resulting architecture, i.e. a user with no knowledge on cryptographic primitives.
- \item \textbf{Applicable:} The original OSN environment should not be altered since some OSN providers are probably not willing to support a more confidential architecture because it could possibly hurt their business model.
- \item \textbf{Ready to use:} No additional registration or subscription to third party key architectures should be required to enable usage of the system. As soon as a user subscribes to the OSN provider he should be able to start receiving confidential messages.
-\end{itemize}
-
-The following cryptographic goals should be achieved when publishing a message $m$ to a set of intended recipients $\mathcal{S}$ on the OSN with help of the designed architecture:
+\section{Cryptographic Goals}
+Section~\ref{sec:goals_of_this_thesis} already defined a set of abstract goals for an architecture trying to solve the current privacy issues in OSNs. These goals said that a solution should be user friendly, applicable and immediately ready to use. Besides from these general design goals, it is now possible to define specific cryptographic requirements as well. A well-designed encryption scheme should be able to achieve the following cryptographic goals when publishing a message $m$ to a set of intended recipients $\mathcal{S}$ on an OSN with the help of an encryption scheme:
 \begin{itemize}
  \item \textbf{Confidentiality:} The message is protected from disclosure to unauthorised parties, i.e. all entities that are not explicitly in the recipient set $\mathcal{S}$.
  \item \textbf{Authenticity:} The recipients of the message have reasonable assurances of the message's origin.
  \item \textbf{Integrity:} The recipients are assured the message is distributed in its original form as posted by the sender.
  \item \textbf{No redundancy:} The message should be published only once to reach every recipient in the intended recipient set $\mathcal{S}$.
- \item \textbf{Outsider recipient anonymity:} The intended recipients of a broadcasted message should be anonymous to anyone not included in the intended recipient set $\mathcal{S}$. This implies that also the OSN does not have to know who the recipients are. (See also Definition~\ref{def:outsider_anonymity} about outsider-anonymity).
+ \item \textbf{Outsider recipient anonymity:} The intended recipients of a broadcasted message should be anonymous to anyone not included in the intended recipient set $\mathcal{S}$. This implies that neither the OSN has to know who the recipients are. (Definition~\ref{def:outsider_anonymity} gives a more formal definition of outsider-anonymity).
+ \item \textbf{No key escrow:} Private keys are only disclosed to the owners of the public key. No other entity should be able to have more information on one's secret key in the information theoretic sense.
+ \item \textbf{Key validation:} All users of the system should be able to verify the correctness of their keys.
 \end{itemize}
 
+\section{Design Decisions}
+\subsection{Confidentiality}
+Confidentiality can be achieved by applying an encryption scheme before broadcasting a message. Current solutions like Scramble~\cite{art:BeatoKW11} and Persona~\cite{art:BadenBSBS09} rely on rather classic public key infrastructures thereby requiring the OSN user to subscribe to a third party key infrastructure. These key infrastructures are required to authenticate and store the public keys of all security aware users. However, this does not correspond to the general design goals from Section~\ref{sec:goals_of_this_thesis} stating that the proposed solution should be both user friendly and immediately ready to use.
+
+Identity-based encryption (IBE) can be used to achieve both confidentiality and the general design goals from Section~\ref{sec:goals_of_this_thesis}. During the design of our scheme, three IBE schemes were considered as a potential candidate: Boneh and Franklin IBE~\cite{art:BonehF01}, Sakai and Kasahara IBE~\cite{art:SakaiK03} and Gentry IBE~\cite{art:Gentry06}. For a more elaborate discussion on why only these schemes were considered, the reader is referred to Section~\ref{sec:evolution_of_be}.
+
+Table~\ref{tab:ibe_security_comparison} lists the different security properties of all schemes. Merely based on Table~\ref{tab:ibe_security_comparison}, one would prefer the Gentry IBE scheme as it is the only scheme proven secure in the standard model. In the random oracle model, Boneh and Franklin IBE is prefered over Sakai and Kasahara IBE since it relies on the BDH assumption which is more widely accepted than the stronger BDHI assumption.
+
+The execution times of all considered IBE schemes are illustrated in Table~\ref{tab:ibe_performance_comparison}. Experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Pairing computations were implemented using the MIRACL library~\cite{art:Scott03}. The Gentry IBE scheme was first transformed to the asymmetric setting to give a fair basis of comparison. The exact transformed Gentry IBE scheme is depicted in Appendix~\ref{app:gentrys_ibe_scheme}. 
+
+Table~\ref{tab:ibe_performance_comparison} clearly illustrates the price there is to pay for security in the standard model. Therefore, Boneh and Franklin IBE was chosen as the preferred IBE scheme.
 
 
+\begin{table}
+  \centering
+  \begin{tabular}{@{}lccr@{}} \toprule
+    \multicolumn{3}{r}{Security Proof} \\ \cmidrule(r){2-4}
+    IBE Scheme    & IND-ANO-CCA & Standard model & Assumption \\ \midrule
+    Boneh and Franklin & \Checkmark & \XSolidBrush  & BDH \\
+    Sakai and Kasahare & \Checkmark & \XSolidBrush & BDHI \\
+    Gentry & \Checkmark & \Checkmark & q-BDHE \\ \bottomrule
+  \end{tabular}
+  \caption{Security comparison of considered IBE schemes}
+  \label{tab:ibe_security_comparison}
+\end{table}
 
+\begin{table}
+  \centering
+  \begin{tabular}{@{}lrrrr@{}} \toprule
+    \multicolumn{4}{r}{Execution time (ms)} \\ \cmidrule(r){2-5}
+    IBE Scheme    & IBE.Setup & IBE.Extract & IBE.Encrypt & IBE.Decrypt \\ \midrule
+    Boneh and Franklin & 368.10 & 13.84 & 271.90 & 252.82 \\
+    Sakai and Kasahare & 1257.72 & 20.49 & 319.83 & 259.17\\
+    Gentry & 24.49 & 37.46 & 1136.65 & 911.32 \\ \bottomrule
+  \end{tabular}
+  \caption{Performance comparison of considered IBE schemes in MIRACL}
+  \label{tab:ibe_performance_comparison}
+\end{table}
+
+\subsection{Outsider Recipient Anonymity}
+The outsider anonymity requirement is imposed on the recipient set since our solution is developed in the context of OSNs where user interaction plays an important role. Therefore, it is useful that members of the intended recipient set $\mathcal{S}$ know each other. For example, suppose that Alice broadcasts an encrypted message intended to Bob and Dylan using a scheme that fully hides the identity of the recipients. This implies that $\id{Bob}, \id{Dylan} \in \mathcal{S}$. As a reaction to Alice's message, Bob wants to write a reply to start a discussion. However, as Bob does not know which other users are allowed to see Alice's message, he can now only encrypt his reply to Alice thereby preventing Dylan from joining the discussion. Nevertheless, this discussion could have been useful to Dylan as well because otherwise Alice would not have included Dylan as a recipient in $\mathcal{S}$ in the first place.
+
+From the outsider-anonymity requirement, it immediately follows that users not necessarily need to be friends to receive each other's messages. In the specific example of Alice, Bob and Dylan, it could be that Bob and Dylan both have Alice as a common friend while no immediate friend connection exists between Bob and Dylan. This should be taken into consideration when determining the identifiers of Bob's and Dylan's profiles, $\id{Bob}$ and $\id{Dylan}$ respectively.
+
+As discussed in Section~\ref{sec:anobe}, broadcast encryption schemes can be made more efficient if the recipient set $\mathcal{S}$ is public. So if user interaction is really that important, why not make the intended recipient set public? Consider the example in which Bob's girlfriend celebrates her birthday in a few weeks. When Bob's girlfriend notices that Bob broadcasted an encrypted message to all her friends without including her as a recipient, she will probably know Bob is up to something. This is just one example of possible many that illustrates the negative impact on security, broadcasting of the recipient set $\mathcal{S}$ can have on real life situations. Depending on the context, information can be deduced about the message without decrypting it to plain text.
+
+\subsection{No redundancy}
+From the no redundancy requirement it immediately follows that a broadcast encryption scheme should be used, preferably one that hides the anonymity of recipients in the intended recipient set $\mathcal{S}$ to the outside world. However, apart from the outsider-anonymous broadcast encryption scheme from Fazio and Perera~\cite{art:FazioP12}, no efficient schemes of this kind are described in literature. Since the BE scheme from Fazio and Perera does not fully benefit from the advantages of IBE, the ANOBE scheme from Libert et al.~\cite{art:LibertPQ12} is preferred for further implementation.
+
+Since recipients still have to know who the other recipients within the intended recipient set $\mathcal{S}$ are, the list of \id{}s within the recipient set is concatenated to the plaintext message before encryption.
+
+The scheme from Libert et al. also offers non-repudiation by using signature schemes. Note however, that a trusted authority authorising and publishing the public keys is required for the implementation of signature schemes. Because the general design goals were applicability and user friendliness, no third party PKI can be supported. Therefore, the implemented scheme does not rely on signatures like in~\cite{art:LibertPQ12}.
+
+If the security parameter is chosen to be $\lambda$, the IBE scheme in Algorithm~\ref{alg:full_indent} can only encrypt messages with a maximum length of $l$ bits. This can be seen since in the last step of \texttt{IBE.Encrypt} the message $m$ is encrypted by an XOR operation with the result of a hash function $H_3: \left( 0,1 \right)^l \rightarrow \left( 0,1 \right)^l$. Because asymmetric IBE schemes can only encrypt these fixed length messages, the scheme from Libert et al.~\cite{art:LibertPQ12} is altered such that the ciphertext in the original proposal contains a with IBE encrypted symmetric session key $k$ that is the same for each user in the recipient set $\mathcal{S}$ on a per message basis. The actual plaintext is then encrypted with a symmetric encryption scheme based on a mode of operation to support longer message lengths.
+
+\subsection{Authenticity and Integrity}
+Authenticity and integrity can be achieved at the same time by relying on an authenticated encryption scheme (Section~\ref{sec:authenticated_encryption}). The integrity of the message is then as strong as the security guarantees of the authenticated encryption scheme. 
+
+Note however, that the authentication mechanism still relies on the security guarantees of the OSN. Since no third party PKI mechanism is used, there is no trusted party verifying the identity corresponding to a public key. In OSNs this is not an issue if IBE is used with unique profile identifiers as a public key. Consequently, such an IBE scheme ensures that messages encrypted under a public identifier can only be seen by the owner of the corresponding OSN profile. Verifying whoever owns the OSN profile remains the responsibility of the OSN and the judgement of the OSN profile's connections. However, if the authentication mechanism of the OSN is inadequate, anyone could login to a user's profile to impersonate the actual owner of the profile. Therefore, our proposed solution can not be more secure than the authentication mechanism of the OSN.
+
+In more traditional communication schemes, authenticated encryption is done with a symmetric key as agreed during an authenticated key agreement protocol like the Station-to-Station protocol~\cite{art:DiffieOW92}. Authenticity of ciphertexts generated by the authenticated encryption scheme than immediately follows from the usage of the same symmetric session key $k$ as earlier agreed during the protocol. However, since in the proposed solution every OSN user should be able to immediately broadcast confidential messages to other users of the OSN, no key agreement protocols will be used. With the publication of only one broadcast ciphertext, every user in the intended recipient set $\mathcal{S}$ should be immediately able to decrypt it to the original plaintext message $m$. Therefore, there is no real authenticity in the value of the tag $t$ generated by the authenticated encryption scheme because anyone with access to the user's profile could have chosen a random symmetric session key $k$ and have used it as an input to the authenticated encryption scheme. Unless, the only one with access to the user's profile is the actual owner of the profile. Therefore, the authenticity guaranteed by the authenticated encryption scheme boils down to the security of the authentication mechanism as powered by the OSN.
+
+
+\subsection{No Key Escrow and Key Validation}
+% TODO: schrijf iets over de voorwaarden waaraan de ID moet voldoen.
 \section{Security Model}
 
-\subsection{Threat Model}
+
+\section{Threat Model}
 
 \section{Proposed Scheme}
 

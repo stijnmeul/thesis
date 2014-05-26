@@ -231,6 +231,11 @@ C.~Delerabl{\'e}e.
 \newblock In K.~Kurosawa, editor, {\em ASIACRYPT}, volume 4833 of {\em Lecture
   Notes in Computer Science}, pages 200--215. Springer, 2007.
 
+\bibitem{art:DiffieOW92}
+W.~Diffie, P.~C. van Oorschot, and M.~J. Wiener.
+\newblock Authentication and authenticated key exchanges.
+\newblock {\em Des. Codes Cryptography}, 2(2):107--125, 1992.
+
 \bibitem{art:DodisF02}
 Y.~Dodis and N.~Fazio.
 \newblock Public key broadcast encryption for stateless receivers.
@@ -486,6 +491,11 @@ R.~Sakai and J.~Furukawa.
 R.~Sakai and M.~Kasahara.
 \newblock Id based cryptosystems with pairing on elliptic curve.
 \newblock {\em IACR Cryptology ePrint Archive}, 2003:54, 2003.
+
+\bibitem{art:Scott03}
+M.~Scott.
+\newblock Miracl--multiprecision integer and rational arithmetic c/c++ library.
+\newblock {\em Shamus Software Ltd, Dublin, Ireland, URL}, 2003.
 
 \bibitem{art:Shamir79}
 A.~Shamir.

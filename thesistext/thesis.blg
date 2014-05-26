@@ -9,6 +9,8 @@ A level-1 auxiliary file: chap-n.aux
 A level-1 auxiliary file: conclusion.aux
 A level-1 auxiliary file: app-A.aux
 A level-1 auxiliary file: app-n.aux
+A level-1 auxiliary file: app-C.aux
+A level-1 auxiliary file: app-D.aux
 The style file: abbrv.bst
 Database file #1: references.bib
 Repeated entry---line 251 of file references.bib
@@ -38,45 +40,45 @@ Warning--to sort, need author or key in thesis:Alfredo08
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
-You've used 95 entries,
+You've used 97 entries,
             2118 wiz_defined-function locations,
-            1233 strings with 25878 characters,
-and the built_in function-call counts, 35551 in all, are:
-= -- 3463
-> -- 1554
+            1247 strings with 26212 characters,
+and the built_in function-call counts, 36109 in all, are:
+= -- 3517
+> -- 1579
 < -- 78
-+ -- 604
-- -- 490
-* -- 2443
-:= -- 5608
-add.period$ -- 320
-call.type$ -- 95
-change.case$ -- 499
++ -- 614
+- -- 498
+* -- 2481
+:= -- 5707
+add.period$ -- 326
+call.type$ -- 97
+change.case$ -- 509
 chr.to.int$ -- 0
-cite$ -- 101
-duplicate$ -- 1488
-empty$ -- 2896
-format.name$ -- 500
-if$ -- 7854
+cite$ -- 103
+duplicate$ -- 1509
+empty$ -- 2940
+format.name$ -- 508
+if$ -- 7968
 int.to.chr$ -- 0
-int.to.str$ -- 95
-missing$ -- 82
-newline$ -- 473
-num.names$ -- 259
-pop$ -- 531
+int.to.str$ -- 97
+missing$ -- 84
+newline$ -- 483
+num.names$ -- 263
+pop$ -- 539
 preamble$ -- 1
-purify$ -- 409
+purify$ -- 417
 quote$ -- 0
-skip$ -- 1169
+skip$ -- 1183
 stack$ -- 0
-substring$ -- 2037
-swap$ -- 535
+substring$ -- 2068
+swap$ -- 537
 text.length$ -- 72
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 373
+type$ -- 381
 warning$ -- 6
-while$ -- 337
-width$ -- 97
-write$ -- 1082
+while$ -- 342
+width$ -- 99
+write$ -- 1103
 (There were 5 error messages)
