@@ -379,6 +379,11 @@ A.~Joux and K.~Nguyen.
   in cryptographic groups.
 \newblock {\em J. Cryptology}, 16(4):239--247, 2003.
 
+\bibitem{art:KateHG12}
+A.~Kate, Y.~Huang, and I.~Goldberg.
+\newblock Distributed key generation in the wild.
+\newblock {\em IACR Cryptology ePrint Archive}, 2012:377, 2012.
+
 \bibitem{art:KrzywieckiKK06}
 L.~Krzywiecki, P.~Kubiak, and M.~Kutylowski.
 \newblock A revocation scheme preserving privacy.

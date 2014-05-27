@@ -40,6 +40,7 @@
 \usepackage{caption}
 \usepackage{transparent}
 \usepackage{bbding}
+\usepackage{afterpage}
 \usetikzlibrary{arrows,positioning}
 
 %%%%%%
@@ -65,6 +66,8 @@
 \newenvironment{game}
   {\begin{algorithm}\floatname{algorithm}{Game}
   }{\end{algorithm}}
+
+
 
 % Reset theorem numbering for each chapter
 \theoremstyle{plain}
@@ -133,6 +136,7 @@
   $m$ & Message \\
   $c$ & Ciphertext \\
   $v, w$ & Binary bit sequences \\
+  $\{ v \parallel w \}$ & Concatenated bit sequences \\
   \id{Alice} & Identity of Alice \\ 
   $s_{\id{Alice}}$ & IBE private key corresponding to the identifier \id{Alice} \\
   $k$ & Generic symmetric session key \\

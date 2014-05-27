@@ -310,11 +310,11 @@ Because such large random symmetric keys $k$ are not practical in real-life appl
 An authenticated encryption scheme consists of two generic probabilistic polynomial time algorithms:
 
 \begin{description}
- \item \texttt{AE.Encrypt($m, k$):} Encrypt is a secure symmetric encryption scheme that takes as input a plaintext $m$ and a symmetric key $k$. As a result \texttt{AE.Encrypt} generates ciphertext $c$ and authentication tag $t$ as output. Symbolically this is often denoted as  $\left< c, t \right> \leftarrow \mathtt{E}_k(m)$
- \item \texttt{AE.Decrypt($c, k$):} Decrypt is a secure symmetric decryption scheme that takes as input a ciphertext $c$ and a symmetric key $k$. As a result \texttt{AE.Decrypt} generates the original plaintext $m$ and an authentication tag $t$ as output. Symbolically this is often denoted as $\left< m, t \right> \leftarrow \mathtt{D}_k(c)$
+ \item \texttt{AE.Encrypt($m, k$):} Encrypt is a secure symmetric encryption scheme that takes as input a plaintext $m$, an additional binary sequence $a$ and a symmetric key $k$. As a result \texttt{AE.Encrypt} generates ciphertext $c$ and authentication tag $t$ as output. Symbolically this is often denoted as  $\left< c, t \right> \leftarrow \mathtt{E}_k(m, a)$
+ \item \texttt{AE.Decrypt($c, k$):} Decrypt is a secure symmetric decryption scheme that takes as input a ciphertext $c$, an additional binary sequence $a$ and a symmetric key $k$. As a result \texttt{AE.Decrypt} generates the original plaintext $m$ and an authentication tag $t$ as output. Symbolically this is often denoted as $\left< m, t \right> \leftarrow \mathtt{D}_k(c, a)$
 \end{description}
 
-The properties of a secure authenticated encryption scheme are such that it is hard to change the plaintext message $m$, the symmetric key $k$ or the ciphertext $c$ without altering the returned authentication tag $t$. Therefore, a recipient of a ciphertext $c$ and an authentication tag $t_1$ should only compare the returned authentication tag $t_2$ from $\left< m, t_2 \right> \leftarrow \mathtt{D}_k(c)$ with the received tag $t_1$ to be convinced that the ciphertext $c$ was generate on input of the same symmetric key $k$ and plaintext message $m$.
+The properties of a secure authenticated encryption scheme are such that it is hard to change the plaintext message $m$, the additional binary sequence $a$, the symmetric key $k$ or the ciphertext $c$ without altering the returned authentication tag $t$. Therefore, a recipient of a ciphertext $c$ and an authentication tag $t_1$ should only compare the returned authentication tag $t_2$ from $\left< m, t_2 \right> \leftarrow \mathtt{D}_k(c,a)$ with the received tag $t_1$ to be convinced that the ciphertext $c$ was generate on input of the same symmetric key $k$, plaintext message $m$ an binary sequence $a$. Since it is hard to alter the binary sequence $a$ without changing the authentication tag $t$, $a$ is often called the \textit{authenticated data}, i.e. data that is authenticated by the encryption scheme but not encrypted.
 
 \subsection{Asymmetric Cryptography}
 \label{sec:asymmetric_cryptography}
@@ -353,6 +353,7 @@ Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature sc
 \end{algorithm}
 
 \subsubsection{Commitment Schemes}
+\label{sec:commitment_schemes}
 A commitment scheme is an asymmetric cryptographic scheme that allows to commit to a certain value while keeping the exact value private. The value can be revealed later giving anyone who received the commitment the possibility to check whether the value was changed between the commitment phase and the revealing of the value.
 
 More formally, a generic commitment scheme is composed of three probabilistic polynomial time algorithms:

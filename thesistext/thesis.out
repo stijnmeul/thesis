@@ -29,7 +29,7 @@
 \BOOKMARK [1][-]{section.4.3}{Security Model}{chapter.4}% 29
 \BOOKMARK [1][-]{section.4.4}{Threat Model}{chapter.4}% 30
 \BOOKMARK [1][-]{section.4.5}{Proposed Scheme}{chapter.4}% 31
-\BOOKMARK [1][-]{section.4.6}{Conclusion}{chapter.4}% 32
+\BOOKMARK [1][-]{section.4.6}{Summary}{chapter.4}% 32
 \BOOKMARK [0][-]{chapter.5}{Implementation}{}% 33
 \BOOKMARK [1][-]{section.5.1}{Outsider Anonymous Identity-Based Broadcasting Implementation}{chapter.5}% 34
 \BOOKMARK [1][-]{section.5.2}{Distributed Key Generation Implementation}{chapter.5}% 35
@@ -43,4 +43,4 @@
 \BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 43
 \BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 44
 \BOOKMARK [0][-]{appendix.D}{English Paper}{}% 45
-\BOOKMARK [0][-]{section*.35}{Bibliography}{}% 46
+\BOOKMARK [0][-]{section*.36}{Bibliography}{}% 46

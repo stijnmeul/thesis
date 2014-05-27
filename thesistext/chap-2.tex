@@ -89,6 +89,7 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
 Figure~\ref{fig:generic_ibe_scheme} illustrates these generic algorithms. A trusted Public Key Generator (PKG) generates a master private key $s_k$ and public parameters $params$ on input of the security parameter $\lambda$. Next, the PKG publishes the public parameters $params$ while storing $s_k$ preferably in encrypted format on a local disk. If Alice wants to send a message $m$ to Bob, it suffices for her to know the public parameters $params$ and the id $\id{Bob}$, uniquely identifying Bob. Then, Alice encrypts the message to a ciphertext $c$ that is sent over an insecure channel to Bob. On receipt of the ciphertext, Bob authenticates to the PKG over a secure channel to request his private key $s_{\id{Bob}}$. Subsequently, the PKG generates the private key $s_{\id{Bob}}$ corresponding to Bob's identity $\id{Bob}$ on input of the master private key $s_k$, Bob's id $\id{Bob}$ and public parameters $params$. Subsequently, the PKG sends $s_{\id{Bob}}$ back again over a secure channel. Bob has now all the required information to decrypt the ciphertext $c$ to its original plaintext message $m$.
 
 \subsection{Pros and Cons of IBE}
+\label{sec:pros_and_cons_of_ibe}
 Note that it is important that the PKG can be fully trusted as it generates all the private keys $s_{\id{}}$ in the system. A malicious PKG server could use this information to start eavesdropping on the insecure channel between Alice and Bob (the orange arrow in Figure~\ref{fig:generic_ibe_scheme}) while decrypting all ciphertexts that are being sent over. The undesired property that private keys have to be shared with a trusted third party is often called \textit{key escrow} in literature~\cite{art:AbelsonHARBMBJBMDWGJNGRLSISB97}.
 
 Another problem from the generic scheme shown in Figure~\ref{fig:generic_ibe_scheme} is that keys can not be revoked in the system. However, Bob's private key $s_{\id{Bob}}$ can still get compromised if he is careless with its storage. In fact, the research community has been focused on the revocation of IBE keys extensively~\cite{art:BoldyrevaGK12,art:BonehDTW01,art:HanaokaHSI05,art:LibertQ03}. Key revocation often requires additional infrastructure that complicates the elegancy of the currently proposed IBE scheme. As a matter of fact, the major drawback of revoking Bobs key is that Bob can no longer receive encrypted messages because his public key is part of his identity. Therefore, a pragmatic solution to this issue could be to append expiration dates to the public keys. Consequently, public keys will only be valid for a limited amount of time thereby restricting the damage that could be done with a compromised private key~\cite{art:BonehF01}.
@@ -231,8 +232,8 @@ Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Bon
    \end{equation*}
    \item Choose cryptographic hash functions
     \begin{enumerate}
-     \item $H_1: \left( 0,1  \right)^* \rightarrow G_1$
-     \item $H_2: G_2 \rightarrow \left( 0,1 \right)^l$
+     \item $H_1: \{ 0,1  \}^* \rightarrow G_1$
+     \item $H_2: G_2 \rightarrow \{ 0,1 \}^l$
     \end{enumerate}
   \end{enumerate}
   \item \texttt{Extract($params, s_k, \id{}$)}:
@@ -271,17 +272,17 @@ Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Bon
    \item As in the BasicIndent scheme
    \item Choose cryptographic hash functions
     \begin{enumerate}
-     \item $H_1: \left( 0,1  \right)^* \rightarrow G_1$
-     \item $H_2: G_2 \rightarrow \left( 0,1 \right)^l$
-     \item $H_3: \left( 0,1 \right)^l \rightarrow \left( 0,1 \right)^l$
+     \item $H_1: \{ 0,1  \}^* \rightarrow G_1$
+     \item $H_2: G_2 \rightarrow \{ 0,1 \}^l$
+     \item $H_3: \{ 0,1 \}^l \rightarrow \left( 0,1 \right)^l$
     \end{enumerate}
   \end{enumerate}
   \item \texttt{Extract($params, s_k, \id{}$)}: As in the BasicIndent scheme
    \item \texttt{Encrypt($params, \id{}, m$)}:
    \begin{enumerate}
-    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right)$
+    \item Compute $Q_{\id{}} = H_1 \{ \id{} \}$
     \item Choose a random $sigma \in \left( 0,1 \right)^l$
-    \item Compute $r = H_3 \left( sigma, m \right)$
+    \item Compute $r = H_3 \{ sigma, m \}$
     \item Encrypt the plaintext message $m$ to the ciphertext $c$ as
     \begin{equation*}
      \begin{split}
@@ -311,8 +312,8 @@ A generic Broadcast Encryption (BE) scheme is composed of four probabilistic pol
 \begin{description}
     \item[\texttt{BE.Setup($1^{\lambda}$)}]: On input of a security parameter $\lambda$, generates the public parameters $params$ of the system.
     \item[\texttt{BE.KeyGen($params$)}]: Returns the public and private key ($pk_i,sk_i$) for each user $i$ while taking the public parameters $params$ into account.
-    \item[\texttt{BE.Encrypt}]: Takes a set of public key values $\mathcal{S}=\{pk_i \ldots pk_{|\mathcal{S}|}\}$ corresponding to users $i$ in the system along with a plaintext message $m$ to generate a corresponding ciphertext $c$.
-    \item[\texttt{BE.Decrypt:}] Reconstructs $m$ from $c$ using the private key $sk_i$ if the corresponding public key $pk_i \in \mathcal{S}$. Otherwise, return $\bot$.
+    \item[\texttt{BE.Encrypt($m, \mathcal{S}$)}]: Takes a set of public key values $\mathcal{S}=\{pk_i \ldots pk_{|\mathcal{S}|}\}$ corresponding to users $i$ in the system along with a plaintext message $m$ to generate a corresponding ciphertext $c$.
+    \item[\texttt{BE.Decrypt($c, sk_i$):}] Reconstructs $m$ from $c$ using the private key $sk_i$ if the corresponding public key $pk_i \in \mathcal{S}$. Otherwise, return $\bot$.
 \end{description}
 
 Note that this definition is stated generically enough to allow all kinds of public keys to be used. Therefore, not only traditional PKIs can benefit from BE schemes, but also IBE schemes in which a public identifier \id{i} serves as a public key $pk_i$.
@@ -390,7 +391,7 @@ In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} indepe
    \end{enumerate}
    \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, \sigma_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
  \begin{equation*}
-  f \left( 0 \right) = \sum^t_{i=1}y_i b_i = s \; \; \; \textrm{with} \; \; \; b_i = \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = s
+  f \left( 0 \right) = \sum^t_{i=1}y_i b_i = s \; \; \; \textrm{with} \; \; \; b_i = \prod_{1 \leq j \leq t, j \neq i} \frac{j}{j-i}
  \end{equation*}
  \end{enumerate}
 \end{algorithm}
@@ -408,6 +409,7 @@ Verifiable secret sharing~\cite{art:ChorGMA85} tries to ensure the participating
 Popular verifiable secret sharing schemes are Feldman's scheme~\cite{art:Feldman87} and Benaloh's scheme~\cite{art:Benaloh86a}. No further details are given as a basic notion of verifiable secret sharing suffices for the remainder of this text.
 
 \section{Distributed Key Generation}
+\label{sec:distributed_key_generation}
 Distributed key generation is inspired on secret sharing. The idea behind distributed key generation is that a secret $s$ can be shared among $n$ shareholders without the requirement for a centralised dealer $D$ as in Algorithm~\ref{alg:shamirs_threshold_sheme}. In this way, a secret can be negotiated between all shareholders without any of the shareholders explicitly computing the secret. The major advantage of such a scheme is that no party in the scheme requires a higher level of trust since no party explicitly knows the secret. Similarly to the Shamir secret sharing scheme a group of $t$ or more shareholders will need to pool their shares in order to reconstruct the secret $s$.
 
 \subsection{Definition}
@@ -436,16 +438,16 @@ Although the Pedersen scheme~\cite{art:Pedersen91a} is proven insecure, it is mo
     \item $P_i$ generates a random private key $s_i \in \mathbb{Z}_p$ and publishes the corresponding public key $pk_i = g^{s_i}$
     \item $P_i$ chooses $t-1$ random independent coefficients $a_{i,1}, \ldots, a_{i,t-1}, 0 \leq a_{i,j} \leq p-1$ defining a random polynomial $f_i \left( x \right)$ over $\mathbb{Z}_p$, $f_i \left( x \right) = \sum^{t-1}_{b=0} a_{i,j} x^b$.
     \item $P_i$ commits to the coefficients $a_{i,1}, \ldots, a_{i,t-1}, 0 \leq a_{i,j} \leq p-1$ by broadcasting $A_{ib} = g^{a_{i,b}} \bmod p$ for $b = 1, \ldots, t$ to all other parties.
-    \item $P_i$ computes the share $s_{ij} = f_i \left( j \right) \bmod p$ and securely transfers the share $s_{ij}$ to party $P_j$ along with a signature $S_{P_i} \left( s_{ii} \right)$ authenticating the share. $P_i$ keeps $s_{ii}$ to itself.
-    \item $P_i$ verifies for each share $s_{ji}$ received from $P_j$ whether it is consistent by verifying that
+    \item $P_i$ computes the share $\sigma_{ij} = f_i \left( j \right) \bmod p$ and securely transfers the share $\sigma_{ij}$ to party $P_j$ along with a signature $S_{P_i} \left( \sigma_{ij} \right)$ authenticating the share. $P_i$ keeps $\sigma_{ii}$ to itself.
+    \item $P_i$ verifies for each share $\sigma_{ji}$ received from $P_j$ whether it is consistent by verifying that
     \begin{equation*}
-     g^{s_{ji}} = \prod_{b=0}^{n-1} \left( A_{jb} \right)^{i^k} \bmod p
+     g^{\sigma_{ji}} = \prod_{b=0}^{n-1} \left( A_{jb} \right)^{i^k} \bmod p
     \end{equation*}
-    If the check fails for an index $j$, $P_i$ broadcasts a complaint against $P_j$ along with the received share $s_{ij}$ and its signature $S_{P_j} \left( s_{ij} \right)$. If a party receives $t$ complaints, he is excluded from the set of participating parties $\mathcal{Q}$.
+    If the check fails for an index $j$, $P_i$ broadcasts a complaint against $P_j$ along with the received share $\sigma_{ij}$ and its signature $S_{P_j} \left( \sigma_{ij} \right)$. If a party receives $t$ complaints, he is excluded from the set of participating parties $\mathcal{Q}$.
    \end{enumerate}
-   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, S_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
+   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, s_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
  \begin{equation*}
-  f \left( 0 \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = S
+  f \left( 0 \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = s
  \end{equation*}
  \end{enumerate}
 \end{algorithm}
