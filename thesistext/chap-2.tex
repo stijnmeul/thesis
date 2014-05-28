@@ -21,6 +21,7 @@ If an entity's private key is lost or leaked to a third party, it can be revoked
 To partially get around the issue of revocation lists, certificates contain an expiration date. After expiration, a certificate should no longer be trusted. However, this requires keypair owners to contact CAs more frequently to sign new certificates each time the previous one has expired. Clearly, this puts a high computational demand on the authentication procedure of the CAs as well.
 
 \subsection{OpenPGP and Web of Trust}
+\label{sec:web_of_trust}
 An alternative to the traditional PKI setting relying on CAs is a \textit{web of trust}. In a web of trust any entity can rate the trustworthiness of a public key. For example, if Bob receives Alice's public key personally during a date, the public key can be considered more trustworthy than when Bob receives Alice's key via e-mail. Web of trust systems allow users to vet for the authenticity other users' keys in the system. A standardised web of trust system is OpenPGP~\cite{rfc4880}.
 
 The major advantage of a web of trust is that there no longer needs to be a CA with highly secure infrastructure as the publication of certificates now becomes a shared responsibility.

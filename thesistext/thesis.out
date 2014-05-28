@@ -31,16 +31,19 @@
 \BOOKMARK [1][-]{section.4.5}{Proposed Scheme}{chapter.4}% 31
 \BOOKMARK [1][-]{section.4.6}{Summary}{chapter.4}% 32
 \BOOKMARK [0][-]{chapter.5}{Implementation}{}% 33
-\BOOKMARK [1][-]{section.5.1}{Outsider Anonymous Identity-Based Broadcasting Implementation}{chapter.5}% 34
-\BOOKMARK [1][-]{section.5.2}{Distributed Key Generation Implementation}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.3}{Evaluation}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.4}{Performance Analysis}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.5}{Conclusion}{chapter.5}% 38
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 39
-\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 40
-\BOOKMARK [0][-]{appendix.B}{Installing and Executing the Code}{}% 41
-\BOOKMARK [1][-]{section.B.1}{Setting up the DKG}{appendix.B}% 42
-\BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 43
-\BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 44
-\BOOKMARK [0][-]{appendix.D}{English Paper}{}% 45
-\BOOKMARK [0][-]{section*.36}{Bibliography}{}% 46
+\BOOKMARK [1][-]{section.5.1}{Software Architecture}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.2}{Practical Design Decisions}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.3}{Implemented Scheme}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.4}{Client-Side Implementation}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.5}{Server-Side Implementation}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.6}{Evaluation}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.7}{Performance Analysis}{chapter.5}% 40
+\BOOKMARK [1][-]{section.5.8}{Conclusion}{chapter.5}% 41
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 42
+\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 43
+\BOOKMARK [0][-]{appendix.B}{Installing and Executing the Code}{}% 44
+\BOOKMARK [1][-]{section.B.1}{Setting up the DKG}{appendix.B}% 45
+\BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 46
+\BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 47
+\BOOKMARK [0][-]{appendix.D}{English Paper}{}% 48
+\BOOKMARK [0][-]{section*.38}{Bibliography}{}% 49

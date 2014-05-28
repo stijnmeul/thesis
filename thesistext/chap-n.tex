@@ -1,17 +1,215 @@
 \chapter{Implementation}
 \label{cha:n}
 
-\section{Outsider Anonymous Identity-Based Broadcasting Implementation}
+% Wat moet er in dit hoofdstuk staan?
+%%%%%% Implementatiedetails van het schema
+% Welk sociaal netwerk? 
+% Gebruikt Authenticated Encryption scheme
+% Keylengths
+% Welke elliptische curve?
+% Hoe worden random getallen gekozen?
 
-\subsection{Implemented Scheme}
+%%%%%% Architectuur van de implementatie
+% Kijk naar figuur van de hummingbirdpaper
+%%%% Implementatie aan client side
+% Structuur van de code
+% Encountered issues
+%%%% Implementatie DKG
+%% Structuur van de code
+%% Encountered issues
+% MIRACL is niet parallelliseerbaar
 
-\subsection{Data Structures}
+%%%%% Future work
+% DKGs praten in plain text
+% Aanvraag van de secret key gebeurt nu zonder authenticatiemechanisme
+%%%%% Opgelet voor
+% Javascript leest input uit
+% User mag geen recipient set via de OSN specifiëren
+% Gebruikers die reageren op statussen worden wel plots bekend uit de recipient set => mogelijke workaround is om hele conversatie weg van het sociaal netwerk te laten gebeuren => op die manier drijf je steeds verder af van het oorspronkelijk sociaal netwerk
+% Receivers die het sociaal contract breken
+% Fake profielen kunnen worden aangemaakt door gebruikers
 
-\section{Distributed Key Generation Implementation}
+\section{Software Architecture}
+There is still a long way to go from Algorithm~\ref{alg:our_scheme} towards a practical implementation for OSNs. As a proof of concept, Algorithm~\ref{alg:our_scheme} is applied to Facebook, the largest online social network at the time of writing. Recall that one of the more general goals of this thesis is to develop a solution that is applicable, i.e. a solution that does not require the OSN environment to be altered. Until so far this goal is successfully met since Algorithm~\ref{alg:our_scheme} could be designed completely based on a more general model of an OSN. The resulting algorithm is a solution that can be applied to virtually any OSN that allows to uniquely distinguish users based on unique public identifiers, a requirement that discriminates almost no existing OSNs.
 
-\subsection{Implemented Scheme}
+\subsection{Software Environment}
+Despite the avoidance of complex third party infrastructures, some software is needed that effectively implements Algorithm~\ref{alg:our_scheme} in a user-friendly way. Ideally, this is an easy-to-install piece of software that runs as an additional layer on top of the current infrastructure of the OSN user. Therefore, it was chosen to implement Algorithm~\ref{alg:our_scheme} in the form of a browser extension.
 
-\subsection{Data Structures}
+Since Scramble~\cite{art:BeatoKW11} already has a user friendly interface that supports all required use cases to implement encryption on OSNs, it is natural to integrate our IBE scheme into Scramble. Besides from Scramble being open source and lightweight, the most important trigger to modify the existing Scramble code is that it is developed at KU Leuven.
+
+\subsection{Existing Environment}
+Recall from Section~\ref{sec:existing_solutions} that Scramble~\cite{art:BeatoKW11} is a Firefox extension that currently relies on OpenPGP~\cite{rfc4880} for key management. Due to the dependency on OpenPGP, Scramble is independent of any OSN. In fact, Scramble only functions as an encryption and decryption tool that can be used on any website offering users to submit content. However, users who want to be part of the recipient set of the uploaded messages need to have uploaded a public key to the OpenPGP network beforehand. The existing Scramble environment is shown in Figure~\ref{fig:original_scramble_arch}.
+
+Since Scramble is a FireFox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous user interfaces, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, the Scramble library communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between FireFox extension and Java back-end, takes place synchronously over a socket listening on an internal port.
+
+As already discussed in Section~\ref{sec:existing_solutions}, Scramble relies on OpenPGP for key management. Therefore, the FireFox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
+
+
+\begin{figure}
+    \begin{center}
+    \noindent\makebox[\textwidth]{
+        \scalebox{0.78}{
+        \begin{tikzpicture}[auto, node distance=-2mm, align=center,
+            block/.style={rectangle,text width=6em,text centered,minimum height=9mm},
+            line/.style={draw,very thick, ->},
+            line2/.style={draw,very thick, <->},
+            leg/.style={text centered},
+            block2/.style={draw, rectangle,text width=7em,text centered,minimum height=9mm,fill=lightgray},
+            ]
+            
+            % Client side polygon
+            \draw[dashed] (-9.5,4) -- (-0.5,4) -- (-0.5,-4.25) -- (-9.5,-4.25) -- (-9.5,4);
+            % OSNs Polygon
+            \draw[dashed] (0.5,4) -- (5.5,4) -- (5.5,1.4) -- (0.5,1.4) -- (0.5,4);
+            % OpenPGP Polygon
+            %\draw[dashed] (0.5,0.7) -- (5.7,0.7) -- (5.7,-1.2) -- (0.5,-1.2) -- (0.5,0.7);
+            \draw[dashed] (-15.5,4) -- (-10.5,4) -- (-10.5,-2) -- (-15.5,-2) -- (-15.5,4);
+            % Server side polygon
+             
+            %\draw[help lines] (-16,-5) grid (6,4);
+            \path
+                % Images
+                (1.5,3.25) node [block] (fb) {\includegraphics[scale=0.07]{img/fb.png}}
+                (2,2.1) node [block] (gplus) {\includegraphics[scale=0.07]{img/gplus.png}}
+                (3.5,2.1) node [block] (linkedin) {\includegraphics[scale=0.1]{img/linkedin.png}}
+                (3,3.25) node [block] (twitter) {\includegraphics[scale=0.05]{img/twitter.png}}
+                (4.5,3.25) node [block] (tumblir) {\includegraphics[scale=0.1]{img/tumblr.png}}
+
+                % Text boxes
+                (-5,2.5) node [block2] (ffext) {Scramble FireFox Extension}
+                (-5,0) node [block2] (csback) {Client Side Java Back-end}
+                (-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (db) {Contact Database}
+                (-7,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystor) {Encrypted Key Storage}
+                (-13,2.5) node [block2] (pgp) {OpenPGP}
+                (-13,-0.5) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (pkstor) {Public Key Storage}
+
+                
+                % Text
+                (-5,4) node [leg,fill=white] (white_block) {\textbf{Client Side Scramble}}
+                (3,4) node [leg,fill=white] (white_block) {\textbf{OSNs}}
+                (-3.5,1.15) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
+                (-9,2.8) node [leg,font=\small,fill=white] (white_block) {OpenPGP Messages}
+                (-13,4) node [leg,fill=white] (white_block) {\textbf{Web of Trust}}
+                ;
+                
+       %\node[node distance=2mm, above=of pkg] {\textbf{OSN Broadcast Server}};
+       
+       \begin{scope}[every path/.style=line]
+        %\path (alice.east) -- (pkg.west);
+        %\path (pkg.south west) -- (adv.north);
+       \end{scope}
+       \begin{scope}[every path/.style=line2]
+        \path (ffext.south) -- (csback.north);
+        \path (csback.south east) -- (db.north);
+        \path (ffext.west) -- (pgp.east);
+        \path (ffext.east) -- (0.5,2.5);
+        \path (keystor.north) -- (csback.south west);
+        \path (pkstor.north) -- (pgp.south);
+       \end{scope}
+
+        \end{tikzpicture}
+        }
+    }
+    \end{center}
+    \caption{Original Scramble Architecture}
+    \label{fig:original_scramble_arch}
+\end{figure}
+
+\subsection{Changes to the Existing Environment}
+In order to fully benefit from the advantages of IBE, the Scramble plugin is made dependent on the OSN platform. However, this is an offer the author is willing to make since the old OpenPGP functionality is still available in the Scramble interface. Consequently, users can benefit from the IBE constructions when they are active on Facebook and fall back on the older OpenPGP functionality when active on other OSNs. The altered Scramble architecture is schematically illustrated in Figure~\ref{fig:new_scramble_arch}. For reasons of conciseness Figure~\ref{fig:new_scramble_arch} omits the original OpenPGP implementation although it is still present in the new scramble architecture.
+
+The new client side Scramble architecture implements a C++ based back-end instead of the earlier Java back-end because most efficient pairing-based multi precision libraries are written in C. In fact only two pairing-based libraries are widely accepted today: MIRACL~\cite{art:Scott03} and PBC~\cite{thesis:Lynn07}. MIRACL was preferred over PBC since it is generally faster than PBC. 
+
+Furthermore, the contact database from Figure~\ref{fig:original_scramble_arch} can be removed since public keys no longer have to be explicitly stored in the architecture. More specifically, since Scramble can rely on IBE, the public keys are inherently part of the supported OSN, in this case Facebook. Therefore, the FireFox extension falls back on a number of calls to the Facebook API in order to get all public keys of one's friends connections.
+
+Figure~\ref{fig:new_scramble_arch} exchanges the web of trust from Figure~\ref{fig:original_scramble_arch} for a DKG infrastructure in order to support IBE without key escrow.
+
+
+
+\begin{figure}
+    \centering
+    \noindent\makebox[\textwidth]{
+        \scalebox{0.78} {
+        \begin{tikzpicture}[auto, node distance=-2mm, align=center,
+            block/.style={rectangle,text width=6em,text centered,minimum height=9mm},
+            line/.style={draw,very thick, ->},
+            line2/.style={draw,very thick, <->},
+            leg/.style={text centered},
+            block2/.style={draw, rectangle,text width=7em,text centered,minimum height=9mm,fill=lightgray},
+            ]
+            
+            % Client side polygon
+            \draw[dashed] (-5.5,4) -- (-0.4,4) -- (-0.4,-4.5) -- (-5.5,-4.5) -- (-5.5,4);
+            % OSNs Polygon
+            \draw[dashed] (0.5,4) -- (5.5,4) -- (5.5,1.4) -- (0.5,1.4) -- (0.5,4);
+            % OpenPGP Polygon
+            %\draw[dashed] (0.5,0.7) -- (5.7,0.7) -- (5.7,-1.2) -- (0.5,-1.2) -- (0.5,0.7);
+            \draw[dashed] (-15.5,4) -- (-6.5,4) -- (-6.5,-4.5) -- (-15.5,-4.5) -- (-15.5,4);
+            % Server side polygon
+             
+            %\draw[help lines] (-16,-5) grid (6,4);
+            \path
+                % Images
+                (3,2.5) node [block] (fb) {\includegraphics[scale=0.07]{img/fb.png}}
+
+                % Text boxes
+                (-3,2.5) node [block2] (ffext) {Scramble FireFox Extension}
+                (-3,0) node [block2] (csback) {Client Side C++ MIRACL Based Back-end}
+                %(-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (db) {Contact Database}
+                (-9,2.5) node [block2] (dkgfront) {DKG Website (PHP Front-end)}
+                (-11,0) node [block2] (dkgback) {DKG C++ MIRACL Based Back-end}
+                (-13,2.5) node [block2] (dkgcfront) {DKG Socket (C++ Front-end)}
+
+                
+                % Text
+                (-3,4) node [leg,fill=white] (white_block) {\textbf{Client Side Scramble}}
+                (3,4) node [leg,fill=white] (white_block) {\textbf{Facebook}}
+                (-11,4) node [leg,fill=white] (white_block) {\textbf{Server Side DKG}}
+                (-11,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystor) {Encrypted Key Storage}
+                (-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystorcs) {Encrypted Key Storage}
+                (-1.65,1.25) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
+                (-7.75,1.25) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
+                (-6,3) node [leg,font=\small,fill=white] (white_block) {XML Messages \\ over Get Request}
+                (-16,3) node [leg,font=\small,fill=white] (white_block) {XML Messages \\ to Other DKGs}
+                ;
+                
+       %\node[node distance=2mm, above=of pkg] {\textbf{OSN Broadcast Server}};
+       
+       \begin{scope}[every path/.style=line]
+        %\path (alice.east) -- (pkg.west);
+        %\path (pkg.south west) -- (adv.north);
+       \end{scope}
+       \begin{scope}[every path/.style=line2]
+        \path (ffext.south) -- (csback.north);
+        %\path (csback.south) -- (db.north);
+        \path (ffext.west) -- (dkgfront.east);
+        \path (ffext.east) -- (0.5,2.5);
+        \path (dkgback.north east) -- (dkgfront.south);
+        \path (csback.south) -- (keystorcs.north);
+        \path (dkgcfront.south) -- (dkgback.north west);
+        \path (keystor.north) -- (dkgback.south);
+        \path (dkgcfront.west) -- (-17.5,2.5);
+       \end{scope}
+
+        \end{tikzpicture}
+        }
+    }
+
+    \caption{New Scramble Architecture}
+    \label{fig:new_scramble_arch}
+\end{figure}
+
+\section{Practical Design Decisions}
+\subsection{Type of Elliptic Curve}
+\subsection{Key Lengths}
+\subsection{Authenticated Encryption Mechanism}
+\subsection{Generating Random Numbers}
+
+\section{Implemented Scheme}
+
+\section{Client-Side Implementation}
+
+\section{Server-Side Implementation}
 
 \section{Evaluation}
 

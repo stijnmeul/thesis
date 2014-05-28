@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  27 MAY 2014 17:04
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  28 MAY 2014 12:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -883,7 +883,11 @@ File: pgflibraryarrows.code.tex 2008/10/27 v2.10 (rcs-revision 1.9)
 \arrowsize=\dimen215
 )) (/usr/local/texlive/2013/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v2.10 (rcs-revision 1.7)
-) (/usr/local/texlive/2013/texmf-dist/tex/latex/lipsum/lipsum.sty
+) (/usr/local/texlive/2013/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2008/01/09 v2.10 (rcs-revision 1.1)
+ (/usr/local/texlive/2013/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2008/06/26 v2.10 (rcs-revision 1.1)
+)) (/usr/local/texlive/2013/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count196
 )
@@ -999,7 +1003,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `kulemtfpf' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- <logokuleng.pdf, id=191, 159.33528pt x 85.358pt>
+ <logokuleng.pdf, id=203, 159.33528pt x 85.358pt>
 File: logokuleng.pdf Graphic file (type pdf)
  <use logokuleng.pdf>
 Package pdftex.def Info: logokuleng.pdf used on input line 83.
@@ -1101,17 +1105,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 \c@enumTemp=\count205
- [2] <img/bluepkg.png, id=362, 200.75pt x 200.75pt>
+ [2] <img/bluepkg.png, id=381, 200.75pt x 200.75pt>
 File: img/bluepkg.png Graphic file (type png)
  <use img/bluepkg.png>
 Package pdftex.def Info: img/bluepkg.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluealice.png, id=364, 200.75pt x 200.75pt>
+ <img/bluealice.png, id=383, 200.75pt x 200.75pt>
 File: img/bluealice.png Graphic file (type png)
  <use img/bluealice.png>
 Package pdftex.def Info: img/bluealice.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluebob.png, id=365, 200.75pt x 200.75pt>
+ <img/bluebob.png, id=384, 200.75pt x 200.75pt>
 File: img/bluebob.png Graphic file (type png)
  <use img/bluebob.png>
 Package pdftex.def Info: img/bluebob.png used on input line 174.
@@ -1120,32 +1124,32 @@ File: img/bluebob.png Graphic file (type png)
  <use img/bluebob.png>
 Package pdftex.def Info: img/bluebob.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bob.png, id=366, 200.75pt x 200.75pt>
+ <img/bob.png, id=385, 200.75pt x 200.75pt>
 File: img/bob.png Graphic file (type png)
  <use img/bob.png>
 Package pdftex.def Info: img/bob.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/alice.png, id=367, 200.75pt x 200.75pt>
+ <img/alice.png, id=386, 200.75pt x 200.75pt>
 File: img/alice.png Graphic file (type png)
  <use img/alice.png>
 Package pdftex.def Info: img/alice.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluemoneyman.png, id=368, 200.75pt x 200.75pt>
+ <img/bluemoneyman.png, id=387, 200.75pt x 200.75pt>
 File: img/bluemoneyman.png Graphic file (type png)
  <use img/bluemoneyman.png>
 Package pdftex.def Info: img/bluemoneyman.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/blueapp.png, id=369, 200.75pt x 200.75pt>
+ <img/blueapp.png, id=388, 200.75pt x 200.75pt>
 File: img/blueapp.png Graphic file (type png)
  <use img/blueapp.png>
 Package pdftex.def Info: img/blueapp.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/app.png, id=370, 200.75pt x 200.75pt>
+ <img/app.png, id=389, 200.75pt x 200.75pt>
 File: img/app.png Graphic file (type png)
  <use img/app.png>
 Package pdftex.def Info: img/app.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/moneyman.png, id=371, 200.75pt x 200.75pt>
+ <img/moneyman.png, id=390, 200.75pt x 200.75pt>
 File: img/moneyman.png Graphic file (type png)
  <use img/moneyman.png>
 Package pdftex.def Info: img/moneyman.png used on input line 174.
@@ -1158,7 +1162,7 @@ File: img/bob.png Graphic file (type png)
  <use img/bob.png>
 Package pdftex.def Info: img/bob.png used on input line 174.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/spy.png, id=372, 401.5pt x 401.5pt>
+ <img/spy.png, id=391, 401.5pt x 401.5pt>
 File: img/spy.png Graphic file (type png)
  <use img/spy.png>
 Package pdftex.def Info: img/spy.png used on input line 174.
@@ -1190,7 +1194,7 @@ Overfull \hbox (15.2028pt too wide) in paragraph at lines 192--193
 []\T1/lmr/m/n/10.95 (-20) The \T1/lmr/m/it/10.95 (-20) Com-pu-ta-tional Diffie-Hellman as-sump-tion \T1/lmr/m/n/10.95 (-20) holds if for any al-go-rithm $\OMS/lmsy/m/n/10.95 A []$
  []
 
-[13] [14] [15] [16] <img/cryptosystem.pdf, id=588, 597.23125pt x 845.1575pt>
+[13] [14] [15] [16] <img/cryptosystem.pdf, id=608, 597.23125pt x 845.1575pt>
 File: img/cryptosystem.pdf Graphic file (type pdf)
  <use img/cryptosystem.pdf>
 Package pdftex.def Info: img/cryptosystem.pdf used on input line 286.
@@ -1211,19 +1215,19 @@ Underfull \vbox (badness 1484) has occurred while \output is active []
 
  [26]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 39.
- <img/pkg.png, id=741, 200.75pt x 200.75pt>
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 40.
+ <img/pkg.png, id=760, 200.75pt x 200.75pt>
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 83.
+Package pdftex.def Info: img/pkg.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
 File: img/alice.png Graphic file (type png)
  <use img/alice.png>
-Package pdftex.def Info: img/alice.png used on input line 83.
+Package pdftex.def Info: img/alice.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
 File: img/bob.png Graphic file (type png)
  <use img/bob.png>
-Package pdftex.def Info: img/bob.png used on input line 83.
+Package pdftex.def Info: img/bob.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
  [27] [28 <./img/pkg.png>] [29]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1232,14 +1236,11 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 2486) has occurred while \output is active []
 
  [33] [34] [35]
-Overfull \hbox (12.99841pt too wide) in paragraph at lines 326--327
+Overfull \hbox (12.99841pt too wide) in paragraph at lines 327--328
 \T1/lmr/m/n/10.95 (-20) The im-ple-men-ta-tion from Fiat and Naor [[]] re-quires a ci-pher-text of size $\OML/lmm/m/it/10.95 O []$
  []
 
-[36] [37] [38] [39]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [40]) [41] [42]
+[36] [37] [38] [39] [40]) [41] [42]
 \openout2 = `chap-3.aux'.
 
  (./chap-3.tex [43
@@ -1346,7 +1347,7 @@ Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
  [52]
-Underfull \hbox (badness 5908) in paragraph at lines 322--323
+Underfull \hbox (badness 5908) in paragraph at lines 318--319
 []\T1/lmr/m/n/10.95 (+20) Choose cryp-to-graphic hash func-tions $\OML/lmm/m/it/10.95 H[] \OT1/lmr/m/n/10.95 (+20) : \OMS/lmsy/m/n/10.95 f\OT1/lmr/m/n/10.95 (+20) 0\OML/lmm/m/it/10.95 ; \OT1/lmr/m/n/10.95 (+20) 1\OMS/lmsy/m/n/10.95 g[] ! \OML/lmm/m/it/10.95 G[]$\T1/lmr/m/n/10.95 (+20) ,
  []
 
@@ -1354,55 +1355,91 @@ Underfull \hbox (badness 5908) in paragraph at lines 322--323
 Overfull \vbox (313.29614pt too high) has occurred while \output is active []
 
  [53]
-Underfull \hbox (badness 10000) in paragraph at lines 411--412
+Underfull \hbox (badness 10000) in paragraph at lines 407--408
 
  []
 
 [54])
 \openout2 = `chap-n.aux'.
 
- (./chap-n.tex) [55
+ (./chap-n.tex [55
 
 
 
-]
+] <img/fb.png, id=1304, 326.21875pt x 326.21875pt>
+File: img/fb.png Graphic file (type png)
+ <use img/fb.png>
+Package pdftex.def Info: img/fb.png used on input line 112.
+(pdftex.def)             Requested size: 22.83763pt x 22.83763pt.
+ <img/gplus.png, id=1305, 302.12875pt x 302.12875pt>
+File: img/gplus.png Graphic file (type png)
+ <use img/gplus.png>
+Package pdftex.def Info: img/gplus.png used on input line 112.
+(pdftex.def)             Requested size: 21.15117pt x 21.15117pt.
+ <img/linkedin.png, id=1306, 256.96pt x 256.96pt>
+File: img/linkedin.png Graphic file (type png)
+ <use img/linkedin.png>
+Package pdftex.def Info: img/linkedin.png used on input line 112.
+(pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
+ <img/twitter.png, id=1307, 513.92pt x 513.92pt>
+File: img/twitter.png Graphic file (type png)
+ <use img/twitter.png>
+Package pdftex.def Info: img/twitter.png used on input line 112.
+(pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
+ <img/tumblr.png, id=1308, 240.9pt x 240.9pt>
+File: img/tumblr.png Graphic file (type png)
+ <use img/tumblr.png>
+Package pdftex.def Info: img/tumblr.png used on input line 112.
+(pdftex.def)             Requested size: 24.0914pt x 24.0914pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [56 <./img/fb.png> <./img/gplus.png> <./img/linkedin.png> <./img/twitter.png> <./img/tumblr.png>]
+File: img/fb.png Graphic file (type png)
+ <use img/fb.png>
+Package pdftex.def Info: img/fb.png used on input line 196.
+(pdftex.def)             Requested size: 22.83763pt x 22.83763pt.
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [57] [58]
 \openout2 = `conclusion.aux'.
 
- (./conclusion.tex [56
+ (./conclusion.tex) [59
 
 
 
-]) [57] [58
+] [60
 
 
-] [59] [60]
+] [61] [62]
 \openout2 = `app-A.aux'.
 
- (./app-A.tex) [61
+ (./app-A.tex) [63
 
 
-] [62]
+] [64]
 \openout2 = `app-n.aux'.
 
  (./app-n.tex
 
-LaTeX Warning: Citation `h2g2' on page 63 undefined on input line 3.
+LaTeX Warning: Citation `h2g2' on page 65 undefined on input line 3.
 
-) [63
+) [65
 
 
 
 ]
 \openout2 = `app-C.aux'.
 
- (./app-C.tex [64
+ (./app-C.tex [66
 
 
 
-]) [65]
+]) [67]
 \openout2 = `app-D.aux'.
 
- (./app-D.tex [66
+ (./app-D.tex [68
 
 
 
@@ -1411,45 +1448,45 @@ Overfull \hbox (9.76971pt too wide) in paragraph at lines 3--4
 \T1/lmr/m/n/10.95 (-20) posed at []$\T1/lmtt/m/n/10.95 http : / / www . ieee . org / publications _ standards / publications / authors /
  []
 
-) [67] [68
+) [69] [70
 
 
 ] (./thesis.bbl
 bibitemlist
-[69
+[71
 
-] [70]
-Underfull \hbox (badness 10000) in paragraph at lines 170--175
+] [72]
+Underfull \hbox (badness 10000) in paragraph at lines 174--179
 []\T1/lmr/m/n/10.95 (+20) J. Bul-las.  22 so-cial me-dia facts and statis-tics you should
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--175
+Underfull \hbox (badness 10000) in paragraph at lines 174--179
 \T1/lmr/m/n/10.95 (+20) know in 2014.  URL: []$\T1/lmtt/m/n/10.95 http : / / www . jeffbullas . com / 2014 / 01 / 17 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--175
+Underfull \hbox (badness 10000) in paragraph at lines 174--179
 \T1/lmtt/m/n/10.95 20-[]social-[]media-[]facts-[]and-[]statistics-[]you-[]should-[]know-[]in-[]2014/$[]\T1/lmr/m/n/10.95 (+20) ,
  []
 
-[71] [72]
-Underfull \hbox (badness 2698) in paragraph at lines 364--369
+[73] [74]
+Underfull \hbox (badness 2698) in paragraph at lines 368--373
 []\T1/lmr/m/n/10.95 (+20) K. Jones.  The growth of so-cial me-dia v2.0.  URL: []$\T1/lmtt/m/n/10.95 http : / / www .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 364--369
+Underfull \hbox (badness 10000) in paragraph at lines 368--373
 \T1/lmtt/m/n/10.95 searchenginejournal . com / growth-[]social-[]media-[]2-[]0-[]infographic /
  []
 
-[73] [74] [75]
-Underfull \hbox (badness 7704) in paragraph at lines 530--535
+[75] [76] [77]
+Underfull \hbox (badness 7704) in paragraph at lines 534--539
 []\T1/lmr/m/n/10.95 (+20) StatisticBrain.  So-cial net-work-ing statis-tics.  URL: []$\T1/lmtt/m/n/10.95 http : / / www .
  []
 
 
-Underfull \hbox (badness 2799) in paragraph at lines 530--535
+Underfull \hbox (badness 2799) in paragraph at lines 534--539
 \T1/lmtt/m/n/10.95 statisticbrain . com / social-[]networking-[]statistics/$[]\T1/lmr/m/n/10.95 (+20) , last checked on
  []
 
@@ -1460,7 +1497,7 @@ Class memoir Warning: The material used in the headers is too large
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 182.
 
-[76] [77
+[78] [79
 
 ]
 \tf@toc=\write6
@@ -1478,7 +1515,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 748CAA567F0C3CF511B741F4FDF50726;2870.
+(rerunfilecheck)             Checksum: A8E316D239412101DFD25864387A28FB;3026.
 
 
 LaTeX Warning: There were undefined references.
@@ -1489,19 +1526,19 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 23805 strings out of 493315
- 403402 string characters out of 6137904
- 658958 words of memory out of 5000000
- 25999 multiletter control sequences out of 15000+600000
- 107159 words of font info for 189 fonts, out of 8000000 for 9000
+ 24481 strings out of 493315
+ 418644 string characters out of 6137904
+ 679491 words of memory out of 5000000
+ 26650 multiletter control sequences out of 15000+600000
+ 110185 words of font info for 191 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 61i,23n,74p,1371b,851s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,23n,79p,1371b,865s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} </Users/stijn/Library/texlive/2013/texmf-var/fonts/pk/ljfour/public/bbding/bbding10.657pk>{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type
 1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis.pdf (87 pages, 1046238 bytes).
+Output written on thesis.pdf (89 pages, 1208904 bytes).
 PDF statistics:
- 1614 PDF objects out of 1728 (max. 8388607)
- 1437 compressed objects within 15 object streams
- 484 named destinations out of 1000 (max. 500000)
- 34756 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 1676 PDF objects out of 1728 (max. 8388607)
+ 1487 compressed objects within 15 object streams
+ 495 named destinations out of 1000 (max. 500000)
+ 36853 words of extra memory for PDF output out of 42996 (max. 10000000)
 

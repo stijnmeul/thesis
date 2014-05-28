@@ -4,6 +4,10 @@
 Pairing based cryptography.
 \newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
 
+\bibitem{thesis:Lynn07}
+On the implementation of pairing-based cryptography.
+\newblock Master's thesis, Stanford, 2007.
+
 \bibitem{thesis:Alfredo08}
 Public-key encryption with oblivious keyword search. priced oblivious transfer.
 \newblock Master's thesis, KU Leuven, 2008.

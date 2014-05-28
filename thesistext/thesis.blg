@@ -13,20 +13,20 @@ A level-1 auxiliary file: app-C.aux
 A level-1 auxiliary file: app-D.aux
 The style file: abbrv.bst
 Database file #1: references.bib
-Repeated entry---line 251 of file references.bib
+Repeated entry---line 257 of file references.bib
  : @proceedings{DBLP:conf/pairing/2013
  :                                    ,
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 357 of file references.bib
+I was expecting a `,' or a `}'---line 363 of file references.bib
  : 
  : @inproceedings{art:Blakley79,
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Repeated entry---line 767 of file references.bib
+Repeated entry---line 773 of file references.bib
  : @proceedings{DBLP:conf/crypto/2005
  :                                   ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 922 of file references.bib
+Repeated entry---line 928 of file references.bib
  : @proceedings{DBLP:conf/eurocrypt/2005
  :                                      ,
 I'm skipping whatever remains of this entry
@@ -37,48 +37,50 @@ Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
 Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--to sort, need author or key in thesis:Alfredo08
+Warning--to sort, need author or key in thesis:Lynn07
 Warning--empty author in thesis:Maas04
+Warning--empty author in thesis:Lynn07
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
-You've used 98 entries,
+You've used 99 entries,
             2118 wiz_defined-function locations,
-            1252 strings with 26322 characters,
-and the built_in function-call counts, 36419 in all, are:
-= -- 3546
-> -- 1597
+            1256 strings with 26407 characters,
+and the built_in function-call counts, 36573 in all, are:
+= -- 3563
+> -- 1598
 < -- 78
-+ -- 621
++ -- 622
 - -- 504
-* -- 2504
-:= -- 5763
-add.period$ -- 329
-call.type$ -- 98
-change.case$ -- 515
+* -- 2514
+:= -- 5786
+add.period$ -- 331
+call.type$ -- 99
+change.case$ -- 518
 chr.to.int$ -- 0
-cite$ -- 104
-duplicate$ -- 1520
-empty$ -- 2962
+cite$ -- 107
+duplicate$ -- 1528
+empty$ -- 2977
 format.name$ -- 514
-if$ -- 8030
+if$ -- 8063
 int.to.chr$ -- 0
-int.to.str$ -- 98
+int.to.str$ -- 99
 missing$ -- 85
-newline$ -- 488
+newline$ -- 492
 num.names$ -- 265
-pop$ -- 543
+pop$ -- 546
 preamble$ -- 1
-purify$ -- 422
+purify$ -- 424
 quote$ -- 0
-skip$ -- 1190
+skip$ -- 1196
 stack$ -- 0
-substring$ -- 2082
+substring$ -- 2087
 swap$ -- 538
 text.length$ -- 72
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 385
-warning$ -- 6
+type$ -- 389
+warning$ -- 8
 while$ -- 345
-width$ -- 100
-write$ -- 1114
+width$ -- 101
+write$ -- 1123
 (There were 5 error messages)
