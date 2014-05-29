@@ -651,8 +651,8 @@ void writeIndexPhp(int portNb, const char * dkgDir) {
 	indexPhp << "$result = $xml->createElement('result');" << endl;
 	indexPhp << "$xml->appendChild($root);" << endl;
 	indexPhp << endl;
-    indexPhp << "if(array_key_exists('id', $_GET) && isset($_GET['id']) && $_GET['id'] != ''){" << endl;
-    indexPhp << "	$command = htmlspecialchars($_GET['id']);" << endl;
+    indexPhp << "if(array_key_exists('id', $_POST) && isset($_POST['id']) && $_POST['id'] != ''){" << endl;
+    indexPhp << "	$command = htmlspecialchars($_POST['id']);" << endl;
     indexPhp << "    socket_write($socket,$command,strlen($command));" << endl;
     indexPhp << "    $DidResult = socket_read($socket, $buf_size, PHP_NORMAL_READ);" << endl;
     indexPhp << "    socket_close($socket);" << endl;

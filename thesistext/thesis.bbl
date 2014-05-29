@@ -3,6 +3,9 @@
 \bibitem{nist:dworkin}
 
 
+\bibitem{nist:fips_180_4}
+
+
 \bibitem{thesis:Maas04}
 Pairing based cryptography.
 \newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
@@ -220,6 +223,11 @@ L.~Chen and Z.~Cheng.
 \newblock Security proof of sakai-kasahara's identity-based encryption scheme.
 \newblock {\em IACR Cryptology ePrint Archive}, 2005:226, 2005.
 
+\bibitem{art:ChorFNP00}
+B.~Chor, A.~Fiat, M.~Naor, and B.~Pinkas.
+\newblock Tracing traitors.
+\newblock {\em IEEE Transactions on Information Theory}, 46(3):893--910, 2000.
+
 \bibitem{art:ChorGMA85}
 B.~Chor, S.~Goldwasser, S.~Micali, and B.~Awerbuch.
 \newblock Verifiable secret sharing and achieving simultaneity in the presence
@@ -290,6 +298,11 @@ D.~M. Freeman.
   prime-order groups.
 \newblock In H.~Gilbert, editor, {\em EUROCRYPT}, volume 6110 of {\em Lecture
   Notes in Computer Science}, pages 44--61. Springer, 2010.
+
+\bibitem{rfc6101}
+A.~Freier, P.~Karlton, and P.~Kocher.
+\newblock {The Secure Sockets Layer (SSL) Protocol Version 3.0}.
+\newblock RFC 6101 (Historic), Aug. 2011.
 
 \bibitem{art:FreyMR99}
 G.~Frey, M.~M{\"u}ller, and H.-G. R{\"u}ck.
@@ -467,6 +480,11 @@ L.~Martin and M.~Schertler.
   Algorithms with the Cryptographic Message Syntax (CMS)}.
 \newblock RFC 5409 (Informational), Jan. 2009.
 
+\bibitem{art:Matthews96}
+T.~Matthews.
+\newblock Suggestion for random number generators in software.
+\newblock {\em RSA Laboratories Bulletin}, 1:1--4, 1996.
+
 \bibitem{art:MaurerW98}
 U.~M. Maurer and S.~Wolf.
 \newblock Lower bounds on generic algorithms in groups.
@@ -506,6 +524,12 @@ M.~K. R~Sakai, K~Ohgishi.
 \newblock Cryptosystem based on pairing over elliptic curve (in {J}apanese).
 \newblock In {\em The 2001 Symposium on Cryptography and Information Security,
   Oiso, Japan, January}, 2001.
+
+\bibitem{rfc2818}
+E.~Rescorla.
+\newblock {HTTP Over TLS}.
+\newblock RFC 2818 (Informational), May 2000.
+\newblock Updated by RFC 5785.
 
 \bibitem{art:RistenpartSS11}
 T.~Ristenpart, H.~Shacham, and T.~Shrimpton.

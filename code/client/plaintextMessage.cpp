@@ -108,13 +108,6 @@ void PlaintextMessage::generateKeys(PFC *pfc) {
     }
     shs256_hash(&sh,sessionKey);
 
-    char buf[4];
-    fp = fopen("/dev/urandom", "r");
-    fread(&buf, 1, 4, fp);
-    fclose(fp);
-    long seed = (buf[0]) | (buf[1] << 8) | (buf[2] << 16) | (buf[3] << 24);
-    irand(seed);
-
     // Generate random sigma key with AES_LENGTH bits
     (*pfc).rankey(sigma);
     cout << "sigma" << endl << sigma << endl;

@@ -164,7 +164,7 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
                 (-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystorcs) {Encrypted Key Storage}
                 (-1.65,1.25) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
                 (-7.75,1.25) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
-                (-6,3.15) node [leg,font=\small,fill=white] (white_block) {XML \\ Messages over \\ HTTP Request}
+                (-6,3.15) node [leg,font=\small,fill=white] (white_block) {XML \\ Messages over \\ POST Request}
                 (-12,0.5) node [leg,font=\small,fill=white] (white_block) {XML Messages \\ to Other PKGs}
                 
                 (-3,2.5) node [block2] (ffext) {Scramble FireFox Extension}
@@ -206,7 +206,7 @@ Figure~\ref{fig:new_scramble_arch} exchanges the web of trust from Figure~\ref{f
 
 The C++ based front-end of the PKG only serves as a front-end during execution of the DKG protocol. Negotiation of the shares is implemented over synchronous sockets. At the startup of the PKG socket, the administrator is asked for a secret passphrase. Then, the sockets start listening on a predetermined port until all shares are correctly negotiated. Once all PKGs have exchanged their shares, the PKG calculates its public parameters and finishes the \texttt{Setup} step from Algorithm~\ref{alg:our_scheme}. The coefficients of the secret polynomial are encrypted with the earlier specified passphrase along with the negotiated secret share. After storage of these secret parameters, the C++ socket starts listening on another port to handle requests from the PHP front-end. Handling of private key extraction requests is multithreaded to handle requests of multiple clients at the same time.
 
-The PHP based front-end receives private key extraction queries from the Scramble FireFox extension in the form of HTTP requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage which posts the response over HTTPS back to the requesting client.
+The PHP based front-end receives private key extraction queries from the Scramble FireFox extension in the form of POST requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage which publishes the response as an XML message over HTTPS~\cite{rfc2818}.
 
 Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, the scramble plugin can be made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof-of-concept.
 
@@ -237,22 +237,74 @@ with
 Since $l=256$, $w_i$ and $\rho$ are binary sequences of 256 bits. Hence, $\rho$ only contains sufficient randomness to securely encrypt a session key $k$ of the same length. The full 256 bit $k$ is not completely used for symmetric encryption as the AES-GCM scheme still requires an IV as well. Since the randomness and key freshness of the IV is at least as important as the secrecy of $k$~\cite{nist:dworkin}, it was deliberately chosen not to apply key derivation functions to derive a separate symmetric encryption key and IV from the same value $k$. Therefore, the first 128 bits of $k$ are used as the symmetric key of AES-GCM, while the second 96 bits function as an IV. According to NIST, this should ensure confidentiality at least until 2030. However, if a higher level of security should be required, key derivation on $k$ could be considered.
 
 \subsection{Hash Functions}
-The hash function $H_1: \{ 0,1 \}^{*} \rightarrow G_1$ is implemented using the MIRACL function call \texttt{hash\textunderscore to\textunderscore group}. Hash function $H_2: G_T \rightarrow \{ 0,1 \}^{l}$ relies on the \texttt{hash\textunderscore to\textunderscore aes\textunderscore key} function. Both $H_1$ and $H_2$ internally fall back on SHA-256. Also $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ is implemented with the MIRACL provided SHA-256 implementation.
+The hash function $H_1: \{ 0,1 \}^{*} \rightarrow G_1$ is implemented using the MIRACL function call \texttt{hash\textunderscore to\textunderscore group}. Hash function $H_2: G_T \rightarrow \{ 0,1 \}^{l}$ relies on the \texttt{hash\textunderscore to\textunderscore aes\textunderscore key} function. Both $H_1$ and $H_2$ internally fall back on SHA-256~\cite{nist:fips_180_4}. Also $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ is implemented with the MIRACL provided SHA-256 implementation.
 
 \subsection{Generating Random Numbers}
-Random numbers are generated 
+Random numbers are generated using the MIRACL build-in strong random number generator. The strong random generator is initialised with a time-of-day value and a binary array of 1024 bits read from \texttt{/dev/urandom}. These values are then used as a seed for the generation of random numbers. The practical implementation of the MIRACL strong random generator is based on an advice published by RSA Laboratories in~\cite{art:Matthews96}.
 
 \section{Implemented Scheme}
 
+\begin{figure}
+    \centering
+    \noindent\makebox[\textwidth]{
+        \scalebox{0.72} {
+        \begin{tikzpicture}
+        \begin{abstractclass}[text width =9 cm]{BroadcastMessage}{0,0}
+          \attribute{\# message : std::string }
+          \attribute{\# autData : *AuthenticatedData}
+          \attribute{\# sessionKey : char[HASH\textunderscore LEN]}
+          \attribute{\# sigma : Big}
+          \attribute{\# r : Big}
+          \operation{\# void getIV(char (\& iv)[HASH\textunderscore LEN/2])}
+          \operation{\# void getK(char (\& iv)[HASH\textunderscore LEN/2])}
+          \operation{+ int getNbOfRecipients()}
+          \operation[0]{+ string getMessage()}
+          \operation{+ int getBroadcastMessageLength()}
+          \operation{+ Big getSessionKey()}
+        \end{abstractclass}
+        \begin{class}[text width =7 cm]{CheckingAccount}{ -8 , -8}
+          \inherit{BroadcastMessage}
+          \attribute{ insufficientFundsFee : Dollars }
+          \operation{ processCheck ( checkToProcess : Check
+)}
+          \operation{ withdrawal ( amount : Dollars ) }
+        \end{class}
+        \begin{class}[text width =7 cm]{ SavingsAccount }{8 , -8}
+          \inherit{BroadcastMessage}
+          \attribute{ annualInteresRate : Percentage }
+          \operation{ depositMonthlyInterest( )}
+          \operation{ withdrawal(amount : Dollars)}
+        \end{class}
+        \end{tikzpicture}
+    }}
+    \caption{Class Diagram of C++ MIRACL Based Back-end}
+    \label{fig:class_client_side}
+\end{figure}
 \subsection{Client-Side Implementation}
 
 \subsection{Server-Side Implementation}
 
-\section{Evaluation}
-
 \section{Performance Analysis}
 
-\section{Conclusion}
+\section{Shortcomings of Current Implementation}
+The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} were implemented, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of hard design decisions.
+
+\subsection{Client Side}
+Since the IBE scheme is integrated in the existing Scramble UI, not many adaptions should be made to the client side implementation. The major drawback of our IBE proposal is that it makes the Scramble plugin more dependent on the underlying OSN. Consequently, every OSN should be separately integrated into the Scramble plugin since each OSN offers its own API calls for reading out friend connections. More OSNs than Facebook should be actively supported by the IBE Scramble tool to motivate the use of the plugin.
+
+\subsection{Server Side}
+In its present form, the PKG is only simulated in a local environment. Therefore, it suffices to rely on synchronous communication over C++ sockets each listening on a different port. However, before adaption to a world-wide DKG network is possible, the protocol should take more asynchronous aspects into account such as connection-loss, DOS-attacks or undelivered packets. Kate et al.~\cite{art:KateHG12} propose a more advanced DKG protocol in the asynchronous setting that could be adapted for our IBE setting.
+
+Since the DKG protocol is currently always simulated in a local environment, all PKG sockets communicate their XML messages in plain text. More secure socket protocols should be considered such as SSL~\cite{rfc6101} for adoption to a more hostile distributed setting.
+
+Furthermore, the current assumptions on the PKGs (Section~\ref{sec:assymptions_on_pkg}) are too severe for practical environments. In practice the current Pedersen DKG scheme~\cite{art:Pedersen91a} is insecure and is better replaced by the one from Gennaro et al.~\cite{art:GennaroJKR07}. If all mentioned updates on the current server side scheme are effectively achieved, more relaxed assumptions on the PKG are in place. With less stringent PKG assumptions, the DKG network could even be partially supported by the OSN providers to show their good intensions of making their networks more private.
+
+\subsection{Shortcomings Effecting Both Client and Server}
+Currently, private key extraction takes the form of a POST request over HTTPS~\cite{rfc2818}. Although the PKGs publish the response in plain text to their PHP website, the communication is encrypted by a self-signed SSL certificate. Ideally, this certificate is signed by a world-wide trusted CA such that the client-side implementation can effectively verify whether it is communicating with a valid PKG.
+
+Although web communication between the client side Scramble tool and the server side PKG is already encrypted, a client can request the private key parameters for every $\id{}$ since there is no authentication mechanism checking the user's identity. However, Facebook provides third party authentication in its API. If a Facebook login dialogue is integrated in the Scramble UI, the returned Facebook authentication token serves as a proof to the PKG that the requester of the private key resembles the owner of the corresponding Facebook profile.
+
+\section{Summary}
 
 %%% Local Variables: 
 %%% mode: latex

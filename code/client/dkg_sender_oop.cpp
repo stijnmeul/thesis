@@ -18,25 +18,20 @@
 #include <stdexcept>
 #include "client_funcs.h"
 #define RECEIVER_ID "Alice"
-#define PKG "http://localhost/thesis/?id="
-#define PKG_ADDR PKG RECEIVER_ID
+#define PKG_POST "id=" RECEIVER_ID
 
 
 #include "../cppmiracl/source/pairing_3.h"
 
 #define THRESHOLD 3
-#define DKG_BASE_ADDR "http://localhost/thesis/dkg"
+#define DKG_BASE_ADDR "https://localhost/thesis/dkg"
 
 using namespace std;
 
-PFC pfc(AES_SECURITY);
+
 class PlaintextMessage;
 
 // Avoid invalid returning of forward reference.
-
-
-miracl *mip = get_mip();
-int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
 
 struct DkgResult {
     G2 Ppub;
@@ -46,11 +41,26 @@ struct DkgResult {
 
 DkgResult scrapeDkg(string url);
 Big lagrange(int i, int *reconstructionPoints, int degree, Big order);
-G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order);
-G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order);
+G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order, PFC *pfc);
+G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order, PFC *pfc);
 
 int main(void)
 {
+    // Initialise a strong random number generator
+    char raw[256];
+    FILE *fp;
+    fp = fopen("/dev/urandom", "r");
+    fread(&raw, 1, 256, fp);
+    fclose(fp);
+    time_t seed;
+    csprng rng;
+    time(&seed);
+    strong_init(&rng,strlen(raw),raw,(long)seed);
+    // Make sure all random PFC elements rely on strong random number generator
+    PFC pfc(AES_SECURITY,&rng);
+    miracl *mip = get_mip();
+    int bytes_per_big=(MIRACL/8)*(get_mip()->nib-1);
+
     mip->IOBASE=64;
     clock_t begin_time, begin_time1;
     float enc_time, enc_time1, dec_time, dec_time1, dec_time2;
@@ -68,7 +78,7 @@ int main(void)
     string urls[THRESHOLD];
     for (int i = 0; i < THRESHOLD; i++) {
         stringstream ss;
-        ss << DKG_BASE_ADDR << dkgIds[i] << "/?id=" << id;
+        ss << DKG_BASE_ADDR << dkgIds[i] << "/";
         urls[i] = ss.str();
     }
     vector <G1> Qprivs;
@@ -96,8 +106,8 @@ int main(void)
         }
     }
 
-    D = getSecretKey(dkgIds, Qprivs, order);
-    Ppub = getPpub(dkgIds, Ppubs, order);
+    D = getSecretKey(dkgIds, Qprivs, order, &pfc);
+    Ppub = getPpub(dkgIds, Ppubs, order, &pfc);
     cout << "D.g" << endl << D.g << endl;
     cout << "Ppub.g" << endl << Ppub.g << endl;
 
@@ -130,8 +140,8 @@ int main(void)
         }
     }
     // This demonstrates that the DKGs are effectively working like they should
-    D = getSecretKey(dkgIds2, Qprivs, order);
-    Ppub = getPpub(dkgIds2, Ppubs, order);
+    D = getSecretKey(dkgIds2, Qprivs, order,&pfc);
+    Ppub = getPpub(dkgIds2, Ppubs, order, &pfc);
     cout << "D.g" << endl << D.g << endl;
     cout << "Ppub.g" << endl << Ppub.g << endl;
 
@@ -197,6 +207,10 @@ DkgResult scrapeDkg(string url) {
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+        // Turn off cerificate checking with external CA's since localhost uses a self-signed certificate
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        // Do a POST request to get all results
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, PKG_POST);
 
         /* Perform the request, res will get the return code */
         res = curl_easy_perform(curl);
@@ -239,22 +253,22 @@ DkgResult scrapeDkg(string url) {
     return result;
 }
 
-G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order) {
+G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order, PFC *pfc) {
     G1 D;
     for (int i = 0; i < THRESHOLD; i++) {
         G1 Q = Qprivs.at(i);
         Big l = lagrange(i, contactedServers, THRESHOLD, order);
-        D = D + pfc.mult(Q, l);
+        D = D + (*pfc).mult(Q, l);
     }
     return D;
 }
 
-G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order) {
+G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order, PFC *pfc) {
     G2 Ppub;
     for (int i = 0; i < THRESHOLD; i++) {
         G2 myPpub = Ppubs.at(i);
         Big l = lagrange(i, contactedServers, THRESHOLD, order);
-        Ppub = Ppub + pfc.mult(myPpub, l);
+        Ppub = Ppub + (*pfc).mult(myPpub, l);
     }
     return Ppub;
 }

@@ -11,8 +11,8 @@ $root = $xml->createElement('scramble');
 $result = $xml->createElement('result');
 $xml->appendChild($root);
 
-if(array_key_exists('id', $_GET) && isset($_GET['id']) && $_GET['id'] != ''){
-	$command = htmlspecialchars($_GET['id']);
+if(array_key_exists('id', $_POST) && isset($_POST['id']) && $_POST['id'] != ''){
+	$command = htmlspecialchars($_POST['id']);
     socket_write($socket,$command,strlen($command));
     $DidResult = socket_read($socket, $buf_size, PHP_NORMAL_READ);
     socket_close($socket);
@@ -40,7 +40,7 @@ if(array_key_exists('id', $_GET) && isset($_GET['id']) && $_GET['id'] != ''){
 	$Did = $xml->createElement('d_id');
 	$DidText = $xml->createTextNode($DidResult);
 	$Did->appendChild($DidText);
- 
+
 	$result->appendChild($Ppub);
 	$result->appendChild($P);
 	$result->appendChild($Did);
