@@ -184,6 +184,7 @@ int main(void)
 
     EncryptedMessage encMes = mes.encrypt(P, Ppub, &pfc);
     cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
+    //cout << "encMes.getNbOfRecipients()" << endl << encMes.getNbOfRecipients() << endl;
     begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D, &pfc);
     cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;

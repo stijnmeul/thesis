@@ -31,7 +31,7 @@ int AuthenticatedData::getNbOfRecipients() {
     return ws.size();
 }
 
-vector <Big> AuthenticatedData::getRecipientKeys() {
+vector <Big> AuthenticatedData::getEncryptedRecipientKeys() {
     return ws;
 }
 
@@ -40,22 +40,22 @@ int AuthenticatedData::getLength(int nbOfRecipients) {
     return U_LEN + nbOfRecipients*(W_LEN) + sizeof(int);
 }
 
-void AuthenticatedData::addRecipientKey(Big recipientKey) {
-    ws.push_back(recipientKey);
+void AuthenticatedData::add(Big encryptedRecipientKey) {
+    ws.push_back(encryptedRecipientKey);
 }
 
 
-void AuthenticatedData::encodeToArray(char * A) {
+void AuthenticatedData::encodeTo(char * array) {
     int nbOfRecipients = getNbOfRecipients();
     int Alen = getLength(nbOfRecipients);
-    memset(A, 0, Alen);
+    memset(array, 0, Alen);
     int filled = 0;
-    memcpy(A,&(nbOfRecipients), sizeof(nbOfRecipients));
+    memcpy(array,&(nbOfRecipients), sizeof(nbOfRecipients));
     filled = sizeof(nbOfRecipients);
-    strcpy(&A[filled],toString(U).c_str());
+    strcpy(&array[filled],toString(U).c_str());
     filled += U_LEN;
     for(int i = 0; i < nbOfRecipients; i++){
-        strcpy(&A[filled],toString(ws.at(i)).c_str());
+        strcpy(&array[filled],toString(ws.at(i)).c_str());
         filled += V_LEN;
     }
 }

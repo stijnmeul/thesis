@@ -1,11 +1,5 @@
 \begin{thebibliography}{100}
 
-\bibitem{nist:dworkin}
-
-
-\bibitem{nist:fips_180_4}
-
-
 \bibitem{thesis:Maas04}
 Pairing based cryptography.
 \newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
@@ -53,6 +47,13 @@ J.~Baek, J.~Newmarch, R.~Safavi-naini, and W.~Susilo.
 \newblock A survey of identity-based cryptography.
 \newblock In {\em Proc. of Australian Unix Users Group Annual Conference},
   pages 95--102, 2004.
+
+\bibitem{art:BalseBADG14}
+E.~Balsa, L.~Brandimarte, A.~Acquisti, C.~Diaz, and S.~F. G\''urses.
+\newblock {Spiny CACTOS: OSN users attitudes and perceptions towards
+  cryptographic access control tools}.
+\newblock In {\em Workshop on Usable Security}, Lecture Notes in Computer
+  Science, page~10, San Diego,CA,USA, 2014. Springer-Verlag.
 
 \bibitem{art:BarbosaF05}
 M.~Barbosa and P.~Farshim.
@@ -183,13 +184,6 @@ G.~Brassard, D.~Chaum, and C.~Cr{\'e}peau.
 \newblock Minimum disclosure proofs of knowledge.
 \newblock {\em J. Comput. Syst. Sci.}, 37(2):156--189, 1988.
 
-\bibitem{site:Bullas14}
-J.~Bullas.
-\newblock 22 social media facts and statistics you should know in 2014.
-\newblock URL:
-  \url{http://www.jeffbullas.com/2014/01/17/20-social-media-facts-and-statistics-you-should-know-in-2014/},
-  last checked on 2014-05-08.
-
 \bibitem{rfc4880}
 J.~Callas, L.~Donnerhacke, H.~Finney, D.~Shaw, and R.~Thayer.
 \newblock {OpenPGP Message Format}.
@@ -246,6 +240,16 @@ R.~Cramer, editor.
   Techniques, Aarhus, Denmark, May 22-26, 2005, Proceedings}, volume 3494 of
   {\em Lecture Notes in Computer Science}. Springer, 2005.
 
+\bibitem{art:CristofaroSTW11}
+E.~D. Cristofaro, C.~Soriente, G.~Tsudik, and A.~Williams.
+\newblock Hummingbird: Privacy at the time of twitter.
+\newblock {\em IACR Cryptology ePrint Archive}, 2011:640, 2011.
+
+\bibitem{art:CutilloMO11}
+L.~A. Cutillo, R.~Molva, and M.~{\"O}nen.
+\newblock Safebook: A distributed privacy preserving online social network.
+\newblock In {\em WOWMOM}, pages 1--3. IEEE, 2011.
+
 \bibitem{art:Delerablee07}
 C.~Delerabl{\'e}e.
 \newblock Identity-based broadcast encryption with constant size ciphertexts
@@ -270,6 +274,11 @@ L.~Ducas.
 \newblock Anonymity from asymmetry: New constructions for anonymous hibe.
 \newblock In J.~Pieprzyk, editor, {\em CT-RSA}, volume 5985 of {\em Lecture
   Notes in Computer Science}, pages 148--164. Springer, 2010.
+
+\bibitem{NYT2010.Diaspora}
+J.~Dwyer.
+\newblock Four nerds and a cry to arms against {Facebook}.
+\newblock May 11, 2010. \url{http://nyti.ms/1hc60kv}. Accessed: Dec 3, 2013.
 
 \bibitem{art:FazioP12}
 N.~Fazio and I.~M. Perera.
@@ -398,13 +407,6 @@ R.~Housley.
   Cryptographic Message Syntax (CMS)}.
 \newblock RFC 5084 (Proposed Standard), Nov. 2007.
 
-\bibitem{site:Jones13}
-K.~Jones.
-\newblock The growth of social media v2.0.
-\newblock URL:
-  \url{http://www.searchenginejournal.com/growth-social-media-2-0-infographic/77055/},
-  last checked on 2014-05-08.
-
 \bibitem{art:Joux13}
 A.~Joux.
 \newblock A new index calculus algorithm with complexity l(1/4+o(1)) in very
@@ -513,11 +515,21 @@ D.~Naor, M.~Naor, and J.~B. Lotspiech.
 \newblock Revocation and tracing schemes for stateless receivers.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:59, 2001.
 
+\bibitem{nist:fips1804}
+N.~I. of~Standards and Technology.
+\newblock {{FIPS PUB 180-4: Secure Hash Standard}}.
+\newblock RFC 6101 (Historic), 2012.
+
 \bibitem{art:Pedersen91a}
 T.~P. Pedersen.
 \newblock A threshold cryptosystem without a trusted party (extended abstract).
 \newblock In D.~W. Davies, editor, {\em EUROCRYPT}, volume 547 of {\em Lecture
   Notes in Computer Science}, pages 522--526. Springer, 1991.
+
+\bibitem{prism}
+W.~Post.
+\newblock {NSA} slides explain the {PRISM} data-collection program.
+\newblock June 6, 2013 \url{http://wapo.st/J2gkLY}. Accessed Sept. 6, 2013.
 
 \bibitem{art:SakaiOK01}
 M.~K. R~Sakai, K~Ohgishi.
@@ -581,13 +593,6 @@ N.~P. Smart.
 \newblock In C.~Blundo and S.~Cimato, editors, {\em SCN}, volume 3352 of {\em
   Lecture Notes in Computer Science}, pages 208--219. Springer, 2004.
 
-\bibitem{site:StatisticBrain}
-StatisticBrain.
-\newblock Social networking statistics.
-\newblock URL:
-  \url{http://www.statisticbrain.com/social-networking-statistics/}, last
-  checked on 2014-05-08.
-
 \bibitem{art:Kerckhoffs1883}
 A.~K. (von Nieuwenhof).
 \newblock La cryptographie militaire. ({French}) [{Military} cryptography].
@@ -616,11 +621,6 @@ P.~Wiki.
 \newblock Lagrange interpolation formula.
 \newblock URL:
   \url{http://www.proofwiki.org/wiki/Lagrange_Interpolation_Formula}.
-
-\bibitem{site:worldometers}
-Worldometers.
-\newblock Worldometers real time world statistics.
-\newblock URL: \url{http://www.worldometers.info/}, last checked on 2014-05-08.
 
 \bibitem{art:YuRL10}
 S.~Yu, K.~Ren, and W.~Lou.

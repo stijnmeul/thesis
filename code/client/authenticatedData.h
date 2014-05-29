@@ -17,11 +17,11 @@ public:
 
     int getNbOfRecipients();
 
-    vector <Big> getRecipientKeys();
+    vector <Big> getEncryptedRecipientKeys();
 
     int getLength(int nbOfRecipients);
 
-    void addRecipientKey(Big recipientKey);
+    void add(Big encryptedRecipientKey);
 
-    void encodeToArray(char * A);
+    void encodeTo(char * array);
 };

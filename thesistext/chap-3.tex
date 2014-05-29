@@ -31,7 +31,7 @@ An OSN user can perform different activities within the infrastructure of the OS
 
 \begin{defn}[Sender]
 \label{def:sender}
- A \textit{sender} $A$ is an OSN user who broadcasts a message $m$ over the OSN infrastructure to varying subsets of OSN users, called the \textit{intended recipient set} $\mathcal{S}$ such that $\mathcal{S} \subseteq \mathcal{U}$.
+ A \textit{sender} $A$ is an OSN user who broadcasts a message $m$ over the OSN infrastructure to varying subsets of OSN users, called the \textit{intended recipient set} $\mathcal{S}$, such that $\mathcal{S} \subseteq \mathcal{U}$.
 \end{defn}
 
 \begin{defn}[Intended recipient]
@@ -41,7 +41,7 @@ An OSN user can perform different activities within the infrastructure of the OS
 
 \begin{defn}[Friend]
 \label{def:friend}
- An OSN user who shares a connection with another OSN user $U$ in the OSN infrastructure, is called a \textit{friend of the user $U$}. The set of all friends associated to a user $U$ is denoted $\mathcal{F}_U$ such that $\mathcal{F}_U \subseteq \mathcal{U}$.
+ An OSN user who shares a connection with another OSN user $U$ in the OSN infrastructure, is called a \textit{friend of the user $U$}. The set of all friends associated to a user $U$ is denoted $\mathcal{F}_U$, such that $\mathcal{F}_U \subseteq \mathcal{U}$.
 \end{defn}
 
 Currently, other entities than OSN users $U \in \mathcal{U}$ associated with a profile $\id{U}$, can access the OSN services as well. If abstraction is made of entities with access to specific content, it suffices to define a set of \textit{viewers}.
@@ -53,7 +53,7 @@ Currently, other entities than OSN users $U \in \mathcal{U}$ associated with a p
 
 Many different entities can be part of the set $\mathcal{V}$, i.e. OSN users, advertising companies, system administrators of the OSN, software applications specifically developed for the OSN, ... Usually, the OSN determines who is part of $\mathcal{V}$. Therefore, a user $U$ often has no control in who is a member of $\mathcal{V}_U$.
 
-Following the example illustrated by Figure~\ref{fig:current_model}, Sender $A$ wants to broadcast a message $m$ over the OSN infrastructure to the intended recipient set $\mathcal{S}$. As $A$ only wants to share the message with a specific group of friends, $A$ defines the intended recipient set such that $\mathcal{S} \subset \mathcal{F}_B$. Next, $A$ sends $m$ to the OSN's distribution server along with the intended recipient set $\mathcal{S}$. The OSN Server further distributes the message to all users in $\mathcal{S}$. Also a subset of third party applications and advertisers get access to the distributed message if they are inside the viewers group $\mathcal{V}_B$. Every entity who has access to the message is coloured blue in Figure~\ref{fig:current_model}.
+Following the example illustrated by Figure~\ref{fig:current_model}, Sender $A$ wants to broadcast a message $m$ over the OSN infrastructure to the intended recipient set $\mathcal{S}$. As $A$ only wants to share the message with a specific group of friends, $A$ defines the intended recipient set, such that $\mathcal{S} \subset \mathcal{F}_B$. Next, $A$ sends $m$ to the OSN's distribution server along with the intended recipient set $\mathcal{S}$. The OSN Server further distributes the message to all users in $\mathcal{S}$. Also a subset of third party applications and advertisers get access to the distributed message if they are inside the viewers group $\mathcal{V}_B$. Every entity who has access to the message is coloured blue in Figure~\ref{fig:current_model}.
 
 Figure~\ref{fig:current_model} illustrates previous definitions applied to an OSN as it is often encountered on the internet. The different sets in Figure~\ref{fig:current_model} are defined as follows:
 \begin{itemize}
@@ -168,7 +168,7 @@ Note that not all OSNs support the functionality to define intended recipient se
 It requires almost no additional effort to transform the model from Figure~\ref{fig:current_model} such that it also takes the sharing of other media than messages into account. The model could then adopted for use on SNSs like Youtube or Instagram as well. However, this falls out of the scope of this thesis.
 
 \section{Issues with Current OSN Situation}
-\label{sec:problem_statement}
+\label{sec:issues_with_current_osn_situation}
 There are several issues with the current OSN situation as modelled in Figure~\ref{fig:current_model}.
 
 First, there is a clear mismatch between the expectations of Sender $B$ and the functionality of the OSN. When a privacy-aware user like sender $B$ takes the effort to define an intended recipient set $\mathcal{S}$, she expects to have full control on who has access to her messages $m$. In reality, sender $B$ only has partial control since the OSN determines all other entities in $\mathcal{V}_B$ that are not part of sender $B$'s friend list $\mathcal{F}_B$. In some OSNs a user first has to give permission to third party applications before access is granted to the user's content. Note that this gives more control to OSN users on determining who is inside the viewers set $\mathcal{V}_B$. Nevertheless, in practice it is still hard to get a concise overview from the OSN on everyone inside $\mathcal{V}_B$.
@@ -235,16 +235,7 @@ Table~\ref{tab:ibe_performance_comparison} clearly illustrates the price there i
   \label{tab:ibe_performance_comparison}
 \end{table}
 
-Another important design decision is which profile attribute to use as a public key string uniquely identifying the user's OSN profile. The desired properties for such an IBE public key \id{} are the following:
-\begin{enumerate}
- \item The public key should uniquely identify the user
- \item The public key should be mandatory for every user of the social network
- \item The public key should not change frequently over time
- \item The public key should be an inherent part of the infrastructure of the social network thereby meaning that the previous three properties are already ensured by the provider of the social network.
-\end{enumerate}
-
-Note that the decision of which string to use as a public key, is highly dependent on the targeted social network. That is, every OSN will have other profile attributes satisfying the earlier mentioned requirements.
-
+IBE requires that OSN profiles can be uniquely identified by a unique public identifier \id{}. However, the decision on which string to use as identifier is highly dependent on the underlying OSN and therefore implementation dependent.
 
 \subsection{Outsider Recipient Anonymity}
 The outsider anonymity requirement from Section~\ref{sec:cryptographic_goals} is imposed on the recipient set since our solution is developed in the context of OSNs where user interaction plays an important role. Therefore, it is useful that members of the intended recipient set $\mathcal{S}$ know each other. For example, suppose that Alice broadcasts an encrypted message intended to Bob and Dylan using a scheme that fully hides the identity of the recipients. This implies that $\id{Bob}, \id{Dylan} \in \mathcal{S}$. As a reaction to Alice's message, Bob wants to write a reply to start a discussion. However, as Bob does not know which other users are allowed to see Alice's message, he can now only encrypt his reply to Alice thereby preventing Dylan from joining the discussion. Nevertheless, this discussion could have been useful to Dylan as well because otherwise Alice would not have included Dylan as a recipient in $\mathcal{S}$ in the first place.
@@ -498,7 +489,7 @@ The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, do
     \begin{enumerate}
         \item On input of security parameter $\lambda$ generate a prime $q$, two groups $G_1, G_2$ of order $q$, and an admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$. Choose random generators $P \in G_1$ and $Q \in G_2$. 
     
-        \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow G_1$, ${H_2: G_T \rightarrow \{ 0,1 \}^{l}}$ and $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ such that, $H_1, H_2$ can be modelled as random oracles.
+        \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow G_1$, ${H_2: G_T \rightarrow \{ 0,1 \}^{l}}$ and $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$, such that $H_1, H_2$ can be modelled as random oracles.
         
         \item Each PKG $j$ generates $n-1$ shares $\sigma_{jv}$ of a Pedersen VSS scheme by executing \texttt{DKG.Setup}, and redistributing the $n-1$ shares $\sigma_{jv}$ with the other $v$ PKGs.
 
@@ -591,7 +582,7 @@ The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, do
 
     \begin{enumerate}
         \item Compute $w_i \oplus H_2 \left( e \left( s_{\id{i}}, U \right) \right) = \rho$ for $s_{\id{i}}$, and $v \oplus H_3 \{ \rho \} = k$ 
-        \item Set $r = H_3 \left( \rho, k \right)$. %Verify $U \stackrel{?}{=} rP$. If fail, try next $W_i$. Otherwise restart. % Is there any reason to still include this check?
+        \item Set $r = H_3 \left( \rho, k \right)$. Verify $U \stackrel{?}{=} rP$. If the check fails, try next $W_i$ and return to 1.
         \item Retrieve $\left< \mathcal{M}, t' \right> \leftarrow \mathtt{D}_k(c, \mathcal{A})$
         \item Verify whether $t' \stackrel{?}{=} t \in \mathcal{B} $, and return $m$. Otherwise return $\bot$. 
     \end{enumerate}

@@ -285,7 +285,7 @@ Our scheme for OSNs is composed by five randomized algorithms: \texttt{Setup}, \
 
     \begin{enumerate}
         \item Compute $w_i \oplus H_2 \left( e \left( s_{\id{i}}, U \right) \right) = \rho$ for $s_{\id{i}}$, and $v \oplus H_3 \{ \rho \} = k$ 
-        \item Set $r = H_3 \left( \rho, k \right)$. %Verify $U \stackrel{?}{=} rP$. If fail, try next $W_i$. Otherwise restart. % Is there any reason to still include this check?
+        \item Set $r = H_3 \left( \rho, k \right)$. Verify $U \stackrel{?}{=} rP$. If the check fails, try next $W_i$ and return to 1.
         \item Retrieve $\left< \mathcal{M}, t' \right> \leftarrow \mathtt{D}_k(c, \mathcal{A})$
         \item Verify whether $t' \stackrel{?}{=} t \in \mathcal{B} $, and return $m$. Otherwise return $\bot$. 
     \end{enumerate}
@@ -314,7 +314,7 @@ For the DKG library we used the available implementation from Kate and Goldberg~
 
 \paragraph{Performance:} 
 Experiments were conducted on a Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Table~\ref{table:BE_exec_times} illustrates the 
-execution times for the scheme proposed in \secref{sec:solution} for $\lambda=256$bits. Each recipient has to decrypt $W_i$ an average of $n/2$ times to retrieve the secret and subsequently decrypt the secret message \msg. Note that efficiency comes at the cost of the recipient anonymity $\mathcal{S}$, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
+execution times for the scheme proposed in \secref{sec:solution} for $\lambda=256$ bits. Each recipient has to decrypt $W_i$ an average of $n/2$ times to retrieve the secret and subsequently decrypt the secret message \msg. Note that efficiency comes at the cost of the recipient anonymity $\mathcal{S}$, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
 
 \begin{table}
 \begin{center}

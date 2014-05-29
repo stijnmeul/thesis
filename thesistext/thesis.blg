@@ -30,59 +30,62 @@ Repeated entry---line 928 of file references.bib
  : @proceedings{DBLP:conf/eurocrypt/2005
  :                                      ,
 I'm skipping whatever remains of this entry
+Warning--string name "march" is undefined
+--line 1915 of file references.bib
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
+Warning--I didn't find a database entry for "bonneau2010privacy"
+Warning--I didn't find a database entry for "fischetti11hacker"
+Warning--I didn't find a database entry for "nist:dworkin"
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
 Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--to sort, need author or key in thesis:Alfredo08
 Warning--to sort, need author or key in thesis:Lynn07
-Warning--to sort, need author or key in nist:dworkin
-Warning--to sort, need author or key in nist:fips_180_4
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Lynn07
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
 You've used 109 entries,
             2118 wiz_defined-function locations,
-            1308 strings with 27682 characters,
-and the built_in function-call counts, 39338 in all, are:
-= -- 3816
-> -- 1722
-< -- 80
-+ -- 673
-- -- 543
-* -- 2690
-:= -- 6228
-add.period$ -- 359
+            1328 strings with 28188 characters,
+and the built_in function-call counts, 40091 in all, are:
+= -- 3900
+> -- 1788
+< -- 82
++ -- 696
+- -- 567
+* -- 2764
+:= -- 6377
+add.period$ -- 365
 call.type$ -- 109
-change.case$ -- 564
+change.case$ -- 578
 chr.to.int$ -- 0
-cite$ -- 119
-duplicate$ -- 1631
-empty$ -- 3225
-format.name$ -- 553
-if$ -- 8658
+cite$ -- 117
+duplicate$ -- 1659
+empty$ -- 3243
+format.name$ -- 577
+if$ -- 8815
 int.to.chr$ -- 0
 int.to.str$ -- 109
-missing$ -- 90
-newline$ -- 539
-num.names$ -- 283
-pop$ -- 609
+missing$ -- 93
+newline$ -- 543
+num.names$ -- 287
+pop$ -- 608
 preamble$ -- 1
-purify$ -- 462
+purify$ -- 474
 quote$ -- 0
 skip$ -- 1287
 stack$ -- 0
-substring$ -- 2215
-swap$ -- 560
-text.length$ -- 74
+substring$ -- 2239
+swap$ -- 571
+text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 429
-warning$ -- 10
-while$ -- 368
+warning$ -- 8
+while$ -- 376
 width$ -- 112
-write$ -- 1220
+write$ -- 1241
 (There were 5 error messages)

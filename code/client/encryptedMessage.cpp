@@ -42,7 +42,7 @@ EncryptedMessage::EncryptedMessage(string encryptedMessage) {
         memcpy(tempString2, encryptedMessage.c_str(), W_LEN);
         encryptedMessage = encryptedMessage.erase(0, W_LEN);
         Big W = (Big)tempString2;
-        (*autData).addRecipientKey(W);
+        (*autData).add(W);
     }
 
     this->Clen = encryptedMessage.length()+1-TAG_LEN;
@@ -57,7 +57,7 @@ EncryptedMessage::EncryptedMessage(string encryptedMessage) {
 
     int Alen = (*autData).getLength(nbOfRecipients);
     this->A = new char[Alen];
-    (*autData).encodeToArray(this->A);
+    (*autData).encodeTo(this->A);
 
 }
 
@@ -70,7 +70,7 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
 
     Big W;
     Big sigma, sigma_hash;
-    vector <Big> ws = (*autData).getRecipientKeys();
+    vector <Big> ws = (*autData).getEncryptedRecipientKeys();
     char P_text[Clen];
     bool integrity = false;
 
@@ -97,7 +97,7 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
 
         //int Alen = (*autData).getLength((*autData).getNbOfRecipients());
         char A[Alen];
-        (*autData).encodeToArray(A);
+        (*autData).encodeTo(A);
         gcm g;
         gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
         gcm_add_header(&g, A, Alen);

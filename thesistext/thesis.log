@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  29 MAY 2014 16:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  29 MAY 2014 23:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1043,7 +1043,7 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             `kulemtfpf' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- <logokuleng.pdf, id=199, 159.33528pt x 85.358pt>
+ <logokuleng.pdf, id=195, 159.33528pt x 85.358pt>
 File: logokuleng.pdf Graphic file (type pdf)
  <use logokuleng.pdf>
 Package pdftex.def Info: logokuleng.pdf used on input line 82.
@@ -1140,7 +1140,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 \openout2 = `intro.aux'.
 
- (./intro.tex [1
+ (./intro.tex
+
+LaTeX Warning: Citation `bonneau2010privacy' on page 1 undefined on input line 3.
+
+
+LaTeX Warning: Citation `fischetti11hacker' on page 1 undefined on input line 3.
+
+
+Underfull \vbox (badness 4168) has occurred while \output is active []
+
+ [1
 
 
 ] [2]) [3]
@@ -1158,62 +1168,62 @@ LaTeX Font Info:    External font `lmex10' loaded for size
  [5]
 \c@enumTemp=\count210
  [6] [7] [8]
-Overfull \hbox (15.2028pt too wide) in paragraph at lines 193--194
+Overfull \hbox (15.2028pt too wide) in paragraph at lines 186--187
 []\T1/lmr/m/n/10.95 (-20) The \T1/lmr/m/it/10.95 (-20) Com-pu-ta-tional Diffie-Hellman as-sump-tion \T1/lmr/m/n/10.95 (-20) holds if for any al-go-rithm $\OMS/lmsy/m/n/10.95 A []$
  []
 
 [9] [10] [11] [12] <img/cryptosystem.pdf, id=532, 597.23125pt x 845.1575pt>
 File: img/cryptosystem.pdf Graphic file (type pdf)
  <use img/cryptosystem.pdf>
-Package pdftex.def Info: img/cryptosystem.pdf used on input line 287.
+Package pdftex.def Info: img/cryptosystem.pdf used on input line 280.
 (pdftex.def)             Requested size: 369.60832pt x 162.29102pt.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 292.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 285.
  [13 <./img/cryptosystem.pdf>] [14] [15]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 346.
- [16] [17] [18]) [19]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 339.
+ [16] [17]) [18]
 \openout2 = `chap-2.aux'.
 
- (./chap-2.tex [20
+ (./chap-2.tex [19
 
 
 
-] [21]
+]
 Underfull \vbox (badness 1484) has occurred while \output is active []
 
- [22]
+ [20]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 40.
- <img/pkg.png, id=685, 200.75pt x 200.75pt>
+ <img/pkg.png, id=676, 200.75pt x 200.75pt>
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
 Package pdftex.def Info: img/pkg.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
- <img/alice.png, id=687, 200.75pt x 200.75pt>
+ <img/alice.png, id=678, 200.75pt x 200.75pt>
 File: img/alice.png Graphic file (type png)
  <use img/alice.png>
 Package pdftex.def Info: img/alice.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
- <img/bob.png, id=688, 200.75pt x 200.75pt>
+ <img/bob.png, id=679, 200.75pt x 200.75pt>
 File: img/bob.png Graphic file (type png)
  <use img/bob.png>
 Package pdftex.def Info: img/bob.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
- [23] [24 <./img/pkg.png> <./img/alice.png> <./img/bob.png>] [25]
+ [21] [22 <./img/pkg.png> <./img/alice.png> <./img/bob.png>] [23]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [26] [27] [28]
+ [24] [25] [26]
 Underfull \vbox (badness 2486) has occurred while \output is active []
 
- [29] [30] [31]
+ [27] [28] [29]
 Overfull \hbox (12.99841pt too wide) in paragraph at lines 327--328
 \T1/lmr/m/n/10.95 (-20) The im-ple-men-ta-tion from Fiat and Naor [[]] re-quires a ci-pher-text of size $\OML/lmm/m/it/10.95 O []$
  []
 
-[32] [33] [34] [35] [36]) [37] [38]
+[30] [31] [32] [33] [34]) [35] [36]
 \openout2 = `chap-3.aux'.
 
- (./chap-3.tex [39
+ (./chap-3.tex [37
 
 
 
@@ -1227,17 +1237,17 @@ either increase the head height or redesign the header
 
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [40] <img/bluepkg.png, id=1073, 200.75pt x 200.75pt>
+ [38] <img/bluepkg.png, id=1064, 200.75pt x 200.75pt>
 File: img/bluepkg.png Graphic file (type png)
  <use img/bluepkg.png>
 Package pdftex.def Info: img/bluepkg.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluealice.png, id=1074, 200.75pt x 200.75pt>
+ <img/bluealice.png, id=1065, 200.75pt x 200.75pt>
 File: img/bluealice.png Graphic file (type png)
  <use img/bluealice.png>
 Package pdftex.def Info: img/bluealice.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluebob.png, id=1075, 200.75pt x 200.75pt>
+ <img/bluebob.png, id=1066, 200.75pt x 200.75pt>
 File: img/bluebob.png Graphic file (type png)
  <use img/bluebob.png>
 Package pdftex.def Info: img/bluebob.png used on input line 158.
@@ -1254,22 +1264,22 @@ File: img/alice.png Graphic file (type png)
  <use img/alice.png>
 Package pdftex.def Info: img/alice.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluemoneyman.png, id=1076, 200.75pt x 200.75pt>
+ <img/bluemoneyman.png, id=1067, 200.75pt x 200.75pt>
 File: img/bluemoneyman.png Graphic file (type png)
  <use img/bluemoneyman.png>
 Package pdftex.def Info: img/bluemoneyman.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/blueapp.png, id=1077, 200.75pt x 200.75pt>
+ <img/blueapp.png, id=1068, 200.75pt x 200.75pt>
 File: img/blueapp.png Graphic file (type png)
  <use img/blueapp.png>
 Package pdftex.def Info: img/blueapp.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/app.png, id=1078, 200.75pt x 200.75pt>
+ <img/app.png, id=1069, 200.75pt x 200.75pt>
 File: img/app.png Graphic file (type png)
  <use img/app.png>
 Package pdftex.def Info: img/app.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/moneyman.png, id=1079, 200.75pt x 200.75pt>
+ <img/moneyman.png, id=1070, 200.75pt x 200.75pt>
 File: img/moneyman.png Graphic file (type png)
  <use img/moneyman.png>
 Package pdftex.def Info: img/moneyman.png used on input line 158.
@@ -1282,7 +1292,7 @@ File: img/bob.png Graphic file (type png)
  <use img/bob.png>
 Package pdftex.def Info: img/bob.png used on input line 158.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/spy.png, id=1080, 401.5pt x 401.5pt>
+ <img/spy.png, id=1071, 401.5pt x 401.5pt>
 File: img/spy.png Graphic file (type png)
  <use img/spy.png>
 Package pdftex.def Info: img/spy.png used on input line 158.
@@ -1291,145 +1301,145 @@ File: img/spy.png Graphic file (type png)
  <use img/spy.png>
 Package pdftex.def Info: img/spy.png used on input line 158.
 (pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
- [41 <./img/bluepkg.png> <./img/bluealice.png> <./img/bluebob.png> <./img/bluemoneyman.png> <./img/blueapp.png> <./img/app.png> <./img/moneyman.png> <./img/spy.png>]
+ [39 <./img/bluepkg.png> <./img/bluealice.png> <./img/bluebob.png> <./img/bluemoneyman.png> <./img/blueapp.png> <./img/app.png> <./img/moneyman.png> <./img/spy.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [42] [43]
+ [40] [41]
 LaTeX Font Info:    Try loading font information for U+ding on input line 217.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/bbding/Uding.fd
 File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 )
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [44] [45]
+ [42] [43]
+Overfull \vbox (13.59999pt too high) has occurred while \output is active []
+
+ [44]
+File: img/pkg.png Graphic file (type png)
+ <use img/pkg.png>
+Package pdftex.def Info: img/pkg.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/bluealice.png Graphic file (type png)
+ <use img/bluealice.png>
+Package pdftex.def Info: img/bluealice.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/bluebob.png Graphic file (type png)
+ <use img/bluebob.png>
+Package pdftex.def Info: img/bluebob.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/bluebob.png Graphic file (type png)
+ <use img/bluebob.png>
+Package pdftex.def Info: img/bluebob.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/bob.png Graphic file (type png)
+ <use img/bob.png>
+Package pdftex.def Info: img/bob.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/alice.png Graphic file (type png)
+ <use img/alice.png>
+Package pdftex.def Info: img/alice.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/moneyman.png Graphic file (type png)
+ <use img/moneyman.png>
+Package pdftex.def Info: img/moneyman.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/app.png Graphic file (type png)
+ <use img/app.png>
+Package pdftex.def Info: img/app.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/app.png Graphic file (type png)
+ <use img/app.png>
+Package pdftex.def Info: img/app.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/moneyman.png Graphic file (type png)
+ <use img/moneyman.png>
+Package pdftex.def Info: img/moneyman.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/pkg.png Graphic file (type png)
+ <use img/pkg.png>
+Package pdftex.def Info: img/pkg.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/pkg.png Graphic file (type png)
+ <use img/pkg.png>
+Package pdftex.def Info: img/pkg.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/pkg.png Graphic file (type png)
+ <use img/pkg.png>
+Package pdftex.def Info: img/pkg.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/pkg.png Graphic file (type png)
+ <use img/pkg.png>
+Package pdftex.def Info: img/pkg.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/alice.png Graphic file (type png)
+ <use img/alice.png>
+Package pdftex.def Info: img/alice.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/bob.png Graphic file (type png)
+ <use img/bob.png>
+Package pdftex.def Info: img/bob.png used on input line 401.
+(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
+File: img/spy.png Graphic file (type png)
+ <use img/spy.png>
+Package pdftex.def Info: img/spy.png used on input line 401.
+(pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
+File: img/spy.png Graphic file (type png)
+ <use img/spy.png>
+Package pdftex.def Info: img/spy.png used on input line 401.
+(pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
+ [45]
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
  [46] [47]
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [48]
-File: img/pkg.png Graphic file (type png)
- <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/bluealice.png Graphic file (type png)
- <use img/bluealice.png>
-Package pdftex.def Info: img/bluealice.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/bluebob.png Graphic file (type png)
- <use img/bluebob.png>
-Package pdftex.def Info: img/bluebob.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/bluebob.png Graphic file (type png)
- <use img/bluebob.png>
-Package pdftex.def Info: img/bluebob.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/bob.png Graphic file (type png)
- <use img/bob.png>
-Package pdftex.def Info: img/bob.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/alice.png Graphic file (type png)
- <use img/alice.png>
-Package pdftex.def Info: img/alice.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/moneyman.png Graphic file (type png)
- <use img/moneyman.png>
-Package pdftex.def Info: img/moneyman.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/app.png Graphic file (type png)
- <use img/app.png>
-Package pdftex.def Info: img/app.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/app.png Graphic file (type png)
- <use img/app.png>
-Package pdftex.def Info: img/app.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/moneyman.png Graphic file (type png)
- <use img/moneyman.png>
-Package pdftex.def Info: img/moneyman.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/pkg.png Graphic file (type png)
- <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/pkg.png Graphic file (type png)
- <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/pkg.png Graphic file (type png)
- <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/pkg.png Graphic file (type png)
- <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/alice.png Graphic file (type png)
- <use img/alice.png>
-Package pdftex.def Info: img/alice.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/bob.png Graphic file (type png)
- <use img/bob.png>
-Package pdftex.def Info: img/bob.png used on input line 410.
-(pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
-File: img/spy.png Graphic file (type png)
- <use img/spy.png>
-Package pdftex.def Info: img/spy.png used on input line 410.
-(pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
-File: img/spy.png Graphic file (type png)
- <use img/spy.png>
-Package pdftex.def Info: img/spy.png used on input line 410.
-(pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
- [49]
+ [48] [49]
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [50] [51]
-Overfull \vbox (13.59999pt too high) has occurred while \output is active []
-
- [52]
-Underfull \hbox (badness 5908) in paragraph at lines 501--502
+ [50]
+Underfull \hbox (badness 5908) in paragraph at lines 492--493
 []\T1/lmr/m/n/10.95 (+20) Choose cryp-to-graphic hash func-tions $\OML/lmm/m/it/10.95 H[] \OT1/lmr/m/n/10.95 (+20) : \OMS/lmsy/m/n/10.95 f\OT1/lmr/m/n/10.95 (+20) 0\OML/lmm/m/it/10.95 ; \OT1/lmr/m/n/10.95 (+20) 1\OMS/lmsy/m/n/10.95 g[] ! \OML/lmm/m/it/10.95 G[]$\T1/lmr/m/n/10.95 (+20) ,
  []
 
 
 Overfull \vbox (313.29614pt too high) has occurred while \output is active []
 
- [53]
-Underfull \hbox (badness 10000) in paragraph at lines 590--591
+ [51]
+Underfull \hbox (badness 10000) in paragraph at lines 581--582
 
  []
 
-[54])
+[52])
 \openout2 = `chap-n.aux'.
 
- (./chap-n.tex [55
+ (./chap-n.tex [53
 
 
 
-] <img/fb.png, id=1295, 326.21875pt x 326.21875pt>
+] <img/fb.png, id=1283, 326.21875pt x 326.21875pt>
 File: img/fb.png Graphic file (type png)
  <use img/fb.png>
 Package pdftex.def Info: img/fb.png used on input line 112.
 (pdftex.def)             Requested size: 22.83763pt x 22.83763pt.
- <img/gplus.png, id=1296, 302.12875pt x 302.12875pt>
+ <img/gplus.png, id=1284, 302.12875pt x 302.12875pt>
 File: img/gplus.png Graphic file (type png)
  <use img/gplus.png>
 Package pdftex.def Info: img/gplus.png used on input line 112.
 (pdftex.def)             Requested size: 21.15117pt x 21.15117pt.
- <img/linkedin.png, id=1297, 256.96pt x 256.96pt>
+ <img/linkedin.png, id=1285, 256.96pt x 256.96pt>
 File: img/linkedin.png Graphic file (type png)
  <use img/linkedin.png>
 Package pdftex.def Info: img/linkedin.png used on input line 112.
 (pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
- <img/twitter.png, id=1298, 513.92pt x 513.92pt>
+ <img/twitter.png, id=1286, 513.92pt x 513.92pt>
 File: img/twitter.png Graphic file (type png)
  <use img/twitter.png>
 Package pdftex.def Info: img/twitter.png used on input line 112.
 (pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
- <img/tumblr.png, id=1299, 240.9pt x 240.9pt>
+ <img/tumblr.png, id=1287, 240.9pt x 240.9pt>
 File: img/tumblr.png Graphic file (type png)
  <use img/tumblr.png>
 Package pdftex.def Info: img/tumblr.png used on input line 112.
@@ -1454,64 +1464,77 @@ File: img/tumblr.png Graphic file (type png)
  <use img/tumblr.png>
 Package pdftex.def Info: img/tumblr.png used on input line 194.
 (pdftex.def)             Requested size: 24.0914pt x 24.0914pt.
- [56 <./img/fb.png> <./img/gplus.png> <./img/linkedin.png> <./img/twitter.png> <./img/tumblr.png>] [57] [58]
-Underfull \hbox (badness 7186) in paragraph at lines 279--279
+ [54 <./img/fb.png> <./img/gplus.png> <./img/linkedin.png> <./img/twitter.png> <./img/tumblr.png>] [55] [56]
+
+LaTeX Warning: Citation `nist:dworkin' on page 57 undefined on input line 238.
+
+[57]
+Underfull \hbox (badness 3229) in paragraph at lines 324--324
  [][][][]$\OML/lmm/m/it/10.95 <<$\T1/lmr/m/n/10.95 (+20) abstract$\OML/lmm/m/it/10.95 >>$ 
  []
 
 
-Underfull \hbox (badness 4429) in paragraph at lines 279--279
+Underfull \hbox (badness 1688) in paragraph at lines 324--324
  []\T1/lmr/bx/n/10.95 BroadcastMessage 
  []
 
 
-Underfull \hbox (badness 1325) in paragraph at lines 279--279
- [][][][]\T1/lmr/bx/n/10.95 CheckingAccount 
+Underfull \hbox (badness 4832) in paragraph at lines 324--324
+ [][][][]\T1/lmr/bx/n/10.95 PlaintextMessage 
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 279--279
- [][][][] \T1/lmr/bx/n/10.95 Sav-ingsAc-count 
+Underfull \hbox (badness 4242) in paragraph at lines 324--324
+ [][][][]\T1/lmr/bx/n/10.95 EncryptedMessage 
  []
 
-[59] [60]) [61]
+
+Underfull \hbox (badness 2197) in paragraph at lines 324--324
+ [][][][]\T1/lmr/bx/n/10.95 AuthenticatedData 
+ []
+
+[58]
+
+LaTeX Warning: Reference `table:BE_exec_times' on page 59 undefined on input line 346.
+
+[59]) [60]
 \openout2 = `conclusion.aux'.
 
- (./conclusion.tex [62
+ (./conclusion.tex) [61
 
 
 
-]) [63] [64
+] [62
 
 
-] [65] [66]
+] [63] [64]
 \openout2 = `app-A.aux'.
 
- (./app-A.tex) [67
+ (./app-A.tex) [65
 
 
-] [68]
+] [66]
 \openout2 = `app-n.aux'.
 
  (./app-n.tex
 
-LaTeX Warning: Citation `h2g2' on page 69 undefined on input line 3.
+LaTeX Warning: Citation `h2g2' on page 67 undefined on input line 3.
 
-) [69
+) [67
 
 
 
 ]
 \openout2 = `app-C.aux'.
 
- (./app-C.tex [70
+ (./app-C.tex [68
 
 
 
-]) [71]
+]) [69]
 \openout2 = `app-D.aux'.
 
- (./app-D.tex [72
+ (./app-D.tex [70
 
 
 
@@ -1520,51 +1543,21 @@ Overfull \hbox (9.76971pt too wide) in paragraph at lines 3--4
 \T1/lmr/m/n/10.95 (-20) posed at []$\T1/lmtt/m/n/10.95 http : / / www . ieee . org / publications _ standards / publications / authors /
  []
 
-) [73] [74
+) [71] [72
 
 
 ] (./thesis.bbl
 bibitemlist
-[75
+[73
 
-] [76]
-Underfull \hbox (badness 10000) in paragraph at lines 187--192
-[]\T1/lmr/m/n/10.95 (+20) J. Bul-las.  22 so-cial me-dia facts and statis-tics you should
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 187--192
-\T1/lmr/m/n/10.95 (+20) know in 2014.  URL: []$\T1/lmtt/m/n/10.95 http : / / www . jeffbullas . com / 2014 / 01 / 17 /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 187--192
-\T1/lmtt/m/n/10.95 20-[]social-[]media-[]facts-[]and-[]statistics-[]you-[]should-[]know-[]in-[]2014/$[]\T1/lmr/m/n/10.95 (+20) ,
- []
-
-[77] [78] [79]
-Underfull \hbox (badness 2119) in paragraph at lines 402--407
-[]\T1/lmr/m/n/10.95 (+20) K. Jones.  The growth of so-cial me-dia v2.0.  URL: []$\T1/lmtt/m/n/10.95 http : / / www .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 402--407
-\T1/lmtt/m/n/10.95 searchenginejournal . com / growth-[]social-[]media-[]2-[]0-[]infographic /
- []
-
-[80] [81]
-Underfull \hbox (badness 6016) in paragraph at lines 585--590
-[]\T1/lmr/m/n/10.95 (+20) StatisticBrain.  So-cial net-work-ing statis-tics.  URL: []$\T1/lmtt/m/n/10.95 http : / / www .
- []
-
-[82])
+] [74] [75] [76] [77] [78] [79] [80])
 
 Class memoir Warning: The material used in the headers is too large
 (27.2pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 179.
+(in both cases you will find help in the memoir manual). on input line 180.
 
-[83] [84
+[81] [82
 
 ]
 \tf@toc=\write6
@@ -1576,13 +1569,13 @@ either increase the head height or redesign the header
 \tf@lot=\write8
 \openout8 = `thesis.lot'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 179.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 179.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 180.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 180.
  (./thesis.aux (./intro.aux) (./chap-1.aux) (./chap-2.aux) (./chap-3.aux) (./chap-n.aux) (./conclusion.aux) (./app-A.aux) (./app-n.aux) (./app-C.aux) (./app-D.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 179.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 179.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 180.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 180.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 4596500C20A94BEF094FE924121DEDA8;2985.
+(rerunfilecheck)             Checksum: 44F7C8ED0E53B70EA3FBC54781199446;2925.
 
 
 LaTeX Warning: There were undefined references.
@@ -1590,22 +1583,22 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 179.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 180.
  ) 
 Here is how much of TeX's memory you used:
- 25223 strings out of 493315
- 441963 string characters out of 6137904
- 722303 words of memory out of 5000000
- 27352 multiletter control sequences out of 15000+600000
- 110369 words of font info for 193 fonts, out of 8000000 for 9000
+ 25262 strings out of 493315
+ 443058 string characters out of 6137904
+ 729526 words of memory out of 5000000
+ 27388 multiletter control sequences out of 15000+600000
+ 110470 words of font info for 194 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 61i,23n,79p,1371b,875s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,23n,79p,1376b,876s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} </Users/stijn/Library/texlive/2013/texmf-var/fonts/pk/ljfour/public/bbding/bbding10.657pk>{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type
 1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis.pdf (94 pages, 1210009 bytes).
+Output written on thesis.pdf (92 pages, 1231345 bytes).
 PDF statistics:
- 1728 PDF objects out of 1728 (max. 8388607)
- 1533 compressed objects within 16 object streams
- 516 named destinations out of 1000 (max. 500000)
- 36845 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 1721 PDF objects out of 1728 (max. 8388607)
+ 1528 compressed objects within 16 object streams
+ 517 named destinations out of 1000 (max. 500000)
+ 36837 words of extra memory for PDF output out of 42996 (max. 10000000)
 

@@ -48,7 +48,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
         G1 rQ = (*pfc).mult(recipientHashes.at(i), r);
         Big W = (*pfc).hash_to_aes_key((*pfc).pairing(Ppub, rQ));
         W = lxor(ses_key, W);
-        (*autData).addRecipientKey(W);
+        (*autData).add(W);
     }
 
     /************************************************/
@@ -66,7 +66,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     char iv[HASH_LEN/2];
     int Alen = (*autData).getLength(getNbOfRecipients());
     char A[Alen];
-    (*autData).encodeToArray(A);
+    (*autData).encodeTo(A);
     getIV(iv);
     getK1(k1);
     gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);

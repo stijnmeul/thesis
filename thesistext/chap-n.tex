@@ -30,7 +30,7 @@
 % Fake profielen kunnen worden aangemaakt door gebruikers
 
 \section{Software Architecture}
-There is still a long way to go from Algorithm~\ref{alg:our_scheme} towards a practical implementation for OSNs. As a proof of concept, Algorithm~\ref{alg:our_scheme} is applied to Facebook, the largest online social network at the time of writing. Recall that one of the more general goals of this thesis is to develop a solution that is applicable, i.e. a solution that does not require the OSN environment to be altered. Until so far this goal is successfully met since Algorithm~\ref{alg:our_scheme} could be designed completely based on a more general model of an OSN. The resulting algorithm is a solution that can be applied to virtually any OSN that allows to uniquely distinguish users based on unique public identifiers, a requirement that discriminates almost no existing OSNs.
+There is still a long way to go from Algorithm~\ref{alg:our_scheme} towards a practical implementation for OSNs. As a proof of concept, Algorithm~\ref{alg:our_scheme} is applied to Facebook, the largest online social network at the time of writing. Recall that one of the more general goals of this thesis is to develop a solution that is applicable, i.e. a solution that does not require the OSN environment to be altered. Until so far this goal is successfully met since Algorithm~\ref{alg:our_scheme} could be designed completely based on a more general model for OSNs. The resulting algorithm is a solution that can be applied to virtually any OSN that allows to uniquely distinguish users based on unique public identifiers, a requirement that discriminates almost no existing OSNs.
 
 \subsection{Software Environment}
 Despite the avoidance of complex third party infrastructures, some software is needed that effectively implements Algorithm~\ref{alg:our_scheme} in a user-friendly way. Ideally, this is an easy-to-install piece of software that runs as an additional layer on top of the current infrastructure of the OSN user. Therefore, it was chosen to implement Algorithm~\ref{alg:our_scheme} in the form of a browser extension.
@@ -211,7 +211,8 @@ The PHP based front-end receives private key extraction queries from the Scrambl
 Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, the scramble plugin can be made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof-of-concept.
 
 
-\section{Practical Design Decisions}
+\section{Implementation Details}
+\label{sec:implementation_details}
 The implementation of Algorithm~\ref{alg:our_scheme} still requires some practical design decisions that are further discussed in this section.
 
 \subsection{Type of Elliptic Curve}
@@ -237,24 +238,36 @@ with
 Since $l=256$, $w_i$ and $\rho$ are binary sequences of 256 bits. Hence, $\rho$ only contains sufficient randomness to securely encrypt a session key $k$ of the same length. The full 256 bit $k$ is not completely used for symmetric encryption as the AES-GCM scheme still requires an IV as well. Since the randomness and key freshness of the IV is at least as important as the secrecy of $k$~\cite{nist:dworkin}, it was deliberately chosen not to apply key derivation functions to derive a separate symmetric encryption key and IV from the same value $k$. Therefore, the first 128 bits of $k$ are used as the symmetric key of AES-GCM, while the second 96 bits function as an IV. According to NIST, this should ensure confidentiality at least until 2030. However, if a higher level of security should be required, key derivation on $k$ could be considered.
 
 \subsection{Hash Functions}
-The hash function $H_1: \{ 0,1 \}^{*} \rightarrow G_1$ is implemented using the MIRACL function call \texttt{hash\textunderscore to\textunderscore group}. Hash function $H_2: G_T \rightarrow \{ 0,1 \}^{l}$ relies on the \texttt{hash\textunderscore to\textunderscore aes\textunderscore key} function. Both $H_1$ and $H_2$ internally fall back on SHA-256~\cite{nist:fips_180_4}. Also $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ is implemented with the MIRACL provided SHA-256 implementation.
+The hash function $H_1: \{ 0,1 \}^{*} \rightarrow G_1$ is implemented using the MIRACL function call \texttt{hash\textunderscore to\textunderscore group}. Hash function $H_2: G_T \rightarrow \{ 0,1 \}^{256}$ relies on the \texttt{hash\textunderscore to\textunderscore aes\textunderscore key} function. Both $H_1$ and $H_2$ internally fall back on SHA-256~\cite{nist:fips1804}. The MIRACL provided SHA-256 algorithm also implements the hash $H_3: \{ 0, 1 \}^{256} \rightarrow \{ 0,1 \}^{256}$.
 
 \subsection{Generating Random Numbers}
 Random numbers are generated using the MIRACL build-in strong random number generator. The strong random generator is initialised with a time-of-day value and a binary array of 1024 bits read from \texttt{/dev/urandom}. These values are then used as a seed for the generation of random numbers. The practical implementation of the MIRACL strong random generator is based on an advice published by RSA Laboratories in~\cite{art:Matthews96}.
+
+\subsection{Public Key}
+The decision on which string to use as a public IBE key \id{} is dependent on the underlying OSN. The desired properties for \id{} are the following:
+\begin{enumerate}
+ \item The public key should uniquely identify the user
+ \item The public key should be mandatory for every user of the social network
+ \item The public key should not change frequently over time
+ \item The public key should be an inherent part of the infrastructure of the social network thereby meaning that the previous three properties are already ensured by the provider of the social network.
+ \item The public key should be publicly available, even to users that are not part of the set of entities with access to the user's profile $\mathcal{V}_{\id{}}$
+\end{enumerate}
+In Facebook the best key satisfying these properties is a Facebook username. A Facebook username is ensured to be unique since it is part of a profile's URL, e.g. \url{http://www.facebook.com/profile.name} where \texttt{profile.name} functions as \id{}. Moreover, the Facebook policy ensures that this username is mandatory for every user and can only be changed once. Lastly, the Facebook username is also public to outsiders over the Facebook API thereby fulfilling all the required conditions for an IBE key in our architecture.
 
 \section{Implemented Scheme}
 
 \begin{figure}
     \centering
     \noindent\makebox[\textwidth]{
-        \scalebox{0.72} {
+        \scalebox{0.55} {
         \begin{tikzpicture}
-        \begin{abstractclass}[text width =9 cm]{BroadcastMessage}{0,0}
-          \attribute{\# message : std::string }
-          \attribute{\# autData : *AuthenticatedData}
+        
+        % BroadcastMessage
+        \begin{abstractclass}[text width =7.5 cm]{BroadcastMessage}{2,2}
+          \attribute{\# recipients : vector\textless  string\textgreater}
+          \attribute{\# message : string }
+          \attribute{\# autData : AuthenticatedData *}
           \attribute{\# sessionKey : char[HASH\textunderscore LEN]}
-          \attribute{\# sigma : Big}
-          \attribute{\# r : Big}
           \operation{\# void getIV(char (\& iv)[HASH\textunderscore LEN/2])}
           \operation{\# void getK(char (\& iv)[HASH\textunderscore LEN/2])}
           \operation{+ int getNbOfRecipients()}
@@ -262,32 +275,79 @@ Random numbers are generated using the MIRACL build-in strong random number gene
           \operation{+ int getBroadcastMessageLength()}
           \operation{+ Big getSessionKey()}
         \end{abstractclass}
-        \begin{class}[text width =7 cm]{CheckingAccount}{ -8 , -8}
+        
+        % PlaintextMessage
+        \begin{class}[text width =9 cm]{PlaintextMessage}{ -4 , -9}
           \inherit{BroadcastMessage}
-          \attribute{ insufficientFundsFee : Dollars }
-          \operation{ processCheck ( checkToProcess : Check
-)}
-          \operation{ withdrawal ( amount : Dollars ) }
+          \attribute{- r : Big}
+          \attribute{- recipientHashes : vector\textless G1\textgreater }
+          \attribute{- sigma : Big}
+          \operation{+ PlaintextMessage(string message)}
+          \operation{+ void addRecipient(string recipient, PFC *pfc)}
+          \operation{+ EncryptedMessage encrypt(const G2\& P, const G2\& Ppub, PFC *pfc)}
+          \operation{+ string getMessage()}
+          \operation{+ vector <string> getRecipients()}
+          \operation{- generateKeys(PFC *pfc)}
         \end{class}
-        \begin{class}[text width =7 cm]{ SavingsAccount }{8 , -8}
+        
+        % EncryptedMessage
+        \begin{class}[text width =9 cm]{EncryptedMessage}{7 , -9}
           \inherit{BroadcastMessage}
-          \attribute{ annualInteresRate : Percentage }
-          \operation{ depositMonthlyInterest( )}
-          \operation{ withdrawal(amount : Dollars)}
+          \attribute{- A : char *}
+          \attribute{- Alen : int}
+          \attribute{- C : char *}
+          \attribute{- Clen : int}
+          \attribute{- T : char[TAG\textunderscore LEN]}
+          \operation{+ EncryptedMessage(string encryptedMessage)}
+          \operation{+ PlaintextMessage decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id, PFC *pfc )}
+          \operation{+ string getMessage()}
         \end{class}
+        
+        %AuthenticatedData
+        \begin{class}[text width =8 cm]{AuthenticatedData}{-9 , 2}
+          \inherit{BroadcastMessage}
+          \attribute{- authenticatedData : char *}
+          \attribute{- U : G2}
+          \attribute{- ws : vector<Big>}
+          
+          \operation{+ AuthenticatedData(char * A)}
+          \operation{+ G2 getU()}
+          \operation{+ void setU(G2 U)}
+          \operation{+ int getNbOfRecipients()}
+          \operation{+ vector\textless Big\textgreater getEncryptedRecipientKeys()}
+          \operation{+ int getLength(int nbOfRecipients)}
+          \operation{+ void add(Big encryptedRecipientKey)}
+          \operation{+ void encodeTo(char * array)}
+        \end{class}
+        \unidirectionalAssociation {AuthenticatedData}{part of}{1}{BroadcastMessage}
         \end{tikzpicture}
     }}
-    \caption{Class Diagram of C++ MIRACL Based Back-end}
+    \caption{Class Diagram of Client Side C++ MIRACL Based Back-end}
     \label{fig:class_client_side}
 \end{figure}
 \subsection{Client-Side Implementation}
+\subsubsection{Code Structure}
+\textcolor{red}{TODO: give a short description on what each function implements}
+
+\subsubsection{Encountered Issues}
+\textcolor{red}{TODO: Say something about pre-computation in MIRACL and why the const G2\& is necessary.}
 
 \subsection{Server-Side Implementation}
 
+\subsubsection{Code Structure}
+\textcolor{red}{TODO: Add a class diagram for the server-side implementation}
+
+\textcolor{red}{TODO: give a short description on what each function implements}
+
+\subsubsection{Encountered Issues}
+\textcolor{red}{TODO: Say something about the difficulties of multithreading MIRACL}
+
 \section{Performance Analysis}
+Performance experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Table~\ref{table:BE_exec_times} illustrates the 
+execution times for Algorithm~\ref{alg:our_scheme} with the implementation details from Section~\ref{sec:implementation_details}. Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the secret session key $k$. After recovering $k$, the recipient executes AES-GCM for the decryption of the ciphertext $c$ to the plaintext message $m$. Note that recipient anonymity of $\mathcal{S}$ comes at the cost of reduced efficiency, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
 
 \section{Shortcomings of Current Implementation}
-The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} were implemented, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of hard design decisions.
+The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} are present, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of deliberate design decisions.
 
 \subsection{Client Side}
 Since the IBE scheme is integrated in the existing Scramble UI, not many adaptions should be made to the client side implementation. The major drawback of our IBE proposal is that it makes the Scramble plugin more dependent on the underlying OSN. Consequently, every OSN should be separately integrated into the Scramble plugin since each OSN offers its own API calls for reading out friend connections. More OSNs than Facebook should be actively supported by the IBE Scramble tool to motivate the use of the plugin.

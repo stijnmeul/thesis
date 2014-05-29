@@ -15,9 +15,6 @@ protected:
     AuthenticatedData *autData;
     char sessionKey[HASH_LEN];
 
-    Big sigma;
-    Big r;
-
     void getIV(char (&iv)[HASH_LEN/2]);
 
     void getK1(char (&k1)[HASH_LEN/2]);
