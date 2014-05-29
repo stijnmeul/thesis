@@ -209,92 +209,87 @@ Our scheme for OSNs is composed by five randomized algorithms: \texttt{Setup}, \
 \medskip
 
 \begin{description}
-    \item[\texttt{Setup($\lambda, t, n$)}:] Outputs the public $params$ of the system with respect to the security parameter $\lambda$, the number $n$ of PKGs and the threshold $t$.
-
+    \item[\texttt{Setup($\lambda, t, n$)}:] Outputs the public $params$ of the system with respect to the security parameter $\lambda$, the number of PKGs $n$ and the threshold $t$.
     \begin{enumerate}
-        \item On the input $\lambda$ generate a prime $q$, two groups $\mathbb{G}_1, \mathbb{G}_2$ of order $q$, and an admissible bilinear map $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Choose random generators $P \in \mathbb{G}_1$ and $Q \in \mathbb{G}_2$. 
+        \item On input of security parameter $\lambda$ generate a prime $q$, two groups $G_1, G_2$ of order $q$, and an admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$. Choose random generators $P \in G_1$ and $Q \in G_2$. 
     
-        \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow \mathbb{G}_1$, ${H_2: \mathbb{G}_T \rightarrow \{ 0,1 \}^{l}}$, $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ and $H_4: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$, such that, $H_1, H_2$ can be modeled as random oracles.
+        \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow G_1$, ${H_2: G_T \rightarrow \{ 0,1 \}^{l}}$ and $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$ such that, $H_1, H_2$ can be modelled as random oracles.
         
-        \item Each PKG $j$ generates $n-1$ shares $s_{jv}$ of a Pedersen VSS scheme by executing \texttt{DKG.Setup}, and redistributes the $n-1$ shares with the other $v$ PKGs.
+        \item Each PKG $j$ generates $n-1$ shares $\sigma_{jv}$ of a Pedersen VSS scheme by executing \texttt{DKG.Setup}, and redistributing the $n-1$ shares $\sigma_{jv}$ with the other $v$ PKGs.
 
-        \item Each PKG $j$ publishes $P_{pub}^{(j)} = s_j P$, s.t., $s_j=\sum_{v=1}^n s_{jv}$.
+        \item Each PKG $j$ publishes $P_{pub}^{(j)} = s_j P$, s.t., $s_j=\sum_{v=1}^n \sigma_{jv}$.
     \end{enumerate}
     
-    The master secret key cannot be retrieved unless $t$ out of $n$ PKGs would collude. The following parameters are published publicly:
-    
+    The master secret key $msk = \sum_{j \in \Lambda} b_j s_j$ for $b_j = \prod_{z \in \Lambda} \frac{z}{z-j}$ cannot be retrieved unless $\Lambda$ is a subset of size $t$ different PKG servers. The following parameters are published publicly:
     \begin{equation*}
-    params = \{ q, \mathbb{G}_1, \mathbb{G}_2, e, P, Q, H_1, H_2, H_3, H_4, t, n, P_{pub}^{(0)}, \ldots, P_{pub}^{(n)} \}
+    params = \{ q, G_1, G_2, e, P, Q, H_1, H_2, H_3, t, n, P_{pub}^{(0)}, \ldots, P_{pub}^{(n)} \}
     \end{equation*}
     
     \bigskip
 
-    \item[\texttt{KeyGen(\{PKG$_0,\ldots,$PKG$_t\}, \id{i}$)}:] On the input of a user $\id{i}$ the sub set $\Lambda$ of size $t$ of PKG servers, generate a a valid private key for \id{i}. 
+    \item[\texttt{KeyGen(\{PKG$_0,\ldots,$PKG$_t\}, \id{i}$)}:] On input of a user $\id{i}$ the subset $\Lambda$ of size $t$ of PKG servers, generates a valid private key for \id{i}. 
     
     \begin{enumerate}
-        \item User with \id{i}, authenticates to $\Lambda$ or all PKGs and sends \id{i}.
+        \item User with identifier \id{i}, authenticates to $\Lambda$ or all PKGs and sends \id{i}.
         \item Each PKG computes $Q_{\id{i}} = H_1 \left( \id{i} \right)$, and $Q_{priv,\id{i}}^{(j)} = s_j Q_{\id{i}}$, where $s_j$ is the secret share from PKG $j$.
-        \item All PKGs return $Q_{priv,\id{i}}^{(j)}$ to the corresponding user $u_i$ over a secure channel.
-    
+        \item The user $\id{i}$ computes the shared public parameter $P$ using the Lagrange coefficients $b_j$ as follows:
+        \begin{equation*}
+         P = \sum_{j \in \Lambda} b_j P_{pub}^{\left( j \right)} \quad \textrm{for} \quad b_j = \prod_{z \in \Lambda} \frac{z}{z-j}
+        \end{equation*}
+        \item All PKGs in $\Lambda$ return $Q_{priv,\id{i}}^{(j)}$ to the corresponding user $\id{i}$ over a secure channel.
         \item Each user verifies for each $Q_{priv,\id{i}}^{(j)}$ value whether, 
         \begin{equation*}
             e \left( Q_{priv , \id{i} }^{(j)}, P \right ) \stackrel{?}{=} e \left( Q_{\id{i}}, P_{pub}^{(j)} \right)
         \end{equation*}
         
-        If the check fails, report that PKG as malicious and request another PKG. Next, $u_i$ calculates the private key $d_{\id{i}}$ using the Lagrange coefficients $a_j$ as follows: 
+        %If the check fails, report that PKG as malicious and request another PKG. 
+        Next, $\id{i}$ calculates the private key $s_{\id{i}}$ using the Lagrange coefficients $b_j$ as follows: 
         \begin{equation*}
-            d_{\id{i}} = \sum\limits_{j\in\Lambda} a_j Q_{priv,\id{i}}^{(j)} \quad \textrm{for} \quad a_j = \prod_{z\in \Lambda} \frac{z}{z-j}
+            s_{\id{i}} = \sum\limits_{j\in\Lambda} b_j Q_{priv,\id{i}}^{(j)} \quad \textrm{for} \quad b_j = \prod_{z\in \Lambda} \frac{z}{z-j}
         \end{equation*}
-    
-    \end{enumerate}
-    \medskip
-    In this way, no user learns the master key $\K$ of the system. This algorithm combines \texttt{DKG.Reconstruct}, \texttt{IBE.Extract} and \texttt{BE.KeyGen} algorithms.
-
-    \bigskip    
-    
-
-    \item[\texttt{Publish($params, \mathcal{S}$, \msg)}:] Take the message \msg, the subset $\mathcal{S}$ of size $\eta$ and the public $params$, output an encrypted message $\mathcal{B}$.
+        \end{enumerate}
+        In this way, no user or PKG learns the master key $msk$ of the system. This algorithm combines \texttt{DKG.Reconstruct}, \texttt{IBE.Extract} and \texttt{BE.KeyGen} algorithms.
+        \bigskip
+\item[\texttt{Publish($params, \mathcal{S}, m$)}:] Takes the message $m$, the subset $\mathcal{S}$ of size $\eta$ and the public parameters $params$, output a broadcast message $\mathcal{B}$.
 
     \begin{enumerate}
         \item Generate a random symmetric session key $k \leftarrow \{ 0,1 \}^{l}$.
-        \item Choose a random value $\sigma \in \{ 0,1 \}^{l}$ and set $r = H_3 \left( \sigma, k \right)$
-        \item For each recipient $u_i \in \mathcal{S}$, compute the ciphertext, running the \texttt{IBE.Encrypt} algorithm, as follows.
+        \item Choose a random value $\rho \in \{ 0,1 \}^{l}$ and compute $r$ as a hash of concatenated values $r = H_3 \left( \{ \rho \parallel k \} \right)$
+        \item For each recipient $\id{i} \in \mathcal{S}$, compute the ciphertext, running the \texttt{IBE.Encrypt} algorithm, as follows.
             \begin{equation*}
-                W_i = \sigma \oplus H_2 \left( r g_{\id{i}} \right) \; \; \; \textrm{where} \; \; \; g_{\id{i}} = e \left( Q_{\id{i}}, P_{pub} \right) \in \mathbb{G}_T
+                w_i = \rho \oplus H_2 \left( g_{\id{i}}^r \right) \; \; \; \textrm{where} \; \; \; g_{\id{i}} = e \left( Q_{\id{i}}, P_{pub} \right) \in G_T
             \end{equation*}
-        \item Let $A$ be a randomized concatenation as follows
-            \begin{equation*}
+        \item Let $w$ be a randomised concatenation, then the authenticated data $\mathcal{A}$ is computed as                                  
+        \begin{equation*}
                 \begin{array}{lcl}
-                    A & = & \{ \eta \parallel rP \parallel k \oplus H_4 \left( \sigma \right) \parallel W_1 \parallel W_2 \parallel \ldots \parallel W_\eta \} \\
-                    & = & \{ \eta \parallel U \parallel V \parallel W \} \; \; \; \textrm{for} \; \; \; W = \{ W_1 \parallel W_2 \parallel \ldots \parallel W_\eta \}
+                    \mathcal{A} & = & \{ \eta \parallel rP \parallel k \oplus H_3 \left( \rho \right) \parallel w_1 \parallel w_2 \parallel \ldots \parallel w_\eta \} \\
+                    & = & \{ \eta \parallel U \parallel v \parallel w \} \; \; \; \textrm{for} \; \; \; w = \{ w_1 \parallel w_2 \parallel \ldots \parallel w_\eta \}
                 \end{array} 
             \end{equation*}
             
-        And $M$ a concatenation of the intended recipient set $\mathcal{S}$ and the plaintext message $\msg$, such that $M = \{ \msg \parallel \mathcal{S} \}$. (\texttt{BE.Encrypt})
+        And $\mathcal{M}$ a concatenation of the intended recipient set $\mathcal{S}$ and the plaintext message $m$, such that $\mathcal{M} = \{ m \parallel \mathcal{S} \}$. (\texttt{BE.Encrypt})
     
         \item Apply authenticated symmetric encryption
         \begin{equation*}
-            \{ C, T\} \leftarrow \mathtt{E}_k(M,A)
+            \left< c, t \right> \leftarrow \mathtt{E}_k(\mathcal{M},\mathcal{A})
         \end{equation*}
         \item The following message is then published in the OSN
         \begin{equation*}
-            \mathcal{B} = \{ A \parallel T \parallel C \}
+            \mathcal{B} = \{ \mathcal{A} \parallel t \parallel c \}
         \end{equation*}
     \end{enumerate}
-
-
-\bigskip 
-
-    \item[\texttt{Retrieve($params, d_{\id{i}}, \mathcal{B}$)}:] on the input of the encrypted message and the private key, reconstruct the secret message \msg. This algorithm comprises the \texttt{\{IBE,BE\}.Decrypt} algorithms. \\
+    
+    \bigskip
+    
+    \item[\texttt{Retrieve($params, s_{\id{i}}, \mathcal{B}$)}:] on input of the broadcast message $\mathcal{B}$ and the private key $s_{\id{i}}$ of user $\id{i}$, reconstruct the plaintext message $m$. This algorithm comprises the \texttt{\{IBE,BE\}.Decrypt} algorithms. For each $i \in \{  \}$ \\
 
     \begin{enumerate}
-        \item Compute $W_i \oplus H_2 \left( e \left( d_{\id{i}}, U \right) \right) = \sigma$ for $d_{\id{i}}$, and $V \oplus H_4 \{ \sigma \} = k$ 
-        \item Set $r = H_3 \left( \sigma, k \right)$. %Verify $U \stackrel{?}{=} rP$. If fail, try next $W_i$. Otherwise restart. % Is there any reason to still include this check?
-        \item Retrieve $\{ M, T' \} \leftarrow \mathtt{D}_k(C, A)$
-        \item Verify whether $T' \stackrel{?}{=} T \in \mathcal{B} $, and return $\msg$. Otherwise return $\bot$. 
+        \item Compute $w_i \oplus H_2 \left( e \left( s_{\id{i}}, U \right) \right) = \rho$ for $s_{\id{i}}$, and $v \oplus H_3 \{ \rho \} = k$ 
+        \item Set $r = H_3 \left( \rho, k \right)$. %Verify $U \stackrel{?}{=} rP$. If fail, try next $W_i$. Otherwise restart. % Is there any reason to still include this check?
+        \item Retrieve $\left< \mathcal{M}, t' \right> \leftarrow \mathtt{D}_k(c, \mathcal{A})$
+        \item Verify whether $t' \stackrel{?}{=} t \in \mathcal{B} $, and return $m$. Otherwise return $\bot$. 
     \end{enumerate}
 \end{description}
-
 
 \subsection{Evaluation}
 

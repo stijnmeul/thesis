@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  27 MAY 2014 08:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  28 MAY 2014 18:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -555,30 +555,27 @@ Package pdftex.def Info: images/twitter.png used on input line 112.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 148.
  [3 <./images/fbuser.png> <./images/fb_icon.png> <./images/fbfriends.png> <./images/linkedin.png> <./images/gplus.png> <./images/tumblr.png> <./images/pinterest.png> <./images/tor.png> <./images/twitter.png>] [4] [5]
-Overfull \hbox (11.42613pt too wide) in paragraph at lines 217--218
-[]\OT1/cmr/m/n/10 Choose cryp-to-graphic hash func-tions $\OML/cmm/m/it/10 H[] \OT1/cmr/m/n/10 : \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g[] ! \U/msb/m/n/10 G[]$\OT1/cmr/m/n/10 , $[]$,
+Overfull \hbox (8.81772pt too wide) in paragraph at lines 216--217
+[]\OT1/cmr/m/n/10 Choose cryp-to-graphic hash func-tions $\OML/cmm/m/it/10 H[] \OT1/cmr/m/n/10 : \OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1\OMS/cmsy/m/n/10 g[] ! \OML/cmm/m/it/10 G[]$\OT1/cmr/m/n/10 , $[]$
  []
 
 [6]
 
 LaTeX Font Warning: Font shape `OMS/cmtt/bx/n' undefined
 (Font)              using `OMS/cmtt/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 232.
+(Font)              for symbol `textbraceleft' on input line 230.
 
 
-Overfull \hbox (12.68004pt too wide) in paragraph at lines 261--262
-[]\OT1/cmr/m/n/10 For each re-cip-i-ent $\OML/cmm/m/it/10 u[] \OMS/cmtt/m/n/10 2 S$\OT1/cmr/m/n/10 , com-pute the ci-pher-text, run-ning the \OT1/cmtt/m/n/10 IBE.Encrypt
+Overfull \hbox (17.45537pt too wide) in paragraph at lines 258--259
+[]\OT1/cmr/m/n/10 For each re-cip-i-ent $[][] \OMS/cmtt/m/n/10 2 S$\OT1/cmr/m/n/10 , com-pute the ci-pher-text, run-ning the \OT1/cmtt/m/n/10 IBE.Encrypt
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 288--289
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
 
  []
 
-[8] [9]
-Underfull \vbox (badness 4569) has occurred while \output is active []
-
- [10] (./paper.bbl [11]
+[8] [9] [10] (./paper.bbl [11]
 Overfull \hbox (3.13474pt too wide) in paragraph at lines 110--113
 []\OT1/cmr/m/n/9 A. Huang.  Dis-tributed Key Gen-er-a-tor.  https://crysp.uwaterloo.ca/software/DKG/,
  []
@@ -597,7 +594,7 @@ Here is how much of TeX's memory you used:
  958 hyphenation exceptions out of 8191
  56i,13n,72p,1370b,811s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on paper.pdf (13 pages, 516999 bytes).
+Output written on paper.pdf (13 pages, 519301 bytes).
 PDF statistics:
  158 PDF objects out of 1000 (max. 8388607)
  101 compressed objects within 2 object streams

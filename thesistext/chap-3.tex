@@ -1,19 +1,198 @@
 \chapter{Design of a Practical Encryption Scheme for Online Social Networks}
 \label{cha:n}
 
+\section{Online Social Network}
+OSNs are getting more and more aware of the rising privacy concerns among their users. Therefore, most OSN services like Google+ and Facebook try to offer preferences that allow the user to determine their privacy up to a certain extent. In practice, most OSNs realise this by offering user specified groups of friends that can be selected when broadcasting a message. The OSN provider then ensures that the broadcasted message is only available to members inside the user specified group. However, these methods are insufficient for most privacy aware users.
+
+\subsection{Definition}
+The most commonly accepted definition of an \textit{Online Social Network} (OSN) in literature is from Boyd et al.~\cite{art:BoydE08}. However, since this definition is still too generic for the remainder of this text a slightly modified version is presented here.
+
+\begin{defn}[Online Social Network~\cite{art:BoydE08}]
+\label{def:osn_boyd}
+ An \textit{online social network} (OSN) is a web-based service that allows individuals to:
+ \begin{enumerate}
+  \item Construct a public or semi-public profile within a bounded system
+  \item Articulate a list of other users with whom they share a connection.
+  \item View and traverse their list of connections and those made by others within the system
+  \item Distribute messages to anyone visiting the system, any user of the system or subsets thereof 
+  \setcounter{enumTemp}{\theenumi}
+ \end{enumerate}
+\end{defn}
+
+
+\subsection{Model of Current OSN Situation}
+\label{sec:model}
+\begin{defn}[OSN user]
+\label{def:user}
+ An \textit{OSN user} $U$ is any entity that has a profile on the OSN and thus identifiable by a unique identifier \id{U}. The set containing all users of an OSN is denoted $\mathcal{U}$.
+\end{defn}
+
+An OSN user can perform different activities within the infrastructure of the OSN. Depending on the performed activity, the user is labeled as one of three different roles: a sender, a friend or a recipient.
+
+\begin{defn}[Sender]
+\label{def:sender}
+ A \textit{sender} $A$ is an OSN user who broadcasts a message $m$ over the OSN infrastructure to varying subsets of OSN users, called the \textit{intended recipient set} $\mathcal{S}$ such that $\mathcal{S} \subseteq \mathcal{U}$.
+\end{defn}
+
+\begin{defn}[Intended recipient]
+\label{def:recipient}
+ An \textit{intended recipient} of a message $m$ is an OSN user who is explicitly designated by a sender $A$ to be part of the intended recipient set $\mathcal{S}$ of that message $m$. The intended recipient set $\mathcal{S}$ takes the form of a list of \id{}'s uniquely identifying other users' profiles in the OSN infrastructure.
+\end{defn}
+
+\begin{defn}[Friend]
+\label{def:friend}
+ An OSN user who shares a connection with another OSN user $U$ in the OSN infrastructure, is called a \textit{friend of the user $U$}. The set of all friends associated to a user $U$ is denoted $\mathcal{F}_U$ such that $\mathcal{F}_U \subseteq \mathcal{U}$.
+\end{defn}
+
+Currently, other entities than OSN users $U \in \mathcal{U}$ associated with a profile $\id{U}$, can access the OSN services as well. If abstraction is made of entities with access to specific content, it suffices to define a set of \textit{viewers}.
+
+\begin{defn}[Viewer]
+\label{def:viewer}
+ Any entity that is given access to the OSN belongs to the set of viewers $\mathcal{V}$. All viewers with access to non-public content of a profile $\id{U}$ of a user $U$ are in the set $\mathcal{V}_U \subseteq \mathcal{V}$.
+\end{defn}
+
+Many different entities can be part of the set $\mathcal{V}$, i.e. OSN users, advertising companies, system administrators of the OSN, software applications specifically developed for the OSN, ... Usually, the OSN determines who is part of $\mathcal{V}$. Therefore, a user $U$ often has no control in who is a member of $\mathcal{V}_U$.
+
+Following the example illustrated by Figure~\ref{fig:current_model}, Sender $A$ wants to broadcast a message $m$ over the OSN infrastructure to the intended recipient set $\mathcal{S}$. As $A$ only wants to share the message with a specific group of friends, $A$ defines the intended recipient set such that $\mathcal{S} \subset \mathcal{F}_B$. Next, $A$ sends $m$ to the OSN's distribution server along with the intended recipient set $\mathcal{S}$. The OSN Server further distributes the message to all users in $\mathcal{S}$. Also a subset of third party applications and advertisers get access to the distributed message if they are inside the viewers group $\mathcal{V}_B$. Every entity who has access to the message is coloured blue in Figure~\ref{fig:current_model}.
+
+Figure~\ref{fig:current_model} illustrates previous definitions applied to an OSN as it is often encountered on the internet. The different sets in Figure~\ref{fig:current_model} are defined as follows:
+\begin{itemize}
+ \item The intended recipient set,
+ \begin{equation*}
+  \mathcal{S} = \{ \textrm{Recipient 1}, \textrm{Recipient 2} \}
+ \end{equation*}
+ \item The set of friends of user $B$,
+ \begin{equation*}
+  \mathcal{F}_B = \{ \mathcal{S}, \textrm{Friend 1}, \textrm{Friend 2} \}
+ \end{equation*}
+ \item The set of viewers who have access to the profile of user $B$,
+ \begin{equation*}
+  \begin{split}
+   \mathcal{V}_B = \{ \mathcal{F}_B, \textrm{Sender } A, \textrm{Advertiser 1}, \textrm{Application 1} \}
+  \end{split}
+ \end{equation*}
+ \item The set of entities with access to the OSN,
+\begin{equation*}
+\begin{split}
+ \mathcal{V} = \{ \mathcal{V}_B, \textrm{User 1}, \textrm{User 2}, \textrm{Advertiser 2}, \textrm{Application 2} \}
+\end{split}
+\end{equation*}
+\item The set of all users in the OSN,
+\begin{equation*}
+ \mathcal{U} = \{ \mathcal{F}_B, \textrm{Sender} A, \textrm{User 1}, \textrm{User 2}\}
+\end{equation*}
+\end{itemize}
+
+
+\begin{figure}
+    \begin{center}
+    \scalebox{0.78}{
+        \begin{tikzpicture}[auto, node distance=-2mm, align=center,
+            block/.style={rectangle,text width=6em,text centered,minimum height=9mm},
+            line/.style={draw,very thick, ->},
+            line2/.style={draw,very thick, <->},
+            leg/.style={text centered},
+            ]
+            % Recipient set polygon
+            \draw[dashed,color=cyan] (3.5,4) -- (8.5,4) -- (8.5,1.75) -- (3.5,1.75) -- (3.5,4);
+            % Friends polygon
+            \draw[dashed] (3,4.5) -- (9,4.5) -- (9,-0.25) -- (3,-0.25) -- (3,4.5);
+            % Viewers Polygon
+            \draw[dashed] (-5,5) -- (9.5,5) -- (9.5,-0.75) -- (-5,-0.75) -- (-5,5);
+            % OSN Polygon
+            \draw[dashed] (-5.5,5.5) -- (10,5.5) -- (10,-2.75) -- (-5.5,-2.75) -- (-5.5,5.5);
+            %\draw[help lines] (-6,-5) grid (8,6);
+            \path
+                % Images
+                (0,3) node [block] (pkg) {\includegraphics[scale=0.15]{img/bluepkg.png}}
+                (-4,3) node [block] (alice) {\includegraphics[scale=0.15]{img/bluealice.png}}
+                (5,3) node [block] (bob) {\includegraphics[scale=0.15]{img/bluebob.png}}
+                (7,3) node [block] (bob1) {\includegraphics[scale=0.15]{img/bluebob.png}}
+                (5,1) node [block] (bob2) {\includegraphics[scale=0.15]{img/bob.png}}
+                (7,1) node [block] (alice1) {\includegraphics[scale=0.15]{img/alice.png}}
+                (-1.5,1) node [block] (adv) {\includegraphics[scale=0.15]{img/bluemoneyman.png}}
+                (1.5,1) node [block] (app) {\includegraphics[scale=0.15]{img/blueapp.png}}
+                
+                (1.5,-1.5) node [block] (app2) {\includegraphics[scale=0.15]{img/app.png}}
+                (-1.5,-1.5) node [block] (adv2) {\includegraphics[scale=0.15]{img/moneyman.png}}
+                
+                
+                (5,-1.5) node [block] (alice2) {\includegraphics[scale=0.15]{img/alice.png}}
+                (7,-1.5) node [block] (bob3) {\includegraphics[scale=0.15]{img/bob.png}}
+                
+                (-1.5,-4) node [block] (spy1) {\includegraphics[scale=0.15]{img/spy.png}}
+                (1.5,-4) node [block] (spy2) {\includegraphics[scale=0.15]{img/spy.png}}
+                % Text
+                (0,5.5) node [leg,fill=white] (white_block) {Entities with access to the OSN $\mathcal{V}$}
+                (0,5) node [leg,fill=white] (white_block) {Entities with access to $B$'s Profile $\mathcal{V}_B$}
+                (6,4) node [color=cyan,leg,fill=white] (white_block) {Intended Recipient Set $\mathcal{S}$}
+                (6,4.5) node [leg,fill=white] (white_block) {Friends Set $\mathcal{F}_B$}
+                (-2,3.25) node [leg,color=cyan] (white_block) {$m, \mathcal{S}$}
+                ;
+                
+       \node[node distance=2mm, above=of pkg,color=cyan] {\textbf{OSN Broadcast Server}};
+       \node[below=of adv,color=cyan] {Advertiser 1};
+       \node[below=of adv2] {Advertiser 2};
+       \node[below=of app2] {Application 2};
+       \node[below=of alice2] {User 1};
+       \node[below=of bob3] {User 2};
+       \node[below=of bob,color=cyan] {Recipient 1};
+       \node[below=of bob1,color=cyan] {Recipient 2};
+       \node[below=of bob2] {Friend 1};
+       \node[below=of alice1] {Friend 2};
+       \node[below=of app2] {Application 2};
+       \node[below=of alice,color=cyan] {Sender $A$};
+       \node[below=of app,color=cyan] {Application 1};
+       \node[node distance=-6mm,below=of spy1] {Outsider 1};
+       \node[node distance=-6mm,below=of spy2] {Outsider 2};
+       \begin{scope}[every path/.style=line,color=cyan]
+        \path (alice.east) -- (pkg.west);
+        %\path (pkg.south west) -- (adv.north);
+        \path (-0.7, 2.3) -- (adv.north);
+        \path (0.7,2.3) -- (app.north);
+        \path (pkg.east) -- (3.5,3);
+       \end{scope}
+
+
+        \end{tikzpicture}
+    }
+    \end{center}
+    \caption{Model of the current OSN situation. Entities with access to the message $m$ are coloured blue.}
+    \label{fig:current_model}
+\end{figure}
+
+The OSN's infrastructure stores almost everything within the viewer set $\mathcal{V}$. The profiles of all users within the friends set $\mathcal{F}_B$, the list of \id{}'s within the intended recipient set $\mathcal{S}$, access rights of applications and advertisers that are part of $\mathcal{V}_B$ and access rights of entities within the set $\mathcal{V}$ are all explicitly stored somewhere on the servers of the OSN.
+
+Note that not all OSNs support the functionality to define intended recipient sets $\mathcal{S}$ on a per message basis. In OSNs like Twitter the standard privacy settings are such that message are always published publicly. Therefore, the model from Figure~\ref{fig:current_model} only holds for a specific subset of OSNs like Facebook or Google+. More public OSNs like Twitter would require less sets of entities to model their behaviour.
+
+It requires almost no additional effort to transform the model from Figure~\ref{fig:current_model} such that it also takes the sharing of other media than messages into account. The model could then adopted for use on SNSs like Youtube or Instagram as well. However, this falls out of the scope of this thesis.
+
+\section{Issues with Current OSN Situation}
+\label{sec:problem_statement}
+There are several issues with the current OSN situation as modelled in Figure~\ref{fig:current_model}.
+
+First, there is a clear mismatch between the expectations of Sender $B$ and the functionality of the OSN. When a privacy-aware user like sender $B$ takes the effort to define an intended recipient set $\mathcal{S}$, she expects to have full control on who has access to her messages $m$. In reality, sender $B$ only has partial control since the OSN determines all other entities in $\mathcal{V}_B$ that are not part of sender $B$'s friend list $\mathcal{F}_B$. In some OSNs a user first has to give permission to third party applications before access is granted to the user's content. Note that this gives more control to OSN users on determining who is inside the viewers set $\mathcal{V}_B$. Nevertheless, in practice it is still hard to get a concise overview from the OSN on everyone inside $\mathcal{V}_B$.
+
+Second, any user broadcasting messages over the OSN infrastructure has to trust the OSN that it effectively operates as claimed. If the OSN broadcast server in Figure~\ref{fig:current_model} would accidentally broadcast messages publicly despite of the sender's privacy settings, it would be hard for the Sender to find out.
+
+Furthermore, the users of the OSN have to rely on the security of the OSN's infrastructure. If one of the outsiders in Figure~\ref{fig:current_model} would succeed in hacking the OSN's digital infrastructure, he would have immediate access to all sensible information stored on the OSN's servers. Similarly, governments can subpoena the OSN to disclose sensible information on certain users with the argument of national security.
+
+Another significant point is that the OSN fully determines which access policies are supported. As already mentioned in Section~\ref{sec:model}, not all OSNs offer the definition of an intended recipient set on a per message basis. Even OSNs currently supporting this functionality can suddenly stop offering the service. Moreover, nothing prevents OSN providers from changing their privacy policy on a regular basis, thereby complicating users to define the access policy of their choice.
+
+Besides the earlier mentioned issues, the OSN often operates with a corporate mentality. The OSN has no initiative to stop adding advertisers and applications to the set of entities with access to a user's profile $\mathcal{V}_B$. The more information advertising companies receive from the OSN provider, the better they can tailor advertisements to the user. The more third party applications rely on the OSNs infrastructure, the more appealing the OSN business model looks like. Therefore, OSNs have often no initiative to offer stricter access control policies to their users.
 
 \section{Cryptographic Goals}
 \label{sec:cryptographic_goals}
 Section~\ref{sec:goals_of_this_thesis} already defined a set of abstract goals for an architecture trying to solve the current privacy issues in OSNs. These goals said that a solution should be user friendly, applicable and immediately ready to use. Besides from these general design goals, it is now possible to define specific cryptographic requirements as well. A well-designed encryption scheme should be able to achieve the following cryptographic goals when publishing a message $m$ to a set of intended recipients $\mathcal{S}$ on an OSN with the help of an encryption scheme:
 \begin{itemize}
  \item \textbf{Confidentiality:} The message is protected from disclosure to unauthorised parties, i.e. all entities that are not explicitly in the recipient set $\mathcal{S}$.
+ \item \textbf{Outsider recipient anonymity:} The intended recipients of a broadcasted message should be anonymous to anyone not included in the intended recipient set $\mathcal{S}$. This implies that neither the OSN has to know who the recipients are. (Definition~\ref{def:outsider_anonymity} gives a more formal definition of outsider-anonymity).
+ \item \textbf{No redundancy:} The message should be published only once to reach every recipient in the intended recipient set $\mathcal{S}$.
  \item \textbf{Authenticity:} The recipients of the message have reasonable assurances of the message's origin.
  \item \textbf{Integrity:} The recipients are assured the message is distributed in its original form as posted by the sender.
- \item \textbf{No redundancy:} The message should be published only once to reach every recipient in the intended recipient set $\mathcal{S}$.
- \item \textbf{Outsider recipient anonymity:} The intended recipients of a broadcasted message should be anonymous to anyone not included in the intended recipient set $\mathcal{S}$. This implies that neither the OSN has to know who the recipients are. (Definition~\ref{def:outsider_anonymity} gives a more formal definition of outsider-anonymity).
  \item \textbf{No key escrow:} Private keys are only disclosed to the owners of the public key. No other entity should be able to have more information on one's secret key in the information theoretic sense.
  \item \textbf{Key validation:} All users of the system should be able to verify the correctness of their private keys.
- \item \textbf{Finite key validity:} Private keys of users should only be valid for a finite period of time to limit the damage of potentially lost private keys.
+ \item \textbf{Limited key validity:} Private keys of users should only be valid for a limited period of time to limit the damage of potentially lost private keys.
 \end{itemize}
 
 \section{Design Decisions}
@@ -93,11 +272,11 @@ In more traditional communication schemes, authenticated encryption is done with
 
 
 \subsection{No Key Escrow and Key Validation}
-One of the major drawbacks of IBE schemes is that they inherently imply key escrow (Section~\ref{sec:pros_and_cons_of_ibe}). To circumvent the key escrow property of IBE schemes, DKGs can be used implementing a distributed key generation mechanism for IBE. Users can then verify their private keys by relying on the basics of commitment schemes (Section~\ref{sec:commitment_schemes}).
+One of the major drawbacks of IBE schemes is that they inherently imply key escrow (Section~\ref{sec:pros_and_cons_of_ibe}). To circumvent the key escrow property of IBE schemes, multiple PKGs can be used implementing a distributed key generation (DKG) mechanism for IBE. Users can then verify their private keys by relying on the basics of commitment schemes (Section~\ref{sec:commitment_schemes}).
 
 For the exact details on how a commitment scheme can achieve this verification mechanism, the reader is immediately referred to the exact proposed scheme in Section~\ref{sec:proposed_scheme}.
 
-\subsection{Finite Key Validity}
+\subsection{Limited Key Validity}
 As discussed in Section~\ref{sec:pros_and_cons_of_ibe} IBE schemes do not allow revocation of public keys. A solution to circumvent this drawback is by concatenating an expiration date to all public identifiers \id{}. However, these expiration dates should be publicly available to all OSN users since they are part of the public IBE key. To avoid the management of a third party infrastructure keeping track of expiration dates of all users, a special type of function could be used mapping identifiers \id{} to dates. An example of such a function is shown in Algorithm~\ref{alg:map_to_date}.
 
 Algorithm~\ref{alg:map_to_date} is constructed such that step 1 to 4 only need to be executed once. The sender then stores values $d_1, h_1, m_1$ locally and only repeats step 5 for each recipient of the message. The exact implementation details could be hidden from the user in software. Different variants of Algorithm~\ref{alg:map_to_date} could be applied as well. The most important aspect is that everyone in the system uses the same function to map strings to expiration dates.
@@ -132,14 +311,14 @@ Algorithm~\ref{alg:map_to_date} is constructed such that step 1 to 4 only need t
 
 
 \section{Security Model}
-If the design decisions from Section~\ref{sec:design_decisions} can be achieved, the model from Figure~\ref{fig:current_model} changes significantly. A group of DKGs should be introduced in the original model with their own responsibilities. An altered model of the OSN situation then helps to further define the requirements on all entities in the system.
+To achieve the design decisions from Section~\ref{sec:design_decisions}, the model from Figure~\ref{fig:current_model} changes significantly. Therefore, a group of PKGs is introduced in the original model with their own responsibilities.
 
 \subsection{Model}
 Distributed key generators (DKGs) were already discussed in depth in Section~\ref{sec:distributed_key_generation}. However, for the sake of completeness it is useful to introduce a DKG as an additional entity in the current OSN model to the ones already described in Section~\ref{sec:model}.
 
-\begin{defn}[DKG]
+\begin{defn}[PKG in our security model]
 \label{def:dkg}
- A \textit{Distributed Key Generator} (DKG) is an entity that ideally does not belong to the set of entities with access to the OSN $\mathcal{V}$. A DKG is trusted that it never collaborates with any other entity in the model since its prime motivation is to improve the current security situation in OSNs.
+ A \textit{Public Key Generator} (PKG) is an entity in the security model that ideally never collaborates with any other entity in the model since its prime motivation is to improve the current security situation in OSNs.
 \end{defn}
 
 \begin{figure}[ht]
@@ -206,10 +385,10 @@ Distributed key generators (DKGs) were already discussed in depth in Section~\re
        \node[below=of app2] {Application 2};
        \node[below=of alice,color=cyan] {Sender $B$};
        \node[below=of app] {Application 1};
-       \node[below=of pkg1] {\textbf{DKG 1}};
-       \node[below=of pkg2] {\textbf{DKG 2}};
-       \node[below=of pkg3] {\textbf{DKG 3}};
-       \node[below=of pkg4] {\textbf{DKG 4}};
+       \node[below=of pkg1] {\textbf{PKG 1}};
+       \node[below=of pkg2] {\textbf{PKG 2}};
+       \node[below=of pkg3] {\textbf{PKG 3}};
+       \node[below=of pkg4] {\textbf{PKG 4}};
        \node[node distance=-6mm,below=of spy1] {Outsider 1};
        \node[node distance=-6mm,below=of spy2] {Outsider 2};
        \begin{scope}[every path/.style=line]
@@ -234,22 +413,22 @@ Distributed key generators (DKGs) were already discussed in depth in Section~\re
     \label{fig:new_model}
 \end{figure}
 
-Figure~\ref{fig:new_model} illustrates a variation on the original model of the OSN situation in Figure~\ref{fig:current_model}. At the top of Figure~\ref{fig:new_model} four DKGs are introduced functioning as a $\left( t, n \right)$ distributed key generation scheme (Section~\ref{sec:distributed_key_generation}) with $t = 2$ and $n = 4$. Double arrows represent the secure communication process in which the recipients communicate with the DKG to receive a share of their secret key. In Figure~\ref{fig:generic_ibe_scheme} this communication was illustrated by two separate single arrows between the PKG and Bob. However, abstraction is made of the exact communication protocol between the recipients and the DKG.
+Figure~\ref{fig:new_model} illustrates a variation on the original model of the OSN situation in Figure~\ref{fig:current_model}. At the top of Figure~\ref{fig:new_model} four PKGs are introduced implementing a $\left( t, n \right)$ DKG protcol (Section~\ref{sec:distributed_key_generation}) with $t = 2$ and $n = 4$. Double arrows represent the secure communication process in which the recipients communicate with the PKG to receive a share of their secret key. In Figure~\ref{fig:generic_ibe_scheme} this communication was illustrated by two separate single arrows between the PKG and Bob. However, abstraction is made of the exact communication protocol between the recipients and the PKG.
 
-Apart from the newly introduced DKGs, there are some other rather subtile changes in Figure~\ref{fig:new_model} when compared to Figure~\ref{fig:current_model}. Sender $B$ no longer specifies the set of intended recipients $\mathcal{S}$ to the OSN broadcast server. Therefore, the OSN broadcast server delivers the message to all entities with access to $B$'s profile $\mathcal{V}_B$. Note that even Friend 1 and 2 are able to see the broadcasted message which was not the case in Figure~\ref{fig:current_model}. However, since the broadcasted message is actually a ciphertext $c$ of the original message $m$, only the entities in blue will be able to read the confidential content of the original plaintext message $m$.
+Apart from the newly introduced PKGs, there are some other rather subtile changes in Figure~\ref{fig:new_model} when compared to Figure~\ref{fig:current_model}. Sender $B$ no longer specifies the set of intended recipients $\mathcal{S}$ to the OSN broadcast server. Therefore, the OSN broadcast server delivers the message to all entities with access to $B$'s profile $\mathcal{V}_B$. Note that even Friend 1 and 2 are able to see the broadcasted message which was not the case in Figure~\ref{fig:current_model}. However, since the broadcasted message is actually a ciphertext $c$ of the original message $m$, only the entities in blue will be able to read the confidential content of the original plaintext message $m$.
 
 \section{Threat Model}
 
 \subsection{Adversary Definition}
-An adversary in the model of Figure~\ref{fig:new_model} is any computationally bounded entity that tries to violate one or several of the following properties
+We consider an adversary in the model illustrated in Figure~\ref{fig:new_model}, to be any computationally bounded entity trying to violate one or several of the following properties:
 \begin{enumerate}
  \item \textbf{Confidentiality:} The entity tries to violate the confidentiality of encrypted messages, i.e. uncovering information within a broadcasted ciphertext. This can either be the intended recipient set $\mathcal{S}$ or the actual content of the plaintext message $m$.
  \item \textbf{Integrity:} The entity tries to violate the integrity of encrypted messages, i.e. changing the ciphertext $c$ or the plaintext $m$ such that it differs from the way it was originally drafted by the sender.
- \item \textbf{Availability:} The entity tries to prevent messages from being broadcasted by bringing down parts of the architecture or the OSN. 
+ \item \textbf{Availability:} Any entity apart from the original sender, tries to prevent messages from being broadcasted by bringing down parts of the architecture or the OSN. 
 \end{enumerate}
 
-\subsection{Assumptions on the DKG}
-Because this thesis focusses mainly on the adoption of user friendly broadcast encryption in OSNs, DKGs are never considered adversaries in the remainder of the text. That is, DKGs always behave as described in the distributed key generation protocol and are therefore always trustworthy. Note that this is a simplification of a DKG as it is often encountered in real-world applications. However, considering DKGs as malicious requires far more complex distributed key generation algorithms which are out of the scope of this thesis. For DKG protocols that can be used in more hostile DKG environments as encountered in practice, the reader is referred to~\cite{art:KateHG12}.
+\subsection{Assumptions on the PKG}
+This thesis focusses mainly on the adoption of user friendly broadcast encryption in OSNs. Therefore, PKGs are considered to always behave as described in the DKG protocol. Note that this is a simplification of a PKG as it is often encountered in real-world applications. However, considering PKGs as malicious requires far more complex distributed key generation algorithms which are out of the scope of this thesis. For DKG protocols that can be used in more hostile PKG environments as encountered in practice, the reader is referred to Aniket et al.~\cite{art:KateHG12}.
 
 \subsection{Assumptions on the OSN}
 OSNs are assumed not to violate integrity neither availability. Nothing can be done to prevent the OSN from actively altering its own resources to bring down the proposed IBE architecture. It can not be prevented that a user of IBE on the OSN infrastructure gets blocked by the OSN provider. Neither can it be prevented that OSNs delete messages because they are encrypted. OSNs can also easily impersonate the owner of a profile in their infrastructure. Therefore, from this moment onwards, OSNs are assumed to not act as an active adversary. It is assumed that as soon as privacy aware users notice this kind of OSN behaviour, they will adopt to more reliable OSN alternatives. However, our assumptions do not prevent the OSN from trying to passively break confidentiality as they have every motivation for it in the context of their current business model.
@@ -287,7 +466,7 @@ The proposed solution can be used in any OSN that assigns unique public identifi
 
 For the sake of clarity, concatenation of expiration dates with public keys is not explicitly included in Algorithm~\ref{alg:our_scheme}. However, with the help of Algorithm~\ref{alg:map_to_date} this should be trivial since only the interpretation of the identifier symol $\id{i}$ changes from a permanent identifier of a user to only a temporary identifier when concatenated with an expiration date.
 
-The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, does not ensure security against malicious DKGs. It only allows a user to check whether he received correct shares. Nevertheless, since the Pedersen scheme~\cite{art:Pedersen91a} is insecure, malicious DKGs can still affect the outcome of certain bits of the shared master secret key $msk$ with non-negligible advantage. To circumvent these issues, the DKG scheme from Gennaro et al.~\cite{art:GennaroJKR07} should be implemented. However, since the scheme is developed in a threat model where DKGs are assumed trustworthy, this concern falls out of the scope of this thesis. Implementation of the scheme from Gennaro et al.~\cite{art:GennaroJKR07} occurs similar to the scheme from Pedersen~\cite{art:Pedersen91a} since it relies on the same mathematical concepts. Therefore, adapting Algorithm~\ref{alg:our_scheme} to a more hostile DKG environment should be fairly straightforward.
+The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, does not ensure security against malicious PKGs. It only allows a user to check whether he received correct shares. Nevertheless, since the Pedersen scheme~\cite{art:Pedersen91a} is insecure, malicious PKGs can still affect the outcome of certain bits of the shared master secret key $msk$ with non-negligible advantage. To circumvent these issues, the DKG scheme from Gennaro et al.~\cite{art:GennaroJKR07} should be implemented. However, since the scheme is developed in a threat model where PKGs are assumed trustworthy, this concern falls out of the scope of this thesis. Implementation of the scheme from Gennaro et al.~\cite{art:GennaroJKR07} occurs similar to the scheme from Pedersen~\cite{art:Pedersen91a} since it relies on the same mathematical concepts. Therefore, adapting Algorithm~\ref{alg:our_scheme} to a more hostile DKG environment should be straightforward.
 
 \section{Summary}
 

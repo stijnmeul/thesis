@@ -11,13 +11,13 @@
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Model of the current OSN situation\relax }}{4}{figure.caption.8}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A cryptosystem~\cite {thesis:Wyseur09}\relax }}{17}{figure.caption.14}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A cryptosystem~\cite {thesis:Wyseur09}\relax }}{13}{figure.caption.13}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Generic identity-based encryption scheme. The blue arrow denotes an insecure channel that can be eavesdropped.\relax }}{28}{figure.caption.24}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Generic identity-based encryption scheme. The blue arrow denotes an insecure channel that can be eavesdropped.\relax }}{24}{figure.caption.23}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Model of the new OSN situation\relax }}{49}{figure.caption.34}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Model of the current OSN situation. Entities with access to the message $m$ are coloured blue.\relax }}{41}{figure.caption.31}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Model of the new OSN situation\relax }}{49}{figure.caption.34}
 \addvspace {10pt}
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Original Scramble Architecture\relax }}{56}{figure.caption.35}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces New Scramble Architecture\relax }}{57}{figure.caption.36}

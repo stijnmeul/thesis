@@ -1,4 +1,7 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{100}
+
+\bibitem{nist:dworkin}
+
 
 \bibitem{thesis:Maas04}
 Pairing based cryptography.
@@ -60,6 +63,13 @@ R.~Barbulescu, P.~Gaudry, A.~Joux, and E.~Thom{\'e}.
   finite fields of small characteristic.
 \newblock In P.~Q. Nguyen and E.~Oswald, editors, {\em EUROCRYPT}, volume 8441
   of {\em Lecture Notes in Computer Science}, pages 1--16. Springer, 2014.
+
+\bibitem{art:BarretoLS02}
+P.~S. L.~M. Barreto, B.~Lynn, and M.~Scott.
+\newblock Constructing elliptic curves with prescribed embedding degrees.
+\newblock In S.~Cimato, C.~Galdi, and G.~Persiano, editors, {\em SCN}, volume
+  2576 of {\em Lecture Notes in Computer Science}, pages 257--267. Springer,
+  2002.
 
 \bibitem{art:BarthBW06}
 A.~Barth, D.~Boneh, and B.~Waters.
@@ -364,6 +374,17 @@ Y.~Hanaoka, G.~Hanaoka, J.~Shikata, and H.~Imai.
 \newblock In B.~K. Roy, editor, {\em ASIACRYPT}, volume 3788 of {\em Lecture
   Notes in Computer Science}, pages 495--514. Springer, 2005.
 
+\bibitem{art:HessSV06}
+F.~Hess, N.~P. Smart, and F.~Vercauteren.
+\newblock The eta pairing revisited.
+\newblock {\em IACR Cryptology ePrint Archive}, 2006:110, 2006.
+
+\bibitem{rfc5084}
+R.~Housley.
+\newblock {Using AES-CCM and AES-GCM Authenticated Encryption in the
+  Cryptographic Message Syntax (CMS)}.
+\newblock RFC 5084 (Proposed Standard), Nov. 2007.
+
 \bibitem{site:Jones13}
 K.~Jones.
 \newblock The growth of social media v2.0.
@@ -457,6 +478,12 @@ U.~M. Maurer and S.~Wolf.
 \newblock The relationship between breaking the diffie-hellman protocol and
   computing discrete logarithms.
 \newblock {\em SIAM J. Comput.}, 28(5):1689--1721, 1999.
+
+\bibitem{art:McGrewV04}
+D.~A. McGrew and J.~Viega.
+\newblock The security and performance of the galois/counter mode of operation
+  (full version).
+\newblock {\em IACR Cryptology ePrint Archive}, 2004:193, 2004.
 
 \bibitem{book:handbook_of_applied_cryptography}
 A.~Menezes, P.~C. van Oorschot, and S.~A. Vanstone.

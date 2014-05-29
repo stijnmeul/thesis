@@ -8,10 +8,8 @@
 \setup{filingcard,
   translatedtitle=,
   udc=621.3,
-  shortabstract={Here comes a very short abstract, containing no more than 500
-    words. \LaTeX\ commands can be used here. Blank lines (or the command
-    \texttt{\string\pa r}) are not allowed!
-    \endgraf \lipsum[2]}}
+  shortabstract={Nowadays Online Social Networks (OSNs) constitute an important and useful communication channel. At the same time, coarse-grained privacy preferences protect the shared information insufficiently. Cryptographic techniques can provide interesting mechanism to protect privacy of users in OSNs. However, this approach faces several issues, such as, OSN provider acceptance, user adoption, key management and usability. We suggest a practical solution that uses Identity Based Encryption (IBE) to simplify key management and enforce confidentiality of data in OSNs. Moreover, we devise an outsider anonymous broadcast IBE scheme to disseminate information among multiple users, even if they are not using the system. Finally, we demonstrate the viability and tolerable overhead of our solution via an open-source prototype.
+}}
 % Uncomment the next line for generating the cover page
 %\setup{coverpageonly}
 % Uncomment the next \setup to generate only the first pages (e.g., if you
@@ -93,10 +91,8 @@
 \tableofcontents*
 
 \begin{abstract}
-  The \texttt{abstract} environment contains a more extensive overview of
-  the work. But it should be limited to one page.
+  Nowadays Online Social Networks (OSNs) constitute an important and useful communication channel. At the same time, coarse-grained privacy preferences protect the shared information insufficiently. Cryptographic techniques can provide interesting mechanism to protect privacy of users in OSNs. However, this approach faces several issues, such as, OSN provider acceptance, user adoption, key management and usability. We suggest a practical solution that uses Identity Based Encryption (IBE) to simplify key management and enforce confidentiality of data in OSNs. Moreover, we devise an outsider anonymous broadcast IBE scheme to disseminate information among multiple users, even if they are not using the system. Finally, we demonstrate the viability and tolerable overhead of our solution via an open-source prototype.
 
-  \lipsum[1]
 \end{abstract}
 
 % A list of figures and tables is optional
@@ -110,15 +106,15 @@
 \begin{flushleft}
   \renewcommand{\arraystretch}{1.1}
   \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
-    IBE   & Identity-Based Encryption \\
-    PKG   & Public Key Generator \\
-    DKG   & Distributed Key Generator \\
-    IND-CPA  & Indistinguishability under Chosen Plaintext Attack  \\
-    IND-CCA & Indistinguishability under Chosen Ciphertext Attack \\
     ANO-IBE & Anonymous IBE \\
-    ANO-IND-CPA & Anonymity preserving IBE scheme that is indistinguishable under chosen plaintext attacks \\
     ANO-IND-CCA & Anonymity preserving IBE scheme that is indistinguishable under chosen ciphertext attacks \\ 
+    ANO-IND-CPA & Anonymity preserving IBE scheme that is indistinguishable under chosen plaintext attacks \\
+    DKG   & Distributed Key Generation \\
+    IBE   & Identity-Based Encryption \\
+    IND-CCA & Indistinguishability under Chosen Ciphertext Attack \\
+    IND-CPA  & Indistinguishability under Chosen Plaintext Attack  \\
     OSN & Online Social Network \\
+    PKG   & Public Key Generator \\
   \end{tabularx}
 \end{flushleft}
 \chapter{List of Symbols}
