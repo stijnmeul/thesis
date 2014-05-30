@@ -36,7 +36,6 @@ A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
-Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--to sort, need author or key in thesis:Alfredo08
 Warning--to sort, need author or key in thesis:Lynn07
@@ -44,46 +43,45 @@ Warning--to sort, need author or key in nist:dworkin
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Lynn07
 Warning--empty author in thesis:Alfredo08
-Warning--empty author in thesis:Wyseur09
-You've used 113 entries,
+You've used 111 entries,
             2118 wiz_defined-function locations,
-            1345 strings with 28657 characters,
-and the built_in function-call counts, 41075 in all, are:
-= -- 3996
-> -- 1816
+            1334 strings with 28429 characters,
+and the built_in function-call counts, 40664 in all, are:
+= -- 3953
+> -- 1808
 < -- 83
-+ -- 709
-- -- 575
-* -- 2810
-:= -- 6524
-add.period$ -- 375
-call.type$ -- 113
-change.case$ -- 593
++ -- 705
+- -- 573
+* -- 2783
+:= -- 6456
+add.period$ -- 370
+call.type$ -- 111
+change.case$ -- 586
 chr.to.int$ -- 0
-cite$ -- 122
-duplicate$ -- 1703
-empty$ -- 3338
-format.name$ -- 585
-if$ -- 9034
+cite$ -- 118
+duplicate$ -- 1684
+empty$ -- 3300
+format.name$ -- 583
+if$ -- 8947
 int.to.chr$ -- 0
-int.to.str$ -- 113
-missing$ -- 95
-newline$ -- 561
-num.names$ -- 293
-pop$ -- 631
+int.to.str$ -- 111
+missing$ -- 94
+newline$ -- 552
+num.names$ -- 291
+pop$ -- 626
 preamble$ -- 1
-purify$ -- 486
+purify$ -- 481
 quote$ -- 0
-skip$ -- 1334
+skip$ -- 1321
 stack$ -- 0
-substring$ -- 2292
-swap$ -- 584
+substring$ -- 2270
+swap$ -- 583
 text.length$ -- 77
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 445
-warning$ -- 9
-while$ -- 385
-width$ -- 116
-write$ -- 1277
+type$ -- 437
+warning$ -- 7
+while$ -- 382
+width$ -- 114
+write$ -- 1257
 (There were 5 error messages)

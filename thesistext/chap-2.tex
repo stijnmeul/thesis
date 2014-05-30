@@ -4,30 +4,8 @@ This chapter overviews cryptographic building blocks used to design the encrypti
 
 This chapter is organised as follows. An introduction is given to public key infrastructures and their drawbacks. Then, identity-based encryption (IBE) is overview as an alternative to the existing public key infrastructures. An introduction is given to the basic concept of identity-based encryption, its drawbacks and advantages, the different security definitions and the evolution of IBE in literature. This is followed by an elaborate discussion on broadcast encryption (BE) and secret sharing. Finally, distributed key generation is described as a possible solution to the inherent key escrow problem of IBE.
 
-\section{Notions and Notation}
-Specific notation and cryptographic notions are introduced in this section for the remainder of the text.
-
-\begin{defn}[Digital signature]
-\label{def:digital_signature}
- A digital signature $S_A \left( m \right)$ achieves authentication, non-repudiation and integrity on a message $m$ from a known sender $A$. $m$ is signed with $A$'s private signing key $sk_A$ and verified with $A$'s public verifying key $vk_A$.
-\end{defn}
-
-\begin{defn}[Authenticated encryption]
-\label{def:authenticated_encryption}
- An authenticated encryption scheme consists of two polynomial time algorithms:
- \begin{enumerate}
-   \item An encryption algorithm $\left< c,t \right> \leftarrow \mathtt{E}_k \left( m, a\right)$ that encrypts the plaintext $m$ to a ciphertext $c$ under symmetric key $k$, thereby generating an authentication tag $t$ that provides integrity and authenticity on both $m$ and authenticated data $a$.
-   \item A decryption algorithm $\left< m,t' \right> \leftarrow \mathtt{D}_k \left( c,a \right)$ that decrypts the ciphertext $c$ back to the plaintext message $m$ under the same symmetric key $k$ as used for encryption, thereby generating an authentication tag $t'$ that provides integrity and authenticity on both $m$ and authenticated data $a$.
- \end{enumerate}
-\end{defn}
-
-\begin{defn}[Perfect randomness]
-\label{def:perfect_randomness}
- A bit sequence $s$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $s$ could have been the result of a toss of a fair coin. That is, the probability of $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$.
-\end{defn}
-
 \section{Public Key Infrastructures}
-Recall from Section~\ref{sec:asymmetric_cryptography} that asymmetric cryptography assigns a key pair $\left< sk_A, pk_A \right>$ to every user $A$ to allow secure communication between parties who never met. The infrastructure storing all public key values is called the Public Key Infrastructure (PKI). However, PKI systems only shift the problem from trusting the users to trusting their keys. For example, if Eve could make the PKI system believe that her own public key $pk_{Eve}$ actually represents the public key of Alice $pk_{Alice}$, Eve would be able to read all Alice's confidential communication as she obviously has the private key $sk_{Eve}$ corresponding to $pk_{Eve}$. Therefore, it is important that public key systems rely on an architecture that authenticates whether keypairs belong to the claimed owner. In practice this is mostly achieved with the help of certification authorities or a web of trust.
+Asymmetric cryptography assigns a key pair $\left< sk_A, pk_A \right>$ to every user $A$ to allow secure communication between parties who never met. The infrastructure authenticating all public key values is called the Public Key Infrastructure (PKI) (Definition~\ref{def:pki}). However, PKI systems only shift the problem from trusting the users to trusting their keys. For example, if Eve could make the PKI system believe that her own public key $pk_{Eve}$ actually represents the public key of Alice $pk_{Alice}$, Eve would be able to read all Alice's confidential communication as she obviously has the private key $sk_{Eve}$ corresponding to $pk_{Eve}$. Therefore, it is important that public key systems rely on an architecture that authenticates whether key pairs belong to the claimed owner. In practice this is mostly achieved with the help of certification authorities or a web of trust.
 
 \subsection{Certification Authorities}
 In a traditional PKI system, all entities in the system trust a central party called the \textit{Certification Authority} (CA). It is the CA that guarantees public keys belong to the claimed owner.

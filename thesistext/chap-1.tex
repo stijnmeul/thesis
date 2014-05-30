@@ -282,49 +282,90 @@ The \textit{Bilinear Diffie-Hellman assumption} holds if for any algorithm \\ $\
  \end{equation*}
  where the probability is over the random choice of $q, G_1, G_2, e$ according to the distribution induced by $\mathcal{G} \left( 1^{\lambda} \right)$, the random choice of $a, b$ in $\{ 1, \ldots, | G |\}$ and the random bits of the algorithm $\mathcal{A}$.
 \end{defn}
-\section{Cryptography}
-\textit{Cryptology} is the science describing how to hide confidential information. Cryptology consists of two complementary fields that continuously try to outwit each other: cryptography and cryptanalysis. On the one hand, \textit{cryptography} is the practice and study of techniques trying to hide information from undesired third parties. On the other hand, \textit{cryptanalysis} is the domain of cryptology trying to derive information from hidden data.
+\section{Cryptographic Definitions}
+This section defines basic cryptographic notions and the corresponding notation that is applied consistently throughout the remainder of the text.
+
+\subsection{Terminology}
+\begin{defn}[Perfect randomness]
+\label{def:perfect_randomness}
+ A bit sequence $s$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $s$ could have been the result of the toss of a fair coin. That is, the probability of $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$.
+\end{defn}
+
+\begin{defn}[Confidentiality]
+\label{def:confidentiality}
+ \textit{Confidentiality} is the assurance to an entity information is protected from disclosure to unauthorised entities.
+\end{defn}
+
+\begin{defn}[Integrity]
+\label{def:integrity}
+ \textit{Integrity} is the assurance to an entity information was not modified by unauthorised entities.
+\end{defn}
+
+\begin{defn}[Authentication]
+\label{def:authentication}
+ \textit{Authentication} is the assurance to an entity that another entity effectively has a claimed identity.
+\end{defn}
+
+\begin{defn}[Authenticity]
+\label{def:authenticity}
+ \textit{Authenticity} is the assurance to an entity information comes from the claimed entity.
+\end{defn}
+
+\begin{defn}[Non-repudiation]
+\label{def:non-repudiation}
+ \textit{Non-repudiation} is the assurance to an entity of authenticity and integrity of information which undeniably links the originating entity as the source of information. 
+\end{defn}
 
 \subsection{Symmetric Cryptography}
-Figure~\ref{fig:cryptosystem} shows a typical cryptographic system often shortened to ''cryptosystem''. In a typical cryptosystem one party (often called Alice) tries to send a message $m$ over an insecure channel to another party (often called Bob). The channel is insecure as third parties like Eve can eavesdrop on the channel to read out data that is being sent over.
+Symmetric cryptographic algorithms require a shared secret between different entities to achieve confidentiality. Practically, this translates to the same symmetric key $k$ being used for encryption and decryption.
 
-\begin{figure}[H]
- \includegraphics[trim=40mm 120mm 40mm 120mm, clip]{img/cryptosystem.pdf}
- \caption{A cryptosystem~\cite{thesis:Wyseur09}}
- \label{fig:cryptosystem}
-\end{figure}
+\begin{defn}[Encryption scheme]
+\label{def:encryption_scheme}
+ An encryption scheme consists of two polynomial time algorithms which achieve confidentiality:
+ \begin{enumerate}
+   \item An encryption algorithm $c \leftarrow \mathtt{E}_k \left( m \right)$ that encodes the plaintext $m$ to a ciphertext $c$ under symmetric key $k$ such that only parties in possession of $k$ can derive $m$ from $c$.
+   \item A decryption algorithm $m \leftarrow \mathtt{D}_k \left( c \right)$ that decodes the ciphertext $c$ back to the plaintext message $m$ on input of the same symmetric key $k$.
+ \end{enumerate}
+\end{defn}
 
-Figure~\ref{fig:cryptosystem} achieves confidentiality, i.e. the information in $m$ is protected from disclosure to unauthorised parties. To prevent eavesdroppers from reading out the message $m$, Alice and Bob have agreed on a key $k$ that is unknown to the outside world. Before sending a message $m$ over the insecure channel, Alice encrypts the message $m$ to a ciphertext $c$ under the secret key $k$ using an \textit{encryption algorithm} $E_k$ such that $c = E_k \left( m \right)$. Ideally $c$ looks like random gibberish to eavesdroppers like Eve. Bob can then read out the original plaintext message $m$ by applying the decryption algorithm $D_k$ under the same key $k$. Cryptosystems as the one described in Figure~\ref{fig:cryptosystem} are called \textit{symmetric} as both Alice and Bob have to use the same key $k$ for encryption and decryption. 
+\begin{defn}[Authenticated encryption]
+\label{def:authenticated_encryption}
+ An authenticated encryption scheme consists of two polynomial time algorithms which achieve confidentiality and authenticity:
+ \begin{enumerate}
+   \item An encryption algorithm $\left< c,t \right> \leftarrow \mathtt{E}_k \left( m, a\right)$ that encrypts the plaintext $m$ to a ciphertext $c$ under symmetric key $k$, thereby generating an authentication tag $t$ that provides integrity and authenticity on both $m$ and authenticated data $a$.
+   \item A decryption algorithm $\left< m,t' \right> \leftarrow \mathtt{D}_k \left( c,a \right)$ that decrypts the ciphertext $c$ back to the plaintext message $m$ under the same symmetric key $k$ as used for encryption, thereby generating an authentication tag $t'$ that provides integrity and authenticity on both $m$ and authenticated data $a$.
+ \end{enumerate}
+\end{defn}
 
-Most cryptosystems that are practically used today satisfy Kerchoff's principle~\cite{art:Kerckhoffs1883}. Kerchoff's principle states that although the encryption and decryption mechanism are known to the outside world, the cryptosystem assures confidentiality as long as the symmetric key $k$ remains secret.
+The difference in notation between an encryption scheme and an authenticated encryption scheme can be derived from the different number of arguments required by their polynomial time algorithms.
 
 \subsection{Asymmetric Cryptography}
-\label{sec:asymmetric_cryptography}
-The concept behind asymmetric cryptography is to use a different key for encryption than decryption, thereby making secure communication easier between parties who have never met before.
+Asymmetric cryptography assigns a key pair $\left< sk_A, pk_A \right>$ to every entity $A$ in the system. The \textit{private key} is denoted $sk_A$ and only known by $A$, while $pk_A$ represents the \textit{public key} which is made available to every entity in the system. A private key $sk_A$ is mathematically related to the corresponding public key $pk_A$ since $pk_A$ is derived from $sk_A$ by applying a one-way function. The one-way property of the function implies that there exists no polynomial time algorithm to derive $sk_A$ from $pk_A$, e.g. in the ElGamal encryption scheme~\cite{art:Elgamal85} the public key is calculated as $pk = g^{sk}$ in a group $\mathbb{Z}_p$ for some large prime $p$. As long as the DL assumption from Definition~\ref{def:dl} holds it is infeasible to derive $sk$ from $pk$.
 
-\subsubsection{Definition}
-In a \textit{Public Key Infrastructure} (PKI) each entity $A$ has a key pair $\left< pk_A, sk_A \right>$ where $pk_A$ and $sk_A$ denote the public and the private key of entity $A$ respectively. The public key is publicly available, while the private key often remains secret and only known by $A$. The domain of cryptography describing the concept of these key pairs is often called \textit{asymmetric cryptography}. 
+The concept of each entity possessing an asymmetric key pair enables secure communication between entities who have never met by encrypting under the correct public keys.
 
-In asymmetric cryptography, key pair generation is a two step process. In the first step, the private key $sk$ is chosen uniformly random. In the second step, the public key $pk$ is derived by applying a one-way function to $sk$. The one-way property of the applied function implies that it is computationally hard to derive the public key from the private key, e.g. in the ElGamal encryption scheme~\cite{art:Elgamal85} the public key is calculated as $pk = g^{sk}$ in a group $\mathbb{Z}_p$ for some large prime $p$. As long as the DL assumption from Definition~\ref{def:dl} holds it is infeasible to derive $sk$ from $pk$.
+\begin{defn}[PKI]
+\label{def:pki}
+ A \textit{public key infrastructure} (PKI) is an infrastructure authenticating key pairs $\left< sk_A, pk_A \right>$ effectively belong to the claimed user $A$.
+\end{defn}
 
-The concept of two different keys enables a wide plethora of useful applications. Once all public keys of a PKI system are known, two entities who never met before can immediately setup secure communication by encrypting under the correct public keys. Asymmetric cryptography also enables these entities to authenticate their messages by relying on signature schemes. Authenticity of signatures then immediately follows from the privacy of $sk$.
+\begin{defn}[Digital signature]
+\label{def:digital_signature}
+ A digital signature $S_A \left( m \right)$ achieves non-repudiation on a message $m$ from a known sender $A$. $m$ is signed with $A$'s private signing key $sk_A$ and verified with $A$'s public verifying key $vk_A$.
+\end{defn}
 
-\subsubsection{Commitment Schemes}
-\label{sec:commitment_schemes}
-A commitment scheme is an asymmetric cryptographic scheme that allows to commit to a certain value while keeping the exact value private. The value can be revealed later giving anyone who received the commitment the possibility to check whether the value was changed between the commitment phase and the revealing of the value.
-
-More formally, a generic commitment scheme is composed of three probabilistic polynomial time algorithms:
-
-\begin{description}
- \item \texttt{CS.Setup($1^{\lambda}$):} On input of a security parameter $\lambda$, generates the public parameters $params$ of the system
- \item \texttt{CS.Commit($params, m, r$):} Returns a commitment $c_{m,r}$ to a message $m$ and a random binary sequence $r$.
- \item \texttt{CS.Open($params, c_{m,r}, m', r'$):} On input of public parameters $params$, a commitment $c_{m,r}$, a message $m$ and a random binary sequence $r$ it returns \texttt{true} if $c_{m,r} \leftarrow $\texttt{CS.Commit($params, m, r$)} with $m = m'$ and $r = r'$ and \texttt{false} otherwise.
-\end{description}
-
+\begin{defn}[Commitment scheme]
+\label{def:authenticated_encryption}
+ A \textit{commitment scheme} allows an entity to commit to a chosen value while keeping it hidden to others, with the ability to reveal the committed value later~\cite{book:Goldreich97}. After revealing the committed value, any other entity can verify the value has not changed between commitment and revelation. This is achieved by two polynomial time algorithms:
+ \begin{enumerate}
+   \item \texttt{CS.Commit($m, r$):} Returns a commitment $c_{m,r}$ to a message $m$ and a random binary sequence $r$.
+ \item \texttt{CS.Verify($c_{m,r}, m', r'$):} On input of a commitment $c_{m,r}$, a message $m'$ and a random binary sequence $r'$ it returns \texttt{true} if $c_{m,r} \leftarrow $\texttt{CS.Commit($params, m, r$)} with $m = m'$ and $r = r'$ and \texttt{false} otherwise.
+ \end{enumerate}
+\end{defn}
 For a more elaborate discussion on commitment schemes the reader is referred to the original paper from Brassard et al.~\cite{art:BrassardCC88}.
 
 \subsection{Hash Functions}
-The concept of hash functions is required to further explain random oracles. Random oracles are a useful construction in proving certain cryptographic algorithms.
+The concept of hash functions is required to further explain random oracles. Random oracles are a useful assumption when proving the security of certain cryptographic algorithms.
 
 \label{sec:hash_functions}
 \subsubsection{Definition}

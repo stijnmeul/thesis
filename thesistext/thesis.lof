@@ -13,16 +13,15 @@
 \addvspace {10pt}
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Multiple $(n,t)$-PKG IBE for OSNs overview, for a message $m$ published for the set $\mathcal {S}$ for $t=3$. The PKG infrastructure can be maintained by virtually any organisation with an incentive to make OSNs more private.\relax }}{4}{figure.caption.13}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {2.1}{\ignorespaces A cryptosystem~\cite {thesis:Wyseur09}\relax }}{13}{figure.caption.14}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Generic identity-based encryption scheme. The blue arrow denotes an insecure channel that can be eavesdropped.\relax }}{20}{figure.caption.19}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Generic identity-based encryption scheme. The blue arrow denotes an insecure channel that can be eavesdropped.\relax }}{20}{figure.caption.16}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Model of the current OSN situation. Entities with access to the message $m$ are coloured blue.\relax }}{39}{figure.caption.27}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Model of the new OSN situation. Entities with the ability to decrypt the ciphertext are coloured blue.\relax }}{47}{figure.caption.30}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Model of the current OSN situation. Entities with access to the message $m$ are coloured blue.\relax }}{37}{figure.caption.24}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Model of the new OSN situation. Entities with the ability to decrypt the ciphertext are coloured blue.\relax }}{45}{figure.caption.27}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Original Scramble Architecture\relax }}{54}{figure.caption.31}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces New Scramble Architecture\relax }}{55}{figure.caption.32}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Class Diagram of Client Side C++ MIRACL Based Back-end\relax }}{58}{figure.caption.33}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Original Scramble Architecture\relax }}{52}{figure.caption.28}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces New Scramble Architecture\relax }}{53}{figure.caption.29}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Class Diagram of Client Side C++ MIRACL Based Back-end\relax }}{56}{figure.caption.30}
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}

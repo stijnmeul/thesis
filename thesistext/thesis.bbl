@@ -15,10 +15,6 @@ On the implementation of pairing-based cryptography.
 Public-key encryption with oblivious keyword search. priced oblivious transfer.
 \newblock Master's thesis, KU Leuven, 2008.
 
-\bibitem{thesis:Wyseur09}
-White-box cryptography.
-\newblock Master's thesis, KU Leuven, 2009.
-
 \bibitem{art:AbdallaBCKKLMNPS05}
 M.~Abdalla, M.~Bellare, D.~Catalano, E.~Kiltz, T.~Kohno, T.~Lange,
   J.~Malone-Lee, G.~Neven, P.~Paillier, and H.~Shi.
@@ -613,11 +609,6 @@ N.~P. Smart.
 \newblock Efficient key encapsulation to multiple parties.
 \newblock In C.~Blundo and S.~Cimato, editors, {\em SCN}, volume 3352 of {\em
   Lecture Notes in Computer Science}, pages 208--219. Springer, 2004.
-
-\bibitem{art:Kerckhoffs1883}
-A.~K. (von Nieuwenhof).
-\newblock La cryptographie militaire. ({French}) [{Military} cryptography].
-\newblock {\em Journal des Sciences Militaires}, IX:5--38, Jan. 1883.
 
 \bibitem{art:Waters05}
 B.~Waters.

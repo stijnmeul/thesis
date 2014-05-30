@@ -14,36 +14,35 @@
 \BOOKMARK [1][-]{section.2.2}{Abstract Algebra}{chapter.2}% 14
 \BOOKMARK [1][-]{section.2.3}{Number Theoretic Assumptions}{chapter.2}% 15
 \BOOKMARK [1][-]{section.2.4}{Bilinear Maps}{chapter.2}% 16
-\BOOKMARK [1][-]{section.2.5}{Cryptography}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.5}{Cryptographic Definitions}{chapter.2}% 17
 \BOOKMARK [1][-]{section.2.6}{Summary}{chapter.2}% 18
 \BOOKMARK [0][-]{chapter.3}{Cryptographic Building Blocks}{}% 19
-\BOOKMARK [1][-]{section.3.1}{Notions and Notation}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.2}{Public Key Infrastructures}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.3}{Identity-Based Encryption}{chapter.3}% 22
-\BOOKMARK [1][-]{section.3.4}{Broadcast Encryption}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.5}{Secret Sharing}{chapter.3}% 24
-\BOOKMARK [1][-]{section.3.6}{Distributed Key Generation}{chapter.3}% 25
-\BOOKMARK [0][-]{chapter.4}{Design of a Practical Encryption Scheme for Online Social Networks}{}% 26
-\BOOKMARK [1][-]{section.4.1}{Online Social Network}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.2}{Issues with Current OSN Situation}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.3}{Cryptographic Goals}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.4}{Design Decisions}{chapter.4}% 30
-\BOOKMARK [1][-]{section.4.5}{Security Model}{chapter.4}% 31
-\BOOKMARK [1][-]{section.4.6}{Threat Model}{chapter.4}% 32
-\BOOKMARK [1][-]{section.4.7}{Proposed Scheme}{chapter.4}% 33
-\BOOKMARK [1][-]{section.4.8}{Summary}{chapter.4}% 34
-\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 35
-\BOOKMARK [1][-]{section.5.1}{Software Architecture}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.2}{Implementation Details}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.3}{Implemented Scheme}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.4}{Performance Analysis}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.5}{Shortcomings of Current Implementation}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.6}{Summary}{chapter.5}% 41
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 42
-\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 43
-\BOOKMARK [0][-]{appendix.B}{Installing and Executing the Code}{}% 44
-\BOOKMARK [1][-]{section.B.1}{Setting up the DKG}{appendix.B}% 45
-\BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 46
-\BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 47
-\BOOKMARK [0][-]{appendix.D}{English Paper}{}% 48
-\BOOKMARK [0][-]{section*.40}{Bibliography}{}% 49
+\BOOKMARK [1][-]{section.3.1}{Public Key Infrastructures}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.2}{Identity-Based Encryption}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.3}{Broadcast Encryption}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.4}{Secret Sharing}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.5}{Distributed Key Generation}{chapter.3}% 24
+\BOOKMARK [0][-]{chapter.4}{Design of a Practical Encryption Scheme for Online Social Networks}{}% 25
+\BOOKMARK [1][-]{section.4.1}{Online Social Network}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.2}{Issues with Current OSN Situation}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.3}{Cryptographic Goals}{chapter.4}% 28
+\BOOKMARK [1][-]{section.4.4}{Design Decisions}{chapter.4}% 29
+\BOOKMARK [1][-]{section.4.5}{Security Model}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.6}{Threat Model}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.7}{Proposed Scheme}{chapter.4}% 32
+\BOOKMARK [1][-]{section.4.8}{Summary}{chapter.4}% 33
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 34
+\BOOKMARK [1][-]{section.5.1}{Software Architecture}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.2}{Implementation Details}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.3}{Implemented Scheme}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.4}{Performance Analysis}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.5}{Shortcomings of Current Implementation}{chapter.5}% 39
+\BOOKMARK [1][-]{section.5.6}{Summary}{chapter.5}% 40
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 41
+\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 42
+\BOOKMARK [0][-]{appendix.B}{Installing and Executing the Code}{}% 43
+\BOOKMARK [1][-]{section.B.1}{Setting up the DKG}{appendix.B}% 44
+\BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 45
+\BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 46
+\BOOKMARK [0][-]{appendix.D}{English Paper}{}% 47
+\BOOKMARK [0][-]{section*.37}{Bibliography}{}% 48
