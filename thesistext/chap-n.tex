@@ -225,7 +225,7 @@ An AES-GCM~\cite{art:McGrewV04} implementation is used for the authenticated enc
 Since the maximum level of security in MIRACL is determined by the BLS curve, all implemented key lengths in Algorithm~\ref{alg:our_scheme} follow from the 256 bits security level ($l=256$). Note that in Step 1 of \texttt{Retrieve} the decryption of a recipient's session key is calculated as: 
 
 \begin{equation*}
- w_i \oplus H_2 \left( e \left( s_{\id{i}}, U \right) \right) = \rho
+ w_i \oplus H_2 \left( e \left( sk_{\id{i}}, U \right) \right) = \rho
 \end{equation*}
 followed by
 \begin{equation*}

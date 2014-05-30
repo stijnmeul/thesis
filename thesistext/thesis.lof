@@ -16,12 +16,12 @@
 \addvspace {10pt}
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Generic identity-based encryption scheme. The blue arrow denotes an insecure channel that can be eavesdropped.\relax }}{20}{figure.caption.16}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Model of the current OSN situation. Entities with access to the message $m$ are coloured blue.\relax }}{37}{figure.caption.24}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Model of the new OSN situation. Entities with the ability to decrypt the ciphertext are coloured blue.\relax }}{45}{figure.caption.27}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Model of the current OSN situation. Entities with access to the message $m$ are coloured blue.\relax }}{39}{figure.caption.32}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Model of the new OSN situation. Entities with the ability to decrypt the ciphertext are coloured blue.\relax }}{47}{figure.caption.35}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Original Scramble Architecture\relax }}{52}{figure.caption.28}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces New Scramble Architecture\relax }}{53}{figure.caption.29}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Class Diagram of Client Side C++ MIRACL Based Back-end\relax }}{56}{figure.caption.30}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Original Scramble Architecture\relax }}{54}{figure.caption.36}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces New Scramble Architecture\relax }}{55}{figure.caption.37}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Class Diagram of Client Side C++ MIRACL Based Back-end\relax }}{58}{figure.caption.38}
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}

@@ -493,10 +493,10 @@ The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, do
         
         \item Each PKG $j$ generates $n-1$ shares $\sigma_{jv}$ of a Pedersen VSS scheme by executing \texttt{DKG.Setup}, and redistributing the $n-1$ shares $\sigma_{jv}$ with the other $v$ PKGs.
 
-        \item Each PKG $j$ publishes $P_{pub}^{(j)} = s_j P$, s.t., $s_j=\sum_{v=1}^n \sigma_{jv}$.
+        \item Each PKG $j$ publishes $P_{pub}^{(j)} = sk_j P$, s.t., $sk_j=\sum_{v=1}^n \sigma_{jv}$.
     \end{enumerate}
     
-    The master secret key $msk = \sum_{j \in \Lambda} b_j s_j$ for $b_j = \prod_{z \in \Lambda} \frac{z}{z-j}$ cannot be retrieved unless $\Lambda$ is a subset of size $t$ different PKG servers. The following parameters are published publicly:
+    The master secret key $msk = \sum_{j \in \Lambda} b_j sk_j$ for $b_j = \prod_{z \in \Lambda} \frac{z}{z-j}$ cannot be retrieved unless $\Lambda$ is a subset of size $t$ different PKG servers. The following parameters are published publicly:
     \begin{equation*}
     params = \{ q, G_1, G_2, e, P, Q, H_1, H_2, H_3, t, n, P_{pub}^{(0)}, \ldots, P_{pub}^{(n)} \}
     \end{equation*}
@@ -505,7 +505,7 @@ The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, do
     
     \begin{enumerate}
         \item User with identifier \id{i}, authenticates to $\Lambda$ or all PKGs and sends \id{i}.
-        \item Each PKG computes $Q_{\id{i}} = H_1 \left( \id{i} \right)$, and $Q_{priv,\id{i}}^{(j)} = s_j Q_{\id{i}}$, where $s_j$ is the secret share from PKG $j$.
+        \item Each PKG computes $Q_{\id{i}} = H_1 \left( \id{i} \right)$, and $Q_{priv,\id{i}}^{(j)} = sk_j Q_{\id{i}}$, where $sk_j$ is the secret key from PKG $j$.
         \item The user $\id{i}$ computes the shared public parameter $P$ using the Lagrange coefficients $b_j$ as follows:
         \begin{equation*}
          P = \sum_{j \in \Lambda} b_j P_{pub}^{\left( j \right)} \quad \textrm{for} \quad b_j = \prod_{z \in \Lambda} \frac{z}{z-j}
@@ -517,9 +517,9 @@ The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, do
         \end{equation*}
         
         %If the check fails, report that PKG as malicious and request another PKG. 
-        Next, $\id{i}$ calculates the private key $s_{\id{i}}$ using the Lagrange coefficients $b_j$ as follows: 
+        Next, $\id{i}$ calculates the private key $sk_{\id{i}}$ using the Lagrange coefficients $b_j$ as follows: 
         \begin{equation*}
-            s_{\id{i}} = \sum\limits_{j\in\Lambda} b_j Q_{priv,\id{i}}^{(j)} \quad \textrm{for} \quad b_j = \prod_{z\in \Lambda} \frac{z}{z-j}
+            sk_{\id{i}} = \sum\limits_{j\in\Lambda} b_j Q_{priv,\id{i}}^{(j)} \quad \textrm{for} \quad b_j = \prod_{z\in \Lambda} \frac{z}{z-j}
         \end{equation*}
         \end{enumerate}
         In this way, no user or PKG learns the master key $msk$ of the system. This algorithm combines \texttt{DKG.Reconstruct}, \texttt{IBE.Extract} and \texttt{BE.KeyGen} algorithms.
@@ -578,10 +578,10 @@ The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme}, do
             \mathcal{B} = \{ \mathcal{A} \parallel t \parallel c \}
         \end{equation*}
     \end{enumerate}
-    \item[\texttt{Retrieve($params, s_{\id{i}}, \mathcal{B}$)}:] on input of the broadcast message $\mathcal{B}$ and the private key $s_{\id{i}}$ of user $\id{i}$, reconstruct the plaintext message $m$. This algorithm comprises the \texttt{\{IBE,BE\}.Decrypt} algorithms. For each $i \in \{  \}$ \\
+    \item[\texttt{Retrieve($params, sk_{\id{i}}, \mathcal{B}$)}:] on input of the broadcast message $\mathcal{B}$ and the private key $sk_{\id{i}}$ of user $\id{i}$, reconstruct the plaintext message $m$. This algorithm comprises the \texttt{\{IBE,BE\}.Decrypt} algorithms. For each $i \in \{  \}$ \\
 
     \begin{enumerate}
-        \item Compute $w_i \oplus H_2 \left( e \left( s_{\id{i}}, U \right) \right) = \rho$ for $s_{\id{i}}$, and $v \oplus H_3 \{ \rho \} = k$ 
+        \item Compute $w_i \oplus H_2 \left( e \left( sk_{\id{i}}, U \right) \right) = \rho$ for $sk_{\id{i}}$, and $v \oplus H_3 \{ \rho \} = k$ 
         \item Set $r = H_3 \left( \rho, k \right)$. Verify $U \stackrel{?}{=} rP$. If the check fails, try next $W_i$ and return to 1.
         \item Retrieve $\left< \mathcal{M}, t' \right> \leftarrow \mathtt{D}_k(c, \mathcal{A})$
         \item Verify whether $t' \stackrel{?}{=} t \in \mathcal{B} $, and return $m$. Otherwise return $\bot$. 
