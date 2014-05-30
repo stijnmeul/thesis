@@ -7,14 +7,26 @@ Note that this chapter only overviews the cryptographic fundamentals required to
 For the remainder of this chapter, the notion of negligible functions is introduced, followed by an overview of algebraic structures and their properties. Then, a number of theoretic assumptions fundamental for cryptographic security are presented. The introduction of gap groups and bilinear maps follows naturally by exploring these variants of the Diffie-Hellman assumption. Finally, hash functions are defined as well as their relation to the random oracle assumption.
 
 \section{Complexity Theory}
-\subsection{Assymptotic Notation}
+Complexity theory classifies mathematical problems according to their inherent difficulty. The inherent difficulty of a mathematical problem is expressed in terms of the required resources to solve the problem independent of the algorithm used~\cite{book:handbook_of_applied_cryptography}.
 
-\subsection{Complexity Classes}
-Polynomial time algorithm
-(Sub)exponential-time algorithm
+\begin{defn}[Asymptotic upper bound]
+\label{def:asymptotic_upper_bound}
+ A function $f \left( n \right)$ which is non-negative for all integers $n \geq 0$, has an asymptotic upper bound $g \left( n \right)$ denoted $f \left( n \right) = O \left( g \left( n \right) \right)$, if there exists an integer $n_0$ and a constant $c > 0$ such that for all integers $n \geq n_0, f \left( n \right) \leq c g \left( n \right)$
+\end{defn}
 
-\subsection{Negligible Function}
-In practice no modern cryptographic algorithm achieves perfect secrecy\footnote{Note that the one-time pad is not taken into account. Although it is the only proven information secure cryptographic algorithm, it is seldom used in practical cryptographic systems.}, i.e. with unbounded computational power all practical cryptographic algorithms can be broken. Therefore, a more pragmatic definition of security is usually considered, such as security against adversaries that are computationally bound to their finite resources. In this pragmatic view of security an algorithm is considered secure only if the probability of success is smaller than the reciprocal of any polynomial function. The negligible function can be used to exactly describe this notion in a formal way.
+\begin{defn}[Polynomial-time algorithm~\cite{book:handbook_of_applied_cryptography}]
+\label{def:pt_algorithm}
+ A \textit{polynomial-time algorithm} is an algorithm whose worst-case running time function is of the form $O \left( n^c\right)$ where $n$ is an input parameter and $c$ is a constant.
+\end{defn}
+
+\begin{defn}[Exponential-time algorithm~\cite{book:handbook_of_applied_cryptography}]
+\label{def:pt_algorithm}
+ Any algorithm whose running time is not computationally bounded like a polynomial-time algorithm, is called an \textit{exponential-time algorithm}.
+\end{defn}
+
+Exponential-time algorithms are inefficient since they can take a long time to complete. Security of cryptographic algorithms is guaranteed if no polynomial-time algorithm exists to reverse the cryptographic operation without additional information.
+
+An algorithm is considered secure against computationally bounded adversaries if the probability of success is smaller than the reciprocal of any polynomial function. The negligible function can be used to exactly describe this notion in a formal way.
 
 \begin{defn}
 \label{def:negligible_function}
@@ -282,37 +294,13 @@ Figure~\ref{fig:cryptosystem} shows a typical cryptographic system often shorten
  \label{fig:cryptosystem}
 \end{figure}
 
-\subsubsection{Confidentiality}
 Figure~\ref{fig:cryptosystem} achieves confidentiality, i.e. the information in $m$ is protected from disclosure to unauthorised parties. To prevent eavesdroppers from reading out the message $m$, Alice and Bob have agreed on a key $k$ that is unknown to the outside world. Before sending a message $m$ over the insecure channel, Alice encrypts the message $m$ to a ciphertext $c$ under the secret key $k$ using an \textit{encryption algorithm} $E_k$ such that $c = E_k \left( m \right)$. Ideally $c$ looks like random gibberish to eavesdroppers like Eve. Bob can then read out the original plaintext message $m$ by applying the decryption algorithm $D_k$ under the same key $k$. Cryptosystems as the one described in Figure~\ref{fig:cryptosystem} are called \textit{symmetric} as both Alice and Bob have to use the same key $k$ for encryption and decryption. 
 
 Most cryptosystems that are practically used today satisfy Kerchoff's principle~\cite{art:Kerckhoffs1883}. Kerchoff's principle states that although the encryption and decryption mechanism are known to the outside world, the cryptosystem assures confidentiality as long as the symmetric key $k$ remains secret.
 
-\subsubsection{One-time Pad}
-A simple symmetric encryption algorithm $E_k$ could be to XOR the binary message $m$ with a binary key $k$ such that the ciphertext is equal to $c = m \oplus k$. Decryption $D_k$ would then consist of an XOR operation with the same binary symmetric key $k$ such that $m = c \oplus k = \left( m \oplus k \right) \oplus k$.  In such a scheme, the key $k$ should be a random binary string with the same length as the plaintext message $m$. This scheme was originally proposed by Vernam and is therefore often called the \textit{Vernam scheme}.
-
-Further research on the Vernam scheme by Mauborgne showed that the Vernam scheme can be proven information theoretic secure if $k$ is chosen completely random and used only once. Because of these requirements on the key $k$, the Vernam scheme is more widely known as the \textit{one-time pad}.
-
-\subsubsection{Practical Encryption Algorithms}
-Because the one-time pad is proven information theoretic secure, it can not be broken even if the adversary has access to unlimited computing power. Although this is a desirable property, the one-time pad is not frequently used in modern cryptosystems due to its impractical key management.
-
-Suppose Alice and Bob have a lot of secret information to share. This would require that the a priori agreed key $k$ is long enough to hide all this information. Once the size of the message $m$ becomes larger than the key $k$, Alice and Bob should agree on new random bits in $k$ to secure the remainder of their conversation. In fact, they have to agree upfront on as much random bits in $k$ as there will be bits in the message $m$.
-
-Because such large random symmetric keys $k$ are not practical in real-life applications, block cipher modes and stream ciphers are widely used. These are algorithms that accept a fixed size symmetric key but allow to encrypt larger messages $m$ by introducing deterministic pseudo randomness. As already mentioned in Section~\ref{sec:number_theoretic_assumptions}, these algorithms require a more pragmatic view on cryptography because they only ensure that disclosure of information is computationally difficult but not impossible. Common examples of block ciphers are AES and DES. They can be used in CFB, CTR or CFB mode to name a few. Stream ciphers include Trivium and RC4. For more information on block ciphers, stream ciphers and modes of operation the reader is referred to~\cite{book:handbook_of_applied_cryptography}.
-
-\subsubsection{Authenticated Encryption}
-\label{sec:authenticated_encryption}
-An authenticated encryption scheme consists of two generic probabilistic polynomial time algorithms:
-
-\begin{description}
- \item \texttt{AE.Encrypt($m, k$):} Encrypt is a secure symmetric encryption scheme that takes as input a plaintext $m$, an additional binary sequence $a$ and a symmetric key $k$. As a result \texttt{AE.Encrypt} generates ciphertext $c$ and authentication tag $t$ as output. Symbolically this is often denoted as  $\left< c, t \right> \leftarrow \mathtt{E}_k(m, a)$
- \item \texttt{AE.Decrypt($c, k$):} Decrypt is a secure symmetric decryption scheme that takes as input a ciphertext $c$, an additional binary sequence $a$ and a symmetric key $k$. As a result \texttt{AE.Decrypt} generates the original plaintext $m$ and an authentication tag $t$ as output. Symbolically this is often denoted as $\left< m, t \right> \leftarrow \mathtt{D}_k(c, a)$
-\end{description}
-
-The properties of a secure authenticated encryption scheme are such that it is hard to change the plaintext message $m$, the additional binary sequence $a$, the symmetric key $k$ or the ciphertext $c$ without altering the returned authentication tag $t$. Therefore, a recipient of a ciphertext $c$ and an authentication tag $t_1$ should only compare the returned authentication tag $t_2$ from $\left< m, t_2 \right> \leftarrow \mathtt{D}_k(c,a)$ with the received tag $t_1$ to be convinced that the ciphertext $c$ was generate on input of the same symmetric key $k$, plaintext message $m$ an binary sequence $a$. Since it is hard to alter the binary sequence $a$ without changing the authentication tag $t$, $a$ is often called the \textit{authenticated data}, i.e. data that is authenticated by the encryption scheme but not encrypted.
-
 \subsection{Asymmetric Cryptography}
 \label{sec:asymmetric_cryptography}
-The concept behind asymmetric cryptography is to use a different key for encryption than decryption, thereby making secure communication easier between parties who have never met before. A background on the basic concepts of traditional asymmetric cryptography allows to put the conclusions of this chapter into context.
+The concept behind asymmetric cryptography is to use a different key for encryption than decryption, thereby making secure communication easier between parties who have never met before.
 
 \subsubsection{Definition}
 In a \textit{Public Key Infrastructure} (PKI) each entity $A$ has a key pair $\left< pk_A, sk_A \right>$ where $pk_A$ and $sk_A$ denote the public and the private key of entity $A$ respectively. The public key is publicly available, while the private key often remains secret and only known by $A$. The domain of cryptography describing the concept of these key pairs is often called \textit{asymmetric cryptography}. 
@@ -320,31 +308,6 @@ In a \textit{Public Key Infrastructure} (PKI) each entity $A$ has a key pair $\l
 In asymmetric cryptography, key pair generation is a two step process. In the first step, the private key $sk$ is chosen uniformly random. In the second step, the public key $pk$ is derived by applying a one-way function to $sk$. The one-way property of the applied function implies that it is computationally hard to derive the public key from the private key, e.g. in the ElGamal encryption scheme~\cite{art:Elgamal85} the public key is calculated as $pk = g^{sk}$ in a group $\mathbb{Z}_p$ for some large prime $p$. As long as the DL assumption from Definition~\ref{def:dl} holds it is infeasible to derive $sk$ from $pk$.
 
 The concept of two different keys enables a wide plethora of useful applications. Once all public keys of a PKI system are known, two entities who never met before can immediately setup secure communication by encrypting under the correct public keys. Asymmetric cryptography also enables these entities to authenticate their messages by relying on signature schemes. Authenticity of signatures then immediately follows from the privacy of $sk$.
-
-\subsubsection{Signature Schemes}
-A digital signature resembles a handwritten signature in that it proofs a particular person has approved a particular message. However, a digital signature is harder to forge than its handwritten counterpart due to the computational hardness assumptions digital signatures rely on. More specifically, a signature is a construction such that it can be checked with a public verifying key $vk_A$ whether the signature was generated by the corresponding private signing key $sk_A$.
-
-\begin{defn}[Digital signature]
-\label{def:digital_signature}
- A digital signature $S_A \left( m \right)$ associates a message $m$ with a known sender $A$ in such a way that a recipient $B$ is ensured about the following properties:
- \begin{enumerate}
-  \item \textit{Authentication:} $B$ can be certain that $A$ is the sender of the message.
-  \item \textit{Non-repudiation:} $A$ can not deny having sent the message $m$.
-  \item \textit{Integrity:} $B$ can be certain that the message $m$ is delivered consistently, i.e. unaltered from how $A$ originally drafted the message $m$.
- \end{enumerate}
-\end{defn}
-
-Algorithm~\ref{alg:generic_signature_scheme} explains how a generic signature scheme is often constructed. Note that a signature scheme only shifts the authentication problem. Verification of a signature $S_A \left( m \right)$ only ensures the message $m$ originated from the owner of the key pair $\left< sk_A, vk_A \right>$.
-\begin{algorithm}
-\caption{Generic Signature Scheme }
-\label{alg:generic_signature_scheme}
- \medskip
- In a digital signature scheme each entity $A$ has a publicly known verifying key $vk_A$ and a corresponding private signing key $sk_A$. A generic signature scheme consists of two algorithms:
- \begin{enumerate}
-  \item \texttt{Sign($sk_A, m$)}: Entity $A$ signs the message $m$ using its private signing key $sk_A$ resulting in a signature $S_{sk_A} \left( m \right)$
-  \item \texttt{Verify($pk_A, S_{sk_A} \left( m \right), m$)}: Entity $B$ verifies the signature $S_{sk_A} \left( m \right)$ with the public verifying key $vk_A$ of $A$. The \texttt{Verify} step returns \texttt{true} or \texttt{false} depending on the validity of the signature.
- \end{enumerate}
-\end{algorithm}
 
 \subsubsection{Commitment Schemes}
 \label{sec:commitment_schemes}

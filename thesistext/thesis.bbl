@@ -1,5 +1,8 @@
 \begin{thebibliography}{100}
 
+\bibitem{nist:dworkin}
+
+
 \bibitem{thesis:Maas04}
 Pairing based cryptography.
 \newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
@@ -161,6 +164,13 @@ D.~Boneh and M.~K. Franklin.
 \newblock Identity based encryption from the {W}eil pairing.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:90, 2001.
 
+\bibitem{art:BonneauPS10}
+J.~Bonneau and S.~Preibusch.
+\newblock The privacy jungle: On the market for data protection in social
+  networks.
+\newblock {\em Economics of Information Security and Privacy}, pages 121--167,
+  2010.
+
 \bibitem{art:BoydE08}
 D.~M. Boyd and N.~B. Ellison.
 \newblock Social network sites: Definition, history, and scholarship.
@@ -295,6 +305,11 @@ A.~Fiat and M.~Naor.
 \newblock Broadcast encryption.
 \newblock In D.~R. Stinson, editor, {\em CRYPTO}, volume 773 of {\em Lecture
   Notes in Computer Science}, pages 480--491. Springer, 1993.
+
+\bibitem{art:Fischetti11}
+M.~Fischetti.
+\newblock Data theft: Hackers attack.
+\newblock {\em Scientific American}, 305(100), 2011.
 
 \bibitem{art:FleischmannGL10}
 E.~Fleischmann, M.~Gorski, and S.~Lucks.
@@ -486,6 +501,12 @@ L.~Martin and M.~Schertler.
 T.~Matthews.
 \newblock Suggestion for random number generators in software.
 \newblock {\em RSA Laboratories Bulletin}, 1:1--4, 1996.
+
+\bibitem{art:Matyszcyk12}
+C.~Matyszczyk.
+\newblock {If your account is subpoenaed, Facebook sends police, well,
+  everything}.
+\newblock \url{http://preview.tinyurl.com/facebook-subpoena}, 2012.
 
 \bibitem{art:MaurerW98}
 U.~M. Maurer and S.~Wolf.

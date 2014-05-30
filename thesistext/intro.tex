@@ -1,17 +1,22 @@
 \chapter{Introduction}
 \label{cha:intro}
-The online social network (OSN) is the most impactful internet trend at the dawn of the 21st century. Words like tweeting, sharing, liking, trending and tagging have found common acceptance in the vocabulary of current internet users, while services like Facebook, Google+, LinkedIn and Twitter have become part of everyday life. OSNs offer millions of users an efficient and reliable channel to distribute and share information. At the same time, OSNs store large amounts of data which prompts several privacy concerns. In particular, it is possible to infer a considerable amount of sensitive information from the shared and stored content. Currently, users are allowed to configure ''privacy preferences'' in order to limit and select which users or groups can access the shared content. These preferences are generally too coarse-grained and difficult to configure~\cite{bonneau2010privacy}. Another problem is that these preferences do not exclude the provider along with the dangers of data leaks~\cite{fischetti11hacker} nor external governments~\cite{prism}.
+The online social network (OSN) is the most impactful internet trend at the dawn of the 21st century. Words like tweeting, sharing, liking, trending and tagging have found common acceptance in the vocabulary of current internet users, while services like Facebook, Google+, LinkedIn and Twitter have become part of everyday life. OSNs offer millions of users an efficient and reliable channel to distribute and share information. At the same time, OSNs store large amounts of data which prompts several privacy concerns. In particular, it is possible to infer a considerable amount of sensitive information from the shared and stored content. Currently, users are allowed to configure ''privacy preferences'' in order to limit and select which users or groups can access the shared content. These preferences are generally too coarse-grained and difficult to configure~\cite{art:BonneauPS10}. Another problem is that these preferences do not exclude the provider along with the dangers of data leaks~\cite{art:Fischetti11} nor external governments~\cite{prism}.
 
 
 %In May 2013, 72\% of all internet users were active on a social network~\cite{site:Jones13}. Currently, Facebook has 1.23 Billion monthly active users which corresponds to 17\% of the global population~\cite{site:Bullas14,site:worldometers}. Furthermore, the average Facebook user spends 15 hours and 33 minutes online per month~\cite{site:StatisticBrain}. These numbers show that social networks no longer represent the latest craze of an internet bubble. Conversely, OSNs are deeply rooted in our daily habits.
 
 \section{Problem Statement}
 \label{sec:problem_statement}
-All these worrisome issues motivate the need for effective techniques to properly protect user's privacy in OSNs. Several solutions have been proposed and advocated to use cryptographic mechanisms in order to address the privacy issues, either by an add-on atop of existing OSNs~\cite{art:BadenBSBS09,art:BeatoKW11,art:GuhaSTF08,art:LuoXH09}, or by complete new privacy-friendly architectures~ \cite{art:CristofaroSTW11}, mainly decentralised~\cite{art:CutilloMO11,NYT2010.Diaspora}. In general, those solutions suffer from user adoption and key management issues as users are required to register and then share, certify and store public keys~\cite{art:BalseBADG14}. Completely new architectures represent a difficult step for users as the trade off of moving away from the commonly used social ecosystem compared with the risk of losing interactions is high. Arguably, current centralised OSNs are here to stay and will be continue to be actively used by millions of people. In light of recent events, such as Edward Snowden's whistle-blowing on US surveillance programs~\cite{prism}, OSN providers have all interest to maintain their users and a privacy-friendly image. However, not all OSNs are willing to cooperate in a more private infrastructure since targeted advertising is the most important part of their revenues.
+All these worrisome issues motivate the need for effective techniques to properly protect user's privacy in OSNs. Several solutions have been proposed and advocated to use cryptographic mechanisms in order to address the privacy issues, either by an add-on atop of existing OSNs~\cite{art:BadenBSBS09,art:BeatoKW11,art:GuhaSTF08,art:LuoXH09}, or by complete new privacy-friendly architectures~ \cite{art:CristofaroSTW11}, mainly decentralised~\cite{art:CutilloMO11,NYT2010.Diaspora}. In general, those solutions suffer from user adoption and key management issues as users are required to register and then share, certify and store public keys~\cite{art:BalseBADG14}. Completely new architectures represent a difficult step for users as the trade off of moving away from the commonly used social ecosystem compared with the risk of losing interactions is high. Arguably, current centralised OSNs are here to stay and will be continue to be actively used by millions of people. In light of recent events, such as Edward Snowden's whistle-blowing on US surveillance programs~\cite{prism}, OSN providers have all interest to maintain their users and a privacy-friendly image.
+
+% Filipe's argumenten:
+%        * OSN behoudt liever zijn gebruikers dan ze te verliezen omdat ze zich niet veilig voelen
+%        * een groot deel van de OSN haar inkomsten komt van advertising aan een hele groep mensen, blijft nog steeds mogelijk
+%        <-> wat met targeted advertising en behavioural analysis?
 
 \section{Existing Solutions}
 \label{sec:existing_solutions}
-Several existing solutions have been proposed in literature, all trying to solve most of the earlier mentioned issues in OSNs.
+Several existing solutions have been proposed in literature, all trying to solve most of the aforementioned issues in OSNs.
 
 \paragraph{flyByNight~\cite{art:LucasB09}} is a Facebook application that protects user data by storing it in encrypted form on Facebook. It relies on Facebook servers for its key management and is thus not secure against active attacks by Facebook itself.
 
@@ -25,17 +30,79 @@ Several existing solutions have been proposed in literature, all trying to solve
 
 The most unattractive property of all the above applications is that they have to rely on a rather complex infrastructure. Persona has to support an extended public key distribution system and Scramble relies on the leap-of-faith OpenPGP web of trust. All proposed solutions require users with no cryptographic background on asymmetric cryptography to make responsible decisions concerning the management of their keys. Furthermore, maintaining such complex key infrastructures becomes more and more complex as more users subscribe.
 
-\section{Goals of this Thesis}
+\section{Goals}
 \label{sec:goals_of_this_thesis}
-The goal of this thesis is to develop an architecture that solves the issues discussed in Section~\ref{sec:problem_statement} thereby taking the challenges and pitfalls from earlier solutions in Section~\ref{sec:existing_solutions} into account. Specifically, the architecture should present the following properties:
+The goal of this thesis is to develop an architecture that solves the aforementioned issues thereby taking the challenges and pitfalls from earlier solutions into account. Specifically, the architecture should present the following properties:
 \begin{itemize}
  \item \textbf{User friendly:} The average OSN user should be able to use the resulting architecture, i.e. a user with no knowledge on cryptographic primitives.
  \item \textbf{Applicable:} The original OSN environment should not be altered since some OSN providers are probably not willing to support a more confidential architecture because it could possibly hurt their business model.
  \item \textbf{Immediately ready to use:} No additional registration or subscription to third party key architectures should be required to enable usage of the system. As soon as a user subscribes to the OSN provider he should be able to start receiving confidential messages.
 \end{itemize}
 
+\section{Main Idea}
+Identity Based Encryption (IBE)~\cite{art:Shamir84} solutions overcome the key management problem as the public key of the user can be represented by any valid string, such as the email, unique \id{} and username. Therefore, by using an OSN username any savvy and concerned user can share encrypted content with other users who are not using the solution, thereby motivating curious ones to use the system as well. Nevertheless, IBE-based systems require a trusted central Private Key Generator (PKG) server to generate the private parameters for each user based on a master secret. Consequently, such an architecture only shifts the trusted party from the OSN to the PKG. However, this problem can be mitigated if the master secret is divided among multiple PKGs following a Distributed Key Generation (DKG)~\cite{art:Pedersen91a} protocol based on Verifiable Secret Sharing (VSS)~\cite{art:ChorGMA85}. A DKG protocol allows $n$ entities to jointly generate a secret requiring that a threshold $t$ of the $n$ entities does not get compromised. In fact, each entity holds only a share of the master secret, that can be reconstructed by at least $t$ shares. 
+
+Many OSN users are not only represented on a single OSN but on several, thus, can also hold multiple public keys. Moreover, the multi-PKG setting could be supported and maintained by different organisations, each with their own motivations to support more private OSNs. In particular, if OSN providers see their advertisement revenues drop due to privacy concerned users deleting their profiles, they have an incentive to support and maintain such a multi-PKG setting. Since collaboration between OSN providers that compete along is assumed to be a difficult task and orthogonal to their economical business model, the different PKGs do not compromise the security of the DKG protocol. Figure~\ref{fig:overview} depicts an overview example of a possible model, where a user authenticates to $t$-PKGs of his choice using, e.g. a similar token as in open id protocols, to retrieve his private key. This action can be performed after the reception of encrypted content as a consequence of user curiosity. The PKG servers can also be represented by governmental entities or subsidised research institutions from different continents, with no incentives to collaborate nor overcome more powerful adversaries using legal measures~\cite{art:Matyszcyk12} among at least $t$-PKGs. 
+
+\begin{figure}[ht]
+    \begin{center}
+    \scalebox{0.78}{
+        \begin{tikzpicture}[auto, node distance=1mm,
+            block/.style={rectangle,text width=6em,text centered,minimum height=11mm},
+            line/.style={draw,very thick, ->},
+            line2/.style={draw,very thick, <->},
+            leg/.style={font=\scriptsize,text centered},
+            ]
+            % \draw[help lines] (-6,-5) grid (8,3);
+            \draw[dashed] (-5,6) -- (5,6) -- (5,3) -- (-5,3) -- (-5,6);
+            \path
+                % title of PKG BOX
+                (0, 6.5) node {\textbf{Pool of Multiple PKGs}}
+                
+                % Bottom part
+                (-5.5,0) node [block] (user) {\includegraphics[scale=0.2]{img/fbuser.png}}
+                (0,0) node [block] (fb) {\includegraphics[scale=0.12]{img/fb_icon.png}}
+                (5.5, 0) node [block] (friends) {\includegraphics[scale=0.3]{img/fbfriends.png}}
+
+                %Top part (PKG lists)
+                (-3,4) node [block] (linkedin) {\includegraphics[scale=0.1]{img/linkedin.png}}
+                (-4,5) node [block] (fbpkg) {\includegraphics[scale=0.06]{img/fb_icon.png}}
+                (1.2,5) node [block] (gplus) {\includegraphics[scale=0.08]{img/gplus.png}}
+                (-2,5.2) node [block] (tumblr) {\includegraphics[scale=0.1]{img/tumblr.png}}
+                (2.8,4) node [block] (pin) {\includegraphics[scale=0.05]{img/pinterest.png}}
+                (4.2,5) node [block] (tor) {\includegraphics[scale=0.1]{img/tor.png}}
+                (-0.5,4) node [block] (twitter) {\includegraphics[scale=0.05]{img/twitter.png}};
+
+            \node[below=of fb] {\textbf{Facebook}};
+            \node[below=of user] {\textbf{User}};
+            \node[below=of friends] (frdcaption) {\textbf{Subset of Recipients}};
+            \node[below=of frdcaption] {\textbf{s.t., $\mathcal{S}=\{\id{1},\id{2},\ldots,\id{\eta}\}$}};
+
+
+            \begin{scope}[every path/.style=line]
+                \path (user.east) -- (fb.west);               
+            \end{scope}   
+
+            % Legend
+            \path (-2.8,0.35) node [leg] {Publish: $C\leftarrow$ Encrypt($m$,$\mathcal{S}$)};
+            \path (2.7,0.35) node [leg] {Retrieve $C$};
+            \node[right=of friends] {Decrypt($C$)};
+                
+            \begin{scope}[every path/.style=line2]
+                \path (fb) -- (friends);
+                \path[dashed] (friends.north) -- (tor.south);
+                \path[dashed] (5.1,1) -- (3.1,3.4);
+                \path[dashed] (4.7,0.95) -- (0.5,3.5);
+            \end{scope}
+        \end{tikzpicture}
+    }
+    \end{center}
+    \caption{Multiple $(n,t)$-PKG IBE for OSNs overview, for a message $m$ published for the set $\mathcal{S}$ for $t=3$. The PKG infrastructure can be maintained by virtually any organisation with an incentive to make OSNs more private.}
+    \label{fig:overview}
+\end{figure}
 
 \section{Structure of this Thesis}
+
 
 %%% Local Variables: 
 %%% mode: latex

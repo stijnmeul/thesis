@@ -1,11 +1,33 @@
-\chapter{Literature Review}
+\chapter{Cryptographic Building Blocks}
 \label{cha:2}
-This chapter overviews cryptographic building blocks used to construct an encryption mechanism for online social networks. Thereby, a profound background of the existing literature, makes it easier to design the perfect encryption tool.
+This chapter overviews cryptographic building blocks used to design the encryption mechanism for online social networks presented in this thesis.
 
-This chapter is organised as follows. An introduction is given to public key infrastructures and their drawbacks. In a next section, identity-based encryption (IBE) is proposed as a possible alternative to the existing public key infrastructures. An introduction is given to the basic concept of identity-based encryption, its drawbacks and advantages, the different security definitions and the evolution of IBE in literature. This is followed by an elaborate discussion on broadcast encryption (BE) and secret sharing. Finally, distributed key generation is described as a possible solution to the inherent key escrow problem of IBE.
+This chapter is organised as follows. An introduction is given to public key infrastructures and their drawbacks. Then, identity-based encryption (IBE) is overview as an alternative to the existing public key infrastructures. An introduction is given to the basic concept of identity-based encryption, its drawbacks and advantages, the different security definitions and the evolution of IBE in literature. This is followed by an elaborate discussion on broadcast encryption (BE) and secret sharing. Finally, distributed key generation is described as a possible solution to the inherent key escrow problem of IBE.
+
+\section{Notions and Notation}
+Specific notation and cryptographic notions are introduced in this section for the remainder of the text.
+
+\begin{defn}[Digital signature]
+\label{def:digital_signature}
+ A digital signature $S_A \left( m \right)$ achieves authentication, non-repudiation and integrity on a message $m$ from a known sender $A$. $m$ is signed with $A$'s private signing key $sk_A$ and verified with $A$'s public verifying key $vk_A$.
+\end{defn}
+
+\begin{defn}[Authenticated encryption]
+\label{def:authenticated_encryption}
+ An authenticated encryption scheme consists of two polynomial time algorithms:
+ \begin{enumerate}
+   \item An encryption algorithm $\left< c,t \right> \leftarrow \mathtt{E}_k \left( m, a\right)$ that encrypts the plaintext $m$ to a ciphertext $c$ under symmetric key $k$, thereby generating an authentication tag $t$ that provides integrity and authenticity on both $m$ and authenticated data $a$.
+   \item A decryption algorithm $\left< m,t' \right> \leftarrow \mathtt{D}_k \left( c,a \right)$ that decrypts the ciphertext $c$ back to the plaintext message $m$ under the same symmetric key $k$ as used for encryption, thereby generating an authentication tag $t'$ that provides integrity and authenticity on both $m$ and authenticated data $a$.
+ \end{enumerate}
+\end{defn}
+
+\begin{defn}[Perfect randomness]
+\label{def:perfect_randomness}
+ A bit sequence $s$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $s$ could have been the result of a toss of a fair coin. That is, the probability of $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$.
+\end{defn}
 
 \section{Public Key Infrastructures}
-Section~\ref{sec:asymmetric_cryptography} already introduced the concept of a Public Key Infrastructure (PKI). However, PKI systems only shift the problem from trusting the users to trusting their keys. For example, if Eve could make the PKI system believe that her own public key $pk_{Eve}$ actually represents the public key of Alice $pk_{Alice}$, Eve would be able to read all Alice's confidential communication as she obviously has the private key $sk_{Eve}$ corresponding to $pk_{Eve}$. Therefore, it is important that public key systems rely on an architecture that authenticates whether keypairs belong to the claimed owner. In practice this is mostly achieved with the help of certification authorities or a web of trust.
+Recall from Section~\ref{sec:asymmetric_cryptography} that asymmetric cryptography assigns a key pair $\left< sk_A, pk_A \right>$ to every user $A$ to allow secure communication between parties who never met. The infrastructure storing all public key values is called the Public Key Infrastructure (PKI). However, PKI systems only shift the problem from trusting the users to trusting their keys. For example, if Eve could make the PKI system believe that her own public key $pk_{Eve}$ actually represents the public key of Alice $pk_{Alice}$, Eve would be able to read all Alice's confidential communication as she obviously has the private key $sk_{Eve}$ corresponding to $pk_{Eve}$. Therefore, it is important that public key systems rely on an architecture that authenticates whether keypairs belong to the claimed owner. In practice this is mostly achieved with the help of certification authorities or a web of trust.
 
 \subsection{Certification Authorities}
 In a traditional PKI system, all entities in the system trust a central party called the \textit{Certification Authority} (CA). It is the CA that guarantees public keys belong to the claimed owner.
@@ -31,7 +53,7 @@ The system also has its drawbacks. Usability studies already have shown that non
 \section{Identity-Based Encryption}
 Although architectures relying on CAs or webs of trust are common practice, they seem to have their drawbacks. However, recent research has uncovered a new paradigm with promising features called identity-based encryption.
 
-Shamir~\cite{art:Shamir84} already proposed a first concept of identity-based cryptography in 1984. In identity-based cryptography any string can be a valid public key for encryption or signature schemes thereby eliminating the need for digital certificates. Identity-based cryptography proves to be particularly elegant if the public key is related to an attribute that uniquely identifies the identity of the user like an e-mail address, an IP address or a telephone number. Consequently, identity-based cryptography reduces system complexity and the cost for establishing and managing the Public Key Infrastructure~(PKI)~\cite{art:BaekNSS04}. 
+The concept of identity-based cryptography was proposed by Shamir~\cite{art:Shamir84} in 1984. In identity-based cryptography any string can be a valid public key for encryption or signature schemes thereby eliminating the need for digital certificates. Identity-based cryptography proves to be particularly elegant if the public key is related to an attribute that uniquely identifies the identity of the user like an e-mail address, an IP address or a telephone number. Consequently, identity-based cryptography reduces system complexity and the cost for establishing and managing the Public Key Infrastructure~(PKI)~\cite{art:BaekNSS04}. 
 
 
 \subsection{Definition}
@@ -91,7 +113,7 @@ Figure~\ref{fig:generic_ibe_scheme} illustrates these generic algorithms. A trus
 
 \subsection{Pros and Cons of IBE}
 \label{sec:pros_and_cons_of_ibe}
-Note that it is important that the PKG can be fully trusted as it generates all the private keys $s_{\id{}}$ in the system. A malicious PKG server could use this information to start eavesdropping on the insecure channel between Alice and Bob (the orange arrow in Figure~\ref{fig:generic_ibe_scheme}) while decrypting all ciphertexts that are being sent over. The undesired property that private keys have to be shared with a trusted third party is often called \textit{key escrow} in literature~\cite{art:AbelsonHARBMBJBMDWGJNGRLSISB97}.
+Note that the PKG is required to be as it generates all the private keys $s_{\id{}}$ in the system. A malicious PKG server could use this information to start eavesdropping on the insecure channel between Alice and Bob (the orange arrow in Figure~\ref{fig:generic_ibe_scheme}) while decrypting all ciphertexts that are being sent over. The undesired property that private keys have to be shared with a trusted third party is often called \textit{key escrow} in literature~\cite{art:AbelsonHARBMBJBMDWGJNGRLSISB97}.
 
 Another problem from the generic scheme shown in Figure~\ref{fig:generic_ibe_scheme} is that keys can not be revoked in the system. However, Bob's private key $s_{\id{Bob}}$ can still get compromised if he is careless with its storage. In fact, the research community has been focused on the revocation of IBE keys extensively~\cite{art:BoldyrevaGK12,art:BonehDTW01,art:HanaokaHSI05,art:LibertQ03}. Key revocation often requires additional infrastructure that complicates the elegancy of the currently proposed IBE scheme. As a matter of fact, the major drawback of revoking Bobs key is that Bob can no longer receive encrypted messages because his public key is part of his identity. Therefore, a pragmatic solution to this issue could be to append expiration dates to the public keys. Consequently, public keys will only be valid for a limited amount of time thereby restricting the damage that could be done with a compromised private key~\cite{art:BonehF01}.
 
@@ -100,7 +122,7 @@ IBE schemes have some desired properties as well. For starters, only one PKG suf
 Another useful property of an IBE scheme is that Bob does not need to subscribe to a hierarchy of CAs neither a web of trust before Alice can start sending him messages. In this way, the possibility to send encrypted messages becomes inherently part of any system in which the users are assigned unique identifiers. This is particularly useful in systems where the majority of the users has no knowledge about cryptographic primitives.  Users do no longer need to generate a key pair neither subscribe to a third party infrastructure. It suffices to recall how their connections can be uniquely identified in the system to know their public keys.
 
 \subsection{Security of IBE}
-Definitions of security are often subtle as different levels of security can be defined. In IBE \textit{indistinguishability under chosen plaintext attack} (IND-CPA) and \textit{indistinguishability under chosen ciphertext attack} (IND-CCA) are considered. Anonymity of the encryption scheme is an additional property of the scheme that is often desired~\cite{art:BellareBDP01}.
+Definitions of security are often subtle as different levels of security can be defined. In literature \textit{indistinguishability under chosen plaintext attack} (IND-CPA) and \textit{indistinguishability under chosen ciphertext attack} (IND-CCA) are considered. Anonymity of the encryption scheme is an additional property of the scheme that is often desired~\cite{art:BellareBDP01}.
 
 Note that both the notion of IND-CPA, IND-CCA and anonymity are only introduced in an informal way in this section to give a basic understanding of these concepts to the reader. For a more formal description of IND-CPA and IND-CCA, the reader is referred to~\cite{art:BonehF01}, whereas for a more formal description of ciphertext anonymity the reader is referred to~\cite{art:AbdallaBCKKLMNPS05}.
 
@@ -192,7 +214,7 @@ Gentry~\cite{art:Gentry06} presents the first scheme which combines the notions 
 %    -> SK-IBE berust op BDHI veronderstelling = niet leuk
 %    -> BB is vorm van HIBE => totaal aantal gebruikers moet op voorhand worden vastgelegd = niet leuk
 %    -> BB is enkel selective-ID CCA secure = niet leuk
-\subsection{Historical Overview on IBE}
+\subsection{Overview}
 \label{sec:evolution_of_ibe}
 Although Shamir~\cite{art:Shamir84} easily constructed an identity-based signature scheme based on RSA in 1984, the use case of IBE remained an open problem until the introduction of bilinear maps. Boneh and Franklin~\cite{art:BonehF01} proposed the first practically usable IBE scheme based on the Weil pairing, however, the security proof still relies on the random oracle assumption. At the same time, Sakai and Kasahara~\cite{art:SakaiOK01} proposed a different IBE scheme independently from Boneh and Franklin. The scheme from Sakai and Kasahara initially received less attention though, because the original presentation is in Japanese and lacking a security proof. Subsequently, Sakai and Kasahara~\cite{art:SakaiK03} proposed an extended version of their original scheme which is proven to be IND-CCA secure in the random oracle model by Chen et al.~\cite{art:ChenC05} 
 
@@ -269,8 +291,8 @@ Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Bon
  \begin{enumerate}
   \item \texttt{Setup($1^{\lambda}$)}: 
   \begin{enumerate}
-   \item As in the BasicIndent scheme
-   \item As in the BasicIndent scheme
+   \item As in Algorithm~\ref{alg:basic_indent}
+   \item As in Algorithm~\ref{alg:basic_indent}
    \item Choose cryptographic hash functions
     \begin{enumerate}
      \item $H_1: \{ 0,1  \}^* \rightarrow G_1$
@@ -278,7 +300,7 @@ Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Bon
      \item $H_3: \{ 0,1 \}^l \rightarrow \left( 0,1 \right)^l$
     \end{enumerate}
   \end{enumerate}
-  \item \texttt{Extract($params, s_k, \id{}$)}: As in the BasicIndent scheme
+  \item \texttt{Extract($params, s_k, \id{}$)}: As in Algorithm~\ref{alg:basic_indent}
    \item \texttt{Encrypt($params, \id{}, m$)}:
    \begin{enumerate}
     \item Compute $Q_{\id{}} = H_1 \{ \id{} \}$
@@ -319,7 +341,7 @@ A generic Broadcast Encryption (BE) scheme is composed of four probabilistic pol
 
 Note that this definition is stated generically enough to allow all kinds of public keys to be used. Therefore, not only traditional PKIs can benefit from BE schemes, but also IBE schemes in which a public identifier \id{i} serves as a public key $pk_i$.
 
-\subsection{Historical Overview on Broadcast Encryption}
+\subsection{Overview}
 \label{sec:evolution_of_be}
 The problem of BE has been widely studied in literature since its first introduction by Fiat and Naor~\cite{art:FiatN93}. This section highlights the most important evolutions of BE in literature. The summary that follows is far from complete as it only considers publications that are relevant to our final goal: achieving user-friendly broadcast encryption for OSNs.
 
@@ -333,7 +355,13 @@ Baek et al.~\cite{art:BaekNSS04} define an IBBE scheme that requires only one pa
 
 \subsubsection{Anonymous Broadcast Encryption}
 \label{sec:anobe}
-All earlier mentioned references describing BE require the intended set of recipients to be published to realise higher efficiency. Barth, Boneh and Waters~\cite{art:BarthBW06} are the first to design a BE scheme that takes the anonymity of the recipient into account. The proposed anonymous broadcast encryption (ANOBE) scheme imposes a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{art:LibertPQ12} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{art:BarthBW06} and~\cite{art:LibertPQ12} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{art:KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users, although the security proof is rather informal. In~\cite{art:YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set using Attribute Based Encryption (ABE)~\cite{art:SahaiW04}.~\cite{art:FazioP12}
+All earlier mentioned references describing BE require the intended set of recipients to be published to realise higher efficiency. Barth, Boneh and Waters~\cite{art:BarthBW06} are the first to design a BE scheme that takes the anonymity of the recipient into account.
+\begin{defn}[Anonymity]
+\label{def:anonymity}
+ A BE scheme is said to be \textit{anonymous} if it hides who is included in the recipient set.
+\end{defn}
+
+The proposed anonymous broadcast encryption (ANOBE) scheme  from Barth, Boneh and Waters~\cite{art:BarthBW06} implies a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{art:LibertPQ12} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{art:BarthBW06} and~\cite{art:LibertPQ12} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{art:KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users, although the security proof is rather informal. In~\cite{art:YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set using Attribute Based Encryption (ABE)~\cite{art:SahaiW04}.~\cite{art:FazioP12}
 
 However, ABE requires that all users are assigned attributes such that all users who have sufficient attributes in common can decrypt the message. In networks where the total number of users is large it can be a work intensive task to label each user with the correct attributes.
 
@@ -353,7 +381,7 @@ From all schemes discussed in Section~\ref{sec:evolution_of_ibe} mainly the sche
 If anonymity is not an issue, different BE schemes have to be considered depending on the goals of the target application. The scheme from Libert et al.~\cite{art:LibertPQ12} will certainly not have the most desirable properties in non-anonymous BE environments since it can not benefit from higher efficiency due to the recipient being publicly known.
 
 \section{Secret Sharing}
-In earlier paragraphs of this chapter, identity-based encryption was already explored as a possible alternative to traditional public key infrastructures. IBE mainly profits from a less complex architecture and increased ease of usability. Nevertheless, the major drawback of IBE seems to be the inherent key escrow property. In order to get around this issue, distributed key generation seems a promising solution. However, before diving into distributed key generation protocols, some knowledge on secret sharing is appropriate.
+IBE mainly profits from a less complex architecture and increased ease of usability. Nevertheless, the major drawback of IBE seems to be the inherent key escrow property. In order to get around this issue, distributed key generation seems a promising solution. However, before diving into distributed key generation protocols, some knowledge on secret sharing is appropriate.
 
 \subsection{Definition}
 \begin{defn}[Secret Sharing Scheme]

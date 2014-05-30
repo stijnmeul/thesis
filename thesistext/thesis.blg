@@ -34,58 +34,56 @@ Warning--string name "march" is undefined
 --line 1915 of file references.bib
 A bad cross reference---entry "art:ChorGMA85"
 refers to entry "DBLP:conf/focs/FOCS26", which doesn't exist
-Warning--I didn't find a database entry for "bonneau2010privacy"
-Warning--I didn't find a database entry for "fischetti11hacker"
-Warning--I didn't find a database entry for "nist:dworkin"
 Warning--I didn't find a database entry for "h2g2"
 Warning--I didn't find a database entry for "DBLP:conf/focs/FOCS26"
 Warning--to sort, need author or key in thesis:Wyseur09
 Warning--to sort, need author or key in thesis:Maas04
 Warning--to sort, need author or key in thesis:Alfredo08
 Warning--to sort, need author or key in thesis:Lynn07
+Warning--to sort, need author or key in nist:dworkin
 Warning--empty author in thesis:Maas04
 Warning--empty author in thesis:Lynn07
 Warning--empty author in thesis:Alfredo08
 Warning--empty author in thesis:Wyseur09
-You've used 109 entries,
+You've used 113 entries,
             2118 wiz_defined-function locations,
-            1328 strings with 28188 characters,
-and the built_in function-call counts, 40091 in all, are:
-= -- 3900
-> -- 1788
-< -- 82
-+ -- 696
-- -- 567
-* -- 2764
-:= -- 6377
-add.period$ -- 365
-call.type$ -- 109
-change.case$ -- 578
+            1345 strings with 28657 characters,
+and the built_in function-call counts, 41075 in all, are:
+= -- 3996
+> -- 1816
+< -- 83
++ -- 709
+- -- 575
+* -- 2810
+:= -- 6524
+add.period$ -- 375
+call.type$ -- 113
+change.case$ -- 593
 chr.to.int$ -- 0
-cite$ -- 117
-duplicate$ -- 1659
-empty$ -- 3243
-format.name$ -- 577
-if$ -- 8815
+cite$ -- 122
+duplicate$ -- 1703
+empty$ -- 3338
+format.name$ -- 585
+if$ -- 9034
 int.to.chr$ -- 0
-int.to.str$ -- 109
-missing$ -- 93
-newline$ -- 543
-num.names$ -- 287
-pop$ -- 608
+int.to.str$ -- 113
+missing$ -- 95
+newline$ -- 561
+num.names$ -- 293
+pop$ -- 631
 preamble$ -- 1
-purify$ -- 474
+purify$ -- 486
 quote$ -- 0
-skip$ -- 1287
+skip$ -- 1334
 stack$ -- 0
-substring$ -- 2239
-swap$ -- 571
-text.length$ -- 76
+substring$ -- 2292
+swap$ -- 584
+text.length$ -- 77
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 429
-warning$ -- 8
-while$ -- 376
-width$ -- 112
-write$ -- 1241
+type$ -- 445
+warning$ -- 9
+while$ -- 385
+width$ -- 116
+write$ -- 1277
 (There were 5 error messages)

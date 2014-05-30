@@ -40,9 +40,9 @@ Since Scramble~\cite{art:BeatoKW11} already has a user friendly interface that s
 \subsection{Existing Environment}
 Recall from Section~\ref{sec:existing_solutions} that Scramble~\cite{art:BeatoKW11} is a Firefox extension that currently relies on OpenPGP~\cite{rfc4880} for key management. Due to the dependency on OpenPGP, Scramble is independent of any OSN. In fact, Scramble only functions as an encryption and decryption tool that can be used on any website offering users to submit content. However, users who want to be part of the recipient set of the uploaded messages need to have uploaded a public key to the OpenPGP network beforehand. The existing Scramble environment is shown in Figure~\ref{fig:original_scramble_arch}.
 
-Since Scramble is a FireFox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous UIs, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, the Scramble library communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between FireFox extension and Java back-end, takes place synchronously over a socket listening on an internal port.
+Since Scramble is a FireFox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous UIs, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, Scramble communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between FireFox extension and Java back-end, takes place synchronously over a socket listening on an internal port.
 
-As already discussed in Section~\ref{sec:existing_solutions}, Scramble relies on OpenPGP for key management. Therefore, the FireFox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
+Scramble relies on OpenPGP for key management. Therefore, the FireFox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
 
 
 \begin{figure}
@@ -116,7 +116,7 @@ As already discussed in Section~\ref{sec:existing_solutions}, Scramble relies on
 \end{figure}
 
 \subsection{Changes to the Existing Environment}
-The altered Scramble architecture is schematically illustrated in Figure~\ref{fig:new_scramble_arch}. Scramble still offers the original functionality as an alternative to our IBE implementation. However, for reasons of conciseness Figure~\ref{fig:new_scramble_arch} omits the original OpenPGP implementation although it is not removed in the new implementation. 
+The altered Scramble architecture is schematically illustrated in Figure~\ref{fig:new_scramble_arch}. Scramble still offers the original functionality as an alternative to our IBE implementation. However, for reasons of conciseness Figure~\ref{fig:new_scramble_arch} omits the original OpenPGP implementation although it is not removed.
 
 
 \begin{figure}
@@ -198,7 +198,7 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
 \end{figure}
 
 
-The new client side Scramble architecture implements a C++ based back-end instead of the earlier Java back-end because most efficient pairing-based multi precision libraries are written in C. In fact only two pairing-based libraries are widely accepted in practical implementations: MIRACL~\cite{art:Scott03} and PBC~\cite{thesis:Lynn07}. MIRACL was preferred over PBC since it is generally faster in its pairing computations. All core algorithms of MIRACL are implemented in C while a C++ wrapper allows object-oriented programming.
+The new client side Scramble architecture implements a C++ based back-end instead of the earlier Java back-end because the most efficient pairing-based multi precision libraries are written in C. In fact only two pairing-based libraries are widely accepted in practical implementations: MIRACL~\cite{art:Scott03} and PBC~\cite{thesis:Lynn07}. MIRACL was preferred over PBC since it is generally faster in its pairing computations. All core algorithms of MIRACL are implemented in C while a C++ wrapper allows object-oriented programming.
 
 The contact database is removed from the original Scramble implementation as illustrated in Figure~\ref{fig:original_scramble_arch} since public keys no longer have to be explicitly stored in the architecture. More specifically, since Scramble can rely on IBE, the public keys are inherently part of the supported OSN. Therefore, the FireFox extension falls back on a number of calls to supported OSN APIs in order to get all public keys of one's connections.
 
@@ -206,9 +206,9 @@ Figure~\ref{fig:new_scramble_arch} exchanges the web of trust from Figure~\ref{f
 
 The C++ based front-end of the PKG only serves as a front-end during execution of the DKG protocol. Negotiation of the shares is implemented over synchronous sockets. At the startup of the PKG socket, the administrator is asked for a secret passphrase. Then, the sockets start listening on a predetermined port until all shares are correctly negotiated. Once all PKGs have exchanged their shares, the PKG calculates its public parameters and finishes the \texttt{Setup} step from Algorithm~\ref{alg:our_scheme}. The coefficients of the secret polynomial are encrypted with the earlier specified passphrase along with the negotiated secret share. After storage of these secret parameters, the C++ socket starts listening on another port to handle requests from the PHP front-end. Handling of private key extraction requests is multithreaded to handle requests of multiple clients at the same time.
 
-The PHP based front-end receives private key extraction queries from the Scramble FireFox extension in the form of POST requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage which publishes the response as an XML message over HTTPS~\cite{rfc2818}.
+The PHP based front-end receives private key extraction queries from the Scramble FireFox extension in the form of POST requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage such that it is published in the form of an XML message over HTTPS~\cite{rfc2818}.
 
-Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, the scramble plugin can be made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof-of-concept.
+Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, Scramble is made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof-of-concept. Further extension to support other OSNs could be subject of future work.
 
 
 \section{Implementation Details}
@@ -216,7 +216,7 @@ Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be ap
 The implementation of Algorithm~\ref{alg:our_scheme} still requires some practical design decisions that are further discussed in this section.
 
 \subsection{Type of Elliptic Curve}
-The MIRACL library supports 5 different curves and 6 different security levels. However, the Barreto-Lynn-Scott (BLS) curve~\cite{art:BarretoLS02} is preferred since it provides the highest level of security in MIRACL. BLS curves rely on Ate pairings~\cite{art:HessSV06} with an embedding degree of 24. Consequently, BLS curves are considered suitable for a security level of 256 bits.
+The underlying elliptic curve determines the groups of the bilinear pairing $e: G_1 \times G_2 \rightarrow G_T$ and thus the security level of the application. The MIRACL library supports 5 different curves and 6 different security levels. However, the Barreto-Lynn-Scott (BLS) curve~\cite{art:BarretoLS02} is preferred since it provides the highest level of security in MIRACL. BLS curves rely on Ate pairings~\cite{art:HessSV06} with an embedding degree of 24. Consequently, BLS curves are considered suitable for a security level of 256 bits.
 
 \subsection{Authenticated Encryption Scheme}
 An AES-GCM~\cite{art:McGrewV04} implementation is used for the authenticated encryption scheme in Algorithm~\ref{alg:our_scheme} since it is one of the more efficient authenticated encryption schemes unencumbered by patents. The AES-GCM implementation as provided by MIRACL is used with authentication tags of 128 bits. Apart from a symmetric key of 128, 192 or 256 bits, AES-GCM also requires an Initialisation Vector (IV). The recommended length of the IV is 96 bits because it can be handled more efficiently~\cite{rfc5084}.
@@ -238,7 +238,7 @@ with
 Since $l=256$, $w_i$ and $\rho$ are binary sequences of 256 bits. Hence, $\rho$ only contains sufficient randomness to securely encrypt a session key $k$ of the same length. The full 256 bit $k$ is not completely used for symmetric encryption as the AES-GCM scheme still requires an IV as well. Since the randomness and key freshness of the IV is at least as important as the secrecy of $k$~\cite{nist:dworkin}, it was deliberately chosen not to apply key derivation functions to derive a separate symmetric encryption key and IV from the same value $k$. Therefore, the first 128 bits of $k$ are used as the symmetric key of AES-GCM, while the second 96 bits function as an IV. According to NIST, this should ensure confidentiality at least until 2030. However, if a higher level of security should be required, key derivation on $k$ could be considered.
 
 \subsection{Hash Functions}
-The hash function $H_1: \{ 0,1 \}^{*} \rightarrow G_1$ is implemented using the MIRACL function call \texttt{hash\textunderscore to\textunderscore group}. Hash function $H_2: G_T \rightarrow \{ 0,1 \}^{256}$ relies on the \texttt{hash\textunderscore to\textunderscore aes\textunderscore key} function. Both $H_1$ and $H_2$ internally fall back on SHA-256~\cite{nist:fips1804}. The MIRACL provided SHA-256 algorithm also implements the hash $H_3: \{ 0, 1 \}^{256} \rightarrow \{ 0,1 \}^{256}$.
+The hash function $H_1: \{ 0,1 \}^{*} \rightarrow G_1$ is implemented using the MIRACL function call \texttt{hash\textunderscore to\textunderscore group}. Hash function $H_2: G_T \rightarrow \{ 0,1 \}^{256}$ relies on the MIRACL\texttt{hash\textunderscore to\textunderscore aes\textunderscore key} function. Both $H_1$ and $H_2$ internally fall back on SHA-256~\cite{nist:fips1804}. The MIRACL provided SHA-256 algorithm is also used for implementation of the hash $H_3: \{ 0, 1 \}^{256} \rightarrow \{ 0,1 \}^{256}$.
 
 \subsection{Generating Random Numbers}
 Random numbers are generated using the MIRACL build-in strong random number generator. The strong random generator is initialised with a time-of-day value and a binary array of 1024 bits read from \texttt{/dev/urandom}. These values are then used as a seed for the generation of random numbers. The practical implementation of the MIRACL strong random generator is based on an advice published by RSA Laboratories in~\cite{art:Matthews96}.
@@ -252,7 +252,7 @@ The decision on which string to use as a public IBE key \id{} is dependent on th
  \item The public key should be an inherent part of the infrastructure of the social network thereby meaning that the previous three properties are already ensured by the provider of the social network.
  \item The public key should be publicly available, even to users that are not part of the set of entities with access to the user's profile $\mathcal{V}_{\id{}}$
 \end{enumerate}
-In Facebook the best key satisfying these properties is a Facebook username. A Facebook username is ensured to be unique since it is part of a profile's URL, e.g. \url{http://www.facebook.com/profile.name} where \texttt{profile.name} functions as \id{}. Moreover, the Facebook policy ensures that this username is mandatory for every user and can only be changed once. Lastly, the Facebook username is also public to outsiders over the Facebook API thereby fulfilling all the required conditions for an IBE key in our architecture.
+In Facebook the best key satisfying these properties is a Facebook username. A Facebook username is ensured to be unique since it is part of a profile's URL, e.g. \url{http://www.facebook.com/profile.name} where \texttt{profile.name} functions as \id{}. Moreover, the Facebook policy ensures that this username is mandatory for every user and can only be changed once. Lastly, the Facebook username is also public to outsiders using the Facebook API thereby fulfilling all the required conditions for an IBE key in our architecture.
 
 \section{Implemented Scheme}
 
@@ -343,8 +343,31 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
 \textcolor{red}{TODO: Say something about the difficulties of multithreading MIRACL}
 
 \section{Performance Analysis}
-Performance experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Table~\ref{table:BE_exec_times} illustrates the 
-execution times for Algorithm~\ref{alg:our_scheme} with the implementation details from Section~\ref{sec:implementation_details}. Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the secret session key $k$. After recovering $k$, the recipient executes AES-GCM for the decryption of the ciphertext $c$ to the plaintext message $m$. Note that recipient anonymity of $\mathcal{S}$ comes at the cost of reduced efficiency, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
+Performance experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Table~\ref{table:performance_of_proposed_scheme} illustrates the  execution times for Algorithm~\ref{alg:our_scheme} with the implementation details from Section~\ref{sec:implementation_details}. 
+
+Encryption times are linearly dependent on the number of intended recipients since more intensive pairing computations are required for each additional user within the recipient set.
+
+Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the secret session key $k$. However, the experiments measured the worst-case execution time for decryption since the recipient had to decrypt all $w_i$ values before retrieving $k$ in the last attempt. After recovering $k$, the recipient executes AES-GCM for the decryption of the ciphertext $c$ to the plaintext message $m$. Note that recipient anonymity of $\mathcal{S}$ comes at the cost of reduced efficiency, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
+
+\textcolor{red}{TODO: Add another table listing how much time each step of Algorithm~\ref{alg:our_scheme} requires.}
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}lrr@{}} \toprule
+    \multicolumn{3}{r}{Execution Times (ms)} \\ \cmidrule(r){2-3}
+    Number of Recipients & Encryption & Decryption \\ \midrule
+    1 & 284.5 & 275.4  \\
+    % 5 & 1278.750 \ms & 357.302 \ms \\
+    10 & 2564.5  & 460.9  \\
+    15 & 3799.6  & 560.6  \\
+    % 20 & 5029.470 \ms & 657.030 \ms \\
+    % 25 & 6258.510 \ms & 761.765 \ms \\
+    50 & 12300.5  & 1237.8  \\
+    100 & 25867.7  & 2260.2  \\  \bottomrule
+  \end{tabular}
+  \caption{Performance of the proposed scheme in function of the number of intended recipients.}
+  \label{table:performance_of_proposed_scheme}
+\end{table}
 
 \section{Shortcomings of Current Implementation}
 The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} are present, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of deliberate design decisions.
