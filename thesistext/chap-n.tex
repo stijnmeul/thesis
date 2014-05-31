@@ -369,7 +369,7 @@ Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the
   \label{table:performance_of_proposed_scheme}
 \end{table}
 
-\section{Shortcomings of Current Implementation}
+\section{Limitations of Current Implementation}
 The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} are present, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of deliberate design decisions.
 
 \subsection{Client Side}
@@ -382,7 +382,7 @@ Since the DKG protocol is currently always simulated in a local environment, all
 
 Furthermore, the current assumptions on the PKGs (Section~\ref{sec:assymptions_on_pkg}) are too severe for practical environments. In practice the current Pedersen DKG scheme~\cite{art:Pedersen91a} is insecure and is better replaced by the one from Gennaro et al.~\cite{art:GennaroJKR07}. If all mentioned updates on the current server side scheme are effectively achieved, more relaxed assumptions on the PKG are in place. With less stringent PKG assumptions, the DKG network could even be partially supported by the OSN providers to show their good intensions of making their networks more private.
 
-\subsection{Shortcomings Effecting Both Client and Server}
+\subsection{Limitations Effecting Both Client and Server}
 Currently, private key extraction takes the form of a POST request over HTTPS~\cite{rfc2818}. Although the PKGs publish the response in plain text to their PHP website, the communication is encrypted by a self-signed SSL certificate. Ideally, this certificate is signed by a world-wide trusted CA such that the client-side implementation can effectively verify whether it is communicating with a valid PKG.
 
 Although web communication between the client side Scramble tool and the server side PKG is already encrypted, a client can request the private key parameters for every $\id{}$ since there is no authentication mechanism checking the user's identity. However, Facebook provides third party authentication in its API. If a Facebook login dialogue is integrated in the Scramble UI, the returned Facebook authentication token serves as a proof to the PKG that the requester of the private key resembles the owner of the corresponding Facebook profile.

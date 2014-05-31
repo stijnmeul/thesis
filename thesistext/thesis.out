@@ -23,26 +23,22 @@
 \BOOKMARK [1][-]{section.3.4}{Secret Sharing}{chapter.3}% 23
 \BOOKMARK [1][-]{section.3.5}{Distributed Key Generation}{chapter.3}% 24
 \BOOKMARK [0][-]{chapter.4}{Design of a Practical Encryption Scheme for Online Social Networks}{}% 25
-\BOOKMARK [1][-]{section.4.1}{Online Social Network}{chapter.4}% 26
-\BOOKMARK [1][-]{section.4.2}{Issues with Current OSN Situation}{chapter.4}% 27
-\BOOKMARK [1][-]{section.4.3}{Cryptographic Goals}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.4}{Design Decisions}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.5}{Security Model}{chapter.4}% 30
-\BOOKMARK [1][-]{section.4.6}{Threat Model}{chapter.4}% 31
-\BOOKMARK [1][-]{section.4.7}{Proposed Scheme}{chapter.4}% 32
-\BOOKMARK [1][-]{section.4.8}{Summary}{chapter.4}% 33
-\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 34
-\BOOKMARK [1][-]{section.5.1}{Software Architecture}{chapter.5}% 35
-\BOOKMARK [1][-]{section.5.2}{Implementation Details}{chapter.5}% 36
-\BOOKMARK [1][-]{section.5.3}{Implemented Scheme}{chapter.5}% 37
-\BOOKMARK [1][-]{section.5.4}{Performance Analysis}{chapter.5}% 38
-\BOOKMARK [1][-]{section.5.5}{Shortcomings of Current Implementation}{chapter.5}% 39
-\BOOKMARK [1][-]{section.5.6}{Summary}{chapter.5}% 40
-\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 41
-\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 42
-\BOOKMARK [0][-]{appendix.B}{Installing and Executing the Code}{}% 43
-\BOOKMARK [1][-]{section.B.1}{Setting up the DKG}{appendix.B}% 44
-\BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 45
-\BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 46
-\BOOKMARK [0][-]{appendix.D}{English Paper}{}% 47
-\BOOKMARK [0][-]{section*.45}{Bibliography}{}% 48
+\BOOKMARK [1][-]{section.4.1}{Model of the Current Situation}{chapter.4}% 26
+\BOOKMARK [1][-]{section.4.2}{Threat Model}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.3}{Our Proposal}{chapter.4}% 28
+\BOOKMARK [1][-]{section.4.4}{Summary}{chapter.4}% 29
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 30
+\BOOKMARK [1][-]{section.5.1}{Software Architecture}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.2}{Implementation Details}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.3}{Implemented Scheme}{chapter.5}% 33
+\BOOKMARK [1][-]{section.5.4}{Performance Analysis}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.5}{Limitations of Current Implementation}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.6}{Summary}{chapter.5}% 36
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 37
+\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 38
+\BOOKMARK [0][-]{appendix.B}{Installing and Executing the Code}{}% 39
+\BOOKMARK [1][-]{section.B.1}{Setting up the DKG}{appendix.B}% 40
+\BOOKMARK [1][-]{section.B.2}{Setting up Scramble}{appendix.B}% 41
+\BOOKMARK [0][-]{appendix.C}{Dutch Summary}{}% 42
+\BOOKMARK [0][-]{appendix.D}{English Paper}{}% 43
+\BOOKMARK [0][-]{section*.67}{Bibliography}{}% 44
