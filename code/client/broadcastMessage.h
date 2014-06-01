@@ -10,7 +10,6 @@ class AuthenticatedData;
 
 class BroadcastMessage {
 protected:
-    std::vector <std::string> recipients;
     std::string message;
     AuthenticatedData *autData;
     char sessionKey[HASH_LEN];
