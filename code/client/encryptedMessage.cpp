@@ -5,14 +5,11 @@
 
 EncryptedMessage::EncryptedMessage(char * A, int Alen, char (&T)[TAG_LEN], char * C, int Clen) {
     autData = new AuthenticatedData(A);
-    this->A = new char[Alen];
-    memcpy(this->A, A, Alen);
     cout << endl << endl;
     this->C = new char[Clen];
     memcpy(this->C, C, Clen);
     memcpy(this->T, T, TAG_LEN);
 
-    this->Alen = Alen;
     this->Clen = Clen;
 }
 
@@ -59,11 +56,6 @@ EncryptedMessage::EncryptedMessage(string encryptedMessage) {
     memcpy(this->T, encAr, TAG_LEN);
     this->C = new char[Clen];
     memcpy(this->C, &encAr[TAG_LEN], Clen);
-
-    int Alen = (*autData).getLength(nbOfRecipients);
-    this->A = new char[Alen];
-    (*autData).encodeTo(this->A);
-
 }
 
 PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PFC *pfc) {
@@ -76,7 +68,7 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
 
     Big W;
     Big V = (*autData).getV();
-    Big sigma, sigma_hash;
+    Big rho, rho_hash;
     vector <Big> ws = (*autData).getEncryptedRecipientKeys();
     char P_text[Clen];
     bool integrity = false;
@@ -85,19 +77,19 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
 
     int i = 0;
     while(U != uCalc && i < nbOfRecipients){
-        // sigma = V XOR Hash(e(D,U))
+        // rho = V XOR Hash(e(D,U))
         W=ws.at(i);
-        sigma = lxor(W, ud_hash);
+        rho = lxor(W, ud_hash);
 
-        // M = W XOR Hash(sigma)
+        // M = W XOR Hash(rho)
         (*pfc).start_hash();
-        (*pfc).add_to_hash(sigma);
-        sigma_hash = (*pfc).finish_hash_to_group();
-        ses_key = lxor(V, sigma_hash);
+        (*pfc).add_to_hash(rho);
+        rho_hash = (*pfc).finish_hash_to_group();
+        ses_key = lxor(V, rho_hash);
 
-        // r = Hash(sigma,M)
+        // r = Hash(rho,M)
         (*pfc).start_hash();
-        (*pfc).add_to_hash(sigma);
+        (*pfc).add_to_hash(rho);
         (*pfc).add_to_hash(ses_key);
         r = (*pfc).finish_hash_to_group();
         uCalc = (*pfc).mult(P,r);
@@ -119,6 +111,7 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
 
 
     //int Alen = (*autData).getLength((*autData).getNbOfRecipients());
+    int Alen = (*autData).getLength();
     char A[Alen];
     (*autData).encodeTo(A);
     gcm g;
@@ -153,6 +146,8 @@ string EncryptedMessage::getMessage() {
 
     // Convert nbOfRecipients from string to int
     int nbOfRecipients;
+    int Alen = (*autData).getLength();
+    char A[Alen];
     memcpy(&(nbOfRecipients), A, sizeof(nbOfRecipients));
     string stringNbOfRecipients = static_cast<ostringstream*>( &(ostringstream() << nbOfRecipients) )->str();
 

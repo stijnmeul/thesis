@@ -25,7 +25,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     generateKeys(pfc);
     autData = new AuthenticatedData();
 
-    if (getNbOfRecipients() == 0) {
+    if (recipients.size() == 0) {
         throw invalid_argument("Can not encrypt message if no recipients were specified.");
     }
     G2 myUnitVar;
@@ -40,19 +40,19 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     /*         PREPARE AUTHENTICATED DATA           */
     /************************************************/
     // Add all recipients to authenticated data
-    for (int i = 0; i < getNbOfRecipients(); i++) {
+    for (int i = 0; i < recipients.size(); i++) {
         G1 rQ = (*pfc).mult(recipientHashes.at(i), r);
         Big W = (*pfc).hash_to_aes_key((*pfc).pairing(Ppub, rQ));
-        W = lxor(sigma, W);
+        W = lxor(rho, W);
         (*autData).add(W);
     }
     // U = rP
     G2 U = (*pfc).mult(P, r);
     (*autData).setU(U);
 
-    // W = M XOR Hash(sigma)
+    // W = M XOR Hash(rho)
     (*pfc).start_hash();
-    (*pfc).add_to_hash(sigma);
+    (*pfc).add_to_hash(rho);
     Big V = (*pfc).finish_hash_to_group();
     Big ses_key = getSessionKey();
     V = lxor(ses_key, V);
@@ -71,7 +71,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     char T[TAG_LEN];
     char k1[HASH_LEN/2];
     char iv[HASH_LEN/2];
-    int Alen = (*autData).getLength(getNbOfRecipients());
+    int Alen = (*autData).getLength();
     char A[Alen];
     (*autData).encodeTo(A);
     getIV(iv);
@@ -115,12 +115,11 @@ void PlaintextMessage::generateKeys(PFC *pfc) {
     }
     shs256_hash(&sh,sessionKey);
 
-    // Generate random sigma key with AES_LENGTH bits
-    (*pfc).rankey(sigma);
-    cout << "sigma" << endl << sigma << endl;
-    // Calculate r=Hash(sigma,M)
+    // Generate random rho key with AES_LENGTH bits
+    (*pfc).rankey(rho);
+    // Calculate r=Hash(rho,M)
     (*pfc).start_hash();
-    (*pfc).add_to_hash(sigma);
+    (*pfc).add_to_hash(rho);
     Big ses_key = from_binary(HASH_LEN, sessionKey);
     (*pfc).add_to_hash(ses_key);
     r = (*pfc).finish_hash_to_group();

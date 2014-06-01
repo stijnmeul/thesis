@@ -17,18 +17,16 @@ protected:
     void getIV(char (&iv)[HASH_LEN/2]);
 
     void getK1(char (&k1)[HASH_LEN/2]);
+
+    Big getSessionKey();
 public:
     BroadcastMessage() {}
 
     BroadcastMessage(std::string message);
 
-    int getNbOfRecipients();
+    AuthenticatedData getAuthenticatedData();
 
     virtual std::string getMessage() =0;
-
-    int getBroadcastMessageLength();
-
-    Big getSessionKey();
 };
 
 #endif

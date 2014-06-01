@@ -8,10 +8,10 @@
 class EncryptedMessage;
 
 class PlaintextMessage: protected BroadcastMessage {
+	Big r;
 	std::vector <std::string> recipients;
     std::vector <G1> recipientHashes;
-    Big sigma;
-    Big r;
+    Big rho;
 
 public:
     PlaintextMessage(std::string message);

@@ -6,15 +6,10 @@ class PlaintextMessage;
 
 // Protected makes all public methods from BroadcastMessage only available from within EncryptedMessage
 class EncryptedMessage: protected BroadcastMessage {
-    //char * broadCastMessage;
-public:
-    char * A;
-    // TODO: Determine Clen on the ciphertext
-    int Alen;
     int Clen;
     char * C;
     char T[TAG_LEN];
-
+public:
     EncryptedMessage() {}
 
     EncryptedMessage(char * A, int Alen, char (&T)[TAG_LEN], char * C, int Clen);

@@ -47,8 +47,8 @@ vector <Big> AuthenticatedData::getEncryptedRecipientKeys() {
 }
 
 // nbOfRecipients is a required argument as recipientKeys only get added during encryption.
-int AuthenticatedData::getLength(int nbOfRecipients) {
-    return U_LEN + nbOfRecipients*(W_LEN) + V_LEN + sizeof(int);
+int AuthenticatedData::getLength() {
+    return U_LEN + getNbOfRecipients()*(W_LEN) + V_LEN + sizeof(int);
 }
 
 void AuthenticatedData::add(Big encryptedRecipientKey) {
@@ -58,7 +58,7 @@ void AuthenticatedData::add(Big encryptedRecipientKey) {
 
 void AuthenticatedData::encodeTo(char * array) {
     int nbOfRecipients = getNbOfRecipients();
-    int Alen = getLength(nbOfRecipients);
+    int Alen = getLength();
     memset(array, 0, Alen);
     int filled = 0;
     memcpy(array,&(nbOfRecipients), sizeof(nbOfRecipients));
