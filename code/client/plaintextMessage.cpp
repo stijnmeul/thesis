@@ -39,17 +39,24 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     /************************************************/
     /*         PREPARE AUTHENTICATED DATA           */
     /************************************************/
-    G2 U = (*pfc).mult(P, r);
-    (*autData).setU(U);
-
-    Big ses_key = getSessionKey();
-    cout << "encrypt ses_key is " << endl << ses_key << endl;
+    // Add all recipients to authenticated data
     for (int i = 0; i < getNbOfRecipients(); i++) {
         G1 rQ = (*pfc).mult(recipientHashes.at(i), r);
         Big W = (*pfc).hash_to_aes_key((*pfc).pairing(Ppub, rQ));
-        W = lxor(ses_key, W);
+        W = lxor(sigma, W);
         (*autData).add(W);
     }
+    // U = rP
+    G2 U = (*pfc).mult(P, r);
+    (*autData).setU(U);
+
+    // W = M XOR Hash(sigma)
+    (*pfc).start_hash();
+    (*pfc).add_to_hash(sigma);
+    Big V = (*pfc).finish_hash_to_group();
+    Big ses_key = getSessionKey();
+    V = lxor(ses_key, V);
+    (*autData).setV(V);
 
     /************************************************/
     /*                 AES ENCRYPT                  */

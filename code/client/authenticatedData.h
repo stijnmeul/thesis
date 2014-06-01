@@ -4,6 +4,7 @@
 
 class AuthenticatedData {
     G2 U;
+    Big V;
     vector <Big> ws;
     char * authenticatedDataArray;
 public:
@@ -13,7 +14,11 @@ public:
 
     G2 getU();
 
+    Big getV();
+
     void setU(G2 U);
+
+    void setV(Big V);
 
     int getNbOfRecipients();
 

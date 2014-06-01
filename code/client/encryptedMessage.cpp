@@ -7,6 +7,7 @@ EncryptedMessage::EncryptedMessage(char * A, int Alen, char (&T)[TAG_LEN], char 
     autData = new AuthenticatedData(A);
     this->A = new char[Alen];
     memcpy(this->A, A, Alen);
+    cout << endl << endl;
     this->C = new char[Clen];
     memcpy(this->C, C, Clen);
     memcpy(this->T, T, TAG_LEN);
@@ -38,6 +39,10 @@ EncryptedMessage::EncryptedMessage(string encryptedMessage) {
     encryptedMessage = encryptedMessage.erase(0, posOfNonZeroChar);
 
     char tempString2[V_LEN];
+    memcpy(tempString2, encryptedMessage.c_str(), V_LEN);
+    encryptedMessage = encryptedMessage.erase(0, V_LEN);
+    Big V = (Big)tempString2;
+    (*autData).setV(V);
     for (int i = 0; i < nbOfRecipients; i++) {
         memcpy(tempString2, encryptedMessage.c_str(), W_LEN);
         encryptedMessage = encryptedMessage.erase(0, W_LEN);
@@ -66,9 +71,11 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
     G2 U = (*autData).getU();
     Big ud_hash = (*pfc).hash_to_aes_key((*pfc).pairing(U,D));
     Big ses_key;
+    Big r;
     int nbOfRecipients = (*autData).getNbOfRecipients();
 
     Big W;
+    Big V = (*autData).getV();
     Big sigma, sigma_hash;
     vector <Big> ws = (*autData).getEncryptedRecipientKeys();
     char P_text[Clen];
@@ -77,43 +84,55 @@ PlaintextMessage EncryptedMessage::decrypt(const G2& P, const G2& Ppub, G1 D, PF
     time_t begin_time = clock();
 
     int i = 0;
-    while(integrity == false && i < nbOfRecipients){
+    while(U != uCalc && i < nbOfRecipients){
         // sigma = V XOR Hash(e(D,U))
         W=ws.at(i);
-        ses_key = lxor(W, ud_hash);
+        sigma = lxor(W, ud_hash);
 
-        /*************************************************
-        *       AES GCM part of the decryption step      *
-        **************************************************/
-        to_binary(ses_key, HASH_LEN, sessionKey, TRUE);
-        char k1[HASH_LEN/2];
-        char iv[HASH_LEN/2];
-        char Tdec[TAG_LEN];
-        memset(P_text, 0, Clen+1);
+        // M = W XOR Hash(sigma)
+        (*pfc).start_hash();
+        (*pfc).add_to_hash(sigma);
+        sigma_hash = (*pfc).finish_hash_to_group();
+        ses_key = lxor(V, sigma_hash);
 
-        getIV(iv);
-        getK1(k1);
-
-
-        //int Alen = (*autData).getLength((*autData).getNbOfRecipients());
-        char A[Alen];
-        (*autData).encodeTo(A);
-        gcm g;
-        gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
-        gcm_add_header(&g, A, Alen);
-        gcm_add_cipher(&g, GCM_DECRYPTING, P_text, Clen, C);
-        gcm_finish(&g, Tdec);
-
-        integrity = true;
-        for (int j = 0; j < TAG_LEN; j++) {
-            if(Tdec[j] != T[j]) {
-                integrity = false;
-            }
-        }
+        // r = Hash(sigma,M)
+        (*pfc).start_hash();
+        (*pfc).add_to_hash(sigma);
+        (*pfc).add_to_hash(ses_key);
+        r = (*pfc).finish_hash_to_group();
+        uCalc = (*pfc).mult(P,r);
         i++;
     }
-
     cout << "ses_key is " << endl << ses_key << endl;
+
+    /*************************************************
+    *       AES GCM part of the decryption step      *
+    **************************************************/
+    to_binary(ses_key, HASH_LEN, sessionKey, TRUE);
+    char k1[HASH_LEN/2];
+    char iv[HASH_LEN/2];
+    char Tdec[TAG_LEN];
+    memset(P_text, 0, Clen+1);
+
+    getIV(iv);
+    getK1(k1);
+
+
+    //int Alen = (*autData).getLength((*autData).getNbOfRecipients());
+    char A[Alen];
+    (*autData).encodeTo(A);
+    gcm g;
+    gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
+    gcm_add_header(&g, A, Alen);
+    gcm_add_cipher(&g, GCM_DECRYPTING, P_text, Clen, C);
+    gcm_finish(&g, Tdec);
+
+    integrity = true;
+    for (int j = 0; j < TAG_LEN; j++) {
+        if(Tdec[j] != T[j]) {
+            integrity = false;
+        }
+    }
 
 
     if(integrity == false) {
