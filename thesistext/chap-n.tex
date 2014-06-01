@@ -259,7 +259,7 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
 \begin{figure}
     \centering
     \noindent\makebox[\textwidth]{
-        \scalebox{0.55} {
+        \scalebox{0.7} {
         \begin{tikzpicture}
         
         % BroadcastMessage
@@ -277,7 +277,7 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
         \end{abstractclass}
         
         % PlaintextMessage
-        \begin{class}[text width =9 cm]{PlaintextMessage}{ -4 , -9}
+        \begin{class}[text width =9 cm]{PlaintextMessage}{ -9 , -6}
           \inherit{BroadcastMessage}
           \attribute{- r : Big}
           \attribute{- recipientHashes : vector\textless G1\textgreater }
@@ -291,7 +291,7 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
         \end{class}
         
         % EncryptedMessage
-        \begin{class}[text width =9 cm]{EncryptedMessage}{7 , -9}
+        \begin{class}[text width =9 cm]{EncryptedMessage}{2 , -6}
           \inherit{BroadcastMessage}
           \attribute{- A : char *}
           \attribute{- Alen : int}
@@ -356,6 +356,9 @@ Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the
   \begin{tabular}{@{}lrr@{}} \toprule
     \multicolumn{3}{r}{Execution Times (ms)} \\ \cmidrule(r){2-3}
     Number of Recipients & Encryption & Decryption \\ \midrule
+    %%%%%%%%%%%%%%%%%%%%%
+    % CCA Secure scheme %
+    %%%%%%%%%%%%%%%%%%%%%
     1 & 284.5 & 275.4  \\
     % 5 & 1278.750 \ms & 357.302 \ms \\
     10 & 2564.5  & 460.9  \\
@@ -364,6 +367,17 @@ Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the
     % 25 & 6258.510 \ms & 761.765 \ms \\
     50 & 12300.5  & 1237.8  \\
     100 & 25867.7  & 2260.2  \\  \bottomrule
+    %%%%%%%%%%%%%%%%%%%%%
+    % CPA Secure scheme %
+    %%%%%%%%%%%%%%%%%%%%%
+    % 1 & 270.872 & 249.1 \\
+    % 5 & 1270.1 & 258.7 \\
+    % 10 & 2498.6 & 259.6 \\
+    % 15 & 3847.3 & 266.1 \\
+    % 20 & 4975.4 & 266.9 \\
+    % 25 & 6135.0 & 265.0 \\
+    % 50 & 12701.3 & 284.214 \\
+    % 100 & 25540.5 & 377.8 \\
   \end{tabular}
   \caption{Performance of the proposed scheme in function of the number of intended recipients.}
   \label{table:performance_of_proposed_scheme}

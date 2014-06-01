@@ -176,6 +176,7 @@ int main(void)
     mes.addRecipient("Stefan", &pfc);
     mes.addRecipient("Tim", &pfc);
     // 25
+
     mes.addRecipient("Alice", &pfc);
 
     pfc.precomp_for_mult(P);
