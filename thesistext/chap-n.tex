@@ -1,6 +1,8 @@
 \chapter{Implementation}
 \label{cha:n}
+To show the viability of our solution, Algorithm~\ref{alg:our_scheme} is implemented on Facebook, currently the OSN with the largest total number of users on the internet. The user interface of our implementation relies on Scramble, an existing open-source Firefox plugin for broadcast encryption on OSNs.
 
+The structure of this chapter is as follows. The different components in the existing Scramble architecture are highlighted before turning to the required adaptations on the existing architecture to implement our solution (Section~\ref{sec:software_architecture}). Next, a discussion follows on how the practical details of the cryptographic building blocks and parameters from Algorithm~\ref{alg:our_scheme} are implemented (Section~\ref{sec:implementation_details}). Furthermore, the structure of our code along with encountered implementation issues is described (Section~\ref{sec:implemented_code}). This is concluded by a performance analysis (Section~\ref{sec:performance_analysis}) and a list of limitations of our current implementation (Section~\ref{sec:limitations_of_implementation}).
 % Wat moet er in dit hoofdstuk staan?
 %%%%%% Implementatiedetails van het schema
 % Welk sociaal netwerk? 
@@ -30,19 +32,20 @@
 % Fake profielen kunnen worden aangemaakt door gebruikers
 
 \section{Software Architecture}
-There is still a long way to go from Algorithm~\ref{alg:our_scheme} towards a practical implementation for OSNs. As a proof of concept, Algorithm~\ref{alg:our_scheme} is applied to Facebook, the largest online social network at the time of writing. Recall that one of the more general goals of this thesis is to develop a solution that is applicable, i.e. a solution that does not require the OSN environment to be altered. Until so far this goal is successfully met since Algorithm~\ref{alg:our_scheme} could be designed completely based on a more general model for OSNs. The resulting algorithm is a solution that can be applied to virtually any OSN that allows to uniquely distinguish users based on unique public identifiers, a requirement that discriminates almost no existing OSNs.
+\label{sec:software_architecture}
+The high level structure of the current Scramble implementation is presented along with the required changes to adapt it for our IBE architecture.
 
 \subsection{Software Environment}
 Despite the avoidance of complex third party infrastructures, some software is needed that effectively implements Algorithm~\ref{alg:our_scheme} in a user-friendly way. Ideally, this is an easy-to-install piece of software that runs as an additional layer on top of the current infrastructure of the OSN user. Therefore, it was chosen to implement Algorithm~\ref{alg:our_scheme} in the form of a browser extension.
 
-Since Scramble~\cite{art:BeatoKW11} already has a user friendly interface that supports all required use cases to implement encryption on OSNs, it is natural to integrate our IBE scheme into Scramble. Besides from Scramble being open source and lightweight, the most important trigger to modify the existing Scramble code is that it is developed at KU Leuven.
+Since Scramble~\cite{art:BeatoKW11} already has a user friendly interface that supports all required use cases to implement encryption on OSNs, it is natural to integrate our IBE scheme into Scramble. Besides from Scramble being open source and lightweight, the most important trigger to modify the existing Scramble code is that it is developed at KU Leuven~\footnote{The scramble code can be downloaded at \url{https://www.cosic.esat.kuleuven.be/scramble/}}.
 
 \subsection{Existing Environment}
-Recall from Section~\ref{sec:existing_solutions} that Scramble~\cite{art:BeatoKW11} is a Firefox extension that currently relies on OpenPGP~\cite{rfc4880} for key management. Due to the dependency on OpenPGP, Scramble is independent of any OSN. In fact, Scramble only functions as an encryption and decryption tool that can be used on any website offering users to submit content. However, users who want to be part of the recipient set of the uploaded messages need to have uploaded a public key to the OpenPGP network beforehand. The existing Scramble environment is shown in Figure~\ref{fig:original_scramble_arch}.
+Scramble~\cite{art:BeatoKW11} is a Firefox extension that relies on OpenPGP~\cite{rfc4880} for encryption, access control and key management. Due to the use of OpenPGP, Scramble works independent of the underlying OSN. In fact, Scramble only functions as an encryption and decryption tool that can be used on any website offering users to submit content. However, users who want to be part of the recipient set of the uploaded messages need to upload a public key to the OpenPGP network beforehand. The architecture overview of the Scramble environment is illustrated in Figure~\ref{fig:original_scramble_arch}.
 
-Since Scramble is a FireFox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous UIs, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, Scramble communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between FireFox extension and Java back-end, takes place synchronously over a socket listening on an internal port.
+Since Scramble is a Firefox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous UIs, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, Scramble communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between Firefox extension and Java back-end, takes place synchronously over a socket listening on an internal port.
 
-Scramble relies on OpenPGP for key management. Therefore, the FireFox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
+Scramble relies on OpenPGP for key management. Therefore, the Firefox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
 
 
 \begin{figure}
@@ -76,7 +79,7 @@ Scramble relies on OpenPGP for key management. Therefore, the FireFox extension 
                 (4,3.25) node [block] (tumblir) {\includegraphics[scale=0.1]{img/tumblr.png}}
 
                 % Text boxes
-                (-5,2.5) node [block2] (ffext) {Scramble FireFox Extension}
+                (-5,2.5) node [block2] (ffext) {Scramble Firefox Extension}
                 (-5,0) node [block2] (csback) {Client Side Java Back-end}
                 (-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (db) {Contact Database}
                 (-7,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystor) {Encrypted Key Storage}
@@ -88,7 +91,7 @@ Scramble relies on OpenPGP for key management. Therefore, the FireFox extension 
                 (-5,4) node [leg,fill=white] (white_block) {\textbf{Client Side Scramble}}
                 (2.5,4) node [leg,fill=white] (white_block) {\textbf{OSNs}}
                 (-3.5,1.15) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
-                (-8.5,2.8) node [leg,font=\small,fill=white] (white_block) {OpenPGP Messages}
+                (-8.5,2.8) node [leg,font=\small,fill=white] (white_block) {OpenPGP Keys}
                 (-12,4) node [leg,fill=white] (white_block) {\textbf{Web of Trust}}
                 ;
                 
@@ -167,7 +170,7 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
                 (-6,3.15) node [leg,font=\small,fill=white] (white_block) {XML \\ Messages over \\ POST Request}
                 (-12,0.5) node [leg,font=\small,fill=white] (white_block) {XML Messages \\ to Other PKGs}
                 
-                (-3,2.5) node [block2] (ffext) {Scramble FireFox Extension}
+                (-3,2.5) node [block2] (ffext) {Scramble Firefox Extension}
                 (-3,0) node [block2] (csback) {Client Side C++ MIRACL Based Back-end}
                 ;
                 
@@ -200,13 +203,13 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
 
 The new client side Scramble architecture implements a C++ based back-end instead of the earlier Java back-end because the most efficient pairing-based multi precision libraries are written in C. In fact only two pairing-based libraries are widely accepted in practical implementations: MIRACL~\cite{art:Scott03} and PBC~\cite{thesis:Lynn07}. MIRACL was preferred over PBC since it is generally faster in its pairing computations. All core algorithms of MIRACL are implemented in C while a C++ wrapper allows object-oriented programming.
 
-The contact database is removed from the original Scramble implementation as illustrated in Figure~\ref{fig:original_scramble_arch} since public keys no longer have to be explicitly stored in the architecture. More specifically, since Scramble can rely on IBE, the public keys are inherently part of the supported OSN. Therefore, the FireFox extension falls back on a number of calls to supported OSN APIs in order to get all public keys of one's connections.
+The contact database is removed from the original Scramble implementation as illustrated in Figure~\ref{fig:original_scramble_arch} since public keys no longer have to be explicitly stored in the architecture. More specifically, since Scramble can rely on IBE, the public keys are inherently part of the supported OSN. Therefore, the Firefox extension falls back on a number of calls to supported OSN APIs in order to get all public keys of one's connections.
 
 Figure~\ref{fig:new_scramble_arch} exchanges the web of trust from Figure~\ref{fig:original_scramble_arch} for a DKG infrastructure in order to support IBE without key escrow. For clarity, only one PKG is shown since all PKGs will have the same structure. The PKG supports two front-ends: a C++ based front-end and a PHP based front-end. 
 
 The C++ based front-end of the PKG only serves as a front-end during execution of the DKG protocol. Negotiation of the shares is implemented over synchronous sockets. At the startup of the PKG socket, the administrator is asked for a secret passphrase. Then, the sockets start listening on a predetermined port until all shares are correctly negotiated. Once all PKGs have exchanged their shares, the PKG calculates its public parameters and finishes the \texttt{Setup} step from Algorithm~\ref{alg:our_scheme}. The coefficients of the secret polynomial are encrypted with the earlier specified passphrase along with the negotiated secret share. After storage of these secret parameters, the C++ socket starts listening on another port to handle requests from the PHP front-end. Handling of private key extraction requests is multithreaded to handle requests of multiple clients at the same time.
 
-The PHP based front-end receives private key extraction queries from the Scramble FireFox extension in the form of POST requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage such that it is published in the form of an XML message over HTTPS~\cite{rfc2818}.
+The PHP based front-end receives private key extraction queries from the Scramble Firefox extension in the form of POST requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage such that it is published in the form of an XML message over HTTPS~\cite{rfc2818}.
 
 Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, Scramble is made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof-of-concept. Further extension to support other OSNs could be subject of future work.
 
@@ -216,7 +219,7 @@ Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be ap
 The implementation of Algorithm~\ref{alg:our_scheme} still requires some practical design decisions that are further discussed in this section.
 
 \subsection{Type of Elliptic Curve}
-The underlying elliptic curve determines the groups of the bilinear pairing $e: G_1 \times G_2 \rightarrow G_T$ and thus the security level of the application. The MIRACL library supports 5 different curves and 6 different security levels. However, the Barreto-Lynn-Scott (BLS) curve~\cite{art:BarretoLS02} is preferred since it provides the highest level of security in MIRACL. BLS curves rely on Ate pairings~\cite{art:HessSV06} with an embedding degree of 24. Consequently, BLS curves are considered suitable for a security level of 256 bits.
+For bilinear pairings, the underlying elliptic curve determines which groups are used forthe bilinear pairing ${e: G_1 \times G_2 \rightarrow G_T}$ and thus the security level of the application. The MIRACL library supports 5 different curves and 6 different security levels. However, the Barreto-Lynn-Scott (BLS) curve~\cite{art:BarretoLS02} is preferred since it provides the highest level of security in MIRACL. BLS curves rely on Ate pairings~\cite{art:HessSV06} with an embedding degree of 24. Consequently, BLS curves are considered suitable for a security level of 256 bits.
 
 \subsection{Authenticated Encryption Scheme}
 An AES-GCM~\cite{art:McGrewV04} implementation is used for the authenticated encryption scheme in Algorithm~\ref{alg:our_scheme} since it is one of the more efficient authenticated encryption schemes unencumbered by patents. The AES-GCM implementation as provided by MIRACL is used with authentication tags of 128 bits. Apart from a symmetric key of 128, 192 or 256 bits, AES-GCM also requires an Initialisation Vector (IV). The recommended length of the IV is 96 bits because it can be handled more efficiently~\cite{rfc5084}.
@@ -254,8 +257,8 @@ The decision on which string to use as a public IBE key \id{} is dependent on th
 \end{enumerate}
 In Facebook the best key satisfying these properties is a Facebook username. A Facebook username is ensured to be unique since it is part of a profile's URL, e.g. \url{http://www.facebook.com/profile.name} where \texttt{profile.name} functions as \id{}. Moreover, the Facebook policy ensures that this username is mandatory for every user and can only be changed once. Lastly, the Facebook username is also public to outsiders using the Facebook API thereby fulfilling all the required conditions for an IBE key in our architecture.
 
-\section{Implemented Scheme}
-
+\section{Implemented Code}
+\label{sec:implemented_code}
 \begin{figure}
     \centering
     \noindent\makebox[\textwidth]{
@@ -303,7 +306,6 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
         
         %AuthenticatedData
         \begin{class}[text width =8 cm]{AuthenticatedData}{-9 , 2}
-          \inherit{BroadcastMessage}
           \attribute{- authenticatedData : char *}
           \attribute{- U : G2}
           \attribute{- v : Big}
@@ -334,6 +336,75 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
 
 \subsection{Server-Side Implementation}
 
+\begin{figure}
+    \centering
+    \noindent\makebox[\textwidth]{
+        \scalebox{0.7} {
+        \begin{tikzpicture}
+        
+        % BroadcastMessage
+        \begin{abstractclass}[text width =8 cm]{BroadcastMessage}{2,2}
+          \attribute{\# message : string }
+          \attribute{\# autData : AuthenticatedData *}
+          \attribute{\# sessionKey : char[HASH\textunderscore LEN]}
+          \operation{\# void getIV(char (\& iv)[HASH\textunderscore LEN/2])}
+          \operation{\# void getK(char (\& iv)[HASH\textunderscore LEN/2])}
+          \operation{\# Big getSessionKey()}
+          \operation{+ AuthenticatedData getAuthenticatedData()}
+          \operation[0]{+ string getMessage()}
+        \end{abstractclass}
+        
+        % PlaintextMessage
+        \begin{class}[text width =9 cm]{PlaintextMessage}{ -9 , -6}
+          \inherit{BroadcastMessage}
+          \attribute{- r : Big}
+          \attribute{- recipients : vector\textless  string\textgreater}
+          \attribute{- recipientHashes : vector\textless G1\textgreater }
+          \attribute{- rho : Big}
+          \operation{+ PlaintextMessage(string message)}
+          \operation{+ void addRecipient(string recipient, PFC *pfc)}
+          \operation{+ EncryptedMessage encrypt(const G2\& P, const G2\& Ppub, PFC *pfc)}
+          \operation{+ string getMessage()}
+          \operation{+ vector <string> getRecipients()}
+          \operation{- generateKeys(PFC *pfc)}
+        \end{class}
+        
+        % EncryptedMessage
+        \begin{class}[text width =9 cm]{EncryptedMessage}{2 , -6}
+          \inherit{BroadcastMessage}
+          \attribute{- C : char *}
+          \attribute{- Clen : int}
+          \attribute{- T : char[TAG\textunderscore LEN]}
+          \operation{+ EncryptedMessage(char * A, int Alen, char (\& T)[TAG\textunderscore LEN], char * C, int Clen)}
+          \operation{+ EncryptedMessage(string encryptedMessage)}
+          \operation{+ PlaintextMessage decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id, PFC *pfc )}
+          \operation{+ string getMessage()}
+        \end{class}
+        
+        %DKGMessage
+        \begin{class}[text width =8 cm]{DKGMessage}{-9 , 2}
+          \attribute{- authenticatedData : char *}
+          \attribute{- U : G2}
+          \attribute{- v : Big}
+          \attribute{- ws : vector<Big>}
+          
+          \operation{+ AuthenticatedData(char * A)}
+          \operation{+ void add(Big encryptedRecipientKey)}
+          \operation{+ void encodeTo(char * array)}
+          \operation{+ vector\textless Big\textgreater getEncryptedRecipientKeys()}
+          \operation{+ int getLength()}
+          \operation{+ G2 getU()}
+          \operation{+ Big getV()}
+          \operation{+ void setU(G2 U)}
+          \operation{+ void setV(Big v)}
+        \end{class}
+        \unidirectionalAssociation {AuthenticatedData}{part of}{1}{BroadcastMessage}
+        \end{tikzpicture}
+    }}
+    \caption{Class Diagram of Client Side C++ MIRACL Based Back-end}
+    \label{fig:class_server_side}
+\end{figure}
+
 \subsubsection{Code Structure}
 \textcolor{red}{TODO: Add a class diagram for the server-side implementation}
 
@@ -342,21 +413,61 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
 \subsubsection{Encountered Issues}
 \textcolor{red}{TODO: Say something about the difficulties of multithreading MIRACL}
 \textcolor{red}{TODO: Say something about the difficulties of implementing the scheme from Kate et al.}
+\textcolor{red}{TODO: Say something about the difficulties of serialising messages}
+\textcolor{red}{TODO: Say something about the difficulties of inheritance in c++}
 
 \section{Performance Analysis}
-Performance experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Table~\ref{table:performance_of_proposed_scheme} illustrates the  execution times for Algorithm~\ref{alg:our_scheme} with the aforementioned implementation details from Section~\ref{sec:implementation_details}. 
+\label{sec:performance_analysis}
+All performance experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Execution times arise from the aforementioned implementation details applied to Algorithm~\ref{alg:our_scheme}. The results are illustrated in Table~\ref{table:performance_setup}, Table~\ref{table:performance_keygen} and Table~\ref{table:performance_publish_and_retrieve} and further discussed in this section.
 
-Encryption times are linearly dependent on the number of intended recipients since more intensive pairing computations are required for each additional user included in the intended recipient set.
-
-Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the secret session key $k$. However, the experiments measured the worst-case execution time for decryption since the recipient had to decrypt all $w_i$ values before retrieving $k$ in the last attempt. After recovering $k$, the recipient executes AES-GCM for the decryption of the ciphertext $c$ to the plaintext message $m$. Note that recipient anonymity of $\mathcal{S}$ comes at the cost of reduced efficiency, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
-
-\textcolor{red}{TODO: Add another table listing how much time each step of Algorithm~\ref{alg:our_scheme} requires.}
+\subsection{Setup}
+For every PKG $v$, PKG $j$ needs to compute and communicate an additional share $\sigma_{jv}$. Therefore, the execution time of the \texttt{Setup} stage from Algorithm~\ref{alg:our_scheme} is dependent on the total number of PKGs $n$. However, the execution times listed in Table~\ref{table:performance_setup} mainly consist of communication overhead due to the synchronous sockets. Since our current implementation is only simulated in a local environment by sockets listening on different ports, setup times are expected to increase when translated to a more distributed setting.
 
 \begin{table}
   \centering
-  \begin{tabular}{@{}lrr@{}} \toprule
-    \multicolumn{3}{r}{Execution Times (ms)} \\ \cmidrule(r){2-3}
-    Number of Recipients & Encryption & Decryption \\ \midrule
+  \begin{tabular}{@{}rr@{}} \toprule
+    Total number of PKGs $n$ & Setup Time (ms) \\ \midrule
+    2 & 66.6  \\
+    5 & 112.6  \\
+    10 & 116.8  \\
+    15 & 123.2  \\ 
+    50 & 142.3 \\ \bottomrule
+  \end{tabular}
+  \caption{Performance of the \texttt{Setup} stage in function of the total number of PKGs.}
+  \label{table:performance_setup}
+\end{table}
+
+
+\subsection{KeyGen}
+The larger the threshold $t$ of the DKG protocol, the more PKGs need to be consulted. For every contacted PKG, two additional pairing computations are required due to the check in step 5 of the \texttt{KeyGen} stage in Algorithm~\ref{alg:our_scheme}. Primarily, these pairing computations together with the communication overhead contribute to the execution times in Table~\ref{table:performance_keygen}. Analogous to the execution times of the \texttt{Setup} stage, the contribution by communication overhead is expected to increase in a distributed DKG environment. 
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}rr@{}} \toprule
+    Threshold number of PKGs $t$ & Setup Time (ms) \\ \midrule
+    2 & 1175.4 \\
+    5 & 2785.0 \\
+    10 & 5781.2 \\
+    15 & 8625.8 \\ 
+    50 & 29318.4 \\ \bottomrule
+  \end{tabular}
+  \caption{Performance of the \texttt{KeyGen} stage in function of the threshold number of PKGs.}
+  \label{table:performance_keygen}
+\end{table}
+
+\subsection{Publish}
+Encryption times are linearly dependent on the number of intended recipients since more intensive pairing computations are required for each additional user included in the intended recipient set, as illustrated by Table~\ref{table:performance_publish_and_retrieve}.
+
+\subsection{Retrieve}
+Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the secret session key $k$. However, the experiments as shown in Table~\ref{table:performance_publish_and_retrieve} measured the worst-case execution time for the \texttt{Retrieve} stage of Algorithm~\ref{alg:our_scheme} since the recipient had to decrypt all $w_i$ values before retrieving $k$ in the last attempt. Only after recovering $k$, the recipient can decrypt the ciphertext using AES-GCM.
+
+In future optimisations of our current implementation, techniques of randomness reuse should be considered. The concept of randomness reuse as originally proposed by Kurosawa~\cite{art:Kurosawa01} introduces a deterministic component to random elements of a BE scheme such that shorter ciphertexts and computationally more efficient schemes can be achieved. However, randomness reuse should be applied with great care as it can significantly reduce the security level of a scheme. Since randomness reuse depends on the underlying BE scheme, an extensive analysis of the scheme should precede implementation of randomness reuse techniques. Therefore, randomness reuse is currently not included in our implementation.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}rrr@{}} \toprule
+    \multicolumn{3}{r}{Execution Time (ms)} \\ \cmidrule(r){2-3}
+    Number of Recipients & \texttt{Publish} & \texttt{Retrieve} \\ \midrule
     %%%%%%%%%%%%%%%%%%%%%
     % CCA Secure scheme %
     %%%%%%%%%%%%%%%%%%%%%
@@ -380,28 +491,28 @@ Each recipient has to decrypt $w_i$ an average of $\eta/2$ times to retrieve the
     % 50 & 12701.3 & 284.214 \\
     % 100 & 25540.5 & 377.8 \\
   \end{tabular}
-  \caption{Performance of the implemented scheme in function of the number of intended recipients.}
-  \label{table:performance_of_proposed_scheme}
+  \caption{Performance of the \texttt{Publish} and \texttt{Retrieve} stages in function of the number of intended recipients.}
+  \label{table:performance_publish_and_retrieve}
 \end{table}
 
-\section{Limitations of Current Implementation}
+\section{Current Limitations}
+\label{sec:limitations_of_implementation}
 The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} are present, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of deliberate design decisions.
 
 \subsection{Client Side}
-Since the IBE scheme is integrated in the existing Scramble UI, not many adaptions should be made to the client side implementation. The major drawback of our IBE proposal is that it makes the Scramble plugin more dependent on the underlying OSN. Consequently, every OSN should be separately integrated into the Scramble plugin since each OSN offers its own API calls for reading out friend connections. More OSNs than Facebook should be actively supported by the IBE Scramble tool to motivate the use of the plugin.
+Since the IBE scheme is integrated in the existing Scramble UI, no drastic adaptations should be made to the client side implementation. The major drawback of our IBE proposal is that it makes the Scramble plugin more dependent on the underlying OSN. Consequently, every OSN should be separately integrated into the Scramble plugin since each OSN offers its own API calls for reading out friend connections. More OSNs than Facebook should be actively supported by the IBE Scramble tool to motivate wide user adapation of the plugin.
 
 \subsection{Server Side}
 In its present form, the PKG is only simulated in a local environment. Therefore, it suffices to rely on synchronous communication over C++ sockets each listening on a different port. However, before adaption to a world-wide DKG network is possible, the protocol should take more asynchronous aspects into account such as connection-loss, DOS-attacks or undelivered packets. Kate et al.~\cite{art:KateHG12} propose a more advanced DKG protocol in the asynchronous setting that could be adapted for our IBE setting.
 
 Since the DKG protocol is currently always simulated in a local environment, all PKG sockets communicate their XML messages in plain text. More secure socket protocols should be considered such as SSL~\cite{rfc6101} for adoption to a more hostile distributed setting.
 
-Furthermore, the current assumptions on the PKGs (Section~\ref{sec:assymptions_on_pkg}) are too severe for practical environments. In practice the current Pedersen DKG scheme~\cite{art:Pedersen91a} is insecure and is better replaced by the one from Gennaro et al.~\cite{art:GennaroJKR07}. If all mentioned updates on the current server side scheme are effectively achieved, more relaxed assumptions on the PKG are in place. With less stringent PKG assumptions, the DKG network could even be partially supported by the OSN providers to show their good intensions of making their networks more private.
+Furthermore, the current assumptions on the PKGs (Section~\ref{sec:updated_model}) are too severe for practical environments. In practice, the current Pedersen DKG scheme~\cite{art:Pedersen91a} is insecure and is better replaced by the one from Gennaro et al.~\cite{art:GennaroJKR07}. If all mentioned updates on the current server side scheme are effectively achieved, more relaxed assumptions on the PKG are in place. With less stringent PKG assumptions, the DKG network could even be partially supported by the OSN providers to show their good intensions of making their networks more private.
 
 \subsection{Limitations Effecting Both Client and Server}
 Currently, private key extraction takes the form of a POST request over HTTPS~\cite{rfc2818}. Although the PKGs publish the response in plain text to their PHP website, the communication is encrypted by a self-signed SSL certificate. Ideally, this certificate is signed by a world-wide trusted CA such that the client-side implementation can effectively verify whether it is communicating with a valid PKG.
 
 Although web communication between the client side Scramble tool and the server side PKG is already encrypted, a client can request the private key parameters for every $\id{}$ since there is no authentication mechanism checking the user's identity. However, Facebook provides third party authentication in its API. If a Facebook login dialogue is integrated in the Scramble UI, the returned Facebook authentication token serves as a proof to the PKG that the requester of the private key resembles the owner of the corresponding Facebook profile.
-
 \section{Summary}
 
 %%% Local Variables: 

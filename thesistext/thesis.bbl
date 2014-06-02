@@ -1,8 +1,5 @@
 \begin{thebibliography}{100}
 
-\bibitem{nist:dworkin}
-
-
 \bibitem{thesis:Maas04}
 Pairing based cryptography.
 \newblock Master's thesis, Technische Universiteit Eindhoven, 2004.
@@ -281,6 +278,12 @@ L.~Ducas.
 \newblock In J.~Pieprzyk, editor, {\em CT-RSA}, volume 5985 of {\em Lecture
   Notes in Computer Science}, pages 148--164. Springer, 2010.
 
+\bibitem{nist:dworkin}
+M.~Dworkin.
+\newblock Recommendation for block cipher modes of operation galois counter
+  mode and gmac.
+\newblock {\em NIST Special publication 800-38B}, 2007, 2007.
+
 \bibitem{NYT2010.Diaspora}
 J.~Dwyer.
 \newblock Four nerds and a cry to arms against {Facebook}.
@@ -441,6 +444,11 @@ L.~Krzywiecki, P.~Kubiak, and M.~Kutylowski.
 \newblock In H.~Lipmaa, M.~Yung, and D.~Lin, editors, {\em Inscrypt}, volume
   4318 of {\em Lecture Notes in Computer Science}, pages 130--143. Springer,
   2006.
+
+\bibitem{art:Kurosawa01}
+K.~Kurosawa.
+\newblock Multi-recipient public-key encryption with shortened ciphertext.
+\newblock {\em IACR Cryptology ePrint Archive}, 2001:71, 2001.
 
 \bibitem{art:LeeL10}
 K.~Lee and D.~H. Lee.

@@ -40,7 +40,7 @@ if(array_key_exists('id', $_POST) && isset($_POST['id']) && $_POST['id'] != ''){
 	$Did = $xml->createElement('d_id');
 	$DidText = $xml->createTextNode($DidResult);
 	$Did->appendChild($DidText);
-
+ 
 	$result->appendChild($Ppub);
 	$result->appendChild($P);
 	$result->appendChild($Did);

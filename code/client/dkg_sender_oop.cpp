@@ -23,8 +23,8 @@
 
 #include "../cppmiracl/source/pairing_3.h"
 
-#define THRESHOLD 3
-#define DKG_BASE_ADDR "https://localhost/thesis/dkg"
+#define THRESHOLD 2
+#define DKG_BASE_ADDR "https://localhost/thesis/pkg"
 
 using namespace std;
 
@@ -63,7 +63,7 @@ int main(void)
 
     mip->IOBASE=64;
     clock_t begin_time, begin_time1;
-    float enc_time, enc_time1, dec_time, dec_time1, dec_time2;
+    float enc_time, enc_time1, dec_time, dec_time1, dec_time2, ext_time;
 
     G2 P, Ppub;
     G1 Qpriv, Qid;
@@ -71,8 +71,12 @@ int main(void)
     Big order = pfc.order();
 
     // Specify the ids of the dkgs to contact
-    int dkgIds[THRESHOLD] = {1, 2, 3};
-    int dkgIds2[THRESHOLD] = {3, 4, 5};
+    //int dkgIds[THRESHOLD] = {1, 2, 3};
+    //int dkgIds2[THRESHOLD] = {3, 4, 5};
+    int dkgIds[THRESHOLD];
+    for(int i = 0; i < THRESHOLD; i++) {
+        dkgIds[i] = i+1;
+    }
 
     const char * id = "Alice";
     string urls[THRESHOLD];
@@ -85,7 +89,9 @@ int main(void)
     vector <G2> Ppubs;
     DkgResult retParams;
 
+    begin_time = clock();
     pfc.hash_and_map(Qid, (char*)id);
+
     for (int i = 0; i < THRESHOLD; i++) {
         retParams = scrapeDkg(urls[i]);
         // Get Ppub, P and Qpriv from the PKG's XML message
@@ -98,6 +104,7 @@ int main(void)
         Ppubs.push_back(Ppub);
 
         // Verify if the DKG are being honest
+        cout << "Qpriv.g" << endl << Qpriv.g << endl;
         GT QprivP = pfc.pairing(P, Qpriv);
         GT QidPpub = pfc.pairing(Ppub, Qid);
         if (QprivP != QidPpub) {
@@ -108,16 +115,18 @@ int main(void)
 
     D = getSecretKey(dkgIds, Qprivs, order, &pfc);
     Ppub = getPpub(dkgIds, Ppubs, order, &pfc);
-    cout << "D.g" << endl << D.g << endl;
-    cout << "Ppub.g" << endl << Ppub.g << endl;
-
+    //cout << "D.g" << endl << D.g << endl;
+    //cout << "Ppub.g" << endl << Ppub.g << endl;
+    ext_time = getExecutionTime(begin_time);
+    cout << "Extraction time was " << ext_time << endl << endl;
+    // This demonstrates that the DKGs are effectively working like they should
+    /*
     for (int i = 0; i < THRESHOLD; i++) {
         stringstream ss;
         ss << DKG_BASE_ADDR << dkgIds2[i] << "/?id=" << id;
         urls[i] = ss.str();
     }
-    // TODO: are Ppubs needed?
-    // TODO: write something if DKG is offline
+
     Qprivs.clear();
     Ppubs.clear();
     for (int i = 0; i < THRESHOLD; i++) {
@@ -139,11 +148,10 @@ int main(void)
             return 0;
         }
     }
-    // This demonstrates that the DKGs are effectively working like they should
     D = getSecretKey(dkgIds2, Qprivs, order,&pfc);
     Ppub = getPpub(dkgIds2, Ppubs, order, &pfc);
     cout << "D.g" << endl << D.g << endl;
-    cout << "Ppub.g" << endl << Ppub.g << endl;
+    cout << "Ppub.g" << endl << Ppub.g << endl;*/
 
     PlaintextMessage mes = PlaintextMessage("Dit is een testje");
 
@@ -246,7 +254,6 @@ DkgResult scrapeDkg(string url) {
     string d_id = d_id_node->value();
     string p = p_node->value();
     string p_pub = p_pub_node->value();
-
     DkgResult result;
     result.Ppub = g2From(p_pub);
     result.P = g2From(p);

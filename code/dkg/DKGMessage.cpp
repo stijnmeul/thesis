@@ -3,7 +3,7 @@
 #define BASE_PORT
 
 #include "../cppmiracl/source/pairing_3.h"
-#include "shamir.h"
+#include "pkg.h"
 #include "DKGMessage.h"
 #include <vector>
 #include <stdexcept>

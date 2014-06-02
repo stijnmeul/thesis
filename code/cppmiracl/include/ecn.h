@@ -83,7 +83,7 @@ public:
       temp = ecnString.erase(0,1);
       temp = temp.erase(temp.length()-1, 1);
       found = temp.find(",");
-      if(found == ((temp.length()-1)/2) || found == ((temp.length())/2) || found == ((temp.length()+1)/2)) {
+      if(found >= ((temp.length()-4)/2) && found <= ((temp.length()+4)/2)) {
         left = temp.substr(0,found);
         right = temp.substr(found+1, string::npos);
         char* cleft = const_cast<char*>(left.c_str());

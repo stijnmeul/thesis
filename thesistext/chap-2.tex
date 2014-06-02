@@ -35,8 +35,8 @@ The concept of identity-based cryptography was proposed by Shamir~\cite{art:Sham
 \subsection{Definition}
 A generic Identity-Based Encryption (IBE) scheme is composed of four probabilistic polynomial time algorithms~\cite{art:BonehF01}:
 \begin{description}
-    \item[\texttt{IBE.Setup($1^{\lambda}$)}] On input of a security parameter $\lambda$, outputs a master secret $msk$ and public parameters $params$.
-    \item[\texttt{IBE.Extract($params, msk, \id{}$):}] Takes public parameters $params$, the master secret $msk$, and an \id{} as input and returns the private key $s_{\id{}}$ corresponding to the identity \id{}.
+    \item[\texttt{IBE.Setup($1^{\lambda}$)}] On input of a security parameter $\lambda$, outputs a master secret $sk_{msk}$ and public parameters $params$.
+    \item[\texttt{IBE.Extract($params, sk_{msk}, \id{}$):}] Takes public parameters $params$, the master secret $sk_{msk}$, and an \id{} as input and returns the private key $s_{\id{}}$ corresponding to the identity \id{}.
     \item[\texttt{IBE.Encrypt($params, \id{}, m$):}] Returns the encryption $c$ of the message $m$ on the input of the public parameters $params$, the \id{}, and the arbitrary length message $m$.
     \item[\texttt{IBE.Decrypt($s_{\id{}}, c$):}] Decrypts the ciphertext $c =$ \texttt{IBE.Encrypt}($params, \id{}, m$) back to the message $m$ on input of the private key $s_{\id{}}$ corresponding to the receiving identity \id{}.
 \end{description}
@@ -66,10 +66,10 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
        \node[below=of alice] {\textbf{Alice} \\ 3. $c \leftarrow $\texttt{IBE.Encrypt($params, \id{Bob}, m$)}};
        \node[below=of bob] {\textbf{Bob} \\ 6. $m \leftarrow $\texttt{IBE.Decrypt($s_{\id{Bob}}, \id{Bob}, c$)}};
        \node[above=of pkg,align=left] {
-               1. $\left< msk, params \right> \leftarrow $\texttt{IBE.Setup($1^{\lambda}$)} \\
+               1. $\left< sk_{msk}, params \right> \leftarrow $\texttt{IBE.Setup($1^{\lambda}$)} \\
                2. publish $params$ \\
                \\
-               5. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, msk, \id{Bob}$)}
+               5. $s_{\id{Bob}} \leftarrow $\texttt{IBE.Extract($params, sk_{msk}, \id{Bob}$)}
                };
        \begin{scope}[every path/.style=line]
         \path[color=cyan] (alice.east) -- (bob.west);
@@ -85,11 +85,11 @@ A generic Identity-Based Encryption (IBE) scheme is composed of four probabilist
     \label{fig:generic_ibe_scheme}
 \end{figure}
 
-Figure~\ref{fig:generic_ibe_scheme} illustrates these generic algorithms. A trusted Public Key Generator (PKG) generates a master private key $msk$ and public parameters $params$ on input of the security parameter $\lambda$. Next, the PKG publishes the public parameters $params$ while storing $msk$ preferably in encrypted format on a local disk. If Alice wants to send a message $m$ to Bob, it suffices for her to know the public parameters $params$ and the id $\id{Bob}$, uniquely identifying Bob. Then, Alice encrypts the message to a ciphertext $c$ that is sent over an insecure channel to Bob. On receipt of the ciphertext, Bob authenticates to the PKG over a secure channel to request his private key $sk_{\id{Bob}}$. Subsequently, the PKG generates the private key $sk_{\id{Bob}}$ corresponding to Bob's identity $\id{Bob}$ on input of the master secret key $msk$, Bob's id $\id{Bob}$ and public parameters $params$. Subsequently, the PKG sends $sk_{\id{Bob}}$ back again over a secure channel. Bob has now all the required information to decrypt the ciphertext $c$ to its original plaintext message $m$.
+Figure~\ref{fig:generic_ibe_scheme} illustrates these generic algorithms. A trusted Public Key Generator (PKG) generates a master private key $sk_{msk}$ and public parameters $params$ on input of the security parameter $\lambda$. Next, the PKG publishes the public parameters $params$ while storing $sk_{msk}$ preferably in encrypted format on a local disk. If Alice wants to send a message $m$ to Bob, it suffices for her to know the public parameters $params$ and the id $\id{Bob}$, uniquely identifying Bob. Then, Alice encrypts the message to a ciphertext $c$ that is sent over an insecure channel to Bob. On receipt of the ciphertext, Bob authenticates to the PKG over a secure channel to request his private key $sk_{\id{Bob}}$. Subsequently, the PKG generates the private key $sk_{\id{Bob}}$ corresponding to Bob's identity $\id{Bob}$ on input of the master secret key $sk_{msk}$, Bob's id $\id{Bob}$ and public parameters $params$. Subsequently, the PKG sends $sk_{\id{Bob}}$ back again over a secure channel. Bob has now all the required information to decrypt the ciphertext $c$ to its original plaintext message $m$.
 
 \subsection{Comparison of IBE and PKI Schemes}
 \label{sec:pros_and_cons_of_ibe}
-Now we turn to overview the main advantages and disadvantages of generic IBE schemes when compared to more tradional PKI systems.
+Now we turn to overview the main advantages and disadvantages of generic IBE schemes when compared to more traditional PKI systems.
 
 \subsubsection{Disadvantages}
 \paragraph{Single point of failure}
@@ -103,9 +103,9 @@ Generic IBE schemes do not support revocation of public keys. However, Bob's pri
 
 \subsubsection{Advantages}
 \paragraph{Complexity of the system}
-Only one PKG suffices to realise the system, which relaxes expensive infrastructure requirements on the system. Due to the support of revocation lists and the often hierarchical organisation, PKI systems are complex structures with a high amount of redundancy.
+Only one PKG suffices to realise the IBE scheme, which relaxes expensive infrastructure requirements on the system. Due to the support of revocation lists and the often hierarchical organisation, PKI systems are complex structures with a high amount of redundancy.
 
-\paragraph{User friendlyness}
+\paragraph{User friendliness}
 Users who have no background on cryptographic primitives no longer have to make conscious decisions on key lengths or the randomness of their keys. In an IBE system a public key is a string available to anyone in the system. This is generally conceived as more transparent to users lacking a background on cryptography. An average user knows what a username or an e-mail address represents and to whom it belongs while an authenticated public key is generally not a familiar concept.
 
 \paragraph{Opt-in by default}
@@ -131,8 +131,8 @@ IND-CPA is best defined with the help of a game that challenges the adversary. I
 \end{description}
 
  \begin{enumerate}
-  \item The challenger runs $\left< msk, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
-  \item \label{item:firs_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a private key $sk_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, msk, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item The challenger runs $\left< sk_{msk}, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
+  \item \label{item:firs_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a private key $sk_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, sk_{msk}, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
   \item The adversary picks two equal length plaintext messages $m_0$ and $m_1$ and an identity $\id{encrypt}$. The adversary honestly passes $\left< m_0, m_1, \id{encrypt} \right>$ to the challenger.
   \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{encrypt}, m_b$)}. The challenger gives $c$ to the adversary.
   \item \label{item:second_oracle_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
@@ -157,8 +157,8 @@ In literature a distinction is often made between a \textit{non-adaptive} case (
 \end{description}
 
  \begin{enumerate}
-  \item The challenger runs $\left< msk, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
-  \item \label{item:cca_first_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a private key $sk_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, msk, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item The challenger runs $\left< sk_{msk}, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
+  \item \label{item:cca_first_oracle_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a private key $sk_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, sk_{msk}, \id{}$)} corresponding to an adversary defined identity $\id{i}$.
   \item \label{item:cca_first_decryption_query} The adversary can start querying another oracle $O_{Decrypt} \left( sk_{\id{i}}, c_j \right)$ that returns a plaintext $m_j \leftarrow$ \texttt{IBE.Decrypt($sk_{\id{i}}, c_j$)} corresponding to an adversary defined ciphertext $c_j$ and identity $\id{i}$.
   \item The adversary picks two equal length plaintext messages $m_0$ and $m_1$ and an identity $\id{encrypt}$. The adversary honestly passes $\left< m_0, m_1, \id{encrypt} \right>$ to the challenger.
   \item The challenger picks a random bit $b$ and executes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{}, m_b$)}. The challenger gives $c$ to the adversary.
@@ -184,8 +184,8 @@ Gentry~\cite{art:Gentry06} presents the first scheme which combines the notions 
  \item \textbf{Result}: This ANO-IBE Game helps to define the concept of ANO-IBE security for IBE schemes.
 \end{description}
  \begin{enumerate}
-  \item The challenger runs $\left< msk, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
-  \item \label{item:first_ano_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a private key $sk_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, msk, \id{i}$)} corresponding to an adversary defined identity $\id{i}$.
+  \item The challenger runs $\left< sk_{msk}, params\right> \leftarrow$ \texttt{IBE.Setup($1^{\lambda}$)} and returns $params$ to the adversary.
+  \item \label{item:first_ano_query} The adversary can start querying an oracle $O_{Extract} \left( \id{i} \right)$ that returns a private key $sk_{\id{i}} \leftarrow$ \texttt{IBE.Extract($params, sk_{msk}, \id{i}$)} corresponding to an adversary defined identity $\id{i}$.
   \item The adversary picks a plaintext message $m$ and an identity \id{encrypt}. The adversary honestly passes $\left< m, \id{encrypt} \right>$ to the challenger.
   \item The challenger picks a random bit $b$ and computes \\ $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{encrypt}, m$)} if $b=0$. If $b=1$, the challenger computes $c \leftarrow$ \texttt{IBE.Encrypt($params, \id{encrypt}, r$)} where $r$ is a random bit sequence with the same length as the message $m$. The challenger gives $c$ to the adversary.
   \item \label{item:second_ano_query} The adversary continues querying the oracle $O_{Extract} \left( \id{i} \right)$ adaptively.
@@ -212,77 +212,89 @@ Canetti et al.~\cite{art:CanettiHK03} introduced the first secure IBE scheme wit
 
 Waters~\cite{art:Waters05} is the first to present a scheme that is IND-CCA secure in the standard model. Drawback of the scheme from Waters~\cite{art:Waters05} is that it requires large public parameters. Gentry~\cite{art:Gentry06} proposes a more efficient alternative to this scheme in the standard model while achieving shorter public parameters. However, the scheme from Gentry relies on a complicated hardness assumption called q-BDHE. It is only after the introduction of the Dual System paradigm by Waters~\cite{art:Waters09} in 2009 that IND-CCA security can be achieved in the standard model based on reasonable assumptions. De Caro et al.~\cite{art:CaroIP10} are the first to define an IND-ANO-CCA secure IBE scheme on the Dual System construction of Waters~\cite{art:Waters09}. % Note that paper from Lewko and Waters only considers HIBE and no IBE scheme.
 
-Although all these contributions were a step forward in the evolution of IBE, not all of these schemes are ANO-IBE. Most IBE systems in the random oracle model can be proven anonymous. Therefore, the IBE scheme from Boneh and Franklin~\cite{art:BonehF01} is IND-ANO-CCA secure. In the standard model, it appeared to be harder to construct ANO-IBE schemes at first sight, e.g. it can be proven that the scheme from Boneh and Boyen~\cite{art:BonehB04} is not anonymous in its original form. The scheme from Gentry~\cite{art:Gentry06} was the first anonymous IBE scheme in the standard model. Boyen and Waters~\cite{art:BoyenW06} published almost synchronously another IBE scheme in the standard model that is also IND-ANO-CCA secure. In 2010, Ducas~\cite{art:Ducas10} showed that even schemes that were first considered not anonymous like the one from Boneh and Boyen~\cite{art:BonehB04} but also~\cite{art:BonehBG05,art:Waters05} can be proven anonymous when relying on asymmetric pairings thereby making anonymity a more common property in IBE schemes.
+Although all these references contributed to the evolution of IBE, not all of these schemes are ANO-IBE. The IBE scheme from Boneh and Franklin~\cite{art:BonehF01} is IND-ANO-CCA secure since IBE systems in the random oracle model are ANO-IBE. In the standard model, it appeared to be harder to construct ANO-IBE schemes at first sight, e.g. it can be proven that the scheme from Boneh and Boyen~\cite{art:BonehB04} is not anonymous in its original form. The scheme from Gentry~\cite{art:Gentry06} was the first anonymous IBE scheme in the standard model. Boyen and Waters~\cite{art:BoyenW06} published almost synchronously another IBE scheme in the standard model that is also IND-ANO-CCA secure. In 2010, Ducas~\cite{art:Ducas10} showed that even schemes that were first considered not anonymous like the one from Boneh and Boyen~\cite{art:BonehB04} but also~\cite{art:BonehBG05,art:Waters05} can be proven anonymous when relying on asymmetric pairings thereby making anonymity a more common property in IBE schemes.
 
 \subsection{Most Attractive IBE Schemes}
 In the standard model mainly the anonymous IBE constructions from Gentry~\cite{art:Gentry06} and De Caro et al.~\cite{art:CaroIP10} have the most satisfying properties. However, IBE constructions in the standard model often come at the cost of higher computational requirements~\cite{art:Boyen08}. Certainly the scheme from De Caro demands a higher amount of computational resources since it relies on composite order groups. Although methods~\cite{art:Freeman10,art:Lewko12} have been developed to convert IBE schemes from composite order groups to single order prime groups, these methods do not apply to the scheme from De Caro et al.~\cite{art:LeeL10}
 
 From all schemes discussed in Section~\ref{sec:evolution_of_ibe} the ones initially developed by Boneh and Franklin~\cite{art:BonehF01} and Sakai and Kasahara~\cite{art:SakaiK03} are the most attractive ones in the random oracle model because of their anonymity and non-selective security. Consequently, it is not a coincidence that both schemes have found description in an informational RFC document. Sakai and Kasahara IBE is described in RFC 6508~\cite{rfc6508} and RFC 6509~\cite{rfc6509}. Boneh and Franklin IBE can be found in RFC 5409~\cite{rfc5409}. 
 
-Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Boneh an Franklin~\cite{art:BonehF01} are important for the remainder of this text, they are both included in Algorithm~\ref{alg:basic_indent} and Algorithm~\ref{alg:full_indent} respectively.
+The ANO-IND-CCA secure scheme from Boneh an Franklin~\cite{art:BonehF01} is included in Algorithm~\ref{alg:full_indent} since it is valuable for the remainder of the text.
 
-\begin{algorithm}
-\caption{IND-ANO-CPA Boneh and Franklin IBE~\cite{art:BonehF01}}
-\label{alg:basic_indent}
-\begin{description}
- \item \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
+%\begin{algorithm}
+%\caption{IND-ANO-CPA Boneh and Franklin IBE~\cite{art:BonehF01}}
+%\label{alg:basic_indent}
+%\begin{description}
+% \item \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
  
- \item \textbf{Result}: Alice sends an IBE encrypted ciphertext $c$ that is successfully decrypted by Bob.
-\end{description}
- \begin{enumerate}
-  \item \texttt{Setup($1^{\lambda}$)}: Let $\lambda$ be the security parameter for a security level of $l$ bits.
-  \begin{enumerate}
-   \item Execute setup algorithm $\left< q, G_1, G_2, e: G_1 \times G_2 \rightarrow G_T, P \in G_1 \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ to generate the parameters
-    \begin{enumerate}
-     \item A large prime $q$
-     \item Gap groups $G_1$ and $G_2$ of order q
-     \item An admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$
-     \item A random generator $P \in G_1$
-   \end{enumerate}
-   \item Choose a uniformly random $msk \in \mathbb{Z}^{*}_q$ and calculate
-   \begin{equation*}
-    P_{pub} = msk P
-   \end{equation*}
-   \item Choose cryptographic hash functions
-    \begin{enumerate}
-     \item $H_1: \{ 0,1  \}^* \rightarrow G_1$
-     \item $H_2: G_2 \rightarrow \{ 0,1 \}^l$
-    \end{enumerate}
-  \end{enumerate}
-  \item \texttt{Extract($params, msk, \id{}$)}:
-   \begin{enumerate}
-    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right) \in G_1$
-    \item Set the private key of $\id{}$ to $sk_{\id{}} = msk Q_{\id{}}$
-   \end{enumerate}
-   \item \texttt{Encrypt($params, \id{}, m$)}:
-   \begin{enumerate}
-    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right)$
-    \item Choose a random $r \in Z_q$
-    \item Encrypt the plaintext message $m$ to the ciphertext $c$ as
-    \begin{equation*}
-     c = \left< rP, m \oplus H_2 \left( g_{\id{}^r} \right) \right> = \left< U, v \right> \; \; \textrm{with} \; \; g_{\id{}} = e \left( Q_{\id{}}, P_{pub} \right) \in G_T
-    \end{equation*}
-   \end{enumerate}
-   \item \texttt{Decrypt($sk_{\id{}}, c$)}: Decrypt the ciphertext $c$ back to the plaintext message $m$ as
-   \begin{equation*}
-    m = v \oplus H_2 \left( e \left( sk_{\id{}}, U \right) \right)
-   \end{equation*}
- \end{enumerate}
-\end{algorithm}
+% \item \textbf{Result}: Alice sends an IBE encrypted ciphertext $c$ that is successfully decrypted by Bob.
+%\end{description}
+% \begin{enumerate}
+%  \item \texttt{Setup($1^{\lambda}$)}: Let $\lambda$ be the security parameter for a security level of $l$ bits.
+%  \begin{enumerate}
+%   \item Execute setup algorithm $\left< q, G_1, G_2, e: G_1 \times G_2 \rightarrow G_T, P \in G_1 \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ to generate the parameters
+%    \begin{enumerate}
+%     \item A large prime $q$
+%     \item Gap groups $G_1$ and $G_2$ of order $q$
+%     \item An admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$
+%     \item A random generator $P \in G_1$
+%   \end{enumerate}
+%   \item Choose a uniformly random $sk_{msk} \in \mathbb{Z}^{*}_q$ and calculate
+%   \begin{equation*}
+%    P_{pub} = sk_{msk} P
+%   \end{equation*}
+%   \item Choose cryptographic hash functions
+%    \begin{enumerate}
+%     \item $H_1: \{ 0,1  \}^* \rightarrow G_1$
+%     \item $H_2: G_2 \rightarrow \{ 0,1 \}^l$
+%    \end{enumerate}
+%  \end{enumerate}
+%  \item \texttt{Extract($params, sk_{msk}, \id{}$)}:
+%   \begin{enumerate}
+%    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right) \in G_1$
+%    \item Set the private key of $\id{}$ to $sk_{\id{}} = sk_{msk} Q_{\id{}}$
+%   \end{enumerate}
+%   \item \texttt{Encrypt($params, \id{}, m$)}:
+%   \begin{enumerate}
+%    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right)$
+%    \item Choose a random $r \in Z_q$
+%    \item Encrypt the plaintext message $m$ to the ciphertext $c$ as
+%    \begin{equation*}
+%     c = \left< rP, m \oplus H_2 \left( g_{\id{}^r} \right) \right> = \left< U, v \right> \; \; \textrm{with} \; \; g_{\id{}} = e \left( Q_{\id{}}, P_{pub} \right) \in G_T
+%    \end{equation*}
+%   \end{enumerate}
+%   \item \texttt{Decrypt($sk_{\id{}}, c$)}: Decrypt the ciphertext $c$ back to the plaintext message $m$ as
+%   \begin{equation*}
+%    m = v \oplus H_2 \left( e \left( sk_{\id{}}, U \right) \right)
+%   \end{equation*}
+% \end{enumerate}
+%\end{algorithm}
+%\makebox[10cm][s]{
 
+\afterpage{ % execute argument of this command *after* end of current page
+\clearpage
 \begin{algorithm}
 \caption{IND-ANO-CCA Boneh and Franklin IBE~\cite{art:BonehF01}}
 \label{alg:full_indent}
 \begin{description}
  \item \textbf{Goal}: Alice wants to send an IBE encrypted message to Bob.
- 
  \item \textbf{Result}: Alice sends an IBE encrypted ciphertext $c$ that is successfully decrypted by Bob.
 \end{description}
  \begin{enumerate}
   \item \texttt{Setup($1^{\lambda}$)}: 
   \begin{enumerate}
-   \item As in Algorithm~\ref{alg:basic_indent}
-   \item As in Algorithm~\ref{alg:basic_indent}
+   \item Execute setup algorithm $\left< q, G_1, G_2, e: G_1 \times G_2 \rightarrow G_T, P \in G_1 \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ to generate the parameters
+    \begin{enumerate}
+     \item A large prime $q$
+     \item Gap groups $G_1$ and $G_2$ of order $q$
+     \item An admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$
+     \item A random generator $P \in G_1$
+   \end{enumerate}
+   \item Choose a uniformly random $sk_{msk} \in \mathbb{Z}^{*}_q$ and calculate
+   \begin{equation*}
+    P_{pub} = sk_{msk} P
+   \end{equation*}
+
    \item Choose cryptographic hash functions
     \begin{enumerate}
      \item $H_1: \{ 0,1  \}^* \rightarrow G_1$
@@ -290,8 +302,11 @@ Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Bon
      \item $H_3: \{ 0,1 \}^l \rightarrow \left( 0,1 \right)^l$
     \end{enumerate}
   \end{enumerate}
-  \item \texttt{Extract($params, msk, \id{}$)}: As in Algorithm~\ref{alg:basic_indent}
-   \item \texttt{Encrypt($params, \id{}, m$)}:
+  \item \texttt{Extract($params, sk_{msk}, \id{}$)}:
+   \begin{enumerate}
+    \item Compute $Q_{\id{}} = H_1 \left( \id{} \right) \in G_1$
+    \item Set the private key of $\id{}$ to $sk_{\id{}} = sk_{msk} Q_{\id{}}$
+   \end{enumerate}   \item \texttt{Encrypt($params, \id{}, m$)}:
    \begin{enumerate}
     \item Compute $Q_{\id{}} = H_1 \{ \id{} \}$
     \item Choose a random $sigma \in \left( 0,1 \right)^l$
@@ -313,8 +328,8 @@ Because the ANO-IND-CPA secure scheme and the ANO-IND-CCA secure scheme from Bon
     \end{enumerate}
  \end{enumerate}
 \end{algorithm}
-
-
+\clearpage
+}
 
 \section{Broadcast Encryption}
 Another relevant aspect of encryption in OSNs is how one encrypted message can be securely broadcasted to multiple users. Broadcast encryption (BE) was introduced by Fiat and Naor~\cite{art:FiatN93}, as a public-key generalisation to a multi user setting. A BE scheme allows a user to encrypt a message $m$ to a subset $\mathcal{S}$ of users in a public key system, such that, only users in the set $\mathcal{S}$ are able to decrypt the message. The computational overhead of BE is generally bound to the ciphertext and the number of recipients.
@@ -336,27 +351,27 @@ Note that this definition is stated generically enough to allow all kinds of pub
 The problem of BE has been widely studied in literature since its first introduction by Fiat and Naor~\cite{art:FiatN93}. This section highlights the most important evolutions of BE in literature. The summary that follows is far from complete as it only considers publications that are relevant to our final goal: achieving user-friendly broadcast encryption for OSNs.
 
 \subsubsection{Broadcast Encryption}
-The implementation from Fiat and Naor~\cite{art:FiatN93} requires a ciphertext of size  $O \left( t \log^2 t \log n \right)$ to be~secure against $t$ colluding users. The first fully collusion resistant scheme was proposed in~\cite{art:NaorNL01} by Naor et al. thereby making the ciphertext size independent of the number of colluding users. A collusion resistant BE scheme refers to a broadcast encryption scheme that is secure even if all users that are not in the recipient set $\mathcal{S}$ would collaborate. Halevy and Shamir further reduce the required ciphertext length for collusion resistant schemes in~\cite{art:HalevyS02}. It is the first paper in a series of many~\cite{art:DodisF02,art:GoodrichST04,art:LewkoSW08} that achieves ciphertext sizes only dependent on the number of revoked users $O \left( r \right)$. Boneh, Gentry and Waters~\cite{art:BonehBG05} are the first to consider utilisation of bilinear maps to realise constant size ciphertexts and $O \left( n \right)$ public keys.
+The implementation from Fiat and Naor~\cite{art:FiatN93} requires a ciphertext of size  $O \left( t \log^2 t \log n \right)$ to be~secure against $t$ colluding users. The first fully collusion resistant scheme was proposed by Naor et al.~\cite{art:NaorNL01} thereby making the ciphertext size independent of the number of colluding users. A collusion resistant BE scheme refers to a broadcast encryption scheme that is secure even if all users that are not in the recipient set $\mathcal{S}$ would collaborate. Halevy and Shamir further reduce the required ciphertext length for collusion resistant schemes in~\cite{art:HalevyS02}. It is the first paper in a series of many~\cite{art:DodisF02,art:GoodrichST04,art:LewkoSW08} that achieves ciphertext sizes only dependent on the number of revoked users $O \left( r \right)$. Boneh, Gentry and Waters~\cite{art:BonehBG05} are the first to consider utilisation of bilinear maps to realise constant size ciphertexts and $O \left( n \right)$ public keys.
 
 \subsubsection{Identity-Based Broadcast Encryption}
-Sakai and Furukawa are the first to define a collusion resistant identity based broadcast encryption (IBBE) scheme in~\cite{art:SakaiF07}. Independently from~\cite{art:SakaiF07} Delerabl\'{e}e realises a similar IBBE scheme and claims to be the first as well in~\cite{art:Delerablee07}.  The size of the public key in both~\cite{art:SakaiF07} and~\cite{art:Delerablee07} is proportional to the maximum size of the intended set of recipients while realising short ciphertexts and private keys. 
+Sakai and Furukawa are the first to define a collusion resistant identity based broadcast encryption (IBBE) scheme in~\cite{art:SakaiF07}. Independently from~\cite{art:SakaiF07} Delerabl\'{e}e realises a similar IBBE scheme and claims to be the first as well in~\cite{art:Delerablee07}.  The size of the public key in both schemes is proportional to the maximum size of the intended set of recipients while realising short ciphertexts and private keys. 
 
-Baek et al.~\cite{art:BaekNSS04} define an IBBE scheme that requires only one pairing computation. The scheme in~\cite{art:BaekNSS04} is proven secure under the random oracle assumption where the attacker ties himself to a selective-ID attack. Gentry and Waters achieve identity based broadcast encryption with sublinear ciphertexts in~\cite{art:GentryW08}. Their scheme is proven secure against a stronger notion of adaptive security where the attacker can adaptively alter its queries depending on earlier received information. Barbosa and Farshim~\cite{art:BarbosaF05} proposed an identity-based key encapsulation scheme for multiple parties which is an extension of \textit{mKEM} as considered by Smart~\cite{art:Smart04} to the identity-based setting. An mKEM is a Key Encapsulation Mechanism which takes multiple public keys as input. An encrypted message under mKEM consists of an encapsulated session key $k$ and a symmetric encryption $E_k \left( m \right)$ of the plaintext message $m$ under $k$. However, the scheme from Smart~\cite{art:Smart04} is only proven secure under the random oracle assumption.
+Baek et al.~\cite{art:BaekNSS04} defines an IBBE scheme that requires only one pairing computation and is proven secure under the random oracle assumption where the attacker ties himself to a selective-ID attack. Gentry and Waters achieve identity based broadcast encryption with sublinear ciphertexts in~\cite{art:GentryW08}. Their scheme is proven secure against a stronger notion of adaptive security where the attacker can adaptively alter its queries depending on earlier received information. Barbosa and Farshim~\cite{art:BarbosaF05} proposed an identity-based key encapsulation scheme for multiple parties which is an extension of \textit{mKEM} as considered by Smart~\cite{art:Smart04} to the identity-based setting. An mKEM is a Key Encapsulation Mechanism which takes multiple public keys as input. An encrypted message under mKEM consists of an encapsulated session key $k$ and a symmetric encryption $E_k \left( m \right)$ of the plaintext message $m$ under $k$. However, the scheme from Smart~\cite{art:Smart04} is only proven secure under the random oracle assumption.
 
 \subsubsection{Anonymous Broadcast Encryption}
 \label{sec:anobe}
 All earlier mentioned references describing BE require the intended set of recipients to be published to realise higher efficiency. Barth, Boneh and Waters~\cite{art:BarthBW06} are the first to design a BE scheme that takes the anonymity of the recipient into account.
 \begin{defn}[Anonymity]
 \label{def:anonymity}
- A BE scheme is said to be \textit{anonymous} if it hides who is included in the recipient set.
+ A BE scheme is said to be \textit{anonymous} if it hides who is included in the recipient set $\mathcal{S}$. That is, no entity inside or outside $\mathcal{S}$ can derive the identity of recipients in $\mathcal{S}$ from the broadcasted ciphertext.
 \end{defn}
 
-The proposed anonymous broadcast encryption (ANOBE) scheme  from Barth, Boneh and Waters~\cite{art:BarthBW06} implies a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{art:LibertPQ12} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{art:BarthBW06} and~\cite{art:LibertPQ12} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{art:KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users, although the security proof is rather informal. In~\cite{art:YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set using Attribute Based Encryption (ABE)~\cite{art:SahaiW04}.~\cite{art:FazioP12}
+The proposed anonymous broadcast encryption (ANOBE) scheme  from Barth, Boneh and Waters~\cite{art:BarthBW06} implies a linear dependency of the ciphertext on the number of recipients and can only be proven secure in the random oracle model. In~\cite{art:LibertPQ12} Libert et al., propose an alternative ANOBE scheme that is proven secure in the standard model. Both~\cite{art:BarthBW06} and~\cite{art:LibertPQ12} propose a tag based system that allows efficient decryption at the cost of making the public master key linear dependent on the total number of users. Krzywiekci et al.~\cite{art:KrzywieckiKK06} propose a scheme that is proportional to the number of revoked users, although the security proof is rather informal. In~\cite{art:YuRL10}, Yu et al. design an architecture that even hides the number of users in the recipient set using Attribute Based Encryption (ABE)~\cite{art:SahaiW04}.
 
 However, ABE requires that all users are assigned attributes such that all users who have sufficient attributes in common can decrypt the message. In networks where the total number of users is large it can be a work intensive task to label each user with the correct attributes.
 
 \subsubsection{Outsider-Anonymous Broadcast Encryption}
-Fazio and Perera introduce the notion of outsider anonymous broadcast encryption in~\cite{art:FazioP12}. The scheme relies on IBE to encode where a recipient is positioned in a publicly published tree to achieve sublinear ciphertexts. It is remarkable that sublinear ciphertexts are achieved while attaining recipient anonymity to all users that are outside the intended set of receivers. However, the scheme has the drawback of immediately fixing the total number of users that are allowed in the system. Furthermore, an additional architecture is required to maintain the tree of subscribed users. Finally, although IBE is used, the scheme does not allow to represent public keys of users by their public identifiers because the public key needs to be the position of a user in the tree structure of the external architecture. In this way, most of the desirable properties of IBE cancel out.
+The notion of outsider anonymous broadcast encryption is introduced by Fazio and Perera~\cite{art:FazioP12}. The scheme relies on IBE to encode where a recipient is positioned in a publicly published tree to achieve sublinear ciphertexts. It is remarkable that sublinear ciphertexts are achieved while attaining recipient anonymity to all users that are outside the intended set of receivers. However, the scheme has the drawback of immediately fixing the total number of users that are allowed in the system. Furthermore, an additional architecture is required to maintain the tree of subscribed users. Although IBE is used, the scheme does not allow to represent public keys of users by their public identifiers because the public key needs to be the position of a user in the tree structure of the external architecture. In this way, most of the desirable properties of IBE cancel out.
 
 Although the scheme from Fazio and Perera does not fit the requirements for user-friendly broadcast-encryption in OSNs, it is useful to remember their definition of outsider-anonymity.
 
@@ -366,14 +381,13 @@ Although the scheme from Fazio and Perera does not fit the requirements for user
 \end{defn}
 
 \subsection{Most Attractive BE Schemes}
-From all schemes discussed in Section~\ref{sec:evolution_of_ibe} mainly the scheme from Libert et al.~\cite{art:LibertQ03} has the most attractive properties as it is proven secure in the standard model at almost no reduced computational efficiency. The scheme supports anonymity in both identity-based BE as well as traditional asymmetric cryptosystems.
+From the aforementioned schemes the one from Libert et al.~\cite{art:LibertQ03} contains the most attractive properties as it is proven secure in the standard model at almost no reduced computational efficiency. The scheme supports anonymity in both identity-based BE as well as traditional asymmetric cryptosystems.
 
-If anonymity is not an issue, different BE schemes have to be considered depending on the goals of the target application. The scheme from Libert et al.~\cite{art:LibertPQ12} will certainly not have the most desirable properties in non-anonymous BE environments since it can not benefit from higher efficiency due to the recipient being publicly known.
+If anonymity is not an issue, different BE schemes have to be considered depending on the goals of the target application. The scheme from Libert et al.~\cite{art:LibertPQ12} certainly does not have the most desirable properties in non-anonymous BE environments since it can not benefit from higher efficiency due to the recipient being publicly known.
 
 \section{Secret Sharing}
-IBE mainly profits from a less complex architecture and increased ease of usability. Nevertheless, the major drawback of IBE seems to be the inherent key escrow property. In order to get around this issue, distributed key generation seems a promising solution. However, before diving into distributed key generation protocols, some knowledge on secret sharing is appropriate.
+In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} independently proposed an algorithm achieving perfect threshold secret sharing.
 
-\subsection{Definition}
 \begin{defn}[Secret Sharing Scheme]
 \label{def:secret_sharing_scheme}
  A \textit{Secret Sharing Scheme} is a cryptographic scheme that divides a secret $s$ into $n$ pieces of data $\sigma_1, \ldots, \sigma_n$ called \textit{shares}. Shares are distributed over $n$ different parties called \textit{shareholders} such that only specific subsets of the distributed shares allow reconstruction of the original secret $s$.
@@ -389,9 +403,8 @@ IBE mainly profits from a less complex architecture and increased ease of usabil
  A $\left( t, n \right)$ threshold scheme is said to be \textit{perfect} if no subset of fewer than $t$ shareholders can derive any partial information in the information theoretic sense about the original secret $s$ even with infinite computational resources.
 \end{defn}
 
-\enlargethispage{\baselineskip}
-\subsection{Shamir Secret Sharing}
-In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} independently proposed an algorithm achieving perfect threshold secret sharing. Shamir's solution was based on polynomial interpolation while Blakley's algorithm relied on finite geometries. Blakley secret sharing uses more bits than necessary as it describes multidimensional planes. In contrast, Shamir secret sharing requires as many bits for each share as the length of the original secret. Therefore Shamir secret sharing has gained more popularity in both research communities and in practical implementations.
+Shamir's solution~\cite{art:Shamir79} was based on polynomial interpolation while Blakley's algorithm~\cite{art:Blakley79} relied on finite geometries. Blakley secret sharing uses more bits than necessary as it describes multidimensional planes. In contrast, Shamir secret sharing requires as many bits for each share as the length of the original secret.
+
 
 \begin{algorithm}
 \caption{Shamir's $\left( t, n \right)$ threshold scheme~\cite{book:handbook_of_applied_cryptography} }
@@ -416,7 +429,7 @@ In 1979, both Shamir~\cite{art:Shamir79} and Blakley~\cite{art:Blakley79} indepe
  \end{enumerate}
 \end{algorithm}
 
-The idea behind Shamir secret sharing is elegant in its simplicity. Any polynomial $f \left( x \right)$ of degree $t-1$ is uniquely defined by $t$ points lying on the polynomial. For example, it is possible to draw only one straight line between 2 different coordinates, a quadratic is fully defined by 3 different coordinates and so on. If the trusted party randomly generates a polynomial of degree $t-1$ it suffices to securely distribute one of $n$ different coordinates on the curve to each party $P_i, 0 \leq i \leq n$. A subset of at least $t$ different shareholders has to collaborate in order to reconstruct the original polynomial by interpolation. For security reasons the polynomial $f \left( x \right)$ is calculated in a finite field modulo a large prime number $p$. The complete mechanism of Shamir's threshold scheme can be found in Algorithm~\ref{alg:shamirs_threshold_sheme}. The mechanism behind reconstruction in Algorithm~\ref{alg:shamirs_threshold_sheme} is explained because the coefficients of an unknown polynomial $f \left( x \right)$ of degree less than $t$, defined by points $\left( x_i, y_i \right), 1 \leq i \leq t$ are given by the Lagrange interpolation formula
+Shamir secret sharing is based on the principal that any polynomial $f \left( x \right)$ of degree $t-1$ is uniquely defined by $t$ points lying on the polynomial. For example, it is possible to draw only one straight line between 2 different coordinates, a quadratic is fully defined by 3 different coordinates and so on. If the trusted party randomly generates a polynomial of degree $t-1$ it suffices to securely distribute one of $n$ different coordinates on the curve to each party $P_i, 0 \leq i \leq n$. A subset of at least $t$ different shareholders has to collaborate in order to reconstruct the original polynomial by interpolation. For security reasons the polynomial $f \left( x \right)$ is calculated in a finite field modulo a large prime number $p$. The complete mechanism of Shamir's threshold scheme can be found in Algorithm~\ref{alg:shamirs_threshold_sheme}. The mechanism behind reconstruction in Algorithm~\ref{alg:shamirs_threshold_sheme} is explained because the coefficients of an unknown polynomial $f \left( x \right)$ of degree less than $t$, defined by points $\left( x_i, y_i \right), 1 \leq i \leq t$ are given by the Lagrange interpolation formula
 \begin{equation*}
  f \left( x \right) = \sum^t_{i=1}y_i b_i \; \; \; \textrm{with} \; \; \; b_i = \prod_{1 \leq j \leq t, j \neq i} \frac{x-x_j}{x_i-x_j}
 \end{equation*}
@@ -434,20 +447,29 @@ Distributed key generation is inspired on secret sharing. The idea behind distri
 \subsection{Definition}
 \begin{defn}[Distributed key generation scheme]
 \label{def:dkg_scheme}
- A \textit{distributed key generation scheme} is a $\left( t,n \right)$ perfect threshold scheme $\left( t \leq n \right)$ that requires no trusted party. That is, a distributed key generation scheme is a cryptographic scheme that negotiates a secret $s$ with $n$ different parties $P_1, \ldots, P_n$ by letting each party $P_i$ distribute shares $\sigma_{ij}$ of its own private secret $\sigma_i$ with all other parties $P_i$ where $1 \leq i \leq n, 1 \leq j \leq n$. At least $t$ out of $n$ parties will need to collude in order to compute the original secret $s$ explicitly.
+ A \textit{distributed key generation scheme} is a $\left( t,n \right)$ perfect threshold scheme $\left( t \leq n \right)$ that requires no trusted party. That is, a distributed key generation scheme is a cryptographic scheme that negotiates a secret $s$ with $n$ different parties $P_1, \ldots, P_n$ by letting each party $P_i$ distribute shares $\sigma_{ij}$ of its own private secret $\sigma_i$ with all other parties $P_j$ where $1 \leq i \leq n, 1 \leq j \leq n$. At least $t$ out of $n$ parties will need to collude in order to compute the original secret $s$ explicitly.
 \end{defn}
 
 \subsection{Pedersen Distributed Key Generation}
 The first usable distributed key generation protocol was defined by Pedersen~\cite{art:Pedersen91a}. A later publication from Gennaro et al.~\cite{art:GennaroJKR07} proves the Pedersen scheme to be insecure in its original form in the presence of malicious key generation centers.
 
-Although the Pedersen scheme~\cite{art:Pedersen91a} is proven insecure, it is most instructive to describe the protocol in its original form as later schemes like the one from Gennaro~\cite{art:GennaroJKR07} extensively rely on the same concepts. Therefore, the original Pedersen protocol is shown in Algorithm~\ref{alg:pedersen_dkg}. \textcolor{red}{TODO for Algorithm 8: Complete it after fully understanding it}
+Although the Pedersen scheme~\cite{art:Pedersen91a} is proven insecure, it is most instructive to describe the protocol in its original form as later schemes such as the one from Gennaro et al.~\cite{art:GennaroJKR07} extensively rely on the same concepts. Therefore, the original Pedersen protocol is shown in Algorithm~\ref{alg:pedersen_dkg}. 
 
+The correctness of the Pedersen scheme is based on every party $P_i$ correctly executing a Shamir $\left( t, n \right)$-threshold scheme. After every party has distributed its shares, each party $P_i$ owns $n$ points $\left( i, f_j \left( i \right) \right) = \left( i, \sigma_{ji} \right)$ from other parties $P_j$. By summation of all these shares $s_i = \sum_{j \in \mathcal{Q}} \sigma_{ji} \bmod p$, $s_i$ represents the $y$-coordinate corresponding to $x=i$ of the sum of all curves $f_j \left( x \right)$ generated by all parties $P_j$. In this way, the negotiated master secret key $sk_{msk}$ is equal to the sum of the secret keys of every party $P_i$, such that
+ \begin{equation*}
+  sk_{msk} = \sum_{i \in \mathcal{Q}} sk_i \bmod p
+ \end{equation*}
+In fact the master secret key $sk_{msk}$ is found by summing all private curves $f_j \left( x \right)$ such that every honest party's share equally contributes to the master secret key $sk_{msk}$.
+
+The other steps in the Pedersen protocol are required to verify whether all parties calculate the shares honestly. Step e) verifies the correctness of the received shares. Therefore, the $A_{jh}$ values are often called Pedersen commitments. 
+
+The scheme from Gennaro et al.~\cite{art:GennaroJKR07} lets each party $P_i$ commit to two different curves since a flaw in the Pedersen scheme allows malicious parties to determine certain bits in $sk_{msk}$ with non-negligible advantage. The details behind the scheme from Gennaro et al. are omitted since more practical DKG protocols in the asynchronous setting are already presented such as in a publication by Kate and Goldberg~\cite{art:KateHG12}.
 
 \begin{algorithm}
 \caption{Pedersen's distributed key generation~\cite{art:Pedersen91a}}
 \label{alg:pedersen_dkg}
 \begin{description}
- \item \textbf{Goal}: A secret $s$ is negotiated with $n$ uniquely numbered parties $\{ P_1, \ldots, P_n \}$ without any of the parties explicitly computing the secret $s$.
+ \item \textbf{Goal}: A master secret key $sk_{msk}$ is negotiated with $n$ uniquely numbered parties $\{ P_1, \ldots, P_n \}$ without any of the parties explicitly computing the secret $sk_{msk}$.
  
  \item \textbf{Result}: If a subset of at least $t$ out of $n$ parties colludes, they can reconstruct the original secret $s$.
 \end{description}
@@ -455,19 +477,20 @@ Although the Pedersen scheme~\cite{art:Pedersen91a} is proven insecure, it is mo
   \item \textit{Setup} At initialisation, a setup algorithm $\left< p, g \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ is executed that returns a large prime number $p$ and a generator $g$ of $\mathbb{Z}_p$ on input of a security parameter $\lambda$. After execution of $\mathcal{G} \left( 1^{\lambda} \right)$ each party $P_i, 1 \leq i \leq n$ should do the following:
    \begin{enumerate}
     \item $P_i$ generates a random private key $sk_i \in \mathbb{Z}_p$ and publishes the corresponding public key $pk_i = g^{sk_i}$
-    \item $P_i$ chooses $t-1$ random independent coefficients $a_{i,1}, \ldots, a_{i,t-1}, 0 \leq a_{i,j} \leq p-1$ defining a random polynomial $f_i \left( x \right)$ over $\mathbb{Z}_p$, $f_i \left( x \right) = \sum^{t-1}_{b=0} a_{i,j} x^b$.
-    \item $P_i$ commits to the coefficients $a_{i,1}, \ldots, a_{i,t-1}, 0 \leq a_{i,j} \leq p-1$ by broadcasting $A_{ib} = g^{a_{i,b}} \bmod p$ for $b = 1, \ldots, t$ to all other parties.
+    \item $P_i$ chooses $t-1$ random independent coefficients $a_{i,1}, \ldots, a_{i,t-1}, 0 \leq a_{i,j} \leq p-1$ defining a random polynomial $f_i \left( x \right)$ over $\mathbb{Z}_p$, $f_i \left( x \right) = \sum^{t-1}_{h=0} a_{i,h} x^h$.
+    \item $P_i$ commits to the coefficients $a_{i,1}, \ldots, a_{i,t-1}, 0 \leq a_{i,h} \leq p-1$ by broadcasting $A_{ih} = g^{a_{i,h}} \bmod p$ for $h = 1, \ldots, t$ to all other parties.
     \item $P_i$ computes the share $\sigma_{ij} = f_i \left( j \right) \bmod p$ and securely transfers the share $\sigma_{ij}$ to party $P_j$ along with a signature $S_{P_i} \left( \sigma_{ij} \right)$ authenticating the share. $P_i$ keeps $\sigma_{ii}$ to itself.
     \item $P_i$ verifies for each share $\sigma_{ji}$ received from $P_j$ whether it is consistent by verifying that
     \begin{equation*}
-     g^{\sigma_{ji}} = \prod_{b=0}^{n-1} \left( A_{jb} \right)^{i^k} \bmod p
+     g^{\sigma_{ji}} = \prod_{h=0}^{n-1} \left( A_{jh} \right)^{i^h} \bmod p
     \end{equation*}
-    If the check fails for an index $j$, $P_i$ broadcasts a complaint against $P_j$ along with the received share $\sigma_{ij}$ and its signature $S_{P_j} \left( \sigma_{ij} \right)$. If a party receives $t$ complaints, he is excluded from the set of participating parties $\mathcal{Q}$.
+    If the check fails for an index $j$, $P_i$ broadcasts a complaint against $P_j$ along with the received share $\sigma_{ji}$ and its signature $S_{P_j} \left( \sigma_{ij} \right)$. If a party receives $t$ complaints, he is excluded from the set of participating parties $\mathcal{Q}$.
+    \item The master public key is calculated as $pk_{msk} = \prod_{j \in \mathcal{Q}} pk_j \bmod p$. The public verification values are calculated as $A_h = \prod_{j \in \mathcal{Q}}A_{jh} \bmod p$ for $k=1, \ldots, t$. Each player $P_i$ sets his share of the secret as $s_i = \sum_{j \in \mathcal{Q}} \sigma_{ji}$.
    \end{enumerate}
-   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, s_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The secret is recovered by calculating
- \begin{equation*}
-  f \left( 0 \right) = \sum^t_{i=1}y_i \prod_{1 \leq j \leq t, j \neq i} \frac{x_j}{x_j-x_i} = s
- \end{equation*}
+   \item \textit{Reconstruction} Any group of $t$ or more shareholders pool their shares. Their shares provide $t$ distinct points $\left( x, y \right) = \left( i, s_i \right)$ allowing computation of the coefficients $a_j, 1 \leq j \leq t-1$ of $f \left( x \right)$ by Lagrange interpolation. The master secret key is recovered by calculating
+   \begin{equation*}
+    sk_{msk} = \sum_{i \in \mathcal{Q}} s_i b_i \quad \textrm{with} \quad b_i = \prod_{i \in \mathcal{Q}, i \neq h} \frac{h}{h-i}
+   \end{equation*}
  \end{enumerate}
 \end{algorithm}
 

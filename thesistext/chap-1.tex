@@ -4,7 +4,7 @@ This chapter briefly covers the required background to understand cryptographic 
 
 Note that this chapter only overviews the cryptographic fundamentals required to understand the remainder of the thesis. Definitions and theorems are always provided without proof. For a more in depth discussion about algebraic topics in this chapter, the reader is referred to~\cite{book:handbook_of_applied_cryptography} and~\cite{book:survey_of_modern_algebra}. More information on elliptic curves, Diffie-Hellman assumptions and pairing based cryptography can be found in~\cite{thesis:Maas04}.
 
-For the remainder of this chapter, the notion of negligible functions is introduced, followed by an overview of algebraic structures and their properties. Then, a number of theoretic assumptions fundamental for cryptographic security are presented. The introduction of gap groups and bilinear maps follows naturally by exploring these variants of the Diffie-Hellman assumption. Finally, hash functions are defined as well as their relation to the random oracle assumption.
+For the remainder of this chapter, complexity theoretic notions are introduced, followed by an overview of algebraic structures and their properties. Then, a number of theoretic assumptions fundamental for cryptographic security are presented. The introduction of gap groups and bilinear maps follows naturally by exploring these variants of the Diffie-Hellman assumption. Finally, hash functions are defined as well as their relation to the random oracle assumption.
 
 \section{Complexity Theory}
 Complexity theory classifies mathematical problems according to their inherent difficulty. The inherent difficulty of a mathematical problem is expressed in terms of the required resources to solve the problem independent of the algorithm used~\cite{book:handbook_of_applied_cryptography}.
@@ -288,7 +288,7 @@ This section defines basic cryptographic notions and the corresponding notation 
 \subsection{Terminology}
 \begin{defn}[Perfect randomness]
 \label{def:perfect_randomness}
- A bit sequence $s$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $s$ could have been the result of the toss of a fair coin. That is, the probability of $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$.
+ A bit sequence $s$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $s$ could have been the result of the toss of a fair coin. That is, the probability that $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$.
 \end{defn}
 
 \begin{defn}[Confidentiality]
@@ -355,7 +355,7 @@ The concept of each entity possessing an asymmetric key pair enables secure comm
 \end{defn}
 
 \begin{defn}[Commitment scheme]
-\label{def:authenticated_encryption}
+\label{def:commitment_scheme}
  A \textit{commitment scheme} allows an entity to commit to a chosen value while keeping it hidden to others, with the ability to reveal the committed value later~\cite{book:Goldreich97}. After revealing the committed value, any other entity can verify the value has not changed between commitment and revelation. This is achieved by two polynomial time algorithms:
  \begin{enumerate}
    \item \texttt{CS.Commit($m, r$):} Returns a commitment $c_{m,r}$ to a message $m$ and a random binary sequence $r$.

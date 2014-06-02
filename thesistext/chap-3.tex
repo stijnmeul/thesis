@@ -1,6 +1,6 @@
 \chapter{Design of a Practical Encryption Scheme for Online Social Networks}
 \label{cha:n}
-In the first section of this chapter (Section~\ref{sec:model_of_current_situation}), a model is developed that allows to describe the current OSN situation. By  defining every considered entity in the OSN, the resulting model serves as the framework in which we design our future constructions. In a next step (Section~\ref{sec:threat_model}), the different threats within the model are defined. The section on the threat model first highlights the current privacy threats, followed by a definition of the current adversaries and the assumptions on these adversaries. In Section~\ref{sec:our_proposal} our proposal is derived by stating cryptographic goals based on the earlier threat model. This is followed by design decisions on how to achieve these goals and how this impacts our model. Section~\ref{sec:our_proposal} is concluded with a concrete proposal in the form of an algorithm along with an evaluation section motivating why our cryptographic design goals are successfully met.
+In the first section of this chapter (Section~\ref{sec:model_of_current_situation}), a model is developed that allows to describe the current OSN situation. By  defining every considered entity in the OSN, the resulting model serves as the framework in which we design our future constructions. In a next step (Section~\ref{sec:threat_model}), the different threats within the model are defined. The section on the threat model first highlights the current privacy threats, followed by a definition of the considered adversaries and the assumptions on these adversaries. In Section~\ref{sec:our_proposal} our proposal is derived by stating cryptographic goals based on the earlier threat model. This is followed by design decisions on how to achieve these goals and how this impacts our model. Section~\ref{sec:our_proposal} is concluded with a concrete proposal in the form of an algorithm along with an evaluation section motivating why our cryptographic design goals are successfully met.
 
 \section{Model of the Current Situation}
 \label{sec:model_of_current_situation}
@@ -177,7 +177,7 @@ The OSN's infrastructure stores almost everything within the viewer set $\mathca
 
 Note that not all OSNs support the functionality to define intended recipient sets $\mathcal{S}$ on a per message basis. In OSNs like Twitter the standard privacy settings are such that message are always published publicly. Therefore, the model from Figure~\ref{fig:current_model} only holds for a specific subset of OSNs like Facebook or Google+. More public OSNs like Twitter would require less sets of entities to model their behaviour.
 
-It requires almost no additional effort to transform the model from Figure~\ref{fig:current_model} such that it also takes the sharing of other media than messages into account. The model could then adopted for use on SNSs like Youtube or Instagram as well. However, this falls out of the scope of this thesis.
+It requires almost no additional effort to transform the model from Figure~\ref{fig:current_model} such that it also takes the sharing of other media than messages into account. The model could then adopted for use on OSNs like Youtube or Instagram as well. However, this falls out of the scope of this thesis.
 
 \section{Threat Model}
 \label{sec:threat_model}
@@ -217,7 +217,7 @@ We consider adversaries that are honest but curious, i.e. passive adversaries th
 \subsection{Assumptions}
 
 \subsubsection{Assumptions on the OSN}
-OSNs are assumed not to violate integrity neither availability. Nothing can be done to prevent the OSN from actively altering its own resources to bring down the proposed IBE architecture. It can not be prevented that a user of IBE on the OSN infrastructure gets blocked by the OSN provider. Neither can it be prevented that OSNs delete messages because they are encrypted. OSNs can also easily impersonate the owner of a profile in their infrastructure. Therefore, from this moment onwards, OSNs are assumed to not act as an active adversary. It is assumed that as soon as privacy aware users notice this kind of OSN behaviour, they will adopt to more reliable OSN alternatives. However, our assumptions do not prevent the OSN from trying to passively break confidentiality as they have every motivation for it in the context of their current business model.
+OSNs are assumed not to violate integrity neither availability. Nothing can be done to prevent the OSN from actively altering its own resources to bring down the proposed IBE architecture. It can not be prevented that a user of IBE on the OSN infrastructure gets blocked by the OSN provider. Neither can it be prevented that OSNs delete messages because they are encrypted. OSNs can also easily impersonate the owner of a profile in their infrastructure. Therefore, from this moment onwards, OSNs are assumed not to act as an active adversary. It is assumed that as soon as privacy aware users notice this kind of OSN behaviour, they will adopt to more reliable OSN alternatives. However, our assumptions do not prevent the OSN from trying to passively break confidentiality as they have every motivation for it in the context of their current business model.
 
 Another assumption on the OSN's infrastructure is that the authentication mechanism of the OSN is secure. This is primarily important for the authenticity of the broadcasted messages on a user's profile as further discussed in Section~\ref{sec:authenticity_and_integrity}.
 
@@ -229,7 +229,7 @@ Note that the latter assumption is not valid in practice. Generally, the attract
 
 \subsubsection{Assumptions on the User}
 
-In order to achieve a strong encryption mechanism, users are unlimited in their abilities to behave as an adversary. However, one subtle assumption is made on users that are part of $\mathcal{S}$. Users in $\mathcal{S}$ are assumed not to break their social contract. That is, if a sender broadcasts a confidential message to a selected set of recipients, the recipients are assumed not to decrypt the encrypted message and rebroadcast the confidential content to any entity not in the original recipient set. In fact, no existing encryption mechanism provides protection against such misbehaviour, although traitor tracing schemes~\cite{art:ChorFNP00} discourage users from treating by indicating who broke his social contract. However, for the remainder of this text intended recipients are assumed trustworthy in that they not break the social contract.
+In order to achieve a strong encryption mechanism, users are unlimited in their abilities to behave as an adversary. However, one subtle assumption is made on users that are part of $\mathcal{S}$. Users in $\mathcal{S}$ are assumed not to break their social contract. That is, if a sender broadcasts a confidential message to a selected set of recipients, the recipients are assumed not to decrypt the encrypted message and rebroadcast the confidential content to any entity not in the original recipient set. In fact, no existing encryption mechanism provides protection against such misbehaviour, although traitor tracing schemes~\cite{art:ChorFNP00} discourage users from treating by indicating who broke his social contract. However, for the remainder of this text intended recipients are assumed trustworthy in that they do not break the social contract.
 
 \section{Our Proposal}
 \label{sec:our_proposal}
@@ -259,7 +259,7 @@ Identity-based encryption (IBE) can be used to achieve both confidentiality and 
 
 Table~\ref{tab:ibe_security_comparison} lists the different security properties of all schemes. The Gentry IBE scheme has the highest security level since it is the only scheme proven secure in the standard model. In the random oracle model, Boneh and Franklin IBE is preferred over Sakai and Kasahara IBE since it relies on the BDH assumption which is more widely accepted than the stronger BDHI assumption.
 
-The execution times of all considered IBE schemes are illustrated in Table~\ref{tab:ibe_performance_comparison}. Experiments were conducted on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Pairing computations were implemented using the multi-precision MIRACL library~\cite{art:Scott03}. The Gentry IBE scheme was first transformed to the asymmetric setting to give a fair basis of comparison. The exact transformed Gentry IBE scheme is depicted in Appendix~\ref{app:gentrys_ibe_scheme}. 
+The execution times of all considered IBE schemes are illustrated in Table~\ref{tab:ibe_performance_comparison}. We conducted our measurements on an Intel Core 2.4 GHz i5 processor with 8 Gb of 1600 MHz DDR3L onboard memory. Pairing computations were implemented using the multi-precision MIRACL library~\cite{art:Scott03}. The Gentry IBE scheme was first transformed to the asymmetric setting to give a fair basis of comparison. The exact transformed Gentry IBE scheme is depicted in Appendix~\ref{app:gentrys_ibe_scheme}. 
 
 Table~\ref{tab:ibe_performance_comparison} clearly illustrates the price there is to pay for security in the standard model. Therefore, Boneh and Franklin IBE was chosen as the preferred IBE scheme despite the dependency on the random oracle assumption.
 
@@ -297,7 +297,7 @@ The outsider anonymity requirement from Section~\ref{sec:cryptographic_goals} is
 
 From the outsider-anonymity requirement, it immediately follows that users not necessarily need to be friends to receive each other's messages. In the specific example of Alice, Bob and Dylan, it could be that Bob and Dylan both have Alice as a common friend while no immediate friend connection exists between Bob and Dylan. This should be taken into consideration when determining the identifiers of Bob's and Dylan's profiles, $\id{Bob}$ and $\id{Dylan}$ respectively.
 
-As discussed in Section~\ref{sec:anobe}, broadcast encryption schemes can be made more efficient if the recipient set $\mathcal{S}$ is public. So if user interaction is really that important, why not make the intended recipient set public? Consider the example in which Bob's girlfriend celebrates her birthday in a few weeks. When Bob's girlfriend notices that Bob broadcasted an encrypted message to all her friends without including her as a recipient, she will probably know Bob is up to something. This is just one example of possible many that illustrates the negative impact on security, broadcasting of the recipient set $\mathcal{S}$ can have on real life situations. Depending on the context, information can be deduced about the message without decrypting it to plain text.
+As discussed in Section~\ref{sec:anobe}, broadcast encryption schemes can be made more efficient if the recipient set $\mathcal{S}$ is public. So if user interaction is really that important, why not make the intended recipient set public? Consider the example in which Bob's girlfriend celebrates her birthday in a few weeks. When Bob's girlfriend notices that Bob broadcasted an encrypted message to all her friends without including her as a recipient, she will probably know Bob is up to something. This is just one specific example that illustrates the negative impact on security, broadcasting of the recipient set $\mathcal{S}$ can have on real life situations. Depending on the context, information can be deduced about the message without decrypting it to plain text.
 
 \subsubsection{No redundancy}
 From the no redundancy requirement it immediately follows that a broadcast encryption scheme should be used, preferably one that hides the anonymity of recipients in the intended recipient set $\mathcal{S}$ to the outside world. However, apart from the outsider-anonymous broadcast encryption scheme from Fazio and Perera~\cite{art:FazioP12}, no efficient schemes of this kind are described in literature. Since the BE scheme from Fazio and Perera does not fully benefit from the advantages of IBE, the ANOBE scheme from Libert et al.~\cite{art:LibertPQ12} is preferred for further implementation. Since recipients still have to know who else is included in $\mathcal{S}$, the list of \id{}s within $\mathcal{S}$ is concatenated to the plaintext message before encryption.
@@ -316,7 +316,7 @@ In more traditional communication schemes, authenticated encryption uses the sym
 
 
 \subsubsection{No Key Escrow and Key Validation}
-One of the major drawbacks of IBE schemes is that they inherently imply key escrow (Section~\ref{sec:pros_and_cons_of_ibe}). To circumvent the key escrow property of IBE schemes, multiple PKGs can be used implementing a distributed key generation (DKG) mechanism for IBE. Users can then verify their private keys by relying on the basics of commitment schemes (Section~\ref{sec:commitment_schemes}).
+One of the major drawbacks of IBE schemes is that they inherently imply key escrow (Section~\ref{sec:pros_and_cons_of_ibe}). To circumvent the key escrow property of IBE schemes, multiple PKGs can be used implementing a distributed key generation (DKG) mechanism for IBE. Users can then verify their private keys by relying on the basics of commitment schemes (Definition~\ref{def:commitment_scheme}).
 
 For the exact details on how a commitment scheme can achieve this verification mechanism, the reader is immediately referred to the exact proposed scheme in Section~\ref{sec:proposed_scheme}.
 
@@ -355,6 +355,7 @@ Algorithm~\ref{alg:map_to_date} is constructed such that step 1 to 4 only need t
 
 
 \subsection{Updated Model}
+\label{sec:updated_model}
 For the sake of completeness, PKGs are added as an additional entity to our model. 
 
 \begin{defn}[PKG in our security model]
@@ -484,7 +485,7 @@ Algorithm~\ref{alg:our_scheme} achieves the earlier stated cryptographic design 
 
 \paragraph{Confidentiality} The proposed scheme achieves confidentiality as in~\cite{art:BonehF01,art:LibertPQ12}, because a session key $k$ can only be obtained if the recipient holds the corresponding secret key $s_{\id{i}}$ to an identifier $\id{i}$ that is included in $\mathcal{S}$. Confidentiality of $k$ is thus guaranteed by ANO-IND-CCA secure Boneh and Franklin IBE~\cite{art:BonehF01}. Confidentiality of the plaintext message $m$ than immediately follows from the confidentiality of the authenticated encryption in step 5 of \texttt{Publish}.
 
-\paragraph{Outsider recipient anonymity} Our solution is made anonymous by relying on the ANO-IBE scheme from Boneh and Franklin~\cite{art:BonehB04}. Furthermore, the broadcasting mechanism is inspired by the BE scheme from Libert et al.~\cite{art:LibertPQ12} which is recipient anonymous as well. The BE scheme is applied to broadcast $k$. In terms of efficiency, users are required to decrypt $w_i$ on average $O\left( \eta /2 \right)$ before obtaining $k$ due to the anonymity of the BE scheme. Both Barth et al.~\cite{art:BarthBW06} and Libert et al.~\cite{art:LibertPQ12} propose using a tag based system to hint users where they can find their symmetric key. However, it was deliberately decided to not implement such property in the scheme as it introduces a dependency of the public parameters linear in the total number of users in the system.
+\paragraph{Outsider recipient anonymity} Our solution is made anonymous by relying on the ANO-IBE scheme from Boneh and Franklin~\cite{art:BonehB04}. Furthermore, the broadcasting mechanism is inspired by the BE scheme from Libert et al.~\cite{art:LibertPQ12} which is recipient anonymous as well. The BE scheme is applied to broadcast $k$. In terms of efficiency, users are required to decrypt $w_i$ on average $O\left( \eta /2 \right)$ before obtaining $k$ due to the anonymity of the BE scheme. Both Barth et al.~\cite{art:BarthBW06} and Libert et al.~\cite{art:LibertPQ12} propose using a tag based system to hint users where they can find their symmetric key. However, it was deliberately decided not to implement such property in the scheme as it introduces a dependency of the public parameters linear in the total number of users in the system.
 
 Algorithm~\ref{alg:our_scheme} is outsider recipient anonymous due to the concatenation of the recipient set to the plaintext message $m$ in step 4 of \texttt{Publish}.
 
@@ -493,7 +494,7 @@ Algorithm~\ref{alg:our_scheme} is outsider recipient anonymous due to the concat
 \paragraph{Authenticity and integrity} Authenticity and integrity are guaranteed by the authenticated symmetric encryption scheme and the authentication mechanism of the OSN. If the assumptions on the OSN's authentication mechanism hold, only the owner of an OSN profile should be able to actively broadcast messages in name of the corresponding profile identifier $\id{i}$.
 
 \paragraph{No key escrow and key validation} Key escrow is avoided by the DKG protocol included in both the \texttt{Setup} and \texttt{KeyGen} stages of the algorithm. 
-The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme} validates the correctness of a users' shares. However, this check does not ensure security against malicious PKGs since the Pedersen protocol~\cite{art:Pedersen91a} is insecure in the presence of malicious PKGs. That is, malicious PKGs can still affect the outcome of certain bits of the shared master secret key $msk$ with non-negligible advantage. To circumvent these issues, the DKG scheme from Gennaro et al.~\cite{art:GennaroJKR07} should be implemented. However, since the scheme is developed in a threat model where PKGs are assumed trustworthy, this concern falls out of the scope of this thesis. Implementation of the DKG protocol from Gennaro et al.~\cite{art:GennaroJKR07} occurs similar to the scheme from Pedersen~\cite{art:Pedersen91a} since it relies on the same mathematical concepts. Therefore, adapting Algorithm~\ref{alg:our_scheme} to a more hostile DKG environment should be straightforward.
+The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme} validates the correctness of a users' shares. However, this check does not ensure security against malicious PKGs since the Pedersen protocol~\cite{art:Pedersen91a} is insecure in the presence of malicious PKGs. That is, malicious PKGs can still affect the outcome of certain bits of the shared master secret key $sk_{msk}$ with non-negligible advantage. To circumvent these issues, the DKG scheme from Gennaro et al.~\cite{art:GennaroJKR07} should be implemented. However, since the scheme is developed in a threat model where PKGs are assumed trustworthy, this concern falls out of the scope of this thesis. Implementation of the DKG protocol from Gennaro et al.~\cite{art:GennaroJKR07} occurs similar to the scheme from Pedersen~\cite{art:Pedersen91a} since it relies on the same mathematical concepts. Therefore, adapting Algorithm~\ref{alg:our_scheme} to a more hostile DKG environment should be straightforward.
 
 \paragraph{Limited key validity} For the sake of clarity, concatenation of expiration dates with public keys is not explicitly included in Algorithm~\ref{alg:our_scheme}. However, with the help of Algorithm~\ref{alg:map_to_date} this should be trivial since only the interpretation of the identifier symbol $\id{i}$ changes from a permanent identifier of a user to only a temporary identifier when concatenated with an expiration date.
 
@@ -529,10 +530,10 @@ The proposed solution can be used in any OSN that assigns unique public identifi
         
         \item Each PKG $j$ generates $n-1$ shares $\sigma_{jv}$ of a Pedersen VSS scheme by executing \texttt{DKG.Setup}, and redistributing the $n-1$ shares $\sigma_{jv}$ with the other $v$ PKGs.
 
-        \item Each PKG $j$ publishes $P_{pub}^{(j)} = sk_j P$, s.t., $sk_j=\sum_{v=1}^n \sigma_{jv}$.
+        \item Each PKG $j$ publishes $P_{pub}^{(j)} = s_j P$, s.t., $s_j=\sum_{v=1}^n \sigma_{jv}$.
     \end{enumerate}
     
-    The master secret key $msk = \sum_{j \in \Lambda} b_j sk_j$ for $b_j = \prod_{z \in \Lambda} \frac{z}{z-j}$ cannot be retrieved unless $\Lambda$ is a subset of size $t$ different PKG servers. The following parameters are published publicly:
+    The master secret key $sk_{msk} = \sum_{j \in \Lambda} b_j s_j$ for $b_j = \prod_{z \in \Lambda} \frac{z}{z-j}$ cannot be retrieved unless $\Lambda$ is a subset of size $t$ different PKG servers. The following parameters are published publicly:
     \begin{equation*}
     params = \{ q, G_1, G_2, e, P, Q, H_1, H_2, H_3, t, n, P_{pub}^{(0)}, \ldots, P_{pub}^{(n)} \}
     \end{equation*}
@@ -541,7 +542,7 @@ The proposed solution can be used in any OSN that assigns unique public identifi
     
     \begin{enumerate}
         \item User with identifier \id{i}, authenticates to $\Lambda$ or all PKGs and sends \id{i}.
-        \item Each PKG computes $Q_{\id{i}} = H_1 \left( \id{i} \right)$, and $Q_{priv,\id{i}}^{(j)} = sk_j Q_{\id{i}}$, where $sk_j$ is the secret key from PKG $j$.
+        \item Each PKG computes $Q_{\id{i}} = H_1 \left( \id{i} \right)$, and $Q_{priv,\id{i}}^{(j)} = s_j Q_{\id{i}}$, where $s_j$ is the secret share from PKG $j$.
         \item The user $\id{i}$ computes the shared public parameter $P$ using the Lagrange coefficients $b_j$ as follows:
         \begin{equation*}
          P = \sum_{j \in \Lambda} b_j P_{pub}^{\left( j \right)} \quad \textrm{for} \quad b_j = \prod_{z \in \Lambda} \frac{z}{z-j}
@@ -558,7 +559,7 @@ The proposed solution can be used in any OSN that assigns unique public identifi
             sk_{\id{i}} = \sum\limits_{j\in\Lambda} b_j Q_{priv,\id{i}}^{(j)} \quad \textrm{for} \quad b_j = \prod_{z\in \Lambda} \frac{z}{z-j}
         \end{equation*}
         \end{enumerate}
-        In this way, no user or PKG learns the master key $msk$ of the system. This algorithm combines \texttt{DKG.Reconstruct}, \texttt{IBE.Extract} and \texttt{BE.KeyGen} algorithms.
+        In this way, no user or PKG learns the master key $sk_{msk}$ of the system. This algorithm combines \texttt{DKG.Reconstruct}, \texttt{IBE.Extract} and \texttt{BE.KeyGen} algorithms.
 
     \bigskip
     \bigskip

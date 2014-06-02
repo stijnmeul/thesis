@@ -3,10 +3,17 @@ red='\x1B[0;31m'
 NC='\x1B[0m' # No Color
 echo ""
 echo -e "${red}Compiling setup_dkg_server.cpp${NC}"
-g++-4.7 setup_dkg_server.cpp ../cppmiracl/source/bls_pair.cpp ../cppmiracl/source/zzn24.cpp ../cppmiracl/source/zzn8.cpp ../cppmiracl/source/zzn4.cpp ../cppmiracl/source/zzn2.cpp ../cppmiracl/source/ecn4.cpp ../cppmiracl/source/big.cpp ../cppmiracl/source/zzn.cpp ../cppmiracl/source/ecn.cpp -I ../cppmiracl/include/ -L ../cppmiracl/source/ -l miracl -o setup_dkg_server
+g++-4.7 setup_dkg_server.cpp shamir.cpp DKGMessage.cpp ../miraclthread/source/bls_pair.cpp ../miraclthread/source/zzn24.cpp ../miraclthread/source/zzn8.cpp ../miraclthread/source/zzn4.cpp ../miraclthread/source/zzn2.cpp ../miraclthread/source/ecn4.cpp ../miraclthread/source/big.cpp ../miraclthread/source/zzn.cpp ../miraclthread/source/ecn.cpp ../miraclthread/source/miracl.a -I ../miraclthread/include/ -o setup_dkg_server
 echo -e "${red}Executing ./setup_dkg_server 1 servers.list${NC}"
-./setup_dkg_server 1 servers.list
-echo -e "${red}Finished execution of ./setup_dkg_server${NC}"
-osascript -e 'tell application "Terminal" to do script "echo hello"'
+COUNTER=1
+TOTNBOFLINES=$(grep -c ^ servers.list)
+echo "TOTNBOFLINES is $TOTNBOFLINES"
+let TOTNBOFLINES=TOTNBOFLINES+1
+while [  $COUNTER -lt $TOTNBOFLINES ]; do
+    echo The counter is $COUNTER
+    osascript -e "tell application \"Terminal\" to do script \"yes | /Users/stijn/KUL/Master/Thesis/code/dkg/setup_dkg_server $COUNTER /Users/stijn/KUL/Master/Thesis/code/dkg/servers.list\""
+    let COUNTER=COUNTER+1
+done
+echo -e "${red}All PKGs have been intialised${NC}"
 exit 0
 # exits script with status code 0

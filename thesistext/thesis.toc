@@ -7,139 +7,139 @@
 \select@language {english}
 \contentsline {chapter}{Preface}{i}{chapter*.1}
 \contentsline {chapter}{Abstract}{iv}{chapter*.2}
-\contentsline {chapter}{List of Figures and Tables}{v}{chapter*.3}
-\contentsline {chapter}{List of Abbreviations}{vi}{chapter*.6}
-\contentsline {chapter}{List of Symbols}{viii}{chapter*.7}
+\contentsline {chapter}{List of Figures}{v}{section*.3}
+\contentsline {chapter}{List of Tables}{vi}{section*.4}
+\contentsline {chapter}{List of Abbreviations}{vii}{chapter*.5}
+\contentsline {chapter}{List of Symbols}{viii}{chapter*.6}
 \contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Problem Statement}{1}{section.1.1}
 \contentsline {section}{\numberline {1.2}Existing Solutions}{2}{section.1.2}
-\contentsline {paragraph}{flyByNight~\cite {art:LucasB09}}{2}{section*.8}
-\contentsline {paragraph}{NOYB (None Of Your Business)~\cite {art:GuhaSTF08}}{2}{section*.9}
-\contentsline {paragraph}{FaceCloak~\cite {art:LuoXH09}}{2}{section*.10}
-\contentsline {paragraph}{Persona~\cite {art:BadenBSBS09}}{2}{section*.11}
-\contentsline {paragraph}{Scramble~\cite {art:BeatoKW11}}{2}{section*.12}
+\contentsline {paragraph}{flyByNight~\cite {art:LucasB09}}{2}{section*.7}
+\contentsline {paragraph}{NOYB (None Of Your Business)~\cite {art:GuhaSTF08}}{2}{section*.8}
+\contentsline {paragraph}{FaceCloak~\cite {art:LuoXH09}}{2}{section*.9}
+\contentsline {paragraph}{Persona~\cite {art:BadenBSBS09}}{2}{section*.10}
+\contentsline {paragraph}{Scramble~\cite {art:BeatoKW11}}{2}{section*.11}
 \contentsline {section}{\numberline {1.3}Goals}{3}{section.1.3}
 \contentsline {section}{\numberline {1.4}Main Idea}{3}{section.1.4}
 \contentsline {section}{\numberline {1.5}Structure of this Thesis}{4}{section.1.5}
-\contentsline {chapter}{\chapternumberline {2}Required Background}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}Complexity Theory}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Abstract Algebra}{6}{section.2.2}
-\contentsline {section}{\numberline {2.3}Number Theoretic Assumptions}{9}{section.2.3}
-\contentsline {section}{\numberline {2.4}Bilinear Maps}{11}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Definition}{11}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Bilinear Diffie-Hellman Assumption}{12}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Cryptographic Definitions}{13}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Terminology}{13}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}Symmetric Cryptography}{13}{subsection.2.5.2}
-\contentsline {subsection}{\numberline {2.5.3}Asymmetric Cryptography}{14}{subsection.2.5.3}
-\contentsline {subsection}{\numberline {2.5.4}Hash Functions}{15}{subsection.2.5.4}
-\contentsline {subsubsection}{Definition}{15}{section*.14}
-\contentsline {subsubsection}{Random Oracles}{15}{section*.15}
-\contentsline {section}{\numberline {2.6}Summary}{16}{section.2.6}
-\contentsline {chapter}{\chapternumberline {3}Cryptographic Building Blocks}{17}{chapter.3}
-\contentsline {section}{\numberline {3.1}Public Key Infrastructures}{17}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Certification Authorities}{17}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}OpenPGP and Web of Trust}{18}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Identity-Based Encryption}{19}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Definition}{19}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Comparison of IBE and PKI Schemes}{20}{subsection.3.2.2}
-\contentsline {subsubsection}{Disadvantages}{20}{section*.17}
-\contentsline {paragraph}{Single point of failure}{20}{section*.18}
-\contentsline {paragraph}{Key escrow}{20}{section*.19}
-\contentsline {paragraph}{Revocation of public keys}{20}{section*.20}
-\contentsline {subsubsection}{Advantages}{21}{section*.21}
-\contentsline {paragraph}{Complexity of the system}{21}{section*.22}
-\contentsline {paragraph}{User friendlyness}{21}{section*.23}
-\contentsline {paragraph}{Opt-in by default}{21}{section*.24}
-\contentsline {subsection}{\numberline {3.2.3}Security of IBE}{21}{subsection.3.2.3}
-\contentsline {subsubsection}{Indistinguishability Under Chosen Plaintext Attack}{22}{section*.25}
-\contentsline {subsubsection}{Indistinguishability Under Chosen Ciphertext Attack}{22}{section*.26}
-\contentsline {subsubsection}{Anonymous Identity-Based Encryption}{23}{section*.27}
-\contentsline {subsection}{\numberline {3.2.4}Overview}{23}{subsection.3.2.4}
-\contentsline {subsection}{\numberline {3.2.5}Most Attractive IBE Schemes}{26}{subsection.3.2.5}
-\contentsline {section}{\numberline {3.3}Broadcast Encryption}{26}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Definition}{26}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Overview}{29}{subsection.3.3.2}
-\contentsline {subsubsection}{Broadcast Encryption}{29}{section*.28}
-\contentsline {subsubsection}{Identity-Based Broadcast Encryption}{29}{section*.29}
-\contentsline {subsubsection}{Anonymous Broadcast Encryption}{30}{section*.30}
-\contentsline {subsubsection}{Outsider-Anonymous Broadcast Encryption}{30}{section*.31}
-\contentsline {subsection}{\numberline {3.3.3}Most Attractive BE Schemes}{31}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Secret Sharing}{31}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Definition}{31}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Shamir Secret Sharing}{32}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Verifiable Secret Sharing}{33}{subsection.3.4.3}
-\contentsline {section}{\numberline {3.5}Distributed Key Generation}{33}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Definition}{33}{subsection.3.5.1}
+\contentsline {chapter}{\chapternumberline {2}Required Background}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Complexity Theory}{7}{section.2.1}
+\contentsline {section}{\numberline {2.2}Abstract Algebra}{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}Number Theoretic Assumptions}{11}{section.2.3}
+\contentsline {section}{\numberline {2.4}Bilinear Maps}{13}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Definition}{13}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Bilinear Diffie-Hellman Assumption}{14}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Cryptographic Definitions}{15}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Terminology}{15}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Symmetric Cryptography}{15}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Asymmetric Cryptography}{16}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}Hash Functions}{17}{subsection.2.5.4}
+\contentsline {subsubsection}{Definition}{17}{section*.13}
+\contentsline {subsubsection}{Random Oracles}{17}{section*.14}
+\contentsline {section}{\numberline {2.6}Summary}{18}{section.2.6}
+\contentsline {chapter}{\chapternumberline {3}Cryptographic Building Blocks}{19}{chapter.3}
+\contentsline {section}{\numberline {3.1}Public Key Infrastructures}{19}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Certification Authorities}{19}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}OpenPGP and Web of Trust}{20}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Identity-Based Encryption}{21}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Definition}{21}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Comparison of IBE and PKI Schemes}{22}{subsection.3.2.2}
+\contentsline {subsubsection}{Disadvantages}{22}{section*.16}
+\contentsline {paragraph}{Single point of failure}{22}{section*.17}
+\contentsline {paragraph}{Key escrow}{22}{section*.18}
+\contentsline {paragraph}{Revocation of public keys}{22}{section*.19}
+\contentsline {subsubsection}{Advantages}{23}{section*.20}
+\contentsline {paragraph}{Complexity of the system}{23}{section*.21}
+\contentsline {paragraph}{User friendliness}{23}{section*.22}
+\contentsline {paragraph}{Opt-in by default}{23}{section*.23}
+\contentsline {subsection}{\numberline {3.2.3}Security of IBE}{23}{subsection.3.2.3}
+\contentsline {subsubsection}{Indistinguishability Under Chosen Plaintext Attack}{24}{section*.24}
+\contentsline {subsubsection}{Indistinguishability Under Chosen Ciphertext Attack}{24}{section*.25}
+\contentsline {subsubsection}{Anonymous Identity-Based Encryption}{25}{section*.26}
+\contentsline {subsection}{\numberline {3.2.4}Overview}{25}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Most Attractive IBE Schemes}{28}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Broadcast Encryption}{28}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Definition}{28}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Overview}{30}{subsection.3.3.2}
+\contentsline {subsubsection}{Broadcast Encryption}{30}{section*.27}
+\contentsline {subsubsection}{Identity-Based Broadcast Encryption}{30}{section*.28}
+\contentsline {subsubsection}{Anonymous Broadcast Encryption}{31}{section*.29}
+\contentsline {subsubsection}{Outsider-Anonymous Broadcast Encryption}{31}{section*.30}
+\contentsline {subsection}{\numberline {3.3.3}Most Attractive BE Schemes}{32}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Secret Sharing}{32}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Verifiable Secret Sharing}{34}{subsection.3.4.1}
+\contentsline {section}{\numberline {3.5}Distributed Key Generation}{34}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Definition}{34}{subsection.3.5.1}
 \contentsline {subsection}{\numberline {3.5.2}Pedersen Distributed Key Generation}{34}{subsection.3.5.2}
 \contentsline {chapter}{\chapternumberline {4}Design of a Practical Encryption Scheme for Online Social Networks}{37}{chapter.4}
 \contentsline {section}{\numberline {4.1}Model of the Current Situation}{37}{section.4.1}
 \contentsline {section}{\numberline {4.2}Threat Model}{40}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Privacy Threats}{40}{subsection.4.2.1}
-\contentsline {subsubsection}{Misplaced Trust in the OSN Provider}{40}{section*.33}
-\contentsline {paragraph}{Trust in the intended recipient set}{40}{section*.34}
-\contentsline {paragraph}{Trust in the broadcasting mechanism}{40}{section*.35}
-\contentsline {paragraph}{Trust in the data storage policy}{40}{section*.36}
-\contentsline {paragraph}{Mismatch of Needs}{41}{section*.37}
-\contentsline {subsubsection}{Dependency on the OSN's Privacy Infrastructure}{41}{section*.38}
-\contentsline {paragraph}{Dependency on accessibility of infrastructure}{41}{section*.39}
-\contentsline {paragraph}{Dependency on privacy preferences}{41}{section*.40}
+\contentsline {subsubsection}{Misplaced Trust in the OSN Provider}{40}{section*.32}
+\contentsline {paragraph}{Trust in the intended recipient set}{40}{section*.33}
+\contentsline {paragraph}{Trust in the broadcasting mechanism}{40}{section*.34}
+\contentsline {paragraph}{Trust in the data storage policy}{40}{section*.35}
+\contentsline {paragraph}{Mismatch of Needs}{41}{section*.36}
+\contentsline {subsubsection}{Dependency on the OSN's Privacy Infrastructure}{41}{section*.37}
+\contentsline {paragraph}{Dependency on accessibility of infrastructure}{41}{section*.38}
+\contentsline {paragraph}{Dependency on privacy preferences}{41}{section*.39}
 \contentsline {subsection}{\numberline {4.2.2}Adversaries}{41}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}Assumptions}{42}{subsection.4.2.3}
-\contentsline {subsubsection}{Assumptions on the OSN}{42}{section*.41}
-\contentsline {subsubsection}{Assumptions on the User}{42}{section*.42}
+\contentsline {subsubsection}{Assumptions on the OSN}{42}{section*.40}
+\contentsline {subsubsection}{Assumptions on the User}{42}{section*.41}
 \contentsline {section}{\numberline {4.3}Our Proposal}{43}{section.4.3}
 \contentsline {subsection}{\numberline {4.3.1}Cryptographic Goals}{43}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Design Decisions}{43}{subsection.4.3.2}
-\contentsline {subsubsection}{Confidentiality}{44}{section*.43}
-\contentsline {subsubsection}{Outsider Recipient Anonymity}{45}{section*.46}
-\contentsline {subsubsection}{No redundancy}{45}{section*.47}
-\contentsline {subsubsection}{Authenticity and Integrity}{46}{section*.48}
-\contentsline {subsubsection}{No Key Escrow and Key Validation}{47}{section*.49}
-\contentsline {subsubsection}{Limited Key Validity}{47}{section*.50}
+\contentsline {subsubsection}{Confidentiality}{44}{section*.42}
+\contentsline {subsubsection}{Outsider Recipient Anonymity}{45}{section*.45}
+\contentsline {subsubsection}{No redundancy}{45}{section*.46}
+\contentsline {subsubsection}{Authenticity and Integrity}{46}{section*.47}
+\contentsline {subsubsection}{No Key Escrow and Key Validation}{47}{section*.48}
+\contentsline {subsubsection}{Limited Key Validity}{47}{section*.49}
 \contentsline {subsection}{\numberline {4.3.3}Updated Model}{47}{subsection.4.3.3}
 \contentsline {subsection}{\numberline {4.3.4}Scheme}{50}{subsection.4.3.4}
 \contentsline {subsection}{\numberline {4.3.5}Evaluation}{50}{subsection.4.3.5}
-\contentsline {paragraph}{Confidentiality}{50}{section*.52}
-\contentsline {paragraph}{Outsider recipient anonymity}{50}{section*.53}
-\contentsline {paragraph}{No redundancy}{50}{section*.54}
-\contentsline {paragraph}{Authenticity and integrity}{50}{section*.55}
-\contentsline {paragraph}{No key escrow and key validation}{50}{section*.56}
-\contentsline {paragraph}{Limited key validity}{51}{section*.57}
+\contentsline {paragraph}{Confidentiality}{50}{section*.51}
+\contentsline {paragraph}{Outsider recipient anonymity}{50}{section*.52}
+\contentsline {paragraph}{No redundancy}{50}{section*.53}
+\contentsline {paragraph}{Authenticity and integrity}{50}{section*.54}
+\contentsline {paragraph}{No key escrow and key validation}{50}{section*.55}
+\contentsline {paragraph}{Limited key validity}{51}{section*.56}
 \contentsline {section}{\numberline {4.4}Summary}{51}{section.4.4}
 \contentsline {chapter}{\chapternumberline {5}Implementation}{55}{chapter.5}
 \contentsline {section}{\numberline {5.1}Software Architecture}{55}{section.5.1}
 \contentsline {subsection}{\numberline {5.1.1}Software Environment}{55}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Existing Environment}{55}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Changes to the Existing Environment}{56}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.2}Existing Environment}{56}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Changes to the Existing Environment}{57}{subsection.5.1.3}
 \contentsline {section}{\numberline {5.2}Implementation Details}{58}{section.5.2}
 \contentsline {subsection}{\numberline {5.2.1}Type of Elliptic Curve}{58}{subsection.5.2.1}
 \contentsline {subsection}{\numberline {5.2.2}Authenticated Encryption Scheme}{58}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Key Lengths}{58}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.3}Key Lengths}{59}{subsection.5.2.3}
 \contentsline {subsection}{\numberline {5.2.4}Hash Functions}{59}{subsection.5.2.4}
 \contentsline {subsection}{\numberline {5.2.5}Generating Random Numbers}{59}{subsection.5.2.5}
 \contentsline {subsection}{\numberline {5.2.6}Public Key}{59}{subsection.5.2.6}
-\contentsline {section}{\numberline {5.3}Implemented Scheme}{60}{section.5.3}
+\contentsline {section}{\numberline {5.3}Implemented Code}{60}{section.5.3}
 \contentsline {subsection}{\numberline {5.3.1}Client-Side Implementation}{60}{subsection.5.3.1}
-\contentsline {subsubsection}{Code Structure}{60}{section*.61}
-\contentsline {subsubsection}{Encountered Issues}{61}{section*.62}
-\contentsline {subsection}{\numberline {5.3.2}Server-Side Implementation}{61}{subsection.5.3.2}
-\contentsline {subsubsection}{Code Structure}{61}{section*.63}
-\contentsline {subsubsection}{Encountered Issues}{61}{section*.64}
+\contentsline {subsubsection}{Code Structure}{60}{section*.60}
+\contentsline {subsubsection}{Encountered Issues}{60}{section*.61}
+\contentsline {subsection}{\numberline {5.3.2}Server-Side Implementation}{60}{subsection.5.3.2}
+\contentsline {subsubsection}{Code Structure}{60}{section*.63}
+\contentsline {subsubsection}{Encountered Issues}{60}{section*.64}
 \contentsline {section}{\numberline {5.4}Performance Analysis}{61}{section.5.4}
-\contentsline {section}{\numberline {5.5}Limitations of Current Implementation}{61}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Client Side}{62}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.5.2}Server Side}{62}{subsection.5.5.2}
-\contentsline {subsection}{\numberline {5.5.3}Limitations Effecting Both Client and Server}{63}{subsection.5.5.3}
-\contentsline {section}{\numberline {5.6}Summary}{63}{section.5.6}
-\contentsline {chapter}{\chapternumberline {6}Conclusion}{65}{chapter.6}
-\contentsline {appendix}{\chapternumberline {A}Gentry's IBE Scheme}{69}{appendix.A}
-\contentsline {appendix}{\chapternumberline {B}Installing and Executing the Code}{71}{appendix.B}
-\contentsline {section}{\numberline {B.1}Setting up the DKG}{71}{section.B.1}
-\contentsline {section}{\numberline {B.2}Setting up Scramble}{71}{section.B.2}
-\contentsline {appendix}{\chapternumberline {C}Dutch Summary}{73}{appendix.C}
-\contentsline {appendix}{\chapternumberline {D}English Paper}{75}{appendix.D}
-\contentsline {chapter}{Bibliography}{77}{section*.67}
+\contentsline {subsection}{\numberline {5.4.1}Setup}{61}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}KeyGen}{61}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}Publish}{63}{subsection.5.4.3}
+\contentsline {subsection}{\numberline {5.4.4}Retrieve}{63}{subsection.5.4.4}
+\contentsline {section}{\numberline {5.5}Current Limitations}{63}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Client Side}{64}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Server Side}{64}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Limitations Effecting Both Client and Server}{65}{subsection.5.5.3}
+\contentsline {section}{\numberline {5.6}Summary}{65}{section.5.6}
+\contentsline {chapter}{\chapternumberline {6}Conclusion}{67}{chapter.6}
+\contentsline {appendix}{\chapternumberline {A}Gentry's IBE Scheme}{71}{appendix.A}
+\contentsline {appendix}{\chapternumberline {B}Nederlandse Samenvatting}{73}{appendix.B}
+\contentsline {appendix}{\chapternumberline {C}English Paper}{75}{appendix.C}
+\contentsline {chapter}{Bibliography}{77}{section*.70}
 \select@language {english}
 \select@language {english}
 \select@language {english}

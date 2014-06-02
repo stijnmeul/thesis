@@ -1,17 +1,17 @@
 #ifndef _DKGMESSAGE_H
 #define _DKGMESSAGE_H
 
-#include "shamir.h"
+#include "pkg.h"
 
 enum DKGMessageType { P_MESSAGE, SHARE_MESSAGE};
 
 class DKGMessage {
 private:
-	int sender;
+	G2 P;
 	int receiver;
+	int sender;
 	share_t share;
 	DKGMessageType type;
-	G2 P;
 
 	void init(int sender, int receiver, DKGMessageType);
 

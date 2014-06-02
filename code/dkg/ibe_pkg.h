@@ -3,7 +3,7 @@
 #endif
 
 #include <string>
-#include "shamir.h"
+#include "pkg.h"
 #include "DKGMessage.h"
 
 string toString(G2 groupEl) {

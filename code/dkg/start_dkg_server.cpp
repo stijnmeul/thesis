@@ -53,7 +53,6 @@
 #define HASH_LEN 32
 #define TAG_LEN 16
 #define BYTES_PER_BIG 80
-#define THRESHOLD 3
 
 int main(int argc, char * argv[])
 {

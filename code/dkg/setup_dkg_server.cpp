@@ -32,7 +32,7 @@
 #include "../cppmiracl/source/pairing_3.h"
 #include "ibe_pkg.h"
 #include "DKGMessage.h"
-#include "shamir.h"
+#include "pkg.h"
 #include <termios.h>
 #include <unistd.h>
 #include <iostream>
@@ -51,18 +51,19 @@
 #define TAG_LEN 16
 #define BYTES_PER_BIG 80
 #define BUF_SIZE 4096
-#define DKG_DIR "/Applications/XAMPP/htdocs/thesis/" // In this folder a subfolder dkgxx will be created with xx = id specified at startup
+#define PKG_DIR "/Applications/XAMPP/htdocs/thesis/" // In this folder a subfolder dkgxx will be created with xx = id specified at startup
 #define CLIENT_PORT_OFFSET 100
 
 #define THRESHOLD 3
 
 void storeMSK(Big s, int servId, string mskPath);
 bool retrieveMSK(char * plain, int servId, string mskPath);
-void listenForClients(int portNb, DKG *dkg);
+void listenForClients(int portNb, PKG *dkg);
 void *connection_handler(void *arg);
 int sendTo(int portNb, const char * message);
-void listenTo(int portNb, DKG *dkg);
+void listenTo(int portNb, PKG *dkg);
 void writeIndexPhp(int portNb, const char * dkgDir);
+float getExecutionTime(float begin_time);
 
 struct Server{
 	int portNb;
@@ -72,7 +73,7 @@ struct Server{
 
 struct ThreadParams{
 	int sockfd;
-	DKG *dkg;
+	PKG *dkg;
 };
 
 int main(int argc, char * argv[])
@@ -85,19 +86,21 @@ int main(int argc, char * argv[])
 	Big order = pfc.order();
 	miracl* mip = get_mip();
 	mip->IOBASE = 64;
+	clock_t begin_time;
+	float set_time;
 	int servId;
 	const char * serverlistFile;
 	cout << endl;
 
-	if(argc != 3) {
-		cout << "Please provide:" << endl << "* a unique ID for this DKG server between 1 and the total number of servers," << endl <<"* a path to a file listing all servers. " << endl << "Command usage should be:" << endl;
+	if(!(argc == 3 || argc == 4)) {
+		cout << "Please provide:" << endl << "* a unique ID for this PKG server between 1 and the total number of servers," << endl <<"* a path to a file listing all servers. " << endl << "Command usage should be:" << endl;
 		cout << "./setup_dkg_server.cpp id servers.list" << endl << endl;
 		return 0;
 	} else  {
 		servId = atoi(argv[1]);
 		serverlistFile = argv[2];
 	}
-	string dkgDir = (string)DKG_DIR + "dkg" + argv[1] + "/";
+	string dkgDir = (string)PKG_DIR + "dkg" + argv[1] + "/";
 	mkdir(dkgDir.c_str(), S_IRWXU | S_IRWXG | S_IRWXO); // S_IRUSR|S_IRGRP|S_IROTH
 	string mskFile = dkgDir + (string)"encrypted_msk.key";
 
@@ -117,11 +120,11 @@ int main(int argc, char * argv[])
 		}
 		if( nbOfServers < THRESHOLD) {
 			cout << "servers.list contains only " << nbOfServers << " while the threshold is set at " << THRESHOLD << "." << endl;
-			cout << "Please specify at least " << THRESHOLD << " servers in servers.list for the DKG scheme to work." << endl;
+			cout << "Please specify at least " << THRESHOLD << " servers in servers.list for the PKG scheme to work." << endl;
 			cout << "Terminating setup." << endl << endl;
 			return 0;
 		}
-		// Copy servers.list to the correct DKG directory
+		// Copy servers.list to the correct PKG directory
 		string serverlistFileLocation = dkgDir + "servers.list";
 		ifstream  src(serverlistFile, std::ios::binary);
      	ofstream  dst(serverlistFileLocation.c_str(), std::ios::binary);
@@ -147,7 +150,7 @@ int main(int argc, char * argv[])
 
 	if(mskAlreadyGenerated) { 	// If the mskFile already exists generate a password prompt and decrypt it from the file
 		cout << mskFile << " already exists." << endl;
-		cout << "Retrieving the MSK from encrypted_msk.key. If you want to reset all the DKGs please execute" << endl << " bash resetDkgs.sh" << endl << endl;
+		cout << "Retrieving the MSK from encrypted_msk.key. If you want to reset all the PKGs please execute" << endl << " bash resetDkgs.sh" << endl << endl;
 		char plain[BYTES_PER_BIG];
 		bool encryptedIsDecrypted = retrieveMSK(plain, servId, mskFile);
 		if(!encryptedIsDecrypted) {
@@ -180,7 +183,7 @@ int main(int argc, char * argv[])
 	file.close();
 
 	G2 P;
-	DKG *dkg;
+	PKG *dkg;
 	/* PSEUDOCODE OF THE CODE BELOW
 
 	if(servId == 1) {
@@ -196,7 +199,7 @@ int main(int argc, char * argv[])
 		listen_to_dkgs();
 	}
 
-	// end of DKG
+	// end of PKG
 	listen_to_clients();
 
 	*/
@@ -205,7 +208,8 @@ int main(int argc, char * argv[])
 	file.open(pFile.c_str());
 	bool pAlreadyGenerated = file.is_open();
 	file.close();
-	// The first DKG server decides which P value is used
+	begin_time = clock();
+	// The first PKG server decides which P value is used
 	if(servId == 1) {
 		if (pAlreadyGenerated) {
 			fstream in(pFile.c_str(), ios::in | ios::binary);
@@ -223,10 +227,10 @@ int main(int argc, char * argv[])
 			pfc.random(P);
 		}
 
-		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, P, s);
+		dkg = new PKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, P, s);
 
-	} else { // If this is not the first DKG server, initialise DKG without P
-		dkg = new DKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, s);
+	} else { // If this is not the first PKG server, initialise PKG without P
+		dkg = new PKG(servId, myPortNb, nbOfServers, THRESHOLD, order, &pfc, s);
 	}
 
 	if(servId == 1) {
@@ -236,7 +240,7 @@ int main(int argc, char * argv[])
 			DKGMessage pMes = DKGMessage(servId, serverlist[i].id, P);
 			sendTo(serverlist[i].portNb, pMes.toString().c_str());
 		}
-		// After sending P, send a share to each DKG.
+		// After sending P, send a share to each PKG.
 		for (int i = 2; i < nbOfServers; i++) {
 			share_t share = (*dkg).getShareOf(serverlist[i].id);
 			DKGMessage sMes = DKGMessage(servId, serverlist[i].id, share);
@@ -266,7 +270,7 @@ int main(int argc, char * argv[])
 				sendTo(nextSharingServer.portNb, sMes.toString().c_str());
 			}
 	}
-	// The last server shouldn't listen anymore
+	// The last and the first server shouldn't listen anymore
 	if (servId != nbOfServers) {
 		listenTo(myPortNb, dkg);
 	}
@@ -288,22 +292,20 @@ int main(int argc, char * argv[])
 	outputFile.close();
 	chmod(pFile.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
 
-
-	cout << "State of server " << servId << " is " << (*dkg).printState() << endl << endl;
+	set_time = getExecutionTime(begin_time);
+	cout << "State of server " << servId << " is " << (*dkg).printState() << endl;
+	cout << "Required setup time was " << set_time << endl << endl;
 
 	writeIndexPhp(myPortNb + CLIENT_PORT_OFFSET, dkgDir.c_str());
 
-	// At this point all DKGs should be finished. Start listening for clients. This should be multithreaded of course.
-	cout << "DKG server " << servId << " starts listening for client requests on port " << myPortNb + 100 << endl;
+	// At this point all PKGs should be finished. Start listening for clients. This should be multithreaded of course.
+	cout << "PKG server " << servId << " starts listening for client requests on port " << myPortNb + 100 << endl;
 	listenForClients(myPortNb + CLIENT_PORT_OFFSET, dkg);
 
 	cout << endl;
 	return 0;
 }
 
-/*******
-* Korte zender => zendt iets en leest antwoord uit
-*******/
 int sendTo(int portNb, const char * message) {
 	int sockfd, n;
     const char* host;
@@ -341,7 +343,7 @@ int sendTo(int portNb, const char * message) {
                &so_reuseaddr,
                sizeof(so_reuseaddr));
 
-	// Wait until DKG server is online
+	// Wait until PKG server is online
 	cout << "Waiting for server on port " << portNb << " to connect" << endl;
 	while (connect(sockfd, servinfo->ai_addr, servinfo->ai_addrlen) == -1) {
 		close(sockfd);
@@ -354,21 +356,13 @@ int sendTo(int portNb, const char * message) {
     n = write(sockfd,buffer,strlen(buffer));
     if(n < 0)
         error("ERROR writing to socket");
-/* iets terug uitlezen is niet nodig
-    bzero(buffer,256);
-    n = read(sockfd,buffer,255);
-
-    if (n < 0)
-        error("ERROR reading from socket");*/
     cout << "The following message was successfully sent:" << endl;
     DKGMessage dkgMes = DKGMessage(message);
     cout << "A " << dkgMes.printType() << " has been sent from server " << dkgMes.getSender() << " to server " << dkgMes.getReceiver() << endl << endl;
-    //freeaddrinfo(servinfo);
-    //freeaddrinfo(it);
     close(sockfd);
 }
 
-void listenForClients(int portNb, DKG *dkg) {
+void listenForClients(int portNb, PKG *dkg) {
 	int sockfd, newsockfd;
     socklen_t clilen;
 
@@ -420,6 +414,8 @@ void *connection_handler(void *arg) {
     int n = recv(params->sockfd, buffer, sizeof(buffer),0);
     if (n < 0)
     	error("ERROR reading from socket");
+    clock_t begin_time;
+	float ext_time;
     G1 D = params->dkg->extract(buffer);
 
     cout << "Received ID:" << endl << buffer << endl;
@@ -438,7 +434,7 @@ void *connection_handler(void *arg) {
     return NULL;
 }
 
-void listenTo(int portNb, DKG *dkg) {
+void listenTo(int portNb, PKG *dkg) {
 	/*************************************************
     * Eeuwige luisteraar => luistert en stuurt iets terug bij ontvangst
     **************************************************/
@@ -697,4 +693,8 @@ void writeIndexPhp(int portNb, const char * dkgDir) {
 	outputFile.write(indexPhp.str().c_str(), indexPhp.str().size());
 	outputFile.close();
 	chmod(phpFile.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+}
+
+float getExecutionTime(float begin_time) {
+    return float( clock () - begin_time ) /  CLOCKS_PER_SEC;
 }
