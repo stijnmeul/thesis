@@ -231,6 +231,12 @@ B.~Chor, S.~Goldwasser, S.~Micali, and B.~Awerbuch.
   of faults (extended abstract).
 \newblock In {\em FOCS}, pages 383--395, 1985.
 
+\bibitem{rfc4158}
+M.~Cooper, Y.~Dzambasow, P.~Hesse, S.~Joseph, and R.~Nicholas.
+\newblock {Internet X.509 Public Key Infrastructure: Certification Path
+  Building}.
+\newblock RFC 4158 (Informational), Sept. 2005.
+
 \bibitem{art:CoronDMP05}
 J.-S. Coron, Y.~Dodis, C.~Malinaud, and P.~Puniya.
 \newblock Merkle-damg{\aa}rd revisited: How to construct a hash function.
@@ -363,6 +369,11 @@ O.~Goldreich.
 \newblock In B.~S.~K. Jr., editor, {\em CRYPTO}, volume 1294 of {\em Lecture
   Notes in Computer Science}, pages 46--74. Springer, 1997.
 
+\bibitem{book:Goldreich2001}
+O.~Goldreich.
+\newblock {\em The Foundations of Cryptography - Volume 1, Basic Techniques}.
+\newblock Cambridge University Press, 2001.
+
 \bibitem{art:Goldwasser84}
 S.~Goldwasser and S.~Micali.
 \newblock Probabilistic encryption.
@@ -421,6 +432,11 @@ R.~Housley.
   Cryptographic Message Syntax (CMS)}.
 \newblock RFC 5084 (Proposed Standard), Nov. 2007.
 
+\bibitem{rfc4648}
+S.~Josefsson.
+\newblock {The Base16, Base32, and Base64 Data Encodings}.
+\newblock RFC 4648 (Proposed Standard), Oct. 2006.
+
 \bibitem{art:Joux13}
 A.~Joux.
 \newblock A new index calculus algorithm with complexity l(1/4+o(1)) in very
@@ -449,6 +465,13 @@ L.~Krzywiecki, P.~Kubiak, and M.~Kutylowski.
 K.~Kurosawa.
 \newblock Multi-recipient public-key encryption with shortened ciphertext.
 \newblock {\em IACR Cryptology ePrint Archive}, 2001:71, 2001.
+
+\bibitem{art:KurosawaW92}
+K.~Kurosawa and O.~Watanabe.
+\newblock Computational and statistical indistinguishabilities.
+\newblock In T.~Ibaraki, Y.~Inagaki, K.~Iwama, T.~Nishizeki, and M.~Yamashita,
+  editors, {\em ISAAC}, volume 650 of {\em Lecture Notes in Computer Science},
+  pages 430--438. Springer, 1992.
 
 \bibitem{art:LeeL10}
 K.~Lee and D.~H. Lee.
@@ -544,6 +567,13 @@ D.~Naor, M.~Naor, and J.~B. Lotspiech.
 N.~I. of~Standards and Technology.
 \newblock {{FIPS PUB 180-4: Secure Hash Standard}}.
 \newblock RFC 6101 (Historic), 2012.
+
+\bibitem{art:Pedersen91}
+T.~P. Pedersen.
+\newblock Non-interactive and information-theoretic secure verifiable secret
+  sharing.
+\newblock In J.~Feigenbaum, editor, {\em CRYPTO}, volume 576 of {\em Lecture
+  Notes in Computer Science}, pages 129--140. Springer, 1991.
 
 \bibitem{art:Pedersen91a}
 T.~P. Pedersen.

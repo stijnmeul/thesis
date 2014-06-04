@@ -23,19 +23,20 @@ public:
 
 	DKGMessage(string xmlString);
 
-	string toString();
-
-	DKGMessageType getType();
+	G2 getP();
 
 	string printType();
 
-	int getSender();
-
 	int getReceiver();
+
+	int getSender();
 
 	share_t getShare();
 
-	G2 getP();
+	DKGMessageType getType();
+
+	string toString();
+
 };
 
 #endif

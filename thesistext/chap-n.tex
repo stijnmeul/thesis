@@ -41,27 +41,20 @@ Despite the avoidance of complex third party infrastructures, some software is n
 Since Scramble~\cite{art:BeatoKW11} already has a user friendly interface that supports all required use cases to implement encryption on OSNs, it is natural to integrate our IBE scheme into Scramble. Besides from Scramble being open source and lightweight, the most important trigger to modify the existing Scramble code is that it is developed at KU Leuven~\footnote{The scramble code can be downloaded at \url{https://www.cosic.esat.kuleuven.be/scramble/}}.
 
 \subsection{Existing Environment}
-Scramble~\cite{art:BeatoKW11} is a Firefox extension that relies on OpenPGP~\cite{rfc4880} for encryption, access control and key management. Due to the use of OpenPGP, Scramble works independent of the underlying OSN. In fact, Scramble only functions as an encryption and decryption tool that can be used on any website offering users to submit content. However, users who want to be part of the recipient set of the uploaded messages need to upload a public key to the OpenPGP network beforehand. The architecture overview of the Scramble environment is illustrated in Figure~\ref{fig:original_scramble_arch}.
-
-Since Scramble is a Firefox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous UIs, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, Scramble communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between Firefox extension and Java back-end, takes place synchronously over a socket listening on an internal port.
-
-Scramble relies on OpenPGP for key management. Therefore, the Firefox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
-
-
 \begin{figure}
     \begin{center}
     \noindent\makebox[\textwidth]{
-        \scalebox{0.72}{
+        \scalebox{0.66}{
         \begin{tikzpicture}[auto, node distance=-2mm, align=center,
             block/.style={rectangle,text width=6em,text centered,minimum height=9mm},
             line/.style={draw,very thick, ->},
             line2/.style={draw,very thick, <->},
             leg/.style={text centered},
-            block2/.style={draw, rectangle,text width=7em,text centered,minimum height=9mm,fill=lightgray},
+            block2/.style={draw, rectangle,text width=7em,text centered,minimum height=9mm,fill=lightgray!40},
             ]
             
             % Client side polygon
-            \draw[dashed] (-9,4) -- (-1,4) -- (-1,-4.25) -- (-9,-4.25) -- (-9,4);
+            \draw[dashed] (-9,4) -- (-1,4) -- (-1,-5.75) -- (-9,-5.75) -- (-9,4);
             % OSNs Polygon
             \draw[dashed] (0,4) -- (5,4) -- (5,1.4) -- (0,1.4) -- (0,4);
             % OpenPGP Polygon
@@ -80,9 +73,10 @@ Scramble relies on OpenPGP for key management. Therefore, the Firefox extension 
 
                 % Text boxes
                 (-5,2.5) node [block2] (ffext) {Scramble Firefox Extension}
-                (-5,0) node [block2] (csback) {Client Side Java Back-end}
-                (-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (db) {Contact Database}
-                (-7,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystor) {Encrypted Key Storage}
+                (-5,0) node [block2] (javasocket) {Local Java Socket}
+                (-5,-2) node [block2] (csback) {Client Side Java Back-end}
+                (-3,-4.5) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (db) {Contact Database}
+                (-7,-4.5) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystor) {Encrypted Key Storage}
                 (-12,2.5) node [block2] (pgp) {OpenPGP}
                 (-12,-0.5) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (pkstor) {Public Key Storage}
 
@@ -102,7 +96,8 @@ Scramble relies on OpenPGP for key management. Therefore, the Firefox extension 
         %\path (pkg.south west) -- (adv.north);
        \end{scope}
        \begin{scope}[every path/.style=line2]
-        \path (ffext.south) -- (csback.north);
+        \path (ffext.south) -- (javasocket.north);
+        \path (javasocket.south) -- (csback.north);
         \path (csback.south east) -- (db.north);
         \path (ffext.west) -- (pgp.east);
         \path (ffext.east) -- (0,2.5);
@@ -117,6 +112,12 @@ Scramble relies on OpenPGP for key management. Therefore, the Firefox extension 
     \caption{Original Scramble Architecture}
     \label{fig:original_scramble_arch}
 \end{figure}
+\enlargethispage{\baselineskip}
+Scramble~\cite{art:BeatoKW11} is a Firefox extension that relies on OpenPGP~\cite{rfc4880} for encryption, access control and key management. Due to the use of OpenPGP, Scramble works independent of the underlying OSN. In fact, Scramble only functions as an encryption and decryption tool that can be used on any website offering users to submit content. However, users who want to be part of the recipient set of the uploaded messages need to upload a public key to the OpenPGP network beforehand. The architecture overview of the Scramble environment is illustrated in Figure~\ref{fig:original_scramble_arch}.
+
+Since Scramble is a Firefox extension, the user interface (UI) is implemented in Javascript. Although Javascript is ideal for synchronous UIs, it is not the desired programming language for computational demanding tasks such as encryption and decryption. Therefore, Scramble communicates with a back-end in Java that implements all cryptographic operations. Every time a user selects a computation intensive task in the Javascript UI, Javascript sends an XML message requesting the result from the client side Java back-end. The Java back-end processes the request and immediately sends the result in another XML message back to the UI. Sending and receiving of XML messages between Firefox extension and Java back-end, takes place synchronously over a local Java socket listening on an internal port.
+
+Scramble relies on OpenPGP for key management. Therefore, the Firefox extension communicates with a web of trust (Section~\ref{sec:web_of_trust}) storing all public keys of users who subscribed to the OpenPGP network. Because the OpenPGP network stores more keys than a Scramble user needs, Scramble offers the functionality to store public keys from the OpenPGP network locally in a contact database via the client side Java back-end. Furthermore, the client-side Java back-end has access to an encrypted list of the user's secret keys corresponding to public keys that are already in the OpenPGP network. With the help of a passphrase the Java back-end has access to these private keys to allow encryption of received messages.
 
 \subsection{Changes to the Existing Environment}
 The altered Scramble architecture is schematically illustrated in Figure~\ref{fig:new_scramble_arch}. Scramble still offers the original functionality as an alternative to our IBE implementation. However, for reasons of conciseness Figure~\ref{fig:new_scramble_arch} omits the original OpenPGP implementation although it is not removed.
@@ -131,11 +132,11 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
             line/.style={draw,very thick, ->},
             line2/.style={draw,very thick, <->},
             leg/.style={text centered},
-            block2/.style={draw, rectangle,text width=7em,text centered,minimum height=9mm,fill=lightgray},
+            block2/.style={draw, rectangle,text width=7em,text centered,minimum height=9mm,fill=lightgray!40},
             ]
             
             % Client side polygon
-            \draw[dashed] (-5.5,4) -- (-0.4,4) -- (-0.4,-4.5) -- (-5.5,-4.5) -- (-5.5,4);
+            \draw[dashed] (-5.5,4) -- (-0.4,4) -- (-0.4,-7) -- (-5.5,-7) -- (-5.5,4);
             % OSNs Polygon
             \draw[dashed] (0.5,4) -- (5.5,4) -- (5.5,1.4) -- (0.5,1.4) -- (0.5,4);
             % OpenPGP Polygon
@@ -164,14 +165,15 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
                 (3,4) node [leg,fill=white] (white_block) {\textbf{OSNs}}
                 (-9,4) node [leg,fill=white] (white_block) {\textbf{Server Side PKG}}
                 (-9,-5.5) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystor) {Encrypted Key Storage}
-                (-3,-3) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystorcs) {Encrypted Key Storage}
+                (-3,-5.5) node [draw,cylinder,shape border rotate=90,text width=6em,aspect=0.25] (keystorcs) {Encrypted Key Storage}
                 (-1.65,1.25) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
                 (-7.75,1.25) node [leg,font=\small] (white_block) {XML Messages \\ over Socket}
                 (-6,3.15) node [leg,font=\small,fill=white] (white_block) {XML \\ Messages over \\ POST Request}
                 (-12,0.5) node [leg,font=\small,fill=white] (white_block) {XML Messages \\ to Other PKGs}
                 
                 (-3,2.5) node [block2] (ffext) {Scramble Firefox Extension}
-                (-3,0) node [block2] (csback) {Client Side C++ MIRACL Based Back-end}
+                (-3,0) node [block2] (cssocket) {Local C++ Socket}
+                (-3,-2.5) node [block2] (csback) {Client Side C++ MIRACL Based Back-end}
                 ;
                 
        %\node[node distance=2mm, above=of pkg] {\textbf{OSN Broadcast Server}};
@@ -181,7 +183,8 @@ The altered Scramble architecture is schematically illustrated in Figure~\ref{fi
         %\path (pkg.south west) -- (adv.north);
        \end{scope}
        \begin{scope}[every path/.style=line2]
-        \path (ffext.south) -- (csback.north);
+        \path (ffext.south) -- (cssocket.north);
+        \path (cssocket.south) -- (csback.north);
         %\path (csback.south) -- (db.north);
         \path (ffext.west) -- (dkgfront.east);
         \path (ffext.east) -- (0.5,2.5);
@@ -211,7 +214,7 @@ The C++ based front-end of the PKG only serves as a front-end during execution o
 
 The PHP based front-end receives private key extraction queries from the Scramble Firefox extension in the form of POST requests. The PKG communicates the requested $\id{}$ to the listening C++ socket in the form of an XML message. After the required MIRACL based pairing computations, the PKG socket sends the response back to the PHP webpage such that it is published in the form of an XML message over HTTPS~\cite{rfc2818}.
 
-Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, Scramble is made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof-of-concept. Further extension to support other OSNs could be subject of future work.
+Note that the new architecture from Figure~\ref{fig:new_scramble_arch} can be applied to virtually any OSN that identifies its users with publicly available identifiers. However, Scramble is made more user friendly by implementing OSN specific API calls. Currently, an implementation for Facebook serves as a proof of concept. Further extension to support other OSNs could be subject of future work.
 
 
 \section{Implementation Details}
@@ -259,67 +262,174 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
 
 \section{Implemented Code}
 \label{sec:implemented_code}
+The complete implementation of our solution can be found at \url{https://bit.ly/ibeforosns}. The code is originally developed on OS X 10.9 and compiled with GNU g++ 4.7. Portability to other platforms is currently not supported. 
+
+This section briefly overviews the structure of our code and the encountered issues during implementation.
+
+
+\subsection{Server Side Implementation}
+All software code on the server side describes the functionality required for the \texttt{Setup} and \texttt{KeyGen} steps from Algorithm~\ref{alg:our_scheme}.
+
 \begin{figure}
     \centering
     \noindent\makebox[\textwidth]{
         \scalebox{0.7} {
         \begin{tikzpicture}
         
+        % PKG
+        \begin{class}[text width =8 cm]{PKG}{2,2}
+          \attribute{\texttt{- lastReceivedShareGenerator : int}}
+          \attribute{\texttt{- myShares : share\textunderscore t *}}
+          \attribute{\texttt{- nbOfShares : int}}
+          \attribute{\texttt{- P : G2}}
+          \attribute{\texttt{- pfc : PFC * }}
+          \attribute{\texttt{- poly : Big *}}
+          \attribute{\texttt{- portNb : int}}
+          \attribute{\texttt{- secret : Big}}
+          \attribute{\texttt{- receivedShares : share\textunderscore t *}}
+          \attribute{\texttt{- secret : Big }}
+          \attribute{\texttt{- serverId : int }}
+          \attribute{\texttt{- sj : Big}}
+          \attribute{\texttt{- sjP : G2}}
+          \attribute{\texttt{- ServerState : state}}
+          \operation{\texttt{+ PKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s)}}
+          \operation{\texttt{+ PKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, Big s)}}
+          \operation{\texttt{+ G1 extract(char * id)}}
+          \operation{\texttt{+ int getLastReceivedShareGenerator()}}
+          \operation{\texttt{+ G2 getP()}}
+          \operation{\texttt{+ int getServerId()}}
+          \operation{\texttt{+ share\textunderscore t getShareOf(int serverId)}}
+          \operation{\texttt{+ G2 getSjP()}}
+          \operation{\texttt{+ ServerState getState()}}
+          \operation{\texttt{+ string printState()}}
+          \operation{\texttt{+ void setP(G2 P)}}
+          \operation{\texttt{+ void setShare(share\textunderscore t share)}}
+          \operation{\texttt{+ void getSharesFrom(vector \textless PKG\textgreater serverList)}}
+        \end{class}
+        
+        % share_t
+        \begin{class}[text width =9.5 cm]{share t}{ -9 , -9}
+          \attribute{\texttt{+ x : int}}
+          \attribute{\texttt{+ y : Big}}
+          \attribute{\texttt{+ shareGenerator : int }}
+        \end{class}
+        
+        %DKGMessage
+        \begin{class}[text width =9.5 cm]{DKGMessage}{-9 , 2}
+          \attribute{\texttt{- P : G2}}
+          \attribute{\texttt{- int : receiver}}
+          \attribute{\texttt{- int : sender}}
+          \attribute{\texttt{- share\textunderscore t : share}}
+          \attribute{\texttt{- DKGMessageType : type}}
+          
+          \operation{\texttt{+ DKGMessageType(int sender, int receiver, G2 P)}}
+          \operation{\texttt{+ DKGMessageType(int sender, int receiver, share\textunderscore t share)}}
+          \operation{\texttt{+ DKGMessage(string xmlString)}}
+          \operation{\texttt{+ G2 getP()}}
+          \operation{\texttt{+ string printType()}}
+          \operation{\texttt{+ int getReceiver()}}
+          \operation{\texttt{+ int getSender()}}
+          \operation{\texttt{+ share\textunderscore t getShare()}}
+          \operation{\texttt{+ DKGMessageType getType()}}
+          \operation{\texttt{+ string toString()}}
+          \operation{\texttt{- init(int sender, int receiver, DKGMessageType)}}
+        \end{class}
+        \end{tikzpicture}
+        \begin{tikzpicture}[remember picture, overlay]                        
+            \node [xshift=-14.85cm, yshift=4.55cm,font=\tiny] (27) {\textbf{\_}};
+        \end{tikzpicture}
+
+    }}
+    \caption{Class Diagram of Server Side C++ MIRACL Based Back-end}
+    \label{fig:class_server_side}
+\end{figure}
+
+\subsubsection{Code Structure}
+All C++ functions implemented by the server side C++ MIRACL based back-end are illustrated in Figure~\ref{fig:class_server_side}. The following classes are defined:
+\begin{description}
+ \item[PKG] is a class providing all functionality to compute the shares from the DKG protocol and keeps the current state of the PKG server.
+ \item[DKGMessage] represents a message PKGs use to negotiate in the DKG protocol. A DKGMessage has either DKGMessageType \texttt{P\textunderscore MESSAGE} or \texttt{SHARE\textunderscore MESSAGE}. 
+ \item[share\textunderscore t] is the definition of a structure describing the serverId owning the share $j = \mathtt{x}$, the share value $\sigma_{jv} = \mathtt{y}$ and the server who generated the share $v = \mathtt{shareGenerator}$ where $j,v$ and $\sigma_{jv}$ refer to the mathematical symbols used in Algorithm~\ref{alg:our_scheme}.
+\end{description}
+
+The server side implementation also provides a procedural PKG socket denoted ''C++ Front-end'' in Figure~\ref{fig:new_scramble_arch}.
+
+\paragraph{Setup} Every PKG socket initialises the DKG protocol by calling the constructor \texttt{PKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, Big s)} where \texttt{serverId} corresponds to the unique PKG identifier, \texttt{nbOfShares} corresponds to the total number of PKG servers $n$, \texttt{threshold} is the threshold number of servers $t$ that can construct the shared secret $sk_{msk}$, \texttt{order} is the order $q$ of the gap groups $G_1$ and $G_2$, \texttt{*pfc} is a pointer to a MIRACL pairing-friendly curve object and \texttt{s} corresponds to the uniformly random generated secret $sk_i$ from the Pedersen DKG protocol in Algorithm~\ref{alg:pedersen_dkg}. Only the PKG socket with \texttt{serverId = 1} is initialised with the constructor \texttt{PKG(int serverId, int portNb, int nbOfShares, int threshold, Big order, PFC *pfc, G2 P, Big s)} which requires an additional \texttt{P} value. After initialisation all sockets wait for the PKG with \texttt{serverId = 1} to send a DKGMessage of type \texttt{P\textunderscore MESSAGE} containing the public \texttt{P} value. Once all PKGs have setup their secret polynomial along with the received \texttt{P} value, all PKGs start distributing their shares in ascending order of their \texttt{serverId} values. These DKGMessages are of type \texttt{SHARE\textunderscore MESSAGE} and contain a share in the form of a share\textunderscore t structure.
+
+The \texttt{toString()} function of a DKGMessage object allows to serialise a DKGMessage to an XML message that can be sent over the C++ socket infrastructure. At receipt of an XML message the PKG socket calls \texttt{DKGMessage(string xmlString)} to reconstruct the original DKGMessage object.
+
+\paragraph{KeyGen} Once all PKGs have verified their shares, the C++ socket starts listening on another port that communicates with the PKG website as illustrated in Figure~\ref{fig:new_scramble_arch}. The Scramble plugin can then publish a POST request to the PKG website in order to receive its secret key. The PKG website forwards this request to the C++ socket in the form of an XML message. The socket replies to this request by executing \texttt{extract(char * id)} and returning an XML message containing the resulting serialised \texttt{G1} object.
+
+
+\subsubsection{Encountered Issues}
+
+\paragraph{Multithreading} To ensure the PKG implementation can resist intensive traffic, the \texttt{extract(char * id)} function is multithreaded. However, multithreading {MIRACL} requires the complete library to be recompiled. Furthermore, every algorithm relying on elliptic curves should start with the initialisation of a MIRACL PFC object which allocates the required memory resources on the heap. After destruction of this PFC object, no further MIRACL calls can be made. Therefore, every PKG object is initialised with a pointer to a PFC object that is never freed.
+
+\paragraph{DKG in the distributed setting} The first attempt to construct a DKG protocol was made by altering the implementation as proposed by Kate and Goldberg~\cite{art:KateHG12}. However, it took us several days to compile the original code on OS X. Furthermore, all obtained executable files were corrupted by segmentation faults. After one intensive week of trial and error still no satisfying results were obtained. Consequently, it was decided to implement our own DKG protocol to show at least the viability of our solution.
+
+\paragraph{Deserialising MIRACL objects} MIRACL objects can be transformed to printable strings. However, despite the popularity of MIRACL, currently no functionality for the conversion of strings back to MIRACL objects is supported. Therefore, we introduced additional functions in the original library that support deserialising MIRACL objects for use in network communication.
+
+\begin{figure}
+    \centering
+    \noindent\makebox[\textwidth]{
+        \scalebox{0.67} {
+        \begin{tikzpicture}
+        
         % BroadcastMessage
         \begin{abstractclass}[text width =8 cm]{BroadcastMessage}{2,2}
-          \attribute{\# message : string }
-          \attribute{\# autData : AuthenticatedData *}
-          \attribute{\# sessionKey : char[HASH\textunderscore LEN]}
-          \operation{\# void getIV(char (\& iv)[HASH\textunderscore LEN/2])}
-          \operation{\# void getK(char (\& iv)[HASH\textunderscore LEN/2])}
-          \operation{\# Big getSessionKey()}
-          \operation{+ AuthenticatedData getAuthenticatedData()}
-          \operation[0]{+ string getMessage()}
+          \attribute{\texttt{\# message : string }}
+          \attribute{\texttt{\# autData : AuthenticatedData *}}
+          \attribute{\texttt{\# sessionKey : char[HASH\textunderscore LEN]}}
+          \operation{\texttt{\# void getIV(char (\& iv)[HASH\textunderscore LEN/2])}}
+          \operation{\texttt{\# void getK(char (\& iv)[HASH\textunderscore LEN/2])}}
+          \operation{\texttt{\# Big getSessionKey()}}
+          \operation{\texttt{+ AuthenticatedData getAuthenticatedData()}}
+          \operation[0]{\texttt{+ string getMessage()}}
         \end{abstractclass}
         
         % PlaintextMessage
         \begin{class}[text width =9 cm]{PlaintextMessage}{ -9 , -6}
           \inherit{BroadcastMessage}
-          \attribute{- r : Big}
-          \attribute{- recipients : vector\textless  string\textgreater}
-          \attribute{- recipientHashes : vector\textless G1\textgreater }
-          \attribute{- rho : Big}
-          \operation{+ PlaintextMessage(string message)}
-          \operation{+ void addRecipient(string recipient, PFC *pfc)}
-          \operation{+ EncryptedMessage encrypt(const G2\& P, const G2\& Ppub, PFC *pfc)}
-          \operation{+ string getMessage()}
-          \operation{+ vector <string> getRecipients()}
-          \operation{- generateKeys(PFC *pfc)}
+          \attribute{\texttt{- r : Big}}
+          \attribute{\texttt{- recipients : vector\textless  string\textgreater}}
+          \attribute{\texttt{- recipientHashes : vector\textless G1\textgreater }}
+          \attribute{\texttt{- rho : Big}}
+          \operation{\texttt{+ PlaintextMessage(string message)}}
+          \operation{\texttt{+ void addRecipient(string recipient, PFC *pfc)}}
+          \operation{\texttt{+ EncryptedMessage encrypt(const G2\& P, const G2\& Ppub, PFC *pfc)}}
+          \operation{\texttt{+ string getMessage()}}
+          \operation{\texttt{+ vector <string> getRecipients()}}
+          \operation{\texttt{- generateKeys(PFC *pfc)}}
         \end{class}
         
         % EncryptedMessage
         \begin{class}[text width =9 cm]{EncryptedMessage}{2 , -6}
           \inherit{BroadcastMessage}
-          \attribute{- C : char *}
-          \attribute{- Clen : int}
-          \attribute{- T : char[TAG\textunderscore LEN]}
-          \operation{+ EncryptedMessage(char * A, int Alen, char (\& T)[TAG\textunderscore LEN], char * C, int Clen)}
-          \operation{+ EncryptedMessage(string encryptedMessage)}
-          \operation{+ PlaintextMessage decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id, PFC *pfc )}
-          \operation{+ string getMessage()}
+          \attribute{\texttt{- C : char *}}
+          \attribute{\texttt{- Clen : int}}
+          \attribute{\texttt{- T : char[TAG\textunderscore LEN]}}
+          \operation{\texttt{+ EncryptedMessage(char * A, int Alen, char (\& T)[TAG\textunderscore LEN], char * C, int Clen)}}
+          \operation{\texttt{+ EncryptedMessage(string encryptedMessage)}}
+          \operation{\texttt{+ PlaintextMessage decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id)}}
+          \operation{\texttt{+ string getMessage()}}
         \end{class}
         
         %AuthenticatedData
         \begin{class}[text width =8 cm]{AuthenticatedData}{-9 , 2}
-          \attribute{- authenticatedData : char *}
-          \attribute{- U : G2}
-          \attribute{- v : Big}
-          \attribute{- ws : vector<Big>}
+          \attribute{\texttt{- authenticatedData : char *}}
+          \attribute{\texttt{- U : G2}}
+          \attribute{\texttt{- v : Big}}
+          \attribute{\texttt{- ws : vector<Big>}}
           
-          \operation{+ AuthenticatedData(char * A)}
-          \operation{+ void add(Big encryptedRecipientKey)}
-          \operation{+ void encodeTo(char * array)}
-          \operation{+ vector\textless Big\textgreater getEncryptedRecipientKeys()}
-          \operation{+ int getLength()}
-          \operation{+ G2 getU()}
-          \operation{+ Big getV()}
-          \operation{+ void setU(G2 U)}
-          \operation{+ void setV(Big v)}
+          \operation{\texttt{+ AuthenticatedData(char * A)}}
+          \operation{\texttt{+ void add(Big encryptedRecipientKey)}}
+          \operation{\texttt{+ void encodeTo(char * array)}}
+          \operation{\texttt{+ vector\textless Big\textgreater getEncryptedRecipientKeys()}}
+          \operation{\texttt{+ int getLength()}}
+          \operation{\texttt{+ G2 getU()}}
+          \operation{\texttt{+ Big getV()}}
+          \operation{\texttt{+ void setU(G2 U)}}
+          \operation{\texttt{+ void setV(Big v)}}
         \end{class}
         \unidirectionalAssociation {AuthenticatedData}{part of}{1}{BroadcastMessage}
         \end{tikzpicture}
@@ -327,94 +437,31 @@ In Facebook the best key satisfying these properties is a Facebook username. A F
     \caption{Class Diagram of Client Side C++ MIRACL Based Back-end}
     \label{fig:class_client_side}
 \end{figure}
-\subsection{Client-Side Implementation}
-\subsubsection{Code Structure}
-\textcolor{red}{TODO: give a short description on what each function implements}
-
-\subsubsection{Encountered Issues}
-\textcolor{red}{TODO: Say something about pre-computation in MIRACL and why the const G2\& is necessary.}
-
-\subsection{Server-Side Implementation}
-
-\begin{figure}
-    \centering
-    \noindent\makebox[\textwidth]{
-        \scalebox{0.7} {
-        \begin{tikzpicture}
-        
-        % BroadcastMessage
-        \begin{abstractclass}[text width =8 cm]{BroadcastMessage}{2,2}
-          \attribute{\# message : string }
-          \attribute{\# autData : AuthenticatedData *}
-          \attribute{\# sessionKey : char[HASH\textunderscore LEN]}
-          \operation{\# void getIV(char (\& iv)[HASH\textunderscore LEN/2])}
-          \operation{\# void getK(char (\& iv)[HASH\textunderscore LEN/2])}
-          \operation{\# Big getSessionKey()}
-          \operation{+ AuthenticatedData getAuthenticatedData()}
-          \operation[0]{+ string getMessage()}
-        \end{abstractclass}
-        
-        % PlaintextMessage
-        \begin{class}[text width =9 cm]{PlaintextMessage}{ -9 , -6}
-          \inherit{BroadcastMessage}
-          \attribute{- r : Big}
-          \attribute{- recipients : vector\textless  string\textgreater}
-          \attribute{- recipientHashes : vector\textless G1\textgreater }
-          \attribute{- rho : Big}
-          \operation{+ PlaintextMessage(string message)}
-          \operation{+ void addRecipient(string recipient, PFC *pfc)}
-          \operation{+ EncryptedMessage encrypt(const G2\& P, const G2\& Ppub, PFC *pfc)}
-          \operation{+ string getMessage()}
-          \operation{+ vector <string> getRecipients()}
-          \operation{- generateKeys(PFC *pfc)}
-        \end{class}
-        
-        % EncryptedMessage
-        \begin{class}[text width =9 cm]{EncryptedMessage}{2 , -6}
-          \inherit{BroadcastMessage}
-          \attribute{- C : char *}
-          \attribute{- Clen : int}
-          \attribute{- T : char[TAG\textunderscore LEN]}
-          \operation{+ EncryptedMessage(char * A, int Alen, char (\& T)[TAG\textunderscore LEN], char * C, int Clen)}
-          \operation{+ EncryptedMessage(string encryptedMessage)}
-          \operation{+ PlaintextMessage decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id, PFC *pfc )}
-          \operation{+ string getMessage()}
-        \end{class}
-        
-        %DKGMessage
-        \begin{class}[text width =8 cm]{DKGMessage}{-9 , 2}
-          \attribute{- authenticatedData : char *}
-          \attribute{- U : G2}
-          \attribute{- v : Big}
-          \attribute{- ws : vector<Big>}
-          
-          \operation{+ AuthenticatedData(char * A)}
-          \operation{+ void add(Big encryptedRecipientKey)}
-          \operation{+ void encodeTo(char * array)}
-          \operation{+ vector\textless Big\textgreater getEncryptedRecipientKeys()}
-          \operation{+ int getLength()}
-          \operation{+ G2 getU()}
-          \operation{+ Big getV()}
-          \operation{+ void setU(G2 U)}
-          \operation{+ void setV(Big v)}
-        \end{class}
-        \unidirectionalAssociation {AuthenticatedData}{part of}{1}{BroadcastMessage}
-        \end{tikzpicture}
-    }}
-    \caption{Class Diagram of Client Side C++ MIRACL Based Back-end}
-    \label{fig:class_server_side}
-\end{figure}
+\subsection{Client Side Implementation}
+Software code describing the client side implementation achieves the required functionality for the \texttt{Publish} and \texttt{Retrieve} steps from Algorithm~\ref{alg:our_scheme}.
 
 \subsubsection{Code Structure}
-\textcolor{red}{TODO: Add a class diagram for the server-side implementation}
+All C++ functions implemented by the client side C++ MIRACL based back-end are illustrated in Figure~\ref{fig:class_client_side}. The following classes are defined:
+\begin{description}
+ \item[AuthenticatedData] describes the data that is authenticated by the AES-GCM implementation. AuthenticatedData corresponds to $\mathcal{A}$ in Algorithm~\ref{alg:our_scheme}.
+ \item[BroadcastMessage] is an abstract class that forms the base class of PlaintextMessage and EncryptedMessage. BroadcastMessage contains properties and functions EncryptedMessage and PlaintextMessage have in common.
+ \item[PlaintextMessage] corresponds to a BroadcastMessage as it is constructed by the sender before encryption.
+ \item[EncryptedMessage] corresponds to a BroadcastMessage as it is sent over the OSN in encrypted form.
+\end{description}
 
-\textcolor{red}{TODO: give a short description on what each function implements}
+The client side implementation also provides a procedural local C++ socket implementation that relies on the classes from Figure~\ref{fig:class_client_side} to communicate with the Firefox extension as illustrated in Figure~\ref{fig:new_scramble_arch}.
+
+\paragraph{Publish}
+When a user broadcasts a message, he inputs the plaintext message of his choice in the Firefox extension and selects the \id{}s of the intended recipients. The Firefox extension sends this data to the C++ back-end via the local C++ socket from Figure~\ref{fig:new_scramble_arch}. The C++ socket then initialises a PlaintextMessage object with the help of constructor \texttt{PlaintextMessage(string message)} and adds the recipients with \texttt{addRecipient(string recipient, PFC *pfc)}. After initialisation, the function \texttt{getMessage()} can return the plaintext message $m$ without the concatenated intended recipient set $\mathcal{S}$. The recipients of a PlaintextMessage can be retrieved with the \texttt{getRecipients()} function. A PlaintextMessage object is encrypted by calling \texttt{encrypt(const G2\& P, const G2\& Ppub, PFC *pfc)} where \texttt{P} and \texttt{Ppub} denote the public parameters and \texttt{*pfc} is a pointer to a MIRACL pairing-friendly curve object. The returned result is an EncryptedMessage object.
+
+
+\paragraph{Retrieve}
+When the local C++ socket receives an XML message containing an encrypted broadcast message, an EncryptedMessage object is initialised with the help of the constructor \texttt{EncryptedMessage(string encryptedMessage)}. After object construction, the \texttt{getMessage()} function returns a string of the ciphertext $\mathcal{B}$ from Algorithm~\ref{alg:our_scheme} in base64 encoding~\cite{rfc4648}. An EncryptedMessage object can be decrypted by calling \texttt{decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id)} where \texttt{P} and \texttt{Ppub} denote the public parameters, \texttt{*pfc} is a pointer to a MIRACL pairing-friendly curve object and \texttt{s\textunderscore id} is the user's secret key. The returned result is a PlaintextMessage object.
 
 \subsubsection{Encountered Issues}
-\textcolor{red}{TODO: Say something about the difficulties of multithreading MIRACL}
-\textcolor{red}{TODO: Say something about the difficulties of implementing the scheme from Kate et al.}
-\textcolor{red}{TODO: Say something about the difficulties of serialising messages}
-\textcolor{red}{TODO: Say something about the difficulties of inheritance in c++}
+The most important improvement during the implementation of the client side software code was precomputing the public parameters. MIRACL provides function calls to precompute points in $G_2$ for multiplication and points in $G_T$ for exponentiation. Since the public parameters do not change during the lifetime of our infrastructure these parameters only need to be precomputed once. The execution times for the \texttt{Retrieve} step in Table~\ref{table:performance_publish_and_retrieve} are three times as fast than without precomputation.
+
+During the implementation process our code slowly evolved from procedural code to the object oriented code in Figure~\ref{fig:class_client_side}. After introduction of the function call \texttt{decrypt(G2 P, G2 Ppub, PFC *pfc, G1 s\textunderscore id)}, we noticed very slow decryption times. The reason for the decrease in decryption time was explained by the way C++ processes function arguments. Normally, C++ creates a new object for every function argument. However, due to this functionality the \texttt{P} and \texttt{Ppub} objects lost their internal state along with their precomputed values. This was resolved by altering the function call to \texttt{decrypt(const G2\& P, const G2\& Ppub, PFC *pfc, const G1\& s\textunderscore id)}.
 
 \section{Performance Analysis}
 \label{sec:performance_analysis}
@@ -497,7 +544,7 @@ In future optimisations of our current implementation, techniques of randomness 
 
 \section{Current Limitations}
 \label{sec:limitations_of_implementation}
-The algorithm as it is currently implemented only serves as a proof-of-concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Although all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} are present, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of deliberate design decisions.
+The algorithm as it is currently implemented only serves as a proof of concept since it lacks a number of requirements needed for secure use in practice. These aspects were not implemented due to the limited time available. Since all core requirements for the protocol in Algorithm~\ref{alg:our_scheme} are present, only the aspects for practical usage in more hostile environments are missing. However, including these aspects should be straightforward and is only a matter of implementation instead of deliberate design decisions.
 
 \subsection{Client Side}
 Since the IBE scheme is integrated in the existing Scramble UI, no drastic adaptations should be made to the client side implementation. The major drawback of our IBE proposal is that it makes the Scramble plugin more dependent on the underlying OSN. Consequently, every OSN should be separately integrated into the Scramble plugin since each OSN offers its own API calls for reading out friend connections. More OSNs than Facebook should be actively supported by the IBE Scramble tool to motivate wide user adapation of the plugin.
@@ -505,7 +552,7 @@ Since the IBE scheme is integrated in the existing Scramble UI, no drastic adapt
 \subsection{Server Side}
 In its present form, the PKG is only simulated in a local environment. Therefore, it suffices to rely on synchronous communication over C++ sockets each listening on a different port. However, before adaption to a world-wide DKG network is possible, the protocol should take more asynchronous aspects into account such as connection-loss, DOS-attacks or undelivered packets. Kate et al.~\cite{art:KateHG12} propose a more advanced DKG protocol in the asynchronous setting that could be adapted for our IBE setting.
 
-Since the DKG protocol is currently always simulated in a local environment, all PKG sockets communicate their XML messages in plain text. More secure socket protocols should be considered such as SSL~\cite{rfc6101} for adoption to a more hostile distributed setting.
+Since the DKG protocol is currently simulated in a local environment, all PKG sockets communicate their XML messages in plain text. More secure socket protocols should be considered such as SSL~\cite{rfc6101} for adoption to a more hostile distributed setting.
 
 Furthermore, the current assumptions on the PKGs (Section~\ref{sec:updated_model}) are too severe for practical environments. In practice, the current Pedersen DKG scheme~\cite{art:Pedersen91a} is insecure and is better replaced by the one from Gennaro et al.~\cite{art:GennaroJKR07}. If all mentioned updates on the current server side scheme are effectively achieved, more relaxed assumptions on the PKG are in place. With less stringent PKG assumptions, the DKG network could even be partially supported by the OSN providers to show their good intensions of making their networks more private.
 
@@ -513,7 +560,10 @@ Furthermore, the current assumptions on the PKGs (Section~\ref{sec:updated_model
 Currently, private key extraction takes the form of a POST request over HTTPS~\cite{rfc2818}. Although the PKGs publish the response in plain text to their PHP website, the communication is encrypted by a self-signed SSL certificate. Ideally, this certificate is signed by a world-wide trusted CA such that the client-side implementation can effectively verify whether it is communicating with a valid PKG.
 
 Although web communication between the client side Scramble tool and the server side PKG is already encrypted, a client can request the private key parameters for every $\id{}$ since there is no authentication mechanism checking the user's identity. However, Facebook provides third party authentication in its API. If a Facebook login dialogue is integrated in the Scramble UI, the returned Facebook authentication token serves as a proof to the PKG that the requester of the private key resembles the owner of the corresponding Facebook profile.
+
 \section{Summary}
+In this chapter we summarised the implementation process of applying Algorithm~\ref{alg:our_scheme} to Facebook in the form of a Firefox extension called Scramble. After an overview of the existing Scramble architecture, adaptations to the existing architecture were proposed to enable implementation of our proposed solution. The multi-precision library MIRACL was used to implement all algebraic computations. In a next section we uncovered how our code was structured and the issues we encountered for both the client and server side of our application. This was followed by a performance evaluation which showed the overhead of our implementation is tolerable for practical usage in OSNs. We concluded the chapter with the limitations our current proof of concept faces. These were all minor issues that could be resolved straightforwardly.
+
 
 %%% Local Variables: 
 %%% mode: latex

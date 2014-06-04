@@ -13,12 +13,12 @@
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {table}{\numberline {4.1}{\ignorespaces Security comparison of considered IBE schemes\relax }}{44}{table.caption.43}
-\contentsline {table}{\numberline {4.2}{\ignorespaces Performance comparison of considered IBE schemes in MIRACL\relax }}{45}{table.caption.44}
+\contentsline {table}{\numberline {4.1}{\ignorespaces Security comparison of considered IBE schemes\relax }}{49}{table.caption.43}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Performance comparison of considered IBE schemes in MIRACL\relax }}{49}{table.caption.44}
 \addvspace {10pt}
-\contentsline {table}{\numberline {5.1}{\ignorespaces Performance of the \texttt {Setup} stage in function of the total number of PKGs.\relax }}{62}{table.caption.65}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Performance of the \texttt {KeyGen} stage in function of the threshold number of PKGs.\relax }}{63}{table.caption.66}
-\contentsline {table}{\numberline {5.3}{\ignorespaces Performance of the \texttt {Publish} and \texttt {Retrieve} stages in function of the number of intended recipients.\relax }}{64}{table.caption.67}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Performance of the \texttt {Setup} stage in function of the total number of PKGs.\relax }}{69}{table.caption.72}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Performance of the \texttt {KeyGen} stage in function of the threshold number of PKGs.\relax }}{69}{table.caption.73}
+\contentsline {table}{\numberline {5.3}{\ignorespaces Performance of the \texttt {Publish} and \texttt {Retrieve} stages in function of the number of intended recipients.\relax }}{70}{table.caption.74}
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}

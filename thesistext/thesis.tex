@@ -8,7 +8,7 @@
 \setup{filingcard,
   translatedtitle=,
   udc=621.3,
-  shortabstract={Nowadays Online Social Networks (OSNs) constitute an important and useful communication channel. At the same time, coarse-grained privacy preferences protect the shared information insufficiently. Cryptographic techniques can provide interesting mechanism to protect privacy of users in OSNs. However, this approach faces several issues, such as, OSN provider acceptance, user adoption, key management and usability. We suggest a practical solution that uses Identity Based Encryption (IBE) to simplify key management and enforce confidentiality of data in OSNs. Moreover, we devise an outsider anonymous broadcast IBE scheme to disseminate information among multiple users, even if they are not using the system. Finally, we demonstrate the viability and tolerable overhead of our solution via an open-source prototype.
+  shortabstract={Currently Online Social Networks (OSNs) constitute an important and useful communication channel. However, coarse-grained privacy preferences protect the shared information insufficiently. Although cryptography provides interesting mechanisms to protect privacy, existing solutions face several issues such as, OSN provider acceptance, user adoption, key management and usability. In this thesis, we propose a practical solution that uses Identity Based Encryption (IBE) to simplify key management and enforce confidentiality of data in OSNs. By translating key generation of traditional IBE schemes to a distributed setting, our scheme prevents key escrow as long as the number of colluding key generators does not exceed a predefined threshold. Moreover, we devise an outsider anonymous broadcast IBE scheme to disseminate information among multiple users, even if they are not using the system. Apart from increased usability, the proposed solution no longer requires complex key management infrastructures keeping track of all keys in the system thereby relaxing users' prior knowledge on cryptographic primitives. The viability and tolerable overhead of our solution is demonstrated by extending an existing plugin for encryption in OSNs called Scramble. Based on the existing Scramble architecture and the MIRACL multi-precision library, we program an open-source prototype that implements our proposed solution on Facebook but can be generalised for use in any existing OSN infrastructure.
 }}
 % Uncomment the next line for generating the cover page
 %\setup{coverpageonly}
@@ -79,10 +79,9 @@
 \newcommand{\id}[1]{\ensuremath{\mathtt{id}_{#1}}}
 %\includeonly{chap-n}
 \begin{document}
-%TODO: vraag aan begeleider hoe Game opnieuw moet worden genummerd...
 
 \begin{preface}
-An intensive year of programming, writing and reviewing has preceded the submission of this thesis text. I would like to take this opportunity to present my gratitude to those who have made this possible. 
+An intensive year of programming, writing and reviewing has preceded the submission of this thesis text. I would like to take the opportunity to present my gratitude to those who have made this possible. 
 
 First of all, I would like to thank Prof. Bart Preneel and Prof. Vincent Rijmen for making this research possible.
 
@@ -90,18 +89,22 @@ Second of all, I would like to thank my mentor Filipe Beato for the many intensi
 
 I would also like to acknowledge my assessors, Prof. Claudia Diaz and Prof. Frank Piessens for giving their insights and taking the time to read this text.
 
-I cannot forget to mention Sofie for being around and supporting me. No one in my environment has inspired and motivated me more than Sofie.
+I cannot forget to express my gratefulness to Sofie, for being around and supporting me. No one in my environment has inspired and motivated me more than Sofie during my last year as a master student.
 
 Special gratitude goes to all my friends at Lerkeveld and VTK for distracting me during my leisure time. I am sorry for all the times I shared these little frustrations that come with writing a thesis text.
 
-Finally, special thanks goes to my parents who have always believed in me during my five year study at KU Leuven. Without their financial and emotional support I would not have pursued my dream to become an engineer.
+Finally, special thanks goes to my parents who have always believed in me during my five year study at KU Leuven. Without their financial and emotional support I would not have pursued my dream to become an engineer. Therefore, this work is also partially their realisation.
 
 \end{preface}
 
 \tableofcontents*
 
 \begin{abstract}
-  Nowadays Online Social Networks (OSNs) constitute an important and useful communication channel. At the same time, coarse-grained privacy preferences protect the shared information insufficiently. Cryptographic techniques can provide interesting mechanism to protect privacy of users in OSNs. However, this approach faces several issues, such as, OSN provider acceptance, user adoption, key management and usability. We suggest a practical solution that uses Identity Based Encryption (IBE) to simplify key management and enforce confidentiality of data in OSNs. Moreover, we devise an outsider anonymous broadcast IBE scheme to disseminate information among multiple users, even if they are not using the system. Finally, we demonstrate the viability and tolerable overhead of our solution via an open-source prototype.
+  Currently Online Social Networks (OSNs) constitute an important and useful communication channel. However, coarse-grained privacy preferences protect the shared information insufficiently. Although cryptography provides interesting mechanisms to protect privacy, existing solutions face several issues such as, OSN provider acceptance, user adoption, key management and usability. 
+  
+  In this thesis, we propose a practical solution that uses Identity Based Encryption (IBE) to simplify key management and enforce confidentiality of data in OSNs. By translating key generation of traditional IBE schemes to a distributed setting, our scheme prevents key escrow as long as the number of colluding key generators does not exceed a predefined threshold. Moreover, we devise an outsider anonymous broadcast IBE scheme to disseminate information among multiple users, even if they are not using the system. Apart from increased usability, the proposed solution no longer requires complex key management infrastructures keeping track of all keys in the system thereby relaxing users' prior knowledge on cryptographic primitives.
+  
+  The viability and tolerable overhead of our solution is demonstrated by extending an existing plugin for encryption in OSNs called Scramble. Based on the existing Scramble architecture and the MIRACL multi-precision library, we program an open-source prototype that implements our proposed solution on Facebook but can be generalised for use in any existing OSN infrastructure.
 
 \end{abstract}
 
@@ -121,6 +124,7 @@ Finally, special thanks goes to my parents who have always believed in me during
     ANO-IND-CCA & Anonymity preserving IBE scheme that is indistinguishable under chosen ciphertext attacks \\ 
     ANO-IND-CPA & Anonymity preserving IBE scheme that is indistinguishable under chosen plaintext attacks \\
     API & Application Programming Interface \\
+    CA & Certification Authority \\
     DKG   & Distributed Key Generation \\
     IBE   & Identity-Based Encryption \\
     IND-CCA & Indistinguishability under Chosen Ciphertext Attack \\
@@ -138,6 +142,7 @@ Finally, special thanks goes to my parents who have always believed in me during
   $\lambda$ & Security parameter \\
   $l$ & The number of bits required to realise security level $\lambda$ \\
   $s$ & Secret \\
+  $\mathcal{S}$ & Set of intended recipients \\
   $sk_i$ & Private key corresponding to the public key $pk_i$ or the public verifying key $vk_i$ depending on the application \\
   $pk_i$ & Public key with corresponding private key $sk_i$ \\
   $vk_i$ & Verifying key with corresponding signing key $sk_i$ \\
@@ -157,13 +162,13 @@ Finally, special thanks goes to my parents who have always believed in me during
   $S_A \left( m \right)$ & Signature of entity $A$ on message $m$ \\
   $S_{sk_A} \left( m \right)$ & Signature generated by the signing key $sk_A$ of entity $A$ on message $m$ \\
   $e: G_1 \times G_2 \rightarrow G_T$ & Bilinear map \\
-  $U, P, Q$ & Points on an elliptic curve \\
-  $e \left( P, Q \right)$ & Bilinear map  for the points $P \in G_1, Q \in G_2$ such that ${e \left( P, Q \right) \in G_T}$ \\  
+  $U, P, Q$ & Points on an elliptic curve \\ 
     \end{tabularx}
 \end{flushleft}
 \begin{flushleft}
  \renewcommand{\arraystretch}{1.1}
  \begin{tabularx}{\textwidth}{@{}p{30mm}X@{}}
+  $e \left( P, Q \right)$ & Bilinear map  for the points $P \in G_1, Q \in G_2$ such that ${e \left( P, Q \right) \in G_T}$ \\
   $\mathcal{A} \left( a, b \right)$ & Algorithm $\mathcal{A}$ with parameters $a$ and $b$ \\
   $\left< a, b, c \right> \leftarrow \mathcal{A}( d, e )$ & Algorithm $\mathcal{A}$ with parameters $d$ and $e$, returns the collection of values $a, b, c$ \\
   $v \oplus w$ & Bit by bit XOR operation of $v$ and $w$ \\

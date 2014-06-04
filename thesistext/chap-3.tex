@@ -1,6 +1,6 @@
 \chapter{Design of a Practical Encryption Scheme for Online Social Networks}
 \label{cha:n}
-In the first section of this chapter (Section~\ref{sec:model_of_current_situation}), a model is developed that allows to describe the current OSN situation. By  defining every considered entity in the OSN, the resulting model serves as the framework in which we design our future constructions. In a next step (Section~\ref{sec:threat_model}), the different threats within the model are defined. The section on the threat model first highlights the current privacy threats, followed by a definition of the considered adversaries and the assumptions on these adversaries. In Section~\ref{sec:our_proposal} our proposal is derived by stating cryptographic goals based on the earlier threat model. This is followed by design decisions on how to achieve these goals and how this impacts our model. Section~\ref{sec:our_proposal} is concluded with a concrete proposal in the form of an algorithm along with an evaluation section motivating why our cryptographic design goals are successfully met.
+This chapter presents our proposal for practical usable IBE for OSNs. In the first section (Section~\ref{sec:model_of_current_situation}), a model is developed that allows to describe the current OSN situation. By  defining every considered entity in the OSN, the resulting model serves as the framework in which we design our future constructions. In a next step (Section~\ref{sec:threat_model}), the different threats within the model are defined. The section on the threat model first highlights the current privacy threats, followed by a definition of the considered adversaries and the assumptions on these adversaries. In Section~\ref{sec:our_proposal} our proposal is derived by stating cryptographic goals based on the earlier threat model. This is followed by design decisions on how to achieve these goals and how this impacts our model. Section~\ref{sec:our_proposal} is concluded with a concrete proposal in the form of an algorithm along with an evaluation section motivating why our cryptographic design goals are successfully met.
 
 \section{Model of the Current Situation}
 \label{sec:model_of_current_situation}
@@ -8,7 +8,7 @@ The most commonly accepted definition of an \textit{Online Social Network} (OSN)
 
 \begin{defn}[Online Social Network~\cite{art:BoydE08}]
 \label{def:osn_boyd}
- An \textit{online social network} (OSN) is a web-based service that allows individuals to:
+ An \textit{online social network} (OSN) is a web-based service that allows users to:
  \begin{enumerate}
   \item Construct a public or semi-public profile within a bounded system
   \item Articulate a list of other users with whom they share a connection.
@@ -63,9 +63,9 @@ Different entities within the OSN have access rights to the profile $\id{U}$ of 
  All viewers with access to non-public content of a profile $\id{U}$ of a user $U$ are in the \textit{profile viewers set} $\mathcal{V}_U \subseteq \mathcal{V}$.
 \end{defn}
 
-Many different entities can be part of the set $\mathcal{V}$, e.g. OSN users, advertising companies, system administrators of the OSN or software applications specifically developed for the OSN. Usually, the OSN determines who is part of $\mathcal{V}$. Therefore, a user $U$ often has no control in who is a member of $\mathcal{V}_U$.
+Many different entities can be part of the set $\mathcal{V}$, e.g. OSN users, advertising companies, system administrators of the OSN or software applications specifically developed for the OSN. Usually, the OSN determines who is part of $\mathcal{V}$. Therefore, a user $U$ often has limited control in who is a member of $\mathcal{V}_U$.
 
-As illustrated by Figure~\ref{fig:current_model}, Sender $U$ wants to broadcast a message $m$ over the OSN infrastructure to the intended recipient set $\mathcal{S}$. As $U$ only wants to share the message with a specific group of friends, $U$ defines the intended recipient set, such that $\mathcal{S} \subset \mathcal{F}_U$. Next, $U$ sends $m$ to the OSN's distribution server along with the intended recipient set $\mathcal{S}$. The OSN Server further distributes the message to all users in $\mathcal{S}$. Also a subset of third party applications and advertisers get access to the distributed message if they are inside the viewers group $\mathcal{V}_U$. Every entity who has access to the message is coloured blue in Figure~\ref{fig:current_model}.
+As illustrated by Figure~\ref{fig:current_model}, Sender $U$ wants to broadcast a message $m$ over the OSN infrastructure to the intended recipient set $\mathcal{S}$. As $U$ only wants to share the message with a specific group of friends, $U$ defines the intended recipient set $\mathcal{S}$, such that $\mathcal{S} \subset \mathcal{F}_U$. Next, $U$ sends $m$ to the OSN's distribution server along with the intended recipient set $\mathcal{S}$. The OSN Server further distributes the message to all users in $\mathcal{S}$. Also a subset of third party applications and advertisers get access to the distributed message if they are inside the viewers group $\mathcal{V}_U$. Every entity who has access to the message is coloured blue in Figure~\ref{fig:current_model}.
 
 Figure~\ref{fig:current_model} illustrates previous definitions applied to an OSN as it is often encountered on the internet. The different sets in Figure~\ref{fig:current_model} are defined as follows:
 \begin{itemize}
@@ -181,10 +181,11 @@ It requires almost no additional effort to transform the model from Figure~\ref{
 
 \section{Threat Model}
 \label{sec:threat_model}
+The threat model considers all entities and how they pose a threat in the aforementioned security model.
 
 \subsection{Privacy Threats}
 \label{sec:issues_with_current_osn_situation}
-Currently an OSN as illustrated in Figure~\ref{fig:current_model} presents several issues that can be classified as follows.
+Currently an OSN as illustrated in Figure~\ref{fig:current_model} presents several issues that can be classified as either misplaced trust in the OSN provider or dependency on the OSN's privacy infrastructure.
 
 \subsubsection{Misplaced Trust in the OSN Provider}
 Users have to trust the OSN provider, however this trust is often misplaced on several fronts.
@@ -215,6 +216,7 @@ We consider adversaries that are honest but curious, i.e. passive adversaries th
 \end{enumerate}
 
 \subsection{Assumptions}
+The threat model can narrow down the capabilities of entities in the model to achieve well-defined adversaries. However, an architecture protecting against more restricted adversaries is considered less secure.
 
 \subsubsection{Assumptions on the OSN}
 OSNs are assumed not to violate integrity neither availability. Nothing can be done to prevent the OSN from actively altering its own resources to bring down the proposed IBE architecture. It can not be prevented that a user of IBE on the OSN infrastructure gets blocked by the OSN provider. Neither can it be prevented that OSNs delete messages because they are encrypted. OSNs can also easily impersonate the owner of a profile in their infrastructure. Therefore, from this moment onwards, OSNs are assumed not to act as an active adversary. It is assumed that as soon as privacy aware users notice this kind of OSN behaviour, they will adopt to more reliable OSN alternatives. However, our assumptions do not prevent the OSN from trying to passively break confidentiality as they have every motivation for it in the context of their current business model.
@@ -233,6 +235,7 @@ In order to achieve a strong encryption mechanism, users are unlimited in their 
 
 \section{Our Proposal}
 \label{sec:our_proposal}
+Our well-defined security model is used as a framework to define a concrete proposal protecting against the earlier defined adversaries.
 
 \subsection{Cryptographic Goals}
 \label{sec:cryptographic_goals}
@@ -493,16 +496,6 @@ Algorithm~\ref{alg:our_scheme} is outsider recipient anonymous due to the concat
 
 \paragraph{Authenticity and integrity} Authenticity and integrity are guaranteed by the authenticated symmetric encryption scheme and the authentication mechanism of the OSN. If the assumptions on the OSN's authentication mechanism hold, only the owner of an OSN profile should be able to actively broadcast messages in name of the corresponding profile identifier $\id{i}$.
 
-\paragraph{No key escrow and key validation} Key escrow is avoided by the DKG protocol included in both the \texttt{Setup} and \texttt{KeyGen} stages of the algorithm. 
-The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme} validates the correctness of a users' shares. However, this check does not ensure security against malicious PKGs since the Pedersen protocol~\cite{art:Pedersen91a} is insecure in the presence of malicious PKGs. That is, malicious PKGs can still affect the outcome of certain bits of the shared master secret key $sk_{msk}$ with non-negligible advantage. To circumvent these issues, the DKG scheme from Gennaro et al.~\cite{art:GennaroJKR07} should be implemented. However, since the scheme is developed in a threat model where PKGs are assumed trustworthy, this concern falls out of the scope of this thesis. Implementation of the DKG protocol from Gennaro et al.~\cite{art:GennaroJKR07} occurs similar to the scheme from Pedersen~\cite{art:Pedersen91a} since it relies on the same mathematical concepts. Therefore, adapting Algorithm~\ref{alg:our_scheme} to a more hostile DKG environment should be straightforward.
-
-\paragraph{Limited key validity} For the sake of clarity, concatenation of expiration dates with public keys is not explicitly included in Algorithm~\ref{alg:our_scheme}. However, with the help of Algorithm~\ref{alg:map_to_date} this should be trivial since only the interpretation of the identifier symbol $\id{i}$ changes from a permanent identifier of a user to only a temporary identifier when concatenated with an expiration date.
-
-The proposed solution can be used in any OSN that assigns unique public identifiers, such as usernames. Since the public keys are represented as strings, users are not required to upload keys to an additional third party server. Distributed key generation solves the key escrow issues that come with IBE solutions.
-
-\section{Summary}
-
-
 %%%%%%%%%%%%%%%%%%%%%
 % Hacky Latex stuff %
 %%%%%%%%%%%%%%%%%%%%%
@@ -631,6 +624,18 @@ The proposed solution can be used in any OSN that assigns unique public identifi
 \makeatletter
 \setlength{\headsep}{19.8738pt}
 \makeatother
+
+\paragraph{No key escrow and key validation} Key escrow is avoided by the DKG protocol included in both the \texttt{Setup} and \texttt{KeyGen} stages of the algorithm. 
+The last check of the \texttt{KeyGen} step of Algorithm~\ref{alg:our_scheme} validates the correctness of a users' shares. However, this check does not ensure security against malicious PKGs since the Pedersen protocol~\cite{art:Pedersen91a} is insecure in the presence of malicious PKGs. That is, malicious PKGs can still affect the outcome of certain bits of the shared master secret key $sk_{msk}$ with non-negligible advantage. To circumvent these issues, the DKG scheme from Gennaro et al.~\cite{art:GennaroJKR07} should be implemented. However, since the scheme is developed in a threat model where PKGs are assumed trustworthy, this concern falls out of the scope of this thesis. Implementation of the DKG protocol from Gennaro et al.~\cite{art:GennaroJKR07} occurs similar to the scheme from Pedersen~\cite{art:Pedersen91a} since it relies on the same mathematical concepts. Therefore, adapting Algorithm~\ref{alg:our_scheme} to a more hostile DKG environment should be straightforward.
+
+\paragraph{Limited key validity} For the sake of clarity, concatenation of expiration dates with public keys is not explicitly included in Algorithm~\ref{alg:our_scheme}. However, with the help of Algorithm~\ref{alg:map_to_date} this should be trivial since only the interpretation of the identifier symbol $\id{i}$ changes from a permanent identifier of a user to only a temporary identifier when concatenated with an expiration date.
+
+The proposed solution can be used in any OSN that assigns unique public identifiers, such as usernames. Since the public keys are represented as strings, users are not required to upload keys to an additional third party server. Distributed key generation solves the key escrow issues that come with IBE solutions.
+
+\section{Summary}
+We started this chapter with the definition of a security model describing the current OSN situation. With the help of this model, we defined privacy threats in the model along with an adversary definition and assumptions on potential adversaries. In this framework, cryptographic objectives were set that defined the boundaries of our further design decisions. From these design decisions, it followed that a PKG had to be included as an additional entity the security model. After the presentation of an updated security model Algorithm~\ref{alg:our_scheme} was developed and evaluated. The result is a scheme that protects against the adversaries from our model and achieves the aforementioned design goals.
+
+We further showed the feasibility of applying Algorithm~\ref{alg:our_scheme} to existing OSNs by effectively implementing it on an existing OSN. The results of our implementation process are further discussed in Chapter~5.
 
 %%% Local Variables: 
 %%% mode: latex
