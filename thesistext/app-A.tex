@@ -1,6 +1,6 @@
 \chapter{Gentry's IBE Scheme}
 \label{app:gentrys_ibe_scheme}
-Gentry~\cite{art:Gentry06} proposed the first IND-ANO-CCA secure scheme in the standard model. The original proposed scheme from Gentry relies on symmetric pairings. A transformed version of Gentry's scheme to the asymmetric setting can be found in Algorithm~\ref{alg:gentrys_scheme}.
+Gentry~\cite{art:Gentry06} proposed the first IND-ANO-CCA secure scheme in the standard model. However, the original proposed scheme from Gentry relies on symmetric pairings which are proven less secure than asymmetric pairings in literature~\cite{art:AdjMOR13,art:BarbulescuGJT14,art:Joux13}. A transformed version of Gentry's scheme to the asymmetric setting can be found in Algorithm~\ref{alg:gentrys_scheme}.
 
 For reasons of conciseness, it was decided to rely on multiplicative notation in the gap groups as well, although this is in contrast with the additive convention used in the remainder of this thesis.
 
@@ -26,21 +26,22 @@ as required.
 \begin{algorithm}
 \caption{Gentry's asymmetric IBE Scheme~\cite{art:Gentry06}}
 \label{alg:gentrys_scheme}
+~\\
 Let $G_1 , G_2$ and $G_T$ be groups of order $p$ and let $e : G_1 \times G_2 \rightarrow G_T$ be the bilinear map. The IBE system works as follows.
 
 \begin{description}
-\item \textbf{\textit{Setup:}} The PKG picks random generators $P_1, g_1 \in G_1$, generators $Q_2, U_1, U_2, U_3 \in G_2$ and a random $\alpha \in \mathbb{Z}_p$. It sets $g_1 = P_1^{\alpha} \in G_1$. It chooses a hash function $H_1$ and $H_2: \{ 0,1 \}^* \rightarrow \{ 0 , 1 \}^n$ from a family of universal one-way hash functions. The public $params$ and private $masterkey$ are given by
+\item[Setup:] The PKG picks random generators $P_1, g_1 \in G_1$, generators $Q_2, U_1, U_2, U_3 \in G_2$ and a random $\alpha \in \mathbb{Z}_p$. It sets $g_1 = P_1^{\alpha} \in G_1$. It chooses a hash function $H_1$ and $H_2: \{ 0,1 \}^* \rightarrow \{ 0 , 1 \}^n$ from a family of universal one-way hash functions. The public $params$ and private $masterkey$ are given by
 \begin{equation*}
  params = \left( P_1,Q_2,U_1,U_2,U_3,H_1,H_2\right) \; \; \; \; \; masterkey = \alpha
 \end{equation*}
 
-\item \textbf{\textit{KeyGen:}} To generate a private key for identity \id{} $\in \mathbb{Z}_p$, the PKG generates random $r_{\id{},i} \in \mathbb{Z}_p$ for $i \in \{1,2,3\}$, and outputs the private key
+\item[KeyGen:] To generate a private key for identity \id{} $\in \mathbb{Z}_p$, the PKG generates random $r_{\id{},i} \in \mathbb{Z}_p$ for $i \in \{1,2,3\}$, and outputs the private key
 \begin{equation*}
  d_{\id{}} = \{ \left( r_{\id{},i}, U_{\id{},i} \right) : i \in \{ 1, 2, 3\}\}, \; \; \textrm{where} \; \; U_{\id{},i} = \left( U_{i}Q_2^{-r_{\id{},i}} \right)^{\frac{1}{\alpha-\id{}}} \in G_2
 \end{equation*}
 If \id{} $ = \alpha $, the PKG aborts. As before, we require that the PKG always use the same random values $\{r_{\id{},i}\}$ for \id{}.
 
-\item \textbf{\textit{Encrypt:}} To encrypt $m \in \{ 1, 0 \}^n$ using identity \id{} $\in \mathbb{Z}_p$, the sender generates random $s \in \mathbb{Z}_p$, and sends the ciphertext
+\item[Encrypt:] To encrypt $m \in \{ 1, 0 \}^n$ using identity \id{} $\in \mathbb{Z}_p$, the sender generates random $s \in \mathbb{Z}_p$, and sends the ciphertext
 \begin{equation*}
  \begin{array}{lcl}
   C & = & \left( g_{1}^{s}P_1^{-s\cdot\id{}}, \; e \left( P_1, Q_2\right)^s, \; m \oplus H_2 \left( e \left( P_1, U_1 \right)^s \right), \; e \left( P_1, U_2 \right)^s e \left( P_1, U_3\right)^{s \beta} \right) \\ & = & \left( T, V, w, Y \right)
@@ -48,7 +49,7 @@ If \id{} $ = \alpha $, the PKG aborts. As before, we require that the PKG always
 \end{equation*}
 Note that $T \in G_1, V \in G_T,  w \in \{ 1, 0 \}^n$ and $Y \in G_T$. We set $\beta = H_1 \left( \{ T \parallel V \parallel w \} \right)$. Encryption does not require any pairing computations once $e \left( P_1, Q_2 \right)$, and $\left< e \left( P_1, U_i \right) \right>$ have been pre-computed or alternatively included in $params$.
 
-\item \textbf{\textit{Decrypt:}} To decrypt ciphertext $C = \{ T \parallel V \parallel w \parallel Y \}$ with \id{}, the recipient sets $\beta=H_1 \left( \{ T \parallel V \parallel w \} \right)$ and tests whether
+\item[Decrypt:] To decrypt ciphertext $C = \{ T \parallel V \parallel w \parallel Y \}$ with \id{}, the recipient sets $\beta=H_1 \left( \{ T \parallel V \parallel w \} \right)$ and tests whether
 \begin{equation*}
  Y = e \left( T, U_{\id{}, 2}U_{\id{}, 3}^{\beta} \right)V^{r_{\id{},2}+r_{\id{},3}\beta}
 \end{equation*}

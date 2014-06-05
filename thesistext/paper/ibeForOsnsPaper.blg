@@ -1,6 +1,6 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: bare_jrnl.aux
+The top-level auxiliary file: ibeForOsnsPaper.aux
 The style file: IEEEtran.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -30,7 +30,7 @@ Warning--I didn't find a database entry for "DBLP:conf/eurocrypt/91"
 Done.
 You've used 33 entries,
             4039 wiz_defined-function locations,
-            1081 strings with 14624 characters,
+            1081 strings with 14636 characters,
 and the built_in function-call counts, 24857 in all, are:
 = -- 2018
 > -- 531

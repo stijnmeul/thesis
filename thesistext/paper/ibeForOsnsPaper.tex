@@ -104,6 +104,7 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows,positioning}
 \usepackage{rotating}
+\usepackage{booktabs}
 
 % Custom Macros
 \newcommand{\figref}[1]{{Figure}~\ref{#1}}
@@ -404,10 +405,10 @@
 % was not built to handle multiple paragraphs
 %
 
-\author{Stijn~Meul,~\IEEEmembership{}
-        Filipe~Beato,~\IEEEmembership{}
-        Bart~Preneel,~\IEEEmembership{}
-        and~Vincent~Rijmen,~\IEEEmembership{}% <-this % stops a space
+\author{Stijn~Meul,
+        Filipe~Beato,
+        Bart~Preneel
+        and~Vincent~Rijmen% <-this % stops a space
 % <-this % stops an unwanted space
 }
 
@@ -513,7 +514,7 @@ identity-based encryption (IBE), broadcast encryption (BE), distributed key gene
 \hfill June 6, 2014
 
 \subsection{Problem Statement}
-All these worrisome issues motivate the need for effective techniques to properly protect user's privacy in OSNs. Several solutions have been proposed and advocated to use cryptographic mechanisms in order to address the privacy issues, either by an add-on atop of existing OSNs~\cite{BadenPersona,BeatoScramble,Guha:2008,Luo:2009}, or by complete new privacy-friendly architectures~\cite{DBLP:conf/sp/CristofaroSTW12}, mainly decentralized~\cite{DBLP:conf/wowmom/CutilloMO11,NYT2010.Diaspora}. In general, those solutions suffer from user adoption and key management issues as users are required to register and then share, certify and store public keys~\cite{article2400}. Completely new architectures represent a difficult step for users as the trade off of moving away from the commonly used social ecosystem compared with the risk of losing interactions is high. Arguably, current centralized OSNs are here to stay and will be continue to be actively used by millions of people. In light of recent events, such as Edward Snowden's whistle-blowing on US surveillance programs~\cite{prism}, OSN providers have all interest to maintain their users and a privacy-friendly image. Hence, it is important to protect user's sharing information and the recipient set as it can contain private and sensitive information to the user. 
+All these worrisome issues motivate the need for effective techniques to properly protect user's privacy in OSNs. Several solutions have been proposed and advocated to use cryptographic mechanisms in order to address the privacy issues, either by an add-on atop of existing OSNs~\cite{BadenPersona,BeatoScramble,Guha:2008,Luo:2009}, or by complete new privacy-friendly architectures~\cite{DBLP:conf/sp/CristofaroSTW12}, mainly decentralized~\cite{DBLP:conf/wowmom/CutilloMO11,NYT2010.Diaspora}. In general, those solutions suffer from user adoption and key management issues as users are required to register and then share, certify and store public keys~\cite{article2400}. Completely new architectures represent a difficult step for users as the trade off of moving away from the commonly used social ecosystem compared with the risk of losing interactions is high. Arguably, current centralized OSNs are here to stay and will continue to be actively used by millions of people. In light of recent events, such as Edward Snowden's whistle-blowing on US surveillance programs~\cite{prism}, OSN providers have all interest to maintain their users and a privacy-friendly image. Hence, it is important to protect user's sharing information and the recipient set as it can contain private and sensitive information to the user. 
 
 
 \subsection{Main Idea}
@@ -522,7 +523,7 @@ Identity Based Encryption (IBE)~\cite{DBLP:conf/crypto/Shamir84} solutions overc
 
 Many OSN users are not only represented on a single OSN but on several, thus, can also hold multiple public keys. Moreover, the multi-PKG setting could be supported and maintained by several existing OSNs. In particular, collaboration between OSN providers that compete along is assumed to be a difficult task and orthogonal to their economical business model. 
 \figref{fig:overview} depicts an overview example of the proposed model, where a user authenticates to $t$-PKGs of his choice using, e.g., a similar token as in open id protocols, to retrieve his private key. This action can be performed after the reception of encrypted content as a consequence of user curiosity .
-The PKG servers can also be represented by governmental entities from different continents, with no incentives to collaborate nor overcome more powerful adversaries using legal measures~\cite{facebook-subpoena} among at least $t$-PKGs. 
+The PKG servers can also be represented by governmental entities from different continents or subsidised research institutions, with no incentives to collaborate nor overcome more powerful adversaries using legal measures~\cite{facebook-subpoena} among at least $t$-PKGs. 
 
 % -----------------------------------------------------------------------------
 \begin{figure}[ht]
@@ -684,7 +685,9 @@ Our scheme for OSNs is composed by five randomized algorithms: \texttt{Setup}, \
     
     The master secret key $msk = \sum_{j \in \Lambda} b_j s_j$ for $b_j = \prod_{z \in \Lambda} \frac{z}{z-j}$ cannot be retrieved unless $\Lambda$ is a subset of size $t$ different PKG servers. The following parameters are published publicly:
     \begin{equation*}
-    params = \{ q, G_1, G_2, e, P, Q, H_1, H_2, H_3, t, n, P_{pub}^{(0)}, \ldots, P_{pub}^{(n)} \}
+    \begin{split}
+    params = \{ q, G_1, G_2, e, P, Q, H_1, H_2, H_3, \\ t, n, P_{pub}^{(0)}, \ldots, P_{pub}^{(n)} \}
+    \end{split}
     \end{equation*}
     
     \bigskip
@@ -719,13 +722,16 @@ Our scheme for OSNs is composed by five randomized algorithms: \texttt{Setup}, \
         \item Choose a random value $\rho \in \{ 0,1 \}^{l}$ and compute $r$ as a hash of concatenated values $r = H_3 \left( \{ \rho \parallel k \} \right)$
         \item For each recipient $\id{i} \in \mathcal{S}$, compute the ciphertext, running the \texttt{IBE.Encrypt} algorithm, as follows.
             \begin{equation*}
-                w_i = \rho \oplus H_2 \left( g_{\id{i}}^r \right) \; \; \; \textrm{where} \; \; \; g_{\id{i}} = e \left( Q_{\id{i}}, P_{pub} \right) \in G_T
+            \begin{array}{ll}
+                w_i = & \rho \oplus H_2 \left( g_{\id{i}}^r \right)  \\ & \textrm{where} \; \; \; g_{\id{i}} = e \left( Q_{\id{i}}, P_{pub} \right) \in G_T
+            \end{array}
             \end{equation*}
         \item Let $w$ be a randomised concatenation, then the authenticated data $\mathcal{A}$ is computed as                                  
         \begin{equation*}
                 \begin{array}{lcl}
-                    \mathcal{A} & = & \{ \eta \parallel rP \parallel k \oplus H_3 \left( \rho \right) \parallel w_1 \parallel w_2 \parallel \ldots \parallel w_\eta \} \\
-                    & = & \{ \eta \parallel U \parallel v \parallel w \} \; \; \; \textrm{for} \; \; \; w = \{ w_1 \parallel w_2 \parallel \ldots \parallel w_\eta \}
+                    \mathcal{A} & = & \{ \eta \parallel rP \parallel k \oplus H_3 \left( \rho \right) \parallel w_1  \parallel \ldots \parallel w_\eta \} \\
+                    & = & \{ \eta \parallel U \parallel v \parallel w \} \\
+                    & & \textrm{for}\; \; \; w = \{ w_1 \parallel w_2 \parallel \ldots \parallel w_\eta \}
                 \end{array} 
             \end{equation*}
             
@@ -773,7 +779,7 @@ To demonstrate the viability of our solution, we implemented a proof-of-concept 
 For the client component we modified the cryptographic library from Scramble~\cite{BeatoScramble} as it is an available open source privacy preserving project. In addition, Scramble is implemented as a Firefox Extension compatible with Firefox 14+, but as it is written in simple Javascript it could easily be ported to other browsers, e.g., Chrome. 
 We implemented the multiple PKG servers in PHP.
 The bilinear pairing and cryptographic blocks for the PKG and the client component are implemented using the multi-precision {MIRACL} library~\cite{scott2003miracl}. To overcome the limitation of accessing binary code from a browser extension implementation, a local client-server socket implementation was used to perform the cryptographic requests to the developed scheme using the {MIRACL} library.
-For the DKG library we used the available implementation from Kate and Goldberg~\cite{DBLP:conf/icdcs/KateG09,dkg-software} to generate the collective master secret key for the $(n,t)-$PKG servers. AES-GCM~\cite{rfc5288} was used for the authenticated encryption. For the public key the Facebook username was used, i.e., $\id{}=facebook.com/user.name$. 
+For the DKG protocol we implemented a primitive version of Pedersen's DKG protocol~\cite{art:Pedersen91a} to generate the collective master secret key for the $(n,t)-$PKG servers. Adaption to the asynchronous setting could be done with the available implementation from Kate and Goldberg~\cite{DBLP:conf/icdcs/KateG09,dkg-software}. AES-GCM~\cite{rfc5288} was used for the authenticated encryption. For the public key the Facebook username was used, i.e., $\id{}=facebook.com/user.name$. 
 
 
 \paragraph{Performance:} 
@@ -781,46 +787,44 @@ Experiments were conducted on a Intel Core 2.4 GHz i5 processor with 8 Gb of 160
 execution times for the scheme proposed in \secref{sec:solution} for $\lambda=256$ bits. Each recipient has to decrypt $W_i$ an average of $n/2$ times to retrieve the secret and subsequently decrypt the secret message \msg. Note that efficiency comes at the cost of the recipient anonymity $\mathcal{S}$, as to hide $\mathcal{S}$ it is required to produce more \texttt{IBE.Encrypt} calls.
 
 \begin{table}
-\begin{center}
-\begin{tabular}{ | c | r | r |}
-    \hline
-    Number of recipients & Encryption time & Decryption time \\ \hline  \hline
-    1 & 284.529 \ms & 275.409 \ms \\
+  \centering
+  \begin{tabular}{@{}rrr@{}} \toprule
+    \multicolumn{3}{r}{Execution Time (ms)} \\ \cmidrule(r){2-3}
+    Number of Recipients & \texttt{Publish} & \texttt{Retrieve} \\ \midrule
+    %%%%%%%%%%%%%%%%%%%%%
+    % CCA Secure scheme %
+    %%%%%%%%%%%%%%%%%%%%%
+    1 & 284.5 & 275.4  \\
     % 5 & 1278.750 \ms & 357.302 \ms \\
-    10 & 2564.510 \ms & 460.930 \ms \\
-    15 & 3799.600 \ms & 560.611 \ms \\
+    10 & 2564.5  & 460.9  \\
+    15 & 3799.6  & 560.6  \\
     % 20 & 5029.470 \ms & 657.030 \ms \\
     % 25 & 6258.510 \ms & 761.765 \ms \\
-    50 & 12300.500 \ms & 1237.820 \ms \\
-    100 & 25867.700 \ms & 2260.230 \ms \\ \hline
-\end{tabular}
-\end{center}
-\caption{Execution time of the BE scheme for varying sizes of the recipient set}
-\label{table:BE_exec_times}
+    50 & 12300.5  & 1237.8  \\
+    100 & 25867.7  & 2260.2  \\  \bottomrule
+    & & \\
+  \end{tabular}
+  \caption{Performance of the \texttt{Publish} and \texttt{Retrieve} stages in function of the number of intended recipients.}
+  \label{table:BE_exec_times}
 \end{table}
 
 We also analyzed the execution times of the IBE scheme, as it represents the most costly part of the scheme. Furthermore, our solution uses the random oracle assumption; we show in \tabref{table:exec_times} that there is a significant computational difference between a similar scheme in the standard model, i.e., Gentry~\cite{GentryRandomOracles}.
 Nevertheless, we believe that our solution presents a tolerable cost to average users with 100 friends and a usual group size of 15~\cite{DBLP:journals/corr/abs-1111-4503}. 
 
 \begin{table}
-\begin{center}
-\begin{tabular}{ | l | r | r |}
-    \cline{2-3}
-   \multicolumn{1}{c|}{}& Boneh et al. & Gentry \\ 
-   \cline{2-3} 
-        \multicolumn{3}{c}{\vspace{-3mm}} \\ \hline 
-  \texttt{IBE.Setup} & 368.10 \ms &  424.49 \ms \\
-  \texttt{IBE.Extract} & 13.84 \ms & 37.46 \ms \\
-  \texttt{IBE.Encrypt} & 271.90 \ms & 1136.65 \ms \\
-  \texttt{IBE.Decrypt} & 252.82 \ms & 911.32 \ms\\ \hline 
-  % Total time & 891.63 {\it s} & 2.5103 {\it s}\\ \hline
-\end{tabular}
-\end{center}
-\caption{Comparison of execution time for different IBE schemes}
-\label{table:exec_times}
+  \centering
+  \begin{tabular}{@{}lrr@{}} \toprule
+    \multicolumn{3}{r}{Execution Time (ms)} \\ \cmidrule(r){2-3}
+    IBE Stage & Boneh and Franklin & Gentry \\ \midrule
+    \texttt{IBE.Setup} & 368.10  &  424.49  \\
+  \texttt{IBE.Extract} & 13.84  & 37.46  \\
+  \texttt{IBE.Encrypt} & 271.90  & 1136.65  \\
+  \texttt{IBE.Decrypt} & 252.82  & 911.32 \\ \bottomrule
+    & & \\
+  \end{tabular}
+  \caption{Comparison of execution time for different IBE schemes.}
+  \label{table:BE_exec_times}
 \end{table}
-
-
 
 \section{Related Work}\label{sec:relwork}
 The increased popularity of Online Social Networks (OSNs) and the amount of disseminated information prompted several privacy concerns. 
@@ -996,6 +1000,7 @@ with the reviewing, writing and implementation.
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
+\bibliographystyle{IEEEtran}
 \bibliography{references}
 
 % biography section
@@ -1006,8 +1011,6 @@ with the reviewing, writing and implementation.
 % \includegraphics command within an optional argument. (You could create
 % your own custom macro containing the \includegraphics command to make things
 % simpler here.)
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{images/stijn}}]{Stijn Meul} Bio here
-\end{IEEEbiography}
 
 % or if you just want to reserve a space for a photo:
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  4 JUN 2014 12:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  5 JUN 2014 03:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -921,6 +921,29 @@ File: tikzlibraryfit.code.tex 2008/06/21 v2.10 (rcs-revision 1.3)
 \c@umlcdClassAbstractClassNum=\count198
 \c@umlcdClassInterfaceNum=\count199
 \c@umlcdClassSplitPartNum=\count200
+) (/usr/local/texlive/2013/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2012/08/31 v0.4t Insert pages of external PDF documents (AM)
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count201
+\calc@Bcount=\count202
+\calc@Adimen=\dimen216
+\calc@Bdimen=\dimen217
+\calc@Askip=\skip196
+\calc@Bskip=\skip197
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count203
+\calc@Cskip=\skip198
+) (/usr/local/texlive/2013/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2010/10/06 v2.0c eso-pic (RN)
+) (/usr/local/texlive/2013/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2012/08/31 v0.4t Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box71
+\AM@toc@title=\toks51
+\c@AM@survey=\count204
+\AM@templatesizebox=\box72
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v2.10 (rcs-revision 1.7)
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
@@ -929,9 +952,9 @@ File: tikzlibraryshapes.geometric.code.tex 2008/01/09 v2.10 (rcs-revision 1.1)
 File: pgflibraryshapes.geometric.code.tex 2008/06/26 v2.10 (rcs-revision 1.1)
 )) (/usr/local/texlive/2013/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
-\c@lips@count=\count201
+\c@lips@count=\count205
 )
-\c@thm=\count202
+\c@thm=\count206
  (./thesis.aux (./intro.aux) (./chap-1.aux
 
 LaTeX Warning: Label `def:pt_algorithm' multiply defined.
@@ -960,36 +983,36 @@ LaTeX Warning: Label `cha:n' multiply defined.
 ) (./conclusion.aux) (./app-A.aux) (./app-C.aux) (./app-D.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 81.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 82.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count203
-\scratchdimen=\dimen216
-\scratchbox=\box71
-\nofMPsegments=\count204
-\nofMParguments=\count205
-\everyMPshowfont=\toks51
-\MPscratchCnt=\count206
-\MPscratchDim=\dimen217
-\MPnumerator=\count207
-\makeMPintoPDFobject=\count208
-\everyMPtoPDFconversion=\toks52
+\scratchcounter=\count207
+\scratchdimen=\dimen218
+\scratchbox=\box73
+\nofMPsegments=\count208
+\nofMParguments=\count209
+\everyMPshowfont=\toks52
+\MPscratchCnt=\count210
+\MPscratchDim=\dimen219
+\MPnumerator=\count211
+\makeMPintoPDFobject=\count212
+\everyMPtoPDFconversion=\toks53
 ) (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
  (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -1021,7 +1044,7 @@ Sidefoothsep and sidefootwidth: 7pt and 101pt
 Sidefootvsep and sidefootheight: 13.6pt and 594.32022pt
 ******************************************************
 
-LaTeX Info: Redefining \microtypecontext on input line 81.
+LaTeX Info: Redefining \microtypecontext on input line 82.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1034,21 +1057,21 @@ Package microtype Info: No adjustment of character kerning.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-\AtBeginShipoutBox=\box72
-Package hyperref Info: Link coloring OFF on input line 81.
+\AtBeginShipoutBox=\box74
+Package hyperref Info: Link coloring OFF on input line 82.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
  (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count209
+\c@section@level=\count213
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 81.
-LaTeX Info: Redefining \ref on input line 81.
-LaTeX Info: Redefining \pageref on input line 81.
-LaTeX Info: Redefining \nameref on input line 81.
+LaTeX Info: Redefining \nameref on input line 82.
+LaTeX Info: Redefining \ref on input line 82.
+LaTeX Info: Redefining \pageref on input line 82.
+LaTeX Info: Redefining \nameref on input line 82.
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
@@ -1063,23 +1086,23 @@ Package microtype Info: Loading generic settings for font family
  <logokuleng.pdf, id=183, 159.33528pt x 85.358pt>
 File: logokuleng.pdf Graphic file (type pdf)
  <use logokuleng.pdf>
-Package pdftex.def Info: logokuleng.pdf used on input line 81.
+Package pdftex.def Info: logokuleng.pdf used on input line 82.
 (pdftex.def)             Requested size: 159.33542pt x 85.3617pt.
  [-1
 
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logokuleng.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 81.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 82.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 81.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 82.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 81.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 81.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 82.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 82.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1091,37 +1114,37 @@ Package microtype Info: Loading generic settings for font family
 
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 84.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 85.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 84.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 85.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 84.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 85.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 84.
+(Font)              <10.95> on input line 85.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 84.
+(Font)              <8> on input line 85.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 84.
-LaTeX Font Info:    Try loading font information for U+msa on input line 84.
+(Font)              <6> on input line 85.
+LaTeX Font Info:    Try loading font information for U+msa on input line 85.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2013/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 84.
+LaTeX Font Info:    Try loading font information for U+msb on input line 85.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2013/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 84.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 85.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1167,25 +1190,30 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 \openout2 = `intro.aux'.
 
- (./intro.tex [1
+ (./intro.tex
+Overfull \hbox (9.0639pt too wide) in paragraph at lines 19--20
+\T1/lmr/m/n/10.95 (-20) Earlier re-search has pro-posed peer-to-peer OSNs such as Safebook [[]] and Diaspora [[]],
+ []
+
+[1
 
 
-] [2] [3] <img/fbuser.png, id=409, 256.96pt x 256.96pt>
+] [2] [3] <img/fbuser.png, id=410, 256.96pt x 256.96pt>
 File: img/fbuser.png Graphic file (type png)
  <use img/fbuser.png>
 Package pdftex.def Info: img/fbuser.png used on input line 98.
 (pdftex.def)             Requested size: 51.39108pt x 51.39108pt.
- <img/fb_icon.png, id=411, 326.21875pt x 326.21875pt>
+ <img/fb_icon.png, id=412, 326.21875pt x 326.21875pt>
 File: img/fb_icon.png Graphic file (type png)
  <use img/fb_icon.png>
 Package pdftex.def Info: img/fb_icon.png used on input line 98.
 (pdftex.def)             Requested size: 39.14455pt x 39.14455pt.
- <img/fbfriends.png, id=412, 150.5625pt x 150.5625pt>
+ <img/fbfriends.png, id=413, 150.5625pt x 150.5625pt>
 File: img/fbfriends.png Graphic file (type png)
  <use img/fbfriends.png>
 Package pdftex.def Info: img/fbfriends.png used on input line 98.
 (pdftex.def)             Requested size: 45.16908pt x 45.16908pt.
- <img/linkedin.png, id=413, 256.96pt x 256.96pt>
+ <img/linkedin.png, id=414, 256.96pt x 256.96pt>
 File: img/linkedin.png Graphic file (type png)
  <use img/linkedin.png>
 Package pdftex.def Info: img/linkedin.png used on input line 98.
@@ -1194,27 +1222,27 @@ File: img/fb_icon.png Graphic file (type png)
  <use img/fb_icon.png>
 Package pdftex.def Info: img/fb_icon.png used on input line 98.
 (pdftex.def)             Requested size: 19.57227pt x 19.57227pt.
- <img/gplus.png, id=414, 302.12875pt x 302.12875pt>
+ <img/gplus.png, id=415, 302.12875pt x 302.12875pt>
 File: img/gplus.png Graphic file (type png)
  <use img/gplus.png>
 Package pdftex.def Info: img/gplus.png used on input line 98.
 (pdftex.def)             Requested size: 24.17079pt x 24.17079pt.
- <img/tumblr.png, id=415, 240.9pt x 240.9pt>
+ <img/tumblr.png, id=416, 240.9pt x 240.9pt>
 File: img/tumblr.png Graphic file (type png)
  <use img/tumblr.png>
 Package pdftex.def Info: img/tumblr.png used on input line 98.
 (pdftex.def)             Requested size: 24.0914pt x 24.0914pt.
- <img/pinterest.png, id=416, 513.92pt x 513.92pt>
+ <img/pinterest.png, id=417, 513.92pt x 513.92pt>
 File: img/pinterest.png Graphic file (type png)
  <use img/pinterest.png>
 Package pdftex.def Info: img/pinterest.png used on input line 98.
 (pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
- <img/tor.png, id=417, 246.9225pt x 363.3575pt>
+ <img/tor.png, id=418, 246.9225pt x 363.3575pt>
 File: img/tor.png Graphic file (type png)
  <use img/tor.png>
 Package pdftex.def Info: img/tor.png used on input line 98.
 (pdftex.def)             Requested size: 24.69368pt x 36.33788pt.
- <img/twitter.png, id=418, 513.92pt x 513.92pt>
+ <img/twitter.png, id=419, 513.92pt x 513.92pt>
 File: img/twitter.png Graphic file (type png)
  <use img/twitter.png>
 Package pdftex.def Info: img/twitter.png used on input line 98.
@@ -1228,16 +1256,16 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 
 
-] [7] [8]
-\c@enumTemp=\count210
- [9] [10] [11]
-Overfull \hbox (15.2028pt too wide) in paragraph at lines 242--243
-[]\T1/lmr/m/n/10.95 (-20) The \T1/lmr/m/it/10.95 (-20) Com-pu-ta-tional Diffie-Hellman as-sump-tion \T1/lmr/m/n/10.95 (-20) holds if for any al-go-rithm $\OMS/lmsy/m/n/10.95 A []$
+] [7] [8] [9]
+\c@enumTemp=\count214
+ [10] [11]
+Overfull \hbox (15.2028pt too wide) in paragraph at lines 247--248
+[]\T1/lmr/m/n/10.95 (-20) The \T1/lmr/m/it/10.95 (-20) Computational Diffie-Hellman as-sump-tion \T1/lmr/m/n/10.95 (-20) holds if for any al-go-rithm $\OMS/lmsy/m/n/10.95 A []$
  []
 
 [12] [13] [14] [15] [16] [17]
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 417.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 421.
  [18]) [19]
 \openout2 = `chap-2.aux'.
 
@@ -1248,41 +1276,45 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
 ] [21] [22]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 40.
- <img/pkg.png, id=683, 200.75pt x 200.75pt>
+ <img/pkg.png, id=678, 200.75pt x 200.75pt>
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
 Package pdftex.def Info: img/pkg.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
- <img/alice.png, id=684, 200.75pt x 200.75pt>
+ <img/alice.png, id=679, 200.75pt x 200.75pt>
 File: img/alice.png Graphic file (type png)
  <use img/alice.png>
 Package pdftex.def Info: img/alice.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
- <img/bob.png, id=685, 200.75pt x 200.75pt>
+ <img/bob.png, id=680, 200.75pt x 200.75pt>
 File: img/bob.png Graphic file (type png)
  <use img/bob.png>
 Package pdftex.def Info: img/bob.png used on input line 84.
 (pdftex.def)             Requested size: 40.14928pt x 40.14928pt.
  [23] [24 <./img/pkg.png> <./img/alice.png> <./img/bob.png>] [25]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 132.
- [26]
-Underfull \vbox (badness 1939) has occurred while \output is active []
-
- [27] [28]
-Underfull \vbox (badness 5331) has occurred while \output is active []
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 135.
+ [26] [27] [28]
+Underfull \vbox (badness 2119) has occurred while \output is active []
 
  [29] [30] [31] [32]
-Overfull \hbox (12.99841pt too wide) in paragraph at lines 365--366
+Overfull \hbox (12.99841pt too wide) in paragraph at lines 368--369
 \T1/lmr/m/n/10.95 (-20) The im-ple-men-ta-tion from Fiat and Naor [[]] re-quires a ci-pher-text of size $\OML/lmm/m/it/10.95 O []$
  []
 
 [33
 
 
-] [34] [35]
-Underfull \vbox (badness 1331) has occurred while \output is active []
+] [34] [35] [36] [37]
+Underfull \hbox (badness 10000) in paragraph at lines 493--494
+[]$\OML/lmm/m/it/10.95 P[]$ \T1/lmr/m/n/10.95 (+20) chooses $\OML/lmm/m/it/10.95 t \OMS/lmsy/m/n/10.95 ^^@ \OT1/lmr/m/n/10.95 (+20) 1$ \T1/lmr/m/n/10.95 (+20) uni-formly ran-dom in-de-pen-dent co-ef-fi-cients
+ []
 
- [36] [37]) [38] [39]
+
+Underfull \hbox (badness 1297) in paragraph at lines 493--494
+\OML/lmm/m/it/10.95 a[]; [] ; a[]; \OT1/lmr/m/n/10.95 (+20) 0 \OMS/lmsy/m/n/10.95 ^^T \OML/lmm/m/it/10.95 a[] \OMS/lmsy/m/n/10.95 ^^T \OML/lmm/m/it/10.95 p \OMS/lmsy/m/n/10.95 ^^@ \OT1/lmr/m/n/10.95 (+20) 1$ \T1/lmr/m/n/10.95 (+20) defin-ing a ran-dom poly-no-mial
+ []
+
+) [38] [39]
 \openout2 = `chap-3.aux'.
 
  (./chap-3.tex [40
@@ -1299,17 +1331,17 @@ either increase the head height or redesign the header
 
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [42] <img/bluepkg.png, id=1077, 200.75pt x 200.75pt>
+ [42] <img/bluepkg.png, id=1071, 200.75pt x 200.75pt>
 File: img/bluepkg.png Graphic file (type png)
  <use img/bluepkg.png>
 Package pdftex.def Info: img/bluepkg.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluealice.png, id=1078, 200.75pt x 200.75pt>
+ <img/bluealice.png, id=1072, 200.75pt x 200.75pt>
 File: img/bluealice.png Graphic file (type png)
  <use img/bluealice.png>
 Package pdftex.def Info: img/bluealice.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluebob.png, id=1079, 200.75pt x 200.75pt>
+ <img/bluebob.png, id=1073, 200.75pt x 200.75pt>
 File: img/bluebob.png Graphic file (type png)
  <use img/bluebob.png>
 Package pdftex.def Info: img/bluebob.png used on input line 170.
@@ -1326,22 +1358,22 @@ File: img/alice.png Graphic file (type png)
  <use img/alice.png>
 Package pdftex.def Info: img/alice.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/bluemoneyman.png, id=1080, 200.75pt x 200.75pt>
+ <img/bluemoneyman.png, id=1074, 200.75pt x 200.75pt>
 File: img/bluemoneyman.png Graphic file (type png)
  <use img/bluemoneyman.png>
 Package pdftex.def Info: img/bluemoneyman.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/blueapp.png, id=1081, 200.75pt x 200.75pt>
+ <img/blueapp.png, id=1075, 200.75pt x 200.75pt>
 File: img/blueapp.png Graphic file (type png)
  <use img/blueapp.png>
 Package pdftex.def Info: img/blueapp.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/app.png, id=1082, 200.75pt x 200.75pt>
+ <img/app.png, id=1076, 200.75pt x 200.75pt>
 File: img/app.png Graphic file (type png)
  <use img/app.png>
 Package pdftex.def Info: img/app.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/moneyman.png, id=1083, 200.75pt x 200.75pt>
+ <img/moneyman.png, id=1077, 200.75pt x 200.75pt>
 File: img/moneyman.png Graphic file (type png)
  <use img/moneyman.png>
 Package pdftex.def Info: img/moneyman.png used on input line 170.
@@ -1354,7 +1386,7 @@ File: img/bob.png Graphic file (type png)
  <use img/bob.png>
 Package pdftex.def Info: img/bob.png used on input line 170.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
- <img/spy.png, id=1084, 401.5pt x 401.5pt>
+ <img/spy.png, id=1078, 401.5pt x 401.5pt>
 File: img/spy.png Graphic file (type png)
  <use img/spy.png>
 Package pdftex.def Info: img/spy.png used on input line 170.
@@ -1370,10 +1402,13 @@ Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
  [46] [47]
-LaTeX Font Info:    Try loading font information for U+ding on input line 275.
+LaTeX Font Info:    Try loading font information for U+ding on input line 274.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/bbding/Uding.fd
 File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 )
+Underfull \vbox (badness 1259) has occurred while \output is active []
+
+
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
  [48] [49]
@@ -1385,93 +1420,93 @@ Overfull \vbox (13.59999pt too high) has occurred while \output is active []
  [52]
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 455.
+Package pdftex.def Info: img/pkg.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/bluealice.png Graphic file (type png)
  <use img/bluealice.png>
-Package pdftex.def Info: img/bluealice.png used on input line 455.
+Package pdftex.def Info: img/bluealice.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/bluebob.png Graphic file (type png)
  <use img/bluebob.png>
-Package pdftex.def Info: img/bluebob.png used on input line 455.
+Package pdftex.def Info: img/bluebob.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/bluebob.png Graphic file (type png)
  <use img/bluebob.png>
-Package pdftex.def Info: img/bluebob.png used on input line 455.
+Package pdftex.def Info: img/bluebob.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/bob.png Graphic file (type png)
  <use img/bob.png>
-Package pdftex.def Info: img/bob.png used on input line 455.
+Package pdftex.def Info: img/bob.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/alice.png Graphic file (type png)
  <use img/alice.png>
-Package pdftex.def Info: img/alice.png used on input line 455.
+Package pdftex.def Info: img/alice.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/moneyman.png Graphic file (type png)
  <use img/moneyman.png>
-Package pdftex.def Info: img/moneyman.png used on input line 455.
+Package pdftex.def Info: img/moneyman.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/app.png Graphic file (type png)
  <use img/app.png>
-Package pdftex.def Info: img/app.png used on input line 455.
+Package pdftex.def Info: img/app.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/app.png Graphic file (type png)
  <use img/app.png>
-Package pdftex.def Info: img/app.png used on input line 455.
+Package pdftex.def Info: img/app.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/moneyman.png Graphic file (type png)
  <use img/moneyman.png>
-Package pdftex.def Info: img/moneyman.png used on input line 455.
+Package pdftex.def Info: img/moneyman.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 455.
+Package pdftex.def Info: img/pkg.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 455.
+Package pdftex.def Info: img/pkg.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 455.
+Package pdftex.def Info: img/pkg.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/pkg.png Graphic file (type png)
  <use img/pkg.png>
-Package pdftex.def Info: img/pkg.png used on input line 455.
+Package pdftex.def Info: img/pkg.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/alice.png Graphic file (type png)
  <use img/alice.png>
-Package pdftex.def Info: img/alice.png used on input line 455.
+Package pdftex.def Info: img/alice.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/bob.png Graphic file (type png)
  <use img/bob.png>
-Package pdftex.def Info: img/bob.png used on input line 455.
+Package pdftex.def Info: img/bob.png used on input line 454.
 (pdftex.def)             Requested size: 30.11119pt x 30.11119pt.
 File: img/spy.png Graphic file (type png)
  <use img/spy.png>
-Package pdftex.def Info: img/spy.png used on input line 455.
+Package pdftex.def Info: img/spy.png used on input line 454.
 (pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
 File: img/spy.png Graphic file (type png)
  <use img/spy.png>
-Package pdftex.def Info: img/spy.png used on input line 455.
+Package pdftex.def Info: img/spy.png used on input line 454.
 (pdftex.def)             Requested size: 60.2224pt x 60.2224pt.
  [53]
 Overfull \vbox (13.59999pt too high) has occurred while \output is active []
 
- [54]
-Underfull \hbox (badness 5908) in paragraph at lines 522--523
+ [54] [55]
+Underfull \hbox (badness 5908) in paragraph at lines 533--534
 []\T1/lmr/m/n/10.95 (+20) Choose cryp-to-graphic hash func-tions $\OML/lmm/m/it/10.95 H[] \OT1/lmr/m/n/10.95 (+20) : \OMS/lmsy/m/n/10.95 f\OT1/lmr/m/n/10.95 (+20) 0\OML/lmm/m/it/10.95 ; \OT1/lmr/m/n/10.95 (+20) 1\OMS/lmsy/m/n/10.95 g[] ! \OML/lmm/m/it/10.95 G[]$\T1/lmr/m/n/10.95 (+20) ,
  []
 
 
 Overfull \vbox (313.35713pt too high) has occurred while \output is active []
 
- [55]
-Underfull \hbox (badness 10000) in paragraph at lines 611--612
+ [56]
+Underfull \hbox (badness 10000) in paragraph at lines 622--623
 
  []
 
-[56]) [57]
+[57])
 \openout2 = `chap-n.aux'.
 
  (./chap-n.tex [58
@@ -1481,7 +1516,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 611--612
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 41.
- <img/fb.png, id=1311, 326.21875pt x 326.21875pt>
+ <img/fb.png, id=1306, 326.21875pt x 326.21875pt>
 File: img/fb.png Graphic file (type png)
  <use img/fb.png>
 Package pdftex.def Info: img/fb.png used on input line 110.
@@ -1549,6 +1584,11 @@ Overfull \hbox (7.2857pt too wide) in paragraph at lines 357--358
  []
 
 [65]
+Overfull \hbox (9.07617pt too wide) in paragraph at lines 359--360
+[]\T1/lmr/m/n/10.95 (-20) The \T1/lmtt/m/n/10.95 toString() \T1/lmr/m/n/10.95 (-20) func-tion of a DKGMessage ob-ject al-lows to se-ri-alise a DKGMessage
+ []
+
+
 Underfull \hbox (badness 4316) in paragraph at lines 436--436
  [][][][]$\OML/lmm/m/it/10.95 <<$\T1/lmr/m/n/10.95 (+20) abstract$\OML/lmm/m/it/10.95 >>$ 
  []
@@ -1578,10 +1618,15 @@ Underfull \hbox (badness 2197) in paragraph at lines 436--436
  [][][][]\T1/lmr/bx/n/10.95 AuthenticatedData 
  []
 
-[66] [67] [68]
-Underfull \vbox (badness 3000) has occurred while \output is active []
+[66]
+Overfull \hbox (3.95653pt too wide) in paragraph at lines 447--448
+[]\T1/lmr/m/n/10.95 (-20) is an ab-stract class that forms the base class of PlaintextMessage
+ []
 
- [69] [70] [71]) [72]
+[67] [68] [69] [70]
+Underfull \vbox (badness 5533) has occurred while \output is active []
+
+ [71]) [72]
 \openout2 = `conclusion.aux'.
 
  (./conclusion.tex [73
@@ -1595,7 +1640,7 @@ Underfull \vbox (badness 3000) has occurred while \output is active []
 \openout2 = `app-A.aux'.
 
  (./app-A.tex
-Overfull \hbox (7.17462pt too wide) detected at line 48
+Overfull \hbox (7.17462pt too wide) detected at line 49
 []
  []
 
@@ -1612,66 +1657,174 @@ Overfull \hbox (7.17462pt too wide) detected at line 48
 ]
 File: img/fbuser.png Graphic file (type png)
  <use img/fbuser.png>
-Package pdftex.def Info: img/fbuser.png used on input line 70.
+Package pdftex.def Info: img/fbuser.png used on input line 69.
 (pdftex.def)             Requested size: 51.39108pt x 51.39108pt.
 File: img/fb_icon.png Graphic file (type png)
  <use img/fb_icon.png>
-Package pdftex.def Info: img/fb_icon.png used on input line 70.
+Package pdftex.def Info: img/fb_icon.png used on input line 69.
 (pdftex.def)             Requested size: 32.62378pt x 32.62378pt.
 File: img/fbfriends.png Graphic file (type png)
  <use img/fbfriends.png>
-Package pdftex.def Info: img/fbfriends.png used on input line 70.
+Package pdftex.def Info: img/fbfriends.png used on input line 69.
 (pdftex.def)             Requested size: 45.16908pt x 45.16908pt.
 File: img/linkedin.png Graphic file (type png)
  <use img/linkedin.png>
-Package pdftex.def Info: img/linkedin.png used on input line 70.
+Package pdftex.def Info: img/linkedin.png used on input line 69.
 (pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
 File: img/fb_icon.png Graphic file (type png)
  <use img/fb_icon.png>
-Package pdftex.def Info: img/fb_icon.png used on input line 70.
+Package pdftex.def Info: img/fb_icon.png used on input line 69.
 (pdftex.def)             Requested size: 19.57227pt x 19.57227pt.
 File: img/gplus.png Graphic file (type png)
  <use img/gplus.png>
-Package pdftex.def Info: img/gplus.png used on input line 70.
+Package pdftex.def Info: img/gplus.png used on input line 69.
 (pdftex.def)             Requested size: 24.17079pt x 24.17079pt.
 File: img/tumblr.png Graphic file (type png)
  <use img/tumblr.png>
-Package pdftex.def Info: img/tumblr.png used on input line 70.
+Package pdftex.def Info: img/tumblr.png used on input line 69.
 (pdftex.def)             Requested size: 24.0914pt x 24.0914pt.
 File: img/pinterest.png Graphic file (type png)
  <use img/pinterest.png>
-Package pdftex.def Info: img/pinterest.png used on input line 70.
+Package pdftex.def Info: img/pinterest.png used on input line 69.
 (pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
 File: img/tor.png Graphic file (type png)
  <use img/tor.png>
-Package pdftex.def Info: img/tor.png used on input line 70.
+Package pdftex.def Info: img/tor.png used on input line 69.
 (pdftex.def)             Requested size: 24.69368pt x 36.33788pt.
 File: img/twitter.png Graphic file (type png)
  <use img/twitter.png>
-Package pdftex.def Info: img/twitter.png used on input line 70.
+Package pdftex.def Info: img/twitter.png used on input line 69.
 (pdftex.def)             Requested size: 25.6975pt x 25.6975pt.
-) [80]
+
+Overfull \hbox (6.21085pt too wide) in paragraph at lines 69--70
+ [] 
+ []
+
+[80]) [81]
 \openout2 = `app-D.aux'.
 
- (./app-D.tex) [81
+ (./app-D.tex [82
 
 
 
-] [82
-
-
-] (./thesis.bbl
+] [83] <paper/ibeForOsnsPaper.pdf, id=1546, page=1, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 1>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page1 used on input line 4.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 1>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page1 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 1>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page1 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 1>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page1 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 1>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page1 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [84 <./paper/ibeForOsnsPaper.pdf>] <paper/ibeForOsnsPaper.pdf, id=1583, page=2, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 2>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page2 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 2>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page2 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 2>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page2 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [85 <./paper/ibeForOsnsPaper.pdf>] <paper/ibeForOsnsPaper.pdf, id=1658, page=3, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 3>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page3 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 3>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page3 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 3>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page3 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [86 <./paper/ibeForOsnsPaper.pdf>] <paper/ibeForOsnsPaper.pdf, id=1673, page=4, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 4>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page4 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 4>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page4 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 4>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page4 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [87 <./paper/ibeForOsnsPaper.pdf>] <paper/ibeForOsnsPaper.pdf, id=1683, page=5, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 5>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page5 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 5>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page5 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 5>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page5 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [88 <./paper/ibeForOsnsPaper.pdf>] <paper/ibeForOsnsPaper.pdf, id=1688, page=6, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 6>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page6 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 6>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page6 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 6>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page6 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [89 <./paper/ibeForOsnsPaper.pdf>] <paper/ibeForOsnsPaper.pdf, id=1693, page=7, 614.295pt x 794.97pt>
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 7>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page7 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 7>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page7 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: paper/ibeForOsnsPaper.pdf Graphic file (type pdf)
+ <use paper/ibeForOsnsPaper.pdf, page 7>
+Package pdftex.def Info: paper/ibeForOsnsPaper.pdf, page7 used on input line 4.
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [90 <./paper/ibeForOsnsPaper.pdf>]) (./thesis.bbl
 bibitemlist
-[83
+[91
 
-] [84] [85] [86] [87] [88] [89] [90])
+
+
+] [92] [93] [94] [95]
+Underfull \hbox (badness 1168) in paragraph at lines 401--404
+[]\T1/lmr/m/n/10.95 (+20) M. Groves.  Sakai-Kasahara Key Encryption (SAKKE).  RFC 6508
+ []
+
+[96] [97] [98])
 
 Class memoir Warning: The material used in the headers is too large
 (27.2pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 205.
+(in both cases you will find help in the memoir manual). on input line 212.
 
-[91] [92
+[99] [100
 
 ]
 \tf@toc=\write6
@@ -1683,33 +1836,33 @@ either increase the head height or redesign the header
 \tf@lot=\write8
 \openout8 = `thesis.lot'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 212.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 212.
  (./thesis.aux (./intro.aux) (./chap-1.aux) (./chap-2.aux) (./chap-3.aux) (./chap-n.aux) (./conclusion.aux) (./app-A.aux) (./app-C.aux) (./app-D.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 212.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 212.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 75A332D8859EEAB0AAA5059B45ED3A63;2673.
+(rerunfilecheck)             Checksum: 8C39ADA056F71DE6A480A5FC774D1F67;2673.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 212.
  ) 
 Here is how much of TeX's memory you used:
- 25474 strings out of 493315
- 446324 string characters out of 6137904
- 724273 words of memory out of 5000000
- 27521 multiletter control sequences out of 15000+600000
- 115260 words of font info for 209 fonts, out of 8000000 for 9000
+ 26133 strings out of 493315
+ 457305 string characters out of 6137904
+ 737847 words of memory out of 5000000
+ 28158 multiletter control sequences out of 15000+600000
+ 110675 words of font info for 205 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 61i,20n,79p,1526b,872s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} </Users/stijn/Library/texlive/2013/texmf-var/fonts/pk/ljfour/public/bbding/bbding10.657pk>{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
-public/lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
-Output written on thesis.pdf (104 pages, 1112581 bytes).
+ 61i,20n,79p,1526b,884s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} </Users/stijn/Library/texlive/2013/texmf-var/fonts/pk/ljfour/public/bbding/bbding10.657pk>{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmbx7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (112 pages, 1557728 bytes).
 PDF statistics:
- 1827 PDF objects out of 2073 (max. 8388607)
- 1624 compressed objects within 17 object streams
- 572 named destinations out of 1000 (max. 500000)
- 38363 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 2005 PDF objects out of 2073 (max. 8388607)
+ 1749 compressed objects within 18 object streams
+ 583 named destinations out of 1000 (max. 500000)
+ 37896 words of extra memory for PDF output out of 42996 (max. 10000000)
 

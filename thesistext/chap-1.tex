@@ -1,10 +1,10 @@
 \chapter{Required Background}
 \label{cha:1}
-This chapter briefly covers the required background to understand cryptographic algorithms presented later in this text. The mathematical details of this chapter represent a fundament of a exciting cryptographic concepts like identity-based encryption. If the reader feels he has sufficient background of the concepts covered in this chapter, the chapter can be skipped without loss of comprehension.
+This chapter briefly covers the required background to understand cryptographic algorithms presented later in this text. The mathematical details of this chapter represent a fundament of exciting cryptographic concepts like identity-based encryption. If the reader feels he has sufficient background of the topics covered in this chapter, the chapter can be skipped without loss of comprehension.
 
-Note that this chapter only overviews the cryptographic fundamentals required to understand the remainder of the thesis. Definitions and theorems are always provided without proof. For a more in depth discussion about algebraic topics in this chapter, the reader is referred to~\cite{book:handbook_of_applied_cryptography} and~\cite{book:survey_of_modern_algebra}. More information on elliptic curves, Diffie-Hellman assumptions and pairing based cryptography can be found in~\cite{thesis:Maas04}.
+Note that this chapter only overviews the cryptographic fundamentals required to understand the remainder of the thesis. Definitions and theorems are always provided without proof. For a more in depth discussion on algebraic topics in this chapter, the reader is referred to~\cite{book:handbook_of_applied_cryptography} and~\cite{book:survey_of_modern_algebra}. More information on elliptic curves, Diffie-Hellman assumptions and pairing based cryptography can be found in~\cite{thesis:Maas04}.
 
-For the remainder of this chapter, complexity theoretic notions are introduced, followed by an overview of algebraic structures and their properties. Then, a number of theoretic assumptions fundamental for cryptographic security are presented. Moreover, the introduction of gap groups and bilinear maps naturally follows by exploring these variants of the Diffie-Hellman assumption. Finally, hash functions are defined as well as their relation to the random oracle assumption.
+For the remainder of this chapter, complexity theoretic notions are introduced, followed by an introduction to statistical indistinguishability and an overview of algebraic structures and their properties. Then, a number of theoretic assumptions fundamental for cryptographic security are presented. Moreover, the introduction of gap groups and bilinear maps naturally follows by exploring these variants of the Diffie-Hellman assumption. Finally, hash functions are defined as well as their relation to the random oracle assumption.
 
 \section{Complexity Theory}
 Complexity theory classifies mathematical problems according to their inherent difficulty. The inherent difficulty of a mathematical problem is expressed in terms of the required resources to solve the problem independent of the algorithm used~\cite{book:handbook_of_applied_cryptography}.
@@ -41,16 +41,16 @@ The negligible function is used along this chapter to formally describe computat
 \section{Probability Theory}
 We introduce basic terminology on probability theory that allows to introduce statistical indistinguishability and computational indistinguishability.
 
-\begin{defn}[Experiment~\cite{book:handbook_of_applied_cryptography}]
+\begin{defn}[Experiment]
 \label{def:experiment}
- An \textit{experiment} is a procedure that yields one of a set of given outcomes. The set of all possible outcomes is called the \textit{sample space}~$S$.
+ An \textit{experiment} is a procedure that yields one of a set of given outcomes. The set of all possible outcomes is called the \textit{sample space}~$S$.~\cite{book:handbook_of_applied_cryptography}
 \end{defn}
 
 This thesis only considers discrete sample spaces, i.e. sample spaces with only a finite number $n$ of possible outcomes such that $S = \{ s_1, \cdots, s_n \}$.
 
-\begin{defn}[Probability distribution~\cite{book:handbook_of_applied_cryptography}]
+\begin{defn}[Probability distribution]
 \label{def:experiment}
- A \textit{probability distribution} $P$ on $S$ is a sequence of numbers $p_1, p_2, \cdots, p_n$, that are all non-negative and sum to one. The number $p_i$ is interpreted as the \textit{probability} of $s_i$ being the outcome of the experiment, such that $\textrm{Pr} \left[ s_i \right] = p_i$.
+ A \textit{probability distribution} $P$ on $S$ is a sequence of numbers $p_1, p_2, \cdots, p_n$, that are all non-negative and sum to one. The number $p_i$ is interpreted as the \textit{probability} of $s_i$ being the outcome of the experiment, such that $\textrm{Pr} \left[ s_i \right] = p_i$.~\cite{book:handbook_of_applied_cryptography}
 \end{defn}
 
 \begin{defn}[Random variable~\cite{book:handbook_of_applied_cryptography}]
@@ -63,6 +63,11 @@ This thesis only considers discrete sample spaces, i.e. sample spaces with only 
  An \textit{ensemble of random variables} is a set of indexed random variables $E_X = \{ X_1, \ldots , X_n \}, n \in \mathbb{N}$.
 \end{defn}
 
+\begin{defn}[Perfect randomness]
+\label{def:perfect_randomness}
+ A bit sequence $w$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $w$ could have been the result of the toss of a fair coin. That is, the probability that $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$. Such that, a bit sequence is an ensemble of random variables where each random variable represents one bit.
+\end{defn}
+
 \begin{defn}[Statistical indistinguishability]
 \label{def:statistical_indistinguishability}
  Two ensembles of random variables $E_X = \{ X_1, \ldots , X_n \}$ and $E_Y = \{ Y_1, \ldots , Y_n \}$ with a common discrete sample space $S_n$ for all $n$, are said to be \textit{statistically indistinguishable} if for every polynomial $p \left( \cdot \right)$ and sufficiently large $n$
@@ -71,13 +76,13 @@ This thesis only considers discrete sample spaces, i.e. sample spaces with only 
  \end{equation*}
 \end{defn}
 
-\begin{defn}[Computational indistinguishability~\cite{book:Goldreich2001}]
+\begin{defn}[Computational indistinguishability]
 \label{def:computational_indistinguishability}
  Two ensembles of random variables $E_X = \{ X_1, \ldots , X_n \}$ and $E_Y = \{ Y_1, \ldots , Y_n \}$ with a common discrete sample space $S_n$ for all $n$, are said to be \textit{computationally indistinguishable} if for every polynomial $p \left( \cdot \right)$, sufficiently large $n$ and every polynomial time algorithm $\mathcal{A}$
  \begin{equation*}
   \sum_{s \in S_n} \lvert \textrm{Pr} \left[ \mathcal{A} \left( X_n \right) = 1 \right] - \textrm{Pr} \left[ \mathcal{A} \left( Y_n \right) = 1 \right] \rvert \leq \frac{1}{p \left( n \right)}
  \end{equation*}
- where the probability is over the relevant distribution of $X_n$ or $Y_n$ and the random bits of the algorithm~$\mathcal{A}$.
+ where the probability is over the relevant distribution of $X_n$ or $Y_n$ and the random bits of the algorithm~$\mathcal{A}$.~\cite{book:Goldreich2001}
 \end{defn}
 
 More intuitively, statistical indistinguishable distributions resemble each other to that level that no one can determine their difference statistically.  On the contrary, computational indistinguishable distributions can be statistically different but no existing algorithm with reasonable execution time can determine their difference~\cite{art:KurosawaW92}.
@@ -115,13 +120,13 @@ In the light of our further discussion, especially additive and multiplicative g
 
 Depending on the group operation~$*$, $\left( G, * \right)$ is either called a \textit{multiplicative group} or an \textit{additive group}. In Definition~\ref{def:group} the multiplicative notation is used. For an additive group  the inverse of $a$ is often denoted $- a$~\cite{book:handbook_of_applied_cryptography}. 
 
-A group $\left( G, * \right)$ is often denoted by the more concise symbol $G$ although groups are always defined with respect to a binary group operation $*$. Despite of a more concise notation, any group $G$ still obeys all axioms from Definition~\ref{def:group} with respect to an implicitly known group operation $*$.
+A group $\left( G, * \right)$ is often represented by the more concise symbol $G$ although groups are always defined with respect to a binary group operation $*$. Despite of a more concise notation, any group $G$ still obeys all axioms from Definition~\ref{def:group} with respect to an implicitly known group operation $*$.
 
 A perfect example of a commutative group is the set of integers with the addition operation $\left( \mathbb{Z}, + \right)$ since the addition is both associative and commutative in $\mathbb{Z}$. Furthermore, the identity element $e = 0$ and the inverse element $\forall a \in \mathbb{Z}$ is $-a \in \mathbb{Z}$. Note that the set of natural numbers with the addition operation $\left( \mathbb{N}, + \right)$ is not a commutative group as not every element of $\mathbb{N}$ has an inverse element.
 
 \begin{defn}[Cyclic group]
 \label{def:cyclic_group}
- A group $G$ is \textit{cyclic} if and only if $\forall b \in G, \exists g \in G,\exists n \in \mathbb{Z}: g^n = b$. Such an element $g$ is called a \textbf{generator} of $\mathbb{G}$.
+ A group $G$ is \textit{cyclic} if and only if $\forall b \in G, \exists g \in G,\exists n \in \mathbb{Z}: g^n = b$. Such an element $g$ is called a \textit{generator} of $\mathbb{G}$.
 \end{defn}
 
 Definition~\ref{def:cyclic_group} implies that in a cyclic group every element can be written as a power of one of the group's generators.
@@ -140,7 +145,7 @@ Let $G$ be a group. The \textit{order of an element} $a \in G$ is defined as the
 
 \begin{thm}
 \label{the:group_modulo_a_prime}
-If the order of a group $G$ equals a prime $p$, the group is cyclic and commutative.
+If the group order of $G$ equals a prime $p$, $G$ is cyclic and commutative.
 \end{thm}
 
 \begin{defn}[Subgroup]
@@ -201,7 +206,7 @@ If the order of a group $G$ equals a prime $p$, the group is cyclic and commutat
 \label{def:bijective_function} 
  Any function $f: R \rightarrow S$ is bijective if it satisfies the following axioms
  \begin{enumerate}
-  \item \textit{Injective} Each element in $S$ is the image of at most one element in $R$. Hence, $\forall a_1, a_2 \in R$ if $\left( a_1 \right) = f \left( a_2 \right)$ then $a_1 = a_2$ naturally follows.
+  \item \textit{Injective} Each element in $S$ is the image of at most one element in $R$. Hence, $\forall a_1, a_2 \in R$ if $f \left( a_1 \right) = f \left( a_2 \right)$ then $a_1 = a_2$ naturally follows.
   \item \textit{Surjective} Each $s \in S$ is the image of at least one $r \in R$.
  \end{enumerate}
 \end{defn}
@@ -220,13 +225,13 @@ Note that $\left( \mathbb{Z}_n, +, \cdot \right)$ is a finite field if and only 
 \label{sec:number_theoretic_assumptions}
 This section presents a collection of number theoretic assumptions. The cryptographic security of our future constructions falls or stands on these assumptions~\cite{art:Boneh98,book:handbook_of_applied_cryptography}.
 
-In the definitions that follow $\left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ is defined as the setup algorithm that generates a group $G$ of order $n$ and a generator $g \in G$ on input of the security parameter $k$.
+In the definitions that follow $\left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)$ is defined as the setup algorithm that generates a group $G$ of order $n$ and a generator $g \in G$ on input of the security parameter $\lambda$.
 
 \begin{defn}[DL]
 \label{def:dl}
 The \textit{discrete logarithm problem} is defined as follows. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and an element $a \in G$, find the integer $x, 0 \leq x \leq n-1$ such that $g^x = a$.
 
-The \textit{discrete logarithm assumption} holds if for any algorithm $\mathcal{A} \left( g, g^x \right)$ trying to solve the DL problem there exists a negligible function $\mu \left( k \right)$ such that 
+The \textit{discrete logarithm assumption} holds if for any algorithm $\mathcal{A} \left( g, g^x \right)$ trying to solve the DL problem there exists a negligible function $\mu \left( \lambda \right)$ such that 
  \begin{equation*}
   \textrm{Pr} \left[ \mathcal{A} \left( g, g^x \right) = a \mid \left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)\right] \leq \mu \left( \lambda \right)
  \end{equation*}
@@ -239,11 +244,11 @@ The \textit{discrete logarithm assumption} holds if for any algorithm $\mathcal{
 The \textit{Computational Diffie-Hellman problem} is defined as follows. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and $g^a, g^b$ with uniformly chosen random independent elements $a, b \in \{ 1, \ldots, | G |\}$ , find the value $g^{ab}$.
 
 
-The \textit{Computational Diffie-Hellman assumption} holds if for any algorithm $\mathcal{A} \left( g, g^a, g^b \right)$ trying to solve the CDH problem there exists a negligible function $\mu \left( k \right)$ such that 
+The \textit{Computational Diffie-Hellman assumption} holds if for any algorithm $\mathcal{A} \left( g, g^a, g^b \right)$ trying to solve the CDH problem there exists a negligible function $\mu \left( \lambda \right)$ such that 
  \begin{equation*}
   \textrm{Pr} \left[ \mathcal{A} \left( g, g^a, g^b \right) = g^{ab} \mid \left< G, n, g \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)\right] \leq \mu \left( \lambda \right)
  \end{equation*}
- where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^k \right)$, the random choice of $a, b$ in $\{ 1, \ldots, | G |\}$ and the random bits of the algorithm $\mathcal{A}$.
+ where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^{\lambda} \right)$, the random choice of $a, b$ in $\{ 1, \ldots, | G |\}$ and the random bits of the algorithm $\mathcal{A}$.
 \end{defn}
 
 \begin{defn}[DDH]
@@ -257,10 +262,9 @@ Define $\mathcal{A} \left( x \right)$ as an algorithm returning \texttt{true} if
  where the probability is over the random choice of $n, g$ in $G$ according to the distribution induced by $\mathcal{G} \left( 1^{\lambda} \right)$, the random choice of $a, b, c$ in $\{ 1, \ldots, | G | \} $ and the random bits of the algorithm $\mathcal{A}$.
 \end{defn}
 
+Definition~\ref{def:ddh} states that $\left< g, g^a, g^b, g^{ab} \right>$ and $\left< g, g^a, g^b, g^{c} \right>$ are computationally indistinguishable.
 
-Definition~\ref{def:ddh} states that $\left< g, g^a, g^b, g^{ab} \right>$ and $\left< g, g^a, g^b, g^{c} \right>$ are \textit{computationally indistinguishable}. This implies that no efficient algorithm exists that can distinguish both arguments with non-negligible probability. The concept of computational indistinguishability bears close resemblance to statistical indistinguishability. The reader is referred to~\cite{art:Goldwasser84,art:Goldwasser89} for a more in depth discussion of the topic. The intuitive interpretation of Definition~\ref{def:ddh} is that $g^{ab}$ looks like any other random element in $G$.
-
-Someone with the ability to calculate discrete logarithms could trivially solve the CDH problem. That is, if $a$ and $b$ can be derived only from $\left< g^a, g^b \right>$, it becomes easy to calculate $g^{ab}$. Therefore, a group structure where the CDH assumption holds, immediately implies a group where the DL assumption is valid as well. There is no mathematical proof that supports the inverse relation. Thus, a group where the DL problem is hard not necessarily implies the CDH problem. For specific group structures the CDH assumption immediately follows from the DL assumption as shown in~\cite{art:MaurerW98,art:MaurerW99}. However, their proof can not be generalised to just any group.
+Someone with the ability to calculate discrete logarithms could trivially solve the CDH problem. That is, if $a$ and $b$ can be derived from $\left< g^a, g^b \right>$, it becomes easy to calculate $g^{ab}$. Therefore, a group structure where the CDH assumption holds, immediately implies a group where the DL assumption is valid as well. There is no mathematical proof that supports the inverse relation. Thus, a group where the DL problem is hard not necessarily implies the CDH problem. For specific group structures the CDH assumption immediately follows from the DL assumption as shown in~\cite{art:MaurerW98,art:MaurerW99}. However, their proof can not be generalised to just any group.
 
 There exists a similar relation between the CDH and the DDH problem. If a powerful algorithm could solve CDH, i.e. derive $g^{ab}$ from $\left< g, g^a, g^b \right>$ alone, it would become trivial to distinguish $\left< g, g^a, g^b, g^{ab} \right>$ from $\left< g, g^a, g^b, g^c \right>$. Again, an inverse relation can not be proven. As a matter of fact, concrete examples of groups exist where CDH is hard although DDH is not.
 
@@ -268,8 +272,9 @@ Therefore, the relation between DL, CDH and DDH is often written as follows
 \begin{equation*}
  DDH \Rightarrow CDH \Rightarrow DL
 \end{equation*}
-The $\Rightarrow$ notation is then translated into ''immediately implies''. In a group where DDH is hard both CDH and DL will be hard. Contrarily, there exist group structures where the CDH and the DL assumption hold while DDH can be found easily. Such groups are called \textit{Gap Diffie-Hellman Groups}.
+The $\Rightarrow$ notation is then translated into ''immediately implies''. In a group where DDH is hard both CDH and DL will be hard. Contrarily, there exist group structures where the CDH and the DL assumption hold while DDH can be found easily. Such groups are called \textit{gap Diffie-Hellman groups} or simply \textit{gap groups}.
 
+\newpage
 \begin{defn}[GDH]
 \label{def:gdh}
 The \textit{Gap Diffie-Hellman problem} is defined as follows. Solve the CDH problem with the help of a DDH oracle. Given a finite cyclic group $G$ of order $n$, a generator $g \in G$ and $g^a, g^b$ with uniformly chosen random independent elements $a, b \in \{ 1, \ldots, | G |\}$ , find the value $g^{ab}$ with the help of a DDH oracle $\mathcal{DDH} \left( g, g^a, g^b, z \right)$. Where the DDH oracle $\mathcal{DDH} \left( g, g^a, g^b, z \right)$ is defined to return \texttt{true} if $z = g^{ab}$ and \texttt{false} if $z \neq g^{ab}$.
@@ -308,21 +313,24 @@ The only correct notation would be to use additive notation in $G_1$ and multipl
 Recent research~\cite{art:AdjMOR13,art:BarbulescuGJT14,art:Joux13} has shown that the discrete logarithm problem is easier in the symmetric setting because symmetric pairings rely on more structured supersingular (hyper)elliptic curves. Therefore, it is discouraged to rely on symmetric pairings in practical implementations~\cite{art:ZhangW13}.
 
 \subsection{Bilinear Diffie-Hellman Assumption}
-A bilinear map allows to solve the Decisional Diffie-Hellman problem in $G_1$ and $G_2$. The DDH problem in $G_1$ consists of distinguishing $\left< P, aP, bP, abP \right>$ from $\left< P, aP, bP, cP \right>$ where $P \in G_1$, $P$ is a generator of $G_1$ and $a, b, c$ randomly chosen in $\{1, \ldots, \vert G_1 \vert \}$. Given a symmetric bilinear map $e: G_1 \times G_1 \rightarrow G_T$ a solution to this problem is found by relying on the bilinearity of the pairing as follows:
-
+A bilinear map allows to solve the Decisional Diffie-Hellman problem in $G_1$ and $G_2$. The DDH problem in $G_1$ consists of distinguishing $\left< P, aP, bP, abP \right>$ from $\left< P, aP, bP, cP \right>$ where $P \in G_1$, $P$ is a generator of $G_1$ and $a, b, c$ chosen uniformly random in $\{1, \ldots, \vert G_1 \vert \}$. Given a symmetric bilinear map $e: G_1 \times G_1 \rightarrow G_T$ a solution to this problem is found by relying on the bilinearity of the pairing as follows:
+\medskip
 \begin{equation*}
  e \left( aP, bP \right) = e \left( P, P \right)^{ab} \stackrel{?}{=} e \left( P, cP \right) = e \left( P, P\right)^c
 \end{equation*}
+\medskip
+
 Such that the second equality will hold only if $ab = c$. A similar statement can be made concerning $G_2$ with the help of the map $e: G_2 \times G_2 \rightarrow G_T$. Consequently, $G_1$ and $G_2$ are both GDH groups. Since DDH (Definition~\ref{def:ddh}) is a stronger assumption than CDH (Definition~\ref{def:cdh}), CDH can still be hard in GDH groups~\cite{art:BonehF01}.
 
-Since DDH in the Gap groups $G_1$ and $G_2$ is easy, DDH can not serve as a basis for crypto systems in these groups. Therefore, an alternative to the CDH problem is defined called the Bilinear Diffie-Hellman problem.
+Since DDH in the Gap groups $G_1$ and $G_2$ is easy, DDH can not serve as a basis for cryptographic systems in these groups. Therefore, an alternative to the CDH problem is defined called the Bilinear Diffie-Hellman problem.
 
 In the definition that follows $\mathcal{G} \left( 1^{\lambda} \right)$ is defined to be a BDH parameter generator as in~\cite{art:BonehF01}, i.e. $\mathcal{G}$ takes as input a security parameter $\lambda$, $\mathcal{G}$ runs in polynomial time in $\lambda$ and $\mathcal{G}$ outputs a prime number $q$, the description of two groups $G_1, G_2$ of order $q$ and the description of an admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$.
+\bigskip
 \begin{defn}[BDH]
 \label{def:bdh}
 The \textit{Bilinear Diffie-Hellman problem} is defined as follows. Given any admissible bilinear pairing $e: G_1 \times G_2 \rightarrow G_T$ with random $P, aP, bP \in G_1$ and random $Q, aQ, bQ \in G_2$ with uniformly chosen random independent elements $a, b, c \medskip \in \{ 1, \ldots, | G |\}$, find $e \left( P, Q \right)^{abc}$
 
-The \textit{Bilinear Diffie-Hellman assumption} holds if for any algorithm \\ $\mathcal{A} \left( P, aP, bP, Q, aQ, bQ \right)$ trying to solve the BDH problem there exists a negligible function $\mu \left( k \right)$ such that 
+The \textit{Bilinear Diffie-Hellman assumption} holds if for any algorithm \\ $\mathcal{A} \left( P, aP, bP, Q, aQ, bQ \right)$ trying to solve the BDH problem there exists a negligible function $\mu \left( \lambda \right)$ such that 
  \begin{equation*}
   \textrm{Pr} \left[ \mathcal{A} \left( P, aP, bP, Q, aQ, bQ \right) = e \left( P, Q \right)^{abc} \mid \left< q, G_1, G_2, e \right> \leftarrow \mathcal{G} \left( 1^{\lambda} \right)\right] \leq \mu \left( \lambda \right)
  \end{equation*}
@@ -332,10 +340,6 @@ The \textit{Bilinear Diffie-Hellman assumption} holds if for any algorithm \\ $\
 This section defines basic cryptographic notions and the corresponding notation that is applied consistently throughout the remainder of this thesis.
 
 \subsection{Terminology}
-\begin{defn}[Perfect randomness]
-\label{def:perfect_randomness}
- A bit sequence $w$ contains \textit{perfect randomness} or is said to be chosen \textit{uniformly random} if every bit $b$ in $w$ could have been the result of the toss of a fair coin. That is, the probability that $b = 1$ equals the probability of $b = 0$ or more formally, $\textrm{Pr} \left[ b = 1 \right] = \textrm{Pr} \left[ b = 0 \right] = \frac{1}{2}$.
-\end{defn}
 
 \begin{defn}[Confidentiality]
 \label{def:confidentiality}
@@ -419,10 +423,10 @@ A \textit{hash function} is a computationally efficient deterministic function m
 
 Cryptographic hash functions have the following desirable properties:
 \begin{itemize}
- \item \textit{Computability:} Given a binary string $m$, the hash value $h$ can be calculated efficiently $h = \texttt{hash} \left( m \right)$
- \item \textit{Pre-image resistance:} Given a hash value $h$, it is infeasible to calculate a corresponding binary string $m$ such that $h = \texttt{hash} \left( m \right)$
- \item \textit{Second pre-image resistance:} Given a binary string $m_1$, it is hard to find a different binary string $m_2$ such that $\texttt{hash} \left( m_1 \right) = \texttt{hash} \left( m_2 \right)$
- \item \textit{Strong collision resistance:} Given a \texttt{hash} function \texttt{hash(.)}, it is hard to find two different binary strings $m_1$ and $m_2$ such that $\texttt{hash} \left( m_1 \right) = \texttt{hash} \left( m_2 \right)$
+ \item \textit{Computability:} Given a binary string $m$, the hash value $h$ can be calculated efficiently $h = H \left( m \right)$
+ \item \textit{Pre-image resistance:} Given a hash value $h$, it is infeasible to calculate a corresponding binary string $m$ such that $h = H \left( m \right)$
+ \item \textit{Second pre-image resistance:} Given a binary string $m_1$, it is hard to find a different binary string $m_2$ such that $H \left( m_1 \right) = H \left( m_2 \right)$
+ \item \textit{Strong collision resistance:} Given a \texttt{hash} function $H \left( \cdot \right)$, it is hard to find two different binary strings $m_1$ and $m_2$ such that $H \left( m_1 \right) = H \left( m_2 \right)$
 \end{itemize}
 
 Hash functions are useful for a wide variety of practical applications. For instance, hash functions serve as one way functions in password databases to relax sensitivity of the stored content. In addition, hash functions represent a valuable tool for data authentication and integrity checking. Another use of hash functions is in protocols involving a priori commitments. If the reader is new to the concept of hash functions, he is referred to~\cite{book:handbook_of_applied_cryptography} for an in depth discussion on the topic.
@@ -430,14 +434,14 @@ Hash functions are useful for a wide variety of practical applications. For inst
 \subsubsection{Random Oracles}
 A \textit{random oracle} is a theoretical black box that returns for each unique query a uniformly random chosen result from its output domain. A random oracle is deterministic, i.e. given a particular input it will always produce the same output.
 
-In a perfect world hash functions can be considered random oracles. That is, if hash functions were perfect, their output would look like perfect random bit sequences. Therefore, hash functions are often considered random oracles in security proofs. Such security proofs are said to be \textit{proven secure in the random oracle model}. Proofs in the random oracle model first show that an algorithm is secure if a theoretical random oracle would be used. A next step of these security proofs is replacing the random oracle accesses by the computation of an appropriately chosen (hash) function $h$~\cite{art:BellareR93}. Algorithms that do not require such a construction in their security proof are said to be \textit{proven secure in the standard model}.
+In a perfect world hash functions can be considered random oracles. That is, if hash functions were perfect, their output would look like perfect random bit sequences. Therefore, hash functions are often considered random oracles in security proofs. Such security proofs are said to be \textit{proven secure in the random oracle model}. Proofs in the random oracle model first show that an algorithm is secure if a theoretical random oracle would be used. A next step of these security proofs is replacing the random oracle accesses by the computation of an appropriately chosen (hash) function $h$~\cite{art:BellareR93}. Algorithms not requiring such a construction in their security proof are said to be \textit{proven secure in the standard model}.
 
-Although theoretical definitions of random oracles and hash functions are quite similar, some practical implementations of hash functions do not behave like random oracles at all. Canetti at al.~\cite{art:CanettiGH04} show that there exist signature and encryption schemes that are secure in the Random Oracle Model, although any implementation of the random oracle results in insecure schemes~\cite{art:CanettiGH04}. Coron et al. counter these findings with indifferentiability, i.e. if a hash function is indifferentiable from a random oracle the random oracle can be replaced by the hash function while maintaining a valid security proof~\cite{art:CoronDMP05}. Therefore, it is a common belief that proofs in the random oracle model provide some evidence that a system is secure. Although research results from Coron et al. are debated in~\cite{art:FleischmannGL10} and~\cite{art:RistenpartSS11}. In fact, indifferentiability from random oracles certainly contributed to the victory of Keccak in the NIST hash function competition for a new SHA-3 hashing standard as all final round hashing algorithms supported this property~\cite{art:BartheGHOB13}.
+Although theoretical definitions of random oracles and hash functions are quite similar, some practical implementations of hash functions do not behave like random oracles. Canetti at al.~\cite{art:CanettiGH04} show that there exist signature and encryption schemes that are secure in the random oracle model, although any implementation of the random oracle results in insecure schemes~\cite{art:CanettiGH04}. Coron et al.~\cite{art:CoronDMP05} counter these findings with indifferentiability, i.e. if a hash function is indifferentiable from a random oracle the random oracle can be replaced by the hash function while maintaining a valid security proof. Therefore, it is a common belief that proofs in the random oracle model provide some evidence that a system is secure. Although research results from Coron et al. are debated by Fleishmann et al.~\cite{art:FleischmannGL10} and Ristenpart et al.~\cite{art:RistenpartSS11}. In fact, indifferentiability from random oracles certainly contributed to the victory of Keccak in the NIST hash function competition for a new SHA-3 hashing standard as all final round hashing algorithms supported this property~\cite{art:BartheGHOB13}.
 
 \section{Summary}
 This chapter overviewed the fundamental mathematics required to understand the more advanced concepts described in Chapter~3.
 
-The first part of this chapter introduced the concepts of a negligible function as well as algebraic structures such as groups and finite fields. These basic notions were used further on to define number theoretic hard problems that serve as a basis for security. From the discrete logarithm assumption, several variants of the Diffie-Hellman problem were introduced, eventually leading to the Gap Diffie-Hellman assumption. The notion of the Gap Diffie-Hellman assumption allowed to uncover gap groups and their use in admissible bilinear maps. The Bilinear Diffie-Hellman assumption was defined as a computationally infeasible problem for the construction of cryptographic protocols relying on bilinear maps. Finally, this chapter concluded with differences between security under random oracle assumptions and security in the standard model.
+The first part of this chapter introduced basic on complexity theory, probability theory and algebraic structures. These basic notions were used further on to define number theoretic hard problems that serve as a basis for security. From the discrete logarithm assumption, several variants of the Diffie-Hellman problem were introduced, eventually leading to the Gap Diffie-Hellman assumption. The notion of the Gap Diffie-Hellman assumption allowed to uncover gap groups and their use in admissible bilinear maps. The Bilinear Diffie-Hellman assumption was defined as a computationally infeasible problem for the construction of cryptographic protocols relying on bilinear maps. Finally, this chapter concluded with differences between security under random oracle assumptions and security in the standard model.
 
 %%% Local Variables: 
 %%% mode: latex

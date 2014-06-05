@@ -21,7 +21,7 @@
 \contentsline {paragraph}{Scramble~\cite {art:BeatoKW11}}{2}{section*.11}
 \contentsline {section}{\numberline {1.3}Goals}{3}{section.1.3}
 \contentsline {section}{\numberline {1.4}Main Idea}{3}{section.1.4}
-\contentsline {section}{\numberline {1.5}Structure of this Thesis}{4}{section.1.5}
+\contentsline {section}{\numberline {1.5}Structure of this Thesis}{5}{section.1.5}
 \contentsline {chapter}{\chapternumberline {2}Required Background}{7}{chapter.2}
 \contentsline {section}{\numberline {2.1}Complexity Theory}{7}{section.2.1}
 \contentsline {section}{\numberline {2.2}Probability Theory}{8}{section.2.2}
@@ -53,7 +53,7 @@
 \contentsline {paragraph}{Complexity of the system:}{25}{section*.21}
 \contentsline {paragraph}{User friendliness:}{25}{section*.22}
 \contentsline {paragraph}{Opt-in by default:}{25}{section*.23}
-\contentsline {subsection}{\numberline {3.2.3}Security of IBE}{25}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.3}Security of IBE}{26}{subsection.3.2.3}
 \contentsline {subsubsection}{Indistinguishability Under Chosen Plaintext Attack}{26}{section*.24}
 \contentsline {subsubsection}{Indistinguishability Under Chosen Ciphertext Attack}{26}{section*.25}
 \contentsline {subsubsection}{Anonymous Identity-Based Encryption}{27}{section*.26}
@@ -98,16 +98,16 @@
 \contentsline {subsubsection}{Authenticity and Integrity}{50}{section*.47}
 \contentsline {subsubsection}{No Key Escrow and Key Validation}{51}{section*.48}
 \contentsline {subsubsection}{Limited Key Validity}{51}{section*.49}
-\contentsline {subsection}{\numberline {4.3.3}Updated Model}{52}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.3}Updated Model}{53}{subsection.4.3.3}
 \contentsline {subsection}{\numberline {4.3.4}Scheme}{54}{subsection.4.3.4}
 \contentsline {subsection}{\numberline {4.3.5}Evaluation}{54}{subsection.4.3.5}
 \contentsline {paragraph}{Confidentiality}{54}{section*.51}
 \contentsline {paragraph}{Outsider recipient anonymity}{54}{section*.52}
 \contentsline {paragraph}{No redundancy}{54}{section*.53}
-\contentsline {paragraph}{Authenticity and integrity}{54}{section*.54}
-\contentsline {paragraph}{No key escrow and key validation}{57}{section*.55}
-\contentsline {paragraph}{Limited key validity}{57}{section*.56}
-\contentsline {section}{\numberline {4.4}Summary}{57}{section.4.4}
+\contentsline {paragraph}{Authenticity and integrity}{55}{section*.54}
+\contentsline {paragraph}{No key escrow and key validation}{55}{section*.55}
+\contentsline {paragraph}{Limited key validity}{55}{section*.56}
+\contentsline {section}{\numberline {4.4}Summary}{55}{section.4.4}
 \contentsline {chapter}{\chapternumberline {5}Implementation}{59}{chapter.5}
 \contentsline {section}{\numberline {5.1}Software Architecture}{59}{section.5.1}
 \contentsline {subsection}{\numberline {5.1.1}Software Environment}{59}{subsection.5.1.1}
@@ -143,12 +143,15 @@
 \contentsline {subsection}{\numberline {5.5.1}Client Side}{70}{subsection.5.5.1}
 \contentsline {subsection}{\numberline {5.5.2}Server Side}{71}{subsection.5.5.2}
 \contentsline {subsection}{\numberline {5.5.3}Limitations Effecting Both Client and Server}{71}{subsection.5.5.3}
-\contentsline {section}{\numberline {5.6}Summary}{71}{section.5.6}
+\contentsline {section}{\numberline {5.6}Summary}{72}{section.5.6}
 \contentsline {chapter}{\chapternumberline {6}Conclusion}{73}{chapter.6}
+\contentsline {paragraph}{User friendly}{73}{section*.75}
+\contentsline {paragraph}{Practically applicable}{73}{section*.76}
+\contentsline {paragraph}{Immediately ready to use}{74}{section*.77}
 \contentsline {appendix}{\chapternumberline {A}Gentry's IBE Scheme}{77}{appendix.A}
 \contentsline {appendix}{\chapternumberline {B}Nederlandse Samenvatting}{79}{appendix.B}
-\contentsline {appendix}{\chapternumberline {C}English Paper}{81}{appendix.C}
-\contentsline {chapter}{Bibliography}{83}{section*.77}
+\contentsline {appendix}{\chapternumberline {C}English Paper}{83}{appendix.C}
+\contentsline {chapter}{Bibliography}{91}{section*.80}
 \select@language {english}
 \select@language {english}
 \select@language {english}

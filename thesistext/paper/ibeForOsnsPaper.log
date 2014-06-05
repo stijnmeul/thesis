@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  4 JUN 2014 15:25
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.8)  4 JUN 2014 15:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**bare_jrnl.tex
-(./bare_jrnl.tex
+**ibeForOsnsPaper.tex
+(./ibeForOsnsPaper.tex
 LaTeX2e <2011/06/27>
 Babel <3.9f> and hyphenation patterns for 78 languages loaded.
 (./IEEEtran.cls
@@ -403,12 +403,12 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \@thisruleclass=\count127
 \@lastruleclass=\count128
 \@thisrulewidth=\dimen184
-) (./bare_jrnl.aux
+) (./ibeForOsnsPaper.aux
 
 LaTeX Warning: Label `table:BE_exec_times' multiply defined.
 
 )
-\openout1 = `bare_jrnl.aux'.
+\openout1 = `ibeForOsnsPaper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 391.
 LaTeX Font Info:    ... okay on input line 391.
@@ -573,14 +573,14 @@ LaTeX Warning: Reference `table:exec_times' on page 5 undefined on input line 81
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
- (./bare_jrnl.bbl
+ (./ibeForOsnsPaper.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 191--193
 []\OT1/ptm/m/n/8 A. Huang, ``Dis-tributed Key Gen-er-a-tor,''
  []
 
 [6]) [7
 
-] (./bare_jrnl.aux)
+] (./ibeForOsnsPaper.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -590,14 +590,14 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  11881 strings out of 493315
- 225049 string characters out of 6137904
- 281827 words of memory out of 5000000
+ 225115 string characters out of 6137904
+ 282827 words of memory out of 5000000
  15043 multiletter control sequences out of 15000+600000
  48967 words of font info for 103 fonts, out of 8000000 for 9000
  961 hyphenation exceptions out of 8191
- 56i,15n,72p,1374b,795s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,15n,72p,1377b,795s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on bare_jrnl.pdf (7 pages, 449147 bytes).
+Output written on ibeForOsnsPaper.pdf (7 pages, 448785 bytes).
 PDF statistics:
  127 PDF objects out of 1000 (max. 8388607)
  80 compressed objects within 1 object stream

@@ -3,22 +3,21 @@
 
 \renewcommand{\figurename}{Figuur}
 
-\enlargethispage{\baselineskip}
 Online sociale netwerken nemen een steeds prominentere plaats in ons dagelijks leven als communicatienetwerk. Desondanks, bieden de door het Online Sociaal Netwerk (OSN) aangeboden privacy instellingen vaak onvoldoende bescherming voor de toevertrouwde data. Gebruikers kunnen opnieuw zelf bepalen wie er toegang krijgt tot hun data door cryptografische technieken toe te passen. 
 
 In klassieke cryptografische systemen genereren gebruikers een private sleutel waarvan een publieke sleutel wordt afgeleid. De veiligheid van dergelijke systemen wordt gewaarborgd doordat het rekenkundig onhaalbaar is om in omgekeerde zin de private sleutel van de publieke sleutel af te leiden. Een publieke sleutel infrastructuur publiceert vervolgens de publieke sleutels van alle gebruikers. Bijgevolg kunnen gebruikers die nooit eerder communiceerden alsnog vertrouwelijke berichten uitwisselen door deze te encrypteren met elkaars publieke sleutel. Enkel de eigenaar van de private sleutel is vervolgens in staat om de berichten te decrypteren zodat de oorspronkelijke inhoud weer zichtbaar wordt.
 
-Bestaande tools hebben echter moeite om algemeen aanvaard te worden bij gebruikers vanwege lage gebruiksvriendelijkheid en ingewikkeld beheer van cryptografische sleutels. Gebruikers kunnen immers moeilijk bewust kiezen wat geschikte sleutellengtes zijn of welke sleutels te vertrouwen zijn, zonder kennis van cryptografische primitieven.
+Bestaande tools voor OSNs hebben echter moeite om algemeen aanvaard te worden bij gebruikers vanwege lage gebruiksvriendelijkheid en ingewikkeld beheer van cryptografische sleutels. Gebruikers kunnen immers moeilijk bewust kiezen wat geschikte sleutellengtes zijn of welke sleutels te vertrouwen zijn, zonder kennis van cryptografische primitieven.
 
-In deze thesis, suggereren we een praktische oplossing die gebruik maakt van identiteitsgebaseerde encryptie om sleutelbeheer te vereenvoudigen en confidentialiteit op een OSN te waarborgen. Identiteitsgebaseerde encryptie laat namelijk toe om als publieke sleutel een herkenbare woordsequentie te nemen die de gebruiker uniek identificeert. Op die manier wordt meteen duidelijk wie de eigenaar is van de betreffende publieke sleutel waardoor complexe publieke sleutelinfrastructuren overbodig worden. 
+In deze thesis, suggereren we een praktische oplossing die gebruik maakt van identiteitsgebaseerde encryptie om sleutelbeheer te vereenvoudigen en confidentialiteit op een OSN te waarborgen. Identiteitsgebaseerde encryptie laat immers toe om als publieke sleutel een herkenbare woordsequentie te nemen die de gebruiker uniek identificeert. Op die manier wordt meteen duidelijk wie de eigenaar is van de betreffende publieke sleutel waardoor complexe publieke sleutelinfrastructuren overbodig worden. 
 
-Het nadeel van identiteitsgebaseerde encryptie is echter dat de private sleutel gegenereerd wordt door een publieke sleutel generator die bijgevolg volledig dient vertrouwd te worden. De publieke sleutel generator is immers in staat om vertrouwelijke berichten te decrypteren vermits hij de private sleutel van de ontvanger kent.
+Het nadeel van identiteitsgebaseerde encryptie is echter dat de private sleutel gegenereerd wordt door een publieke sleutel generator die bijgevolg volledig dient vertrouwd te worden. De publieke sleutel generator is immers in staat om \mbox{vertrouwelijke} berichten te decrypteren vermits hij de private sleutel van de ontvanger kent.
 
-Door private sleutels op gedistribueerde wijze te genereren over verschillende publieke sleutel generatoren, bezit elke generator slechts een deel van de gebruikers' private sleutel. Samenwerkende publieke sleutel generatoren kunnen dan geen informatie afleiden over de private sleutels zolang hun aantal geen drempelwaarde $t$ overschrijdt. De veiligheid van deze architectuur wordt gegarandeerd zolang de verschillende generatoren geen motivatie hebben om samen te werken.
+Door private sleutels op gedistribueerde wijze te genereren over verschillende publieke sleutel generatoren, bezit elke generator slechts een deel van de gebruikers' private sleutel. Samenwerkende publieke sleutel generatoren kunnen dan geen informatie afleiden over de private sleutels zolang hun aantal geen drempelwaarde $t$ overschrijdt. De confidentialiteit van de onderhandelde private sleutels wordt gegarandeerd zolang de verschillende generatoren geen motivatie hebben om samen te werken in deze architectuur.
 
 \begin{figure}[ht]
     \begin{center}
-    \scalebox{0.76}{
+    \scalebox{0.85}{
         \begin{tikzpicture}[auto, node distance=1mm,
             block/.style={rectangle,text width=6em,text centered,minimum height=11mm},
             line/.style={draw,very thick, ->},
@@ -73,7 +72,7 @@ Door private sleutels op gedistribueerde wijze te genereren over verschillende p
     \label{fig:overzicht}
 \end{figure}
 
-Figuur~\ref{fig:overzicht} toont een mogelijke opstelling in dewelke OSNen zelf de ondersteuning van de publieke sleutel generatoren verzorgen. Indien OSNen collectief hun gebruikersaantal zien dalen omwille van gebruikers die bezorgd zijn om hun privacy, kan het een motivatie zijn om een dergelijke infrastructuur aan te bieden. Hoewel de OSNen bij een dergelijke opstelling geen gerichte reclame meer kunnen aanbieden, hebben ze er alle baat bij dat hun totaal gebruikersaantal niet verder afneemt. Doordat nooit meer dan $t$ rivaliserende OSN providers geneigd zijn om hun deel van de private sleutel bekend te maken, wordt de veiligheid van de opstelling gegarandeerd. Bemerk dat de publieke sleutel generatoren ook ondersteund kunnen worden door gesubsidieerde onderzoeksinstellingen of verschillende overheden.
+Figuur~\ref{fig:overzicht} toont een mogelijke opstelling in dewelke OSNen zelf de ondersteuning van de publieke sleutel generatoren verzorgen. Indien OSNen collectief hun gebruikersaantal zien dalen omwille van een slechte privacy policy, kan het een motivatie zijn om een dergelijke infrastructuur aan te bieden. Zeker in het kader van recente bekendmakingen van Edward Snowden over het spionageprogramma van de NSA, hebben OSNen elke motivatie om hun data te beschermen. Hoewel de OSNen bij een dergelijke opstelling geen gerichte reclame meer kunnen aanbieden, hebben ze er alle baat bij dat hun totaal gebruikersaantal niet verder afneemt. Doordat nooit meer dan $t$ rivaliserende OSN providers geneigd zijn om hun deel van de private sleutel bekend te maken, wordt de veiligheid van de opstelling gegarandeerd. Bemerk dat de publieke sleutel generatoren ook ondersteund kunnen worden door gesubsidieerde onderzoeksinstellingen of verschillende overheden.
 
 Ge{\"i}nspireerd door het voorgaande, werken we aan de hand van identiteitsgebaseerde encryptie een algoritme uit dat toelaat om versleutelde informatie te delen met meerdere gebruikers zonder hun identiteit aan de buitenwereld te onthullen. De oplossing laat toe om versleutelde informatie te versturen aan gebruikers die nog niet expliciet hebben ingetekend om deel uit te maken van een dergelijke infrastructuur. Ten slotte, tonen we de haalbaarheid van onze oplossing aan door een open-source prototype te ontwikkelen dat praktisch bruikbaar is op Facebook en eenvoudig te veralgemenen valt naar andere bestaande OSNen.
 
