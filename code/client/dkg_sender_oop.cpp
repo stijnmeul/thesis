@@ -71,12 +71,12 @@ int main(void)
     Big order = pfc.order();
 
     // Specify the ids of the dkgs to contact
-    //int dkgIds[THRESHOLD] = {1, 2, 3};
+    //int dkgIds[THRESHOLD] = {2, 3};
     //int dkgIds2[THRESHOLD] = {3, 4, 5};
-    int dkgIds[THRESHOLD];
+    /*int dkgIds[THRESHOLD];
     for(int i = 0; i < THRESHOLD; i++) {
         dkgIds[i] = i+1;
-    }
+    }*/
 
     const char * id = "Alice";
     string urls[THRESHOLD];
@@ -105,8 +105,13 @@ int main(void)
 
         // Verify if the DKG are being honest
         cout << "Qpriv.g" << endl << Qpriv.g << endl;
+        cout << "P.g" << endl << P.g << endl;
+        cout << "Ppub.g" << endl << Ppub.g << endl;
+        cout << "Qid.g" << endl << Qid.g << endl;
         GT QprivP = pfc.pairing(P, Qpriv);
         GT QidPpub = pfc.pairing(Ppub, Qid);
+        cout << "QprivP.g" << endl << QprivP.g << endl;
+        cout << "QidPpub.g" << endl << QidPpub.g << endl;
         if (QprivP != QidPpub) {
             cout << "Server " << dkgIds[i] << " is dishonest. Select another DKG to continue the extraction process." << endl;
             return 0;

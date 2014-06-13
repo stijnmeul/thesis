@@ -49,20 +49,20 @@
 #include <iostream>
 #include <fstream>
 #include <bitset>
-#include "shamir.h"
+#include "pkg.h"
 
 #define HASH_LEN 32
 #define TAG_LEN 16
 
 #define NB_OF_SHARES 6
 #define THRESHOLD 3
-#define HTDOCS_BASE "/Applications/XAMPP/htdocs/thesis/dkg/"
+#define HTDOCS_BASE "/Applications/XAMPP/htdocs/thesis/pkg/"
 #define ENCRYPTED_KEY_FILENAME HTDOCS_BASE "encrypted_msk.key"
 
 Big lagrange(int i, int *reconstructionPoints, int degree, Big order);
 Big lagrange(int i, share_t *reconstructionPoints, int degree, Big order);
 Big retrieveSecret(share_t *reconstructonPoints, int degree, Big order);
-G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <DKG> serverlist, Big order);
+G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <PKG> serverlist, Big order);
 
 PFC pfc(AES_SECURITY);
 
@@ -89,15 +89,15 @@ int main()
 	pfc.random(s);
 
 	Big order = pfc.order();
-	vector <DKG> serverlist;
-	DKG leaderDKG = DKG(1, NB_OF_SHARES, THRESHOLD, order, &pfc, P, s);
-	cout << "leaderDKG.getState()" << endl << leaderDKG.getState() << endl;
-	serverlist.push_back(leaderDKG);
+	vector <PKG> serverlist;
+	PKG leaderPKG = PKG(1, 1,NB_OF_SHARES, THRESHOLD, order, &pfc, P, s);
+	cout << "leaderPKG.getState()" << endl << leaderPKG.getState() << endl;
+	serverlist.push_back(leaderPKG);
 	// Initialise the other servers and put them in a list
 	for (int i = 1; i < NB_OF_SHARES; i++) {
 		int serverId = i + 1; // ServerId must be between 1 and NB_OF_SHARES
 		pfc.random(s);
-		serverlist.push_back(DKG(serverId, NB_OF_SHARES, THRESHOLD, order, &pfc, s));
+		serverlist.push_back(PKG(serverId, i, NB_OF_SHARES, THRESHOLD, order, &pfc, s));
 		cout << "server " << serverId << " after initialisation"<< endl << serverlist.at(i).getState() << endl;
 	}
 
@@ -141,7 +141,7 @@ int main()
     return 0;
 }
 
-G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <DKG> serverlist, Big order) {
+G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <PKG> serverlist, Big order) {
 	G1 D;
 	for (int i = 0; i < THRESHOLD; i++) {
 		G1 Q = serverlist.at(contactedServers[i]).extract(id);
