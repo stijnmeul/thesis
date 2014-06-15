@@ -21,6 +21,7 @@ void PlaintextMessage::addRecipient(std::string recipient, PFC *pfc) {
 }
 
 EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc) {
+    get_mip()->IOBASE=64;
     // Generate keys
     generateKeys(pfc);
     autData = new AuthenticatedData();
@@ -74,6 +75,7 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     int Alen = (*autData).getLength();
     char A[Alen];
     (*autData).encodeTo(A);
+    cout << endl;
     getIV(iv);
     getK1(k1);
     gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);

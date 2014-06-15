@@ -23,7 +23,7 @@
 
 #include "../cppmiracl/source/pairing_3.h"
 
-#define THRESHOLD 2
+#define THRESHOLD 3
 #define DKG_BASE_ADDR "https://localhost/thesis/pkg"
 
 using namespace std;
@@ -73,10 +73,10 @@ int main(void)
     // Specify the ids of the dkgs to contact
     //int dkgIds[THRESHOLD] = {2, 3};
     //int dkgIds2[THRESHOLD] = {3, 4, 5};
-    /*int dkgIds[THRESHOLD];
+    int dkgIds[THRESHOLD];
     for(int i = 0; i < THRESHOLD; i++) {
         dkgIds[i] = i+1;
-    }*/
+    }
 
     const char * id = "Alice";
     string urls[THRESHOLD];
@@ -104,14 +104,8 @@ int main(void)
         Ppubs.push_back(Ppub);
 
         // Verify if the DKG are being honest
-        cout << "Qpriv.g" << endl << Qpriv.g << endl;
-        cout << "P.g" << endl << P.g << endl;
-        cout << "Ppub.g" << endl << Ppub.g << endl;
-        cout << "Qid.g" << endl << Qid.g << endl;
         GT QprivP = pfc.pairing(P, Qpriv);
         GT QidPpub = pfc.pairing(Ppub, Qid);
-        cout << "QprivP.g" << endl << QprivP.g << endl;
-        cout << "QidPpub.g" << endl << QidPpub.g << endl;
         if (QprivP != QidPpub) {
             cout << "Server " << dkgIds[i] << " is dishonest. Select another DKG to continue the extraction process." << endl;
             return 0;
@@ -123,7 +117,7 @@ int main(void)
     //cout << "D.g" << endl << D.g << endl;
     //cout << "Ppub.g" << endl << Ppub.g << endl;
     ext_time = getExecutionTime(begin_time);
-    cout << "Extraction time was " << ext_time << endl << endl;
+    cout << "Extraction time was " << ext_time << endl;
     // This demonstrates that the DKGs are effectively working like they should
     /*
     for (int i = 0; i < THRESHOLD; i++) {
@@ -158,7 +152,7 @@ int main(void)
     cout << "D.g" << endl << D.g << endl;
     cout << "Ppub.g" << endl << Ppub.g << endl;*/
 
-    PlaintextMessage mes = PlaintextMessage("Dit is een testje");
+    PlaintextMessage mes = PlaintextMessage("Dit is een test");
 
     mes.addRecipient("Andre", &pfc);
     mes.addRecipient("Adam", &pfc);
@@ -187,7 +181,7 @@ int main(void)
     mes.addRecipient("Jonas", &pfc);
     mes.addRecipient("Riek", &pfc);
     mes.addRecipient("Stefan", &pfc);
-    mes.addRecipient("Tim", &pfc);
+    //mes.addRecipient("Tim", &pfc);
     // 25
     mes.addRecipient("Alice", &pfc);
 
@@ -196,12 +190,18 @@ int main(void)
     begin_time = clock();
 
     EncryptedMessage encMes = mes.encrypt(P, Ppub, &pfc);
+    cout << "encMes.getMessage()" << endl;
+    string encMesPlain = encMes.getMessage();
+    cout << "encMesPlain" << endl << encMesPlain << endl;
+    EncryptedMessage encFromPlain = EncryptedMessage(encMesPlain);
     cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
     //cout << "encMes.getNbOfRecipients()" << endl << encMes.getNbOfRecipients() << endl;
     begin_time = clock();
     PlaintextMessage decMes = encMes.decrypt(P, Ppub, D, &pfc);
+    PlaintextMessage decFromPlain = encFromPlain.decrypt(P, Ppub, D, &pfc);
     cout << "Decryption time:     " << getExecutionTime(begin_time) << endl;
     cout << "decMes " << decMes.getMessage() << endl;
+    cout << "decFromPlain" << endl << decFromPlain.getMessage() << endl;
 
     return 0;
 }
@@ -210,7 +210,6 @@ DkgResult scrapeDkg(string url) {
     CURL *curl;
     CURLcode res;
     string readBuffer;
-
     curl = curl_easy_init();
 
     if(curl) {

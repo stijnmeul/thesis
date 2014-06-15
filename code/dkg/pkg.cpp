@@ -112,6 +112,10 @@ G1 PKG::extract(char * id) {
 	D = (*pfc).mult(Q1, this->sj);
 	get_mip()->IOBASE=64;
 	//return toString(D);
+
+	GT QprivP = (*pfc).pairing(P, D);
+    GT QidPpub = (*pfc).pairing(this->sjP, Q1);
+
 	return D;
 }
 

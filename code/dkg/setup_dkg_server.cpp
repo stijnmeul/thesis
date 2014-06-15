@@ -100,7 +100,7 @@ int main(int argc, char * argv[])
 		servId = atoi(argv[1]);
 		serverlistFile = argv[2];
 	}
-	string dkgDir = (string)PKG_DIR + "dkg" + argv[1] + "/";
+	string dkgDir = (string)PKG_DIR + "pkg" + argv[1] + "/";
 	mkdir(dkgDir.c_str(), S_IRWXU | S_IRWXG | S_IRWXO); // S_IRUSR|S_IRGRP|S_IROTH
 	string mskFile = dkgDir + (string)"encrypted_msk.key";
 

@@ -59,10 +59,9 @@
 #define HTDOCS_BASE "/Applications/XAMPP/htdocs/thesis/pkg/"
 #define ENCRYPTED_KEY_FILENAME HTDOCS_BASE "encrypted_msk.key"
 
+G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order, PFC *pfc);
+G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order, PFC *pfc);
 Big lagrange(int i, int *reconstructionPoints, int degree, Big order);
-Big lagrange(int i, share_t *reconstructionPoints, int degree, Big order);
-Big retrieveSecret(share_t *reconstructonPoints, int degree, Big order);
-G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <PKG> serverlist, Big order);
 
 PFC pfc(AES_SECURITY);
 
@@ -90,6 +89,7 @@ int main()
 
 	Big order = pfc.order();
 	vector <PKG> serverlist;
+	pfc.random(P);
 	PKG leaderPKG = PKG(1, 1,NB_OF_SHARES, THRESHOLD, order, &pfc, P, s);
 	cout << "leaderPKG.getState()" << endl << leaderPKG.getState() << endl;
 	serverlist.push_back(leaderPKG);
@@ -129,18 +129,62 @@ int main()
 
 	// Each server can now start to accept client requests for key generation
 	const char * id = "Stijn";
+	pfc.hash_and_map(Qid, (char*)id);
 
-	int contactedServers[3] = {1, 2, 3};
-	G1 D = getSecretKey((char*)id, contactedServers, serverlist, order);
+	int contactedServers[THRESHOLD];
+	int contactedServers2[THRESHOLD];
+	for(int i = 0; i < THRESHOLD; i++) {
+		contactedServers[i] = i+1;
+		contactedServers2[i] = i+2;
+	}
+	//G1 D = getSecretKey((char*)id, contactedServers, serverlist, order);
+	vector <G1> Qprivs;
+	vector <G2> Ppubs;
+	for (int i = 0; i < THRESHOLD; i++) {
+		PKG contactedServer = serverlist.at(contactedServers[i]);
+		Qjprivid = contactedServer.extract((char*)id);
+		Qprivs.push_back(Qjprivid);
+		Ppub = contactedServer.getSjP();
+		Ppubs.push_back(Ppub);
+		P = contactedServer.getP();
+		GT QprivP = pfc.pairing(P, Qjprivid);
+        GT QidPpub = pfc.pairing(Ppub, Qid);
+        if(QprivP == QidPpub) {
+        	cout << endl << "Rock and roll baby!" << endl;
+        }
+	}
+	G1 D = getSecretKey(contactedServers, Qprivs, order, &pfc);
+	Ppub = getPpub(contactedServers, Ppubs, order, &pfc);
+
 	cout << "D based on servers " << contactedServers[0] << ", " << contactedServers[1] << " and " << contactedServers[2] << endl << D.g << endl;
+	cout << "Ppub based on servers " << contactedServers[0] << ", " << contactedServers[1] << " and " << contactedServers[2] << endl << Ppub.g << endl;
 
-	int contactedServers2[3] = {3, 4, 5};
-	D = getSecretKey((char*)id, contactedServers2, serverlist, order);
+
+	Qprivs.clear();
+	Ppubs.clear();
+	//int contactedServers2[3] = {3, 4, 5};
+	//D = getSecretKey((char*)id, contactedServers2, serverlist, order);
+	for (int i = 0; i < THRESHOLD; i++) {
+		PKG contactedServer = serverlist.at(contactedServers2[i]);
+		Qjprivid = contactedServer.extract((char*)id);
+		Qprivs.push_back(Qjprivid);
+		Ppub = contactedServer.getSjP();
+		Ppubs.push_back(Ppub);
+		P = contactedServer.getP();
+		GT QprivP = pfc.pairing(P, Qjprivid);
+        GT QidPpub = pfc.pairing(Ppub, Qid);
+        if(QprivP == QidPpub) {
+        	cout << endl << "Rock and roll baby!" << endl;
+        }
+	}
+	D = getSecretKey(contactedServers2, Qprivs, order, &pfc);
+	Ppub = getPpub(contactedServers2, Ppubs, order, &pfc);
 	cout << "D based on servers " << contactedServers2[0] << ", " << contactedServers2[1] << " and " << contactedServers2[2] << endl << D.g << endl;
+	cout << "Ppub based on servers " << contactedServers2[0] << ", " << contactedServers2[1] << " and " << contactedServers2[2] << endl << Ppub.g << endl;
 
     return 0;
 }
-
+/*
 G1 getSecretKey(char* id, int (&contactedServers)[THRESHOLD], vector <PKG> serverlist, Big order) {
 	G1 D;
 	for (int i = 0; i < THRESHOLD; i++) {
@@ -180,4 +224,35 @@ Big retrieveSecret(share_t *reconstructonPoints, int degree, Big order) {
 		interpolationResult %= order;
 	}
 	return interpolationResult;
+}*/
+// Added these extra ones.
+G1 getSecretKey(int (&contactedServers)[THRESHOLD], vector <G1> Qprivs, Big order, PFC *pfc) {
+    G1 D;
+    for (int i = 0; i < THRESHOLD; i++) {
+        G1 Q = Qprivs.at(i);
+        Big l = lagrange(i, contactedServers, THRESHOLD, order);
+        D = D + (*pfc).mult(Q, l);
+    }
+    return D;
+}
+
+G2 getPpub(int (&contactedServers)[THRESHOLD], vector <G2> Ppubs, Big order, PFC *pfc) {
+    G2 Ppub;
+    for (int i = 0; i < THRESHOLD; i++) {
+        G2 myPpub = Ppubs.at(i);
+        Big l = lagrange(i, contactedServers, THRESHOLD, order);
+        Ppub = Ppub + (*pfc).mult(myPpub, l);
+    }
+    return Ppub;
+}
+
+
+Big lagrange(int i, int *reconstructionPoints, int degree, Big order) {
+    Big z = 1;
+    for (int k = 0; k < degree; k++) {
+        if(k != i) {
+            z = modmult(z, moddiv( (order - (Big)reconstructionPoints[k]), ((Big)reconstructionPoints[i] - (Big)reconstructionPoints[k]), order), order);
+        }
+    }
+    return z;
 }
