@@ -17,7 +17,7 @@
 #include "../cppmiracl/include/rapidxml.hpp"
 #include <stdexcept>
 #include "client_funcs.h"
-#define RECEIVER_ID "Alice"
+#define RECEIVER_ID "Stijn"
 #define PKG_POST "id=" RECEIVER_ID
 
 
@@ -78,7 +78,7 @@ int main(void)
         dkgIds[i] = i+1;
     }
 
-    const char * id = "Alice";
+    const char * id = "Stijn";
     string urls[THRESHOLD];
     for (int i = 0; i < THRESHOLD; i++) {
         stringstream ss;
@@ -183,16 +183,14 @@ int main(void)
     mes.addRecipient("Stefan", &pfc);
     //mes.addRecipient("Tim", &pfc);
     // 25
-    mes.addRecipient("Alice", &pfc);
+    mes.addRecipient("Stijn", &pfc);
 
     pfc.precomp_for_mult(P);
     pfc.precomp_for_pairing(Ppub);
     begin_time = clock();
 
     EncryptedMessage encMes = mes.encrypt(P, Ppub, &pfc);
-    cout << "encMes.getMessage()" << endl;
     string encMesPlain = encMes.getMessage();
-    cout << "encMesPlain" << endl << encMesPlain << endl;
     EncryptedMessage encFromPlain = EncryptedMessage(encMesPlain);
     cout << "Encryption time:     " << getExecutionTime(begin_time) << endl;
     //cout << "encMes.getNbOfRecipients()" << endl << encMes.getNbOfRecipients() << endl;
