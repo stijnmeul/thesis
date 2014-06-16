@@ -14,7 +14,7 @@
 #define V_LEN 45 // V is actually 44 chars long, 45 because of null termination
 #endif
 
-#include "../cppmiracl/source/pairing_3.h"
+#include "../../code/cppmiracl/source/pairing_3.h"
 #include <string>
 #include <vector>
 

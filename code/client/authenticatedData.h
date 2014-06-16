@@ -1,5 +1,5 @@
 #include "client_funcs.h"
-#include "../cppmiracl/source/pairing_3.h"
+#include "../../../code/cppmiracl/source/pairing_3.h"
 #include <vector>
 
 class AuthenticatedData {
