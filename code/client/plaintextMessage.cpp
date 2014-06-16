@@ -1,7 +1,9 @@
+#include "client_funcs.h"
+#include "../mapToDate.h"
 #include "plaintextMessage.h"
 #include "encryptedMessage.h"
 #include "authenticatedData.h"
-#include "client_funcs.h"
+
 
 #include <stdexcept>
 
@@ -12,11 +14,12 @@ PlaintextMessage::PlaintextMessage(std::string message) {
 
 void PlaintextMessage::addRecipient(std::string recipient, PFC *pfc) {
     G1 Q1;
+    string recipConcatDate = mapToDate(recipient);
 
     // Add recipient to the recipient list
-    recipients.push_back(recipient);
+    recipients.push_back(recipConcatDate);
     // Add hash of recipient to the recipientHashes list
-    (*pfc).hash_and_map(Q1, (char *)recipient.c_str());
+    (*pfc).hash_and_map(Q1, (char *)recipConcatDate.c_str());
     recipientHashes.push_back(Q1);
 }
 

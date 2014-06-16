@@ -1,0 +1,5 @@
+NOTITIES
+
+GMAC = het gebruik van GCM enkel voor het beschermen van integrity en authenticity (geen encryptie)
+AAD = Additional Authenticated Data = data waarvan enkel de integrity beschermd dient te worden
+TAG = soort van hash die de plaintext en de AAD neemt om de integrity van plaintext en AAD aan te tonen
