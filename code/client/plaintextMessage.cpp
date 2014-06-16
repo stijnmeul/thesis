@@ -75,19 +75,12 @@ EncryptedMessage PlaintextMessage::encrypt(const G2& P, const G2& Ppub, PFC *pfc
     int Alen = (*autData).getLength();
     char A[Alen];
     (*autData).encodeTo(A);
-    cout << endl;
     getIV(iv);
     getK1(k1);
     gcm_init(&g, HASH_LEN/2, k1, HASH_LEN/2, iv);
     gcm_add_header(&g, A, Alen);
     gcm_add_cipher(&g, GCM_ENCRYPTING, P_text, message.length(), C);
     gcm_finish(&g, T);
-
-    cout << "PlaintextMessage::encrypt() C" << endl;
-    for (int i = 0; i < message.length(); i++) {
-        cout << C[i];
-    }
-    cout << endl;
 
     return EncryptedMessage(A, Alen, T, C, message.length());
 }
