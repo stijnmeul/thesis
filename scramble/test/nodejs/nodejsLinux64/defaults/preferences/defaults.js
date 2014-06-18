@@ -1,0 +1,1 @@
+pref("extensions.nodejs.firstrun", true);

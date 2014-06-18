@@ -1,0 +1,8 @@
+content	nodejs	chrome/content/
+overlay	chrome://browser/content/browser.xul	chrome://nodejs/content/browser.xul
+resource	nodejs	resource/
+style chrome://global/content/customizeToolbar.xul chrome://nodejs/skin/button.css
+component {d68f9c51-54b3-44f5-bf66-8249db1222ec} components/component.js
+contract @nodejsff.com/nodejs;1 {d68f9c51-54b3-44f5-bf66-8249db1222ec}
+skin	nodejs	classic/1.0	chrome/skin/
+locale	nodejs	en-US	chrome/locale/en-US/	

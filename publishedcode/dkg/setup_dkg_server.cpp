@@ -21,7 +21,7 @@
    See https://eprint.iacr.org/2001/090 for more information
    Section 4.1 and 4.2
 
-   g++-4.7 setup_dkg_server.cpp pkg.cpp DKGMessage.cpp ../miraclthread/source/bls_pair.cpp ../miraclthread/source/zzn24.cpp ../miraclthread/source/zzn8.cpp ../miraclthread/source/zzn4.cpp ../miraclthread/source/zzn2.cpp ../miraclthread/source/ecn4.cpp ../miraclthread/source/big.cpp ../miraclthread/source/zzn.cpp ../miraclthread/source/ecn.cpp ../miraclthread/source/miracl.a -I ../miraclthread/include/ -o setup_dkg_server
+   g++-4.7 setup_dkg_server.cpp pkg.cpp DKGMessage.cpp ../mapToDate.cpp ../miraclthread/source/bls_pair.cpp ../miraclthread/source/zzn24.cpp ../miraclthread/source/zzn8.cpp ../miraclthread/source/zzn4.cpp ../miraclthread/source/zzn2.cpp ../miraclthread/source/ecn4.cpp ../miraclthread/source/big.cpp ../miraclthread/source/zzn.cpp ../miraclthread/source/ecn.cpp ../miraclthread/source/miracl.a -I ../miraclthread/include/ -o setup_dkg_server
 */
 
 //********* choose just one of these pairs **********
@@ -38,7 +38,7 @@
 
 #define THRESHOLD 3
 
-#include "../cppmiracl/source/pairing_3.h"
+#include "../miraclthread/source/pairing_3.h"
 #include "ibe_pkg.h"
 #include "DKGMessage.h"
 #include "pkg.h"

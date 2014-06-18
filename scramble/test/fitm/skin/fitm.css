@@ -1,0 +1,22 @@
+#TutTB-MainMenu 
+{
+list-style-image: url("chrome://fitm/skin/facebook.gif");
+}
+
+#uploadPrefeButton
+{
+list-style-image: url("chrome://fitm/skin/upload.gif");
+}
+
+#amicoBButton,
+#amicoBButton2,
+#viewProfMioButton,
+#viewProfApiButton 
+{
+list-style-image: url("chrome://fitm/skin/facebook.gif");
+}
+
+#deletePreference
+{
+list-style-image: url("chrome://fitm/skin/delete.gif");
+}

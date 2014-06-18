@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://fitm/skin/options.css" type="text/css"?>
+<prefwindow id="fitm" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="VF Manager" onload="view.deleteDummy();" minwidth="700" minheight="400">
+  <script src="view.js"/>
+  <prefpane id="mainPane" label="Manage Friends">
+    <preferences>
+      <preference id="friendList" name="Frienlist" type="unichar"/>
+    </preferences>
+    <description id="description">Here you can manage your friends</description>
+    <separator/>
+    <hbox>
+        <vbox>
+            <button id="importButton" label="Import File JSON" oncommand="view.uploadUsersJSON();"/>
+            <button id="deleteButton" label="Delete Preference" oncommand="view.resetUserPreference();"/>
+            <button id="viewButton"   label="View list of friends" oncommand="view.viewListOfFriends();"/>
+
+            <button id="importButtonLocal" label="Import Local User " oncommand="view.uploadLocalUsersJSON();"/>
+            <button id="viewButtonLocal"   label="View Local User" oncommand="view.viewLocalUser();"/>
+        </vbox>
+         
+            <listbox id="friendListBox" flex="1" rows="5" preference-editable="true" preference="friendListJSON">
+               <listhead>
+                <listheader label="User ID"/>
+                <listheader label="Public Key"/>
+              </listhead>
+              <listcols>
+                <listcol flex="0" minwidth="80"/>
+                <listcol flex="0" minwidth="80"/>
+                <listcol/>
+              </listcols>
+              <!-- workaround for listbox height - as suggested in MDC-->
+              <listitem id="dummy">
+                <listcell orient="vertical">
+                  <label value=""/>
+                  <label value=""/>
+                </listcell>
+                <listcell orient="vertical">
+                  <label value=""/>
+                  <label value=""/>
+                </listcell>
+                <listcell orient="vertical">
+                  <label value=""/>
+                  <label value=""/>
+                </listcell>
+                <listcell/>
+              </listitem>
+            </listbox>
+    </hbox>
+    <separator/>
+  </prefpane>
+</prefwindow>

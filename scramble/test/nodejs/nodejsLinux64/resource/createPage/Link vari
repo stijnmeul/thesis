@@ -1,0 +1,40 @@
+Link vari
+
+Creazione Profilo
+
+Picture 1
+graph.facebook.com/dario.vettore/picture?type=large
+
+Info++ 2 
+https://graph.facebook.com/dario.vettore?access_token=
+
+Feed 3
+https://graph.facebook.com/dario.vettore/feed?access_token=
+
+Likes 4 
+https://graph.facebook.com/dario.vettore/likes?access_token=
+
+Foto 5
+https://graph.facebook.com/dario.vettore/photos?access_token=
+
+Music 6
+https://graph.facebook.com/dario.vettore/music?access_token=
+
+Friends 7
+https://graph.facebook.com/dario.vettore/friends?access_token=
+
+{
+   "error": {
+      "message": "Unsupported operation",
+      "type": "FacebookApiException",
+      "code": 100
+   }
+}
+if not public info
+
+
+Books 8
+https://graph.facebook.com/dario.vettore/books?access_token=
+
+Groups 9
+https://graph.facebook.com/dario.vettore/groups?access_token=

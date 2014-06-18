@@ -1,0 +1,5 @@
+content fitm content/
+skin fitm classic/1.0 skin/
+locale	facereplace	en-US	locale/en-US/
+overlay chrome://browser/content/browser.xul chrome://fitm/content/fitm.xul
+resource fitm modules/

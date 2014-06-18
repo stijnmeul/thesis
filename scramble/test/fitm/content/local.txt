@@ -1,0 +1,7 @@
+{
+  "localuser": {
+    "username": "goffredo.denotte",
+    "name": "goffredo denotte a1",
+    "publicKey": "01234adad356789"
+  }
+}

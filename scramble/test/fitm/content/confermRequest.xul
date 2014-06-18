@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://fitm/skin/conferm.css" type="text/css"?>
+
+<dialog
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  id="myDialogId"
+  title="Conferm Request"
+  ondialogaccept="return returnOk();"
+  onload="onLoad();"
+  persist="screenX screenY width height"
+  windowtype="myDialogWindowType">
+
+  <script type="application/javascript" src="request.js"/>
+  <grid>
+    <columns><column/><column/></columns>
+    <rows>
+      <row align="center"><label value="Profile request:"/><textbox id="idRequest"/></row>
+      <row align="center"><label value="Author request:"/><textbox id="idAuthor"/></row>
+    </rows>
+  </grid>
+</dialog>

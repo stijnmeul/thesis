@@ -2,7 +2,7 @@
 #define AES_SECURITY 256
 #define BASE_PORT
 
-#include "../cppmiracl/source/pairing_3.h"
+#include "../miraclthread/source/pairing_3.h"
 #include "pkg.h"
 #include "DKGMessage.h"
 #include <vector>

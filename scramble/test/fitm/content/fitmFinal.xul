@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://fitm/skin/fitm.css" type="text/css"?>
+
+<overlay id="TutTB-Overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+         
+          
+          <commandset>
+              <command id="fitmOptionsView" oncommand="fitm.showOptions();"/>
+          </commandset>
+          
+          <menupopup id="menu_ToolsPopup">
+          <menuitem id="fitm-hello" label="VF Options"   command="fitmOptionsView"/>
+        </menupopup>  
+          
+    <script type="application/x-javascript"
+            src="chrome://fitm/content/fitm.js"/>     
+    <toolbox id="navigator-toolbox">
+    
+        <toolbar id="TutTB-Toolbar" toolbarname="Fitm toolbar" accesskey="T"
+                 class="chromeclass-toolbar" context="toolbar-context-menu" 
+                 hidden="false" persist="hidden">
+			
+			<toolbaritem>
+				<toolbarbutton id="login" tooltiptext="Login to the fitm app" label="(Login fitm!)" oncommand="fitm.login()"  />			
+			</toolbaritem>
+
+			<toolbaritem>
+				<label value="B: "/>
+			</toolbaritem>
+
+       		<toolbaritem id="TutTB-SearchTerms-TBItem" persist="width">
+					<vbox id="TutTB-SearchTerms" editable="true" flex="1" minwidth="100" width="150" >
+						<label control="your-name"/>
+						<textbox id="searchTextInput" value="" tooltiptext="Insert here the B name that you want to find"/>
+					</vbox>
+		    </toolbaritem>
+
+		    <toolbaritem>
+				<label value=" A1: "/>
+			</toolbaritem>
+			
+			<toolbaritem id="TutTB-SearchTerms-TBItem0" persist="width">
+                <menulist id="TutTB-SearchTerms0" editable="true" flex="1" tooltiptext="Select friens A1..n"
+                          minwidth="100" width="150"
+                          onkeypress="objTutorialToolbar.KeyHandler(event);">
+                    <menupopup id="TutTB-SearchTermsMenu0" onpopupshowing="fitm.RetriveFimA()"/>
+                </menulist>
+            </toolbaritem>
+
+            <toolbaritem>
+				<toolbarbutton id="amicoBButton" tooltiptext="Show the B friend profile" label="View B (using A1)" oncommand="fitm.Search(event)"/>	
+			</toolbaritem>
+
+ 			
+ 			<toolbaritem>
+				<label value=" B1: "/>
+			</toolbaritem>
+            
+       		<toolbaritem id="TutTB-SearchTerms-TBItem1" persist="width">
+					<vbox id="TutTB-SearchTerms1" editable="true" flex="1" minwidth="100" width="150" >
+						<label control="your-name"/>
+						<textbox id="searchTextInput1" value="" tooltiptext="Insert here the B1 userid"/>
+					</vbox>
+		    </toolbaritem>
+
+			<toolbaritem>
+				<toolbarbutton id="amicoBButton2" tooltiptext="Show the B friend profile" label="View B (with B1)" oncommand="fitm.callSocket(event)"/>	
+			</toolbaritem>
+
+			<toolbaritem>
+				<toolbarbutton id="request" tooltiptext="Number of request" label="Requests: (0)" oncommand="fitm.viewRequest()"/>	
+			</toolbaritem>
+
+			<toolbaritem>
+				<toolbarbutton id="logout" tooltiptext="Logout" label="Logout" oncommand="fitm.logout()"/>			
+			</toolbaritem>
+									
+      </toolbar>
+    </toolbox>
+</overlay>

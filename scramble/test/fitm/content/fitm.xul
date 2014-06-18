@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://fitm/skin/fitm.css" type="text/css"?>
+
+<overlay id="TutTB-Overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+         
+          
+          <commandset>
+              <command id="fitmOptionsView" oncommand="fitm.showOptions();"/>
+          </commandset>
+          
+          <menupopup id="menu_ToolsPopup">
+          <menuitem id="fitm-hello" label="VF Options"   command="fitmOptionsView"/>
+        </menupopup>  
+          
+    <script type="application/x-javascript"
+            src="chrome://fitm/content/fitm.js"/>     
+    <toolbox id="navigator-toolbox">
+    
+        <toolbar id="TutTB-Toolbar" toolbarname="Fitm toolbar" accesskey="T"
+                 class="chromeclass-toolbar" context="toolbar-context-menu" 
+                 hidden="false" persist="hidden">
+			
+			<toolbaritem>
+				<toolbarbutton id="login" tooltiptext="Login VF-app" label="Login" oncommand="fitm.login()"  />			
+			</toolbaritem>
+
+			<toolbaritem>
+				<label value="Bob: "/>
+			</toolbaritem>
+
+       		<toolbaritem id="TutTB-SearchTerms-TBItem" persist="width">
+					<vbox id="TutTB-SearchTerms" editable="true" flex="1" minwidth="100" width="150" >
+						<label control="your-name"/>
+						<textbox id="searchTextInput" value="" tooltiptext="Insert here Bob id"/>
+					</vbox>
+		    </toolbaritem>
+
+		    <toolbaritem>
+				<label value=" Ai: "/>
+			</toolbaritem>
+			
+			<toolbaritem id="TutTB-SearchTerms-TBItem0" persist="width">
+                <menulist id="TutTB-SearchTerms0" editable="true" flex="1" tooltiptext="Select the Exit node userid"
+                          minwidth="100" width="150"
+                          onkeypress="objTutorialToolbar.KeyHandler(event);">
+                    <menupopup id="TutTB-SearchTermsMenu0" onpopupshowing="fitm.RetriveFimA()"/>
+                </menulist>
+            </toolbaritem>
+ 			
+ 			<toolbaritem>
+				<label value=" Bj: "/>
+			</toolbaritem>
+            
+       		<toolbaritem id="TutTB-SearchTerms-TBItem1" persist="width">
+					<vbox id="TutTB-SearchTerms1" editable="true" flex="1" minwidth="100" width="150" >
+						<label control="your-name"/>
+						<textbox id="searchTextInput1" value="" tooltiptext="Insert here the entry node userid"/>
+					</vbox>
+		    </toolbaritem>
+
+			<toolbaritem>
+				<toolbarbutton id="amicoBButton2" tooltiptext="Show the Bob profile" label="View Bob" oncommand="fitm.callSocket(event)"/>	
+			</toolbaritem>
+
+			<toolbaritem>
+				<toolbarbutton id="request" tooltiptext="Number of request" label="Requests: (0)" oncommand="fitm.viewRequest()"/>	
+			</toolbaritem>
+
+			<toolbaritem>
+				<toolbarbutton id="logout" tooltiptext="Logout" label="Logout" oncommand="fitm.logout()"/>			
+			</toolbaritem>
+									
+      </toolbar>
+    </toolbox>
+</overlay>
+

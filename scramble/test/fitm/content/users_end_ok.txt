@@ -1,0 +1,26 @@
+{
+  "friendlist": {
+    "friend": [
+      {
+        "username": "dario.vettore",
+        "name": "Dario Vettore",
+        "publicKey": "0123456789"
+      },
+      {
+        "username": "pinco.pallino",
+        "name": "Pinco Pallino",
+        "publicKey": "1234568765"
+      },
+      {
+        "username": "paolino.paperino",
+        "name": "Paolino Paperino",
+        "publicKey": "987866554443"
+      },
+      {
+        "username": "martaadu",
+        "name": "Marta Adu",
+        "publicKey": "1356961345"
+      }
+    ]
+  }
+}

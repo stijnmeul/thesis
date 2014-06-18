@@ -7,11 +7,12 @@ g++-4.7 setup_dkg_server.cpp ../mapToDate.cpp pkg.cpp DKGMessage.cpp ../miraclth
 echo -e "${red}Executing ./setup_dkg_server 1 servers.list${NC}"
 COUNTER=1
 TOTNBOFLINES=$(grep -c ^ servers.list)
+CURDIR=$(pwd)
 echo "TOTNBOFLINES is $TOTNBOFLINES"
 let TOTNBOFLINES=TOTNBOFLINES+1
 while [  $COUNTER -lt $TOTNBOFLINES ]; do
-    echo The counter is $COUNTER
-    osascript -e "tell application \"Terminal\" to do script \"yes | /Users/stijn/KUL/Master/Thesis/code/dkg/setup_dkg_server $COUNTER /Users/stijn/KUL/Master/Thesis/code/dkg/servers.list\""
+    echo Starting PKG $COUNTER
+    osascript -e "tell application \"Terminal\" to do script \"yes | $CURDIR/setup_dkg_server $COUNTER $CURDIR/servers.list\""
     let COUNTER=COUNTER+1
 done
 echo -e "${red}All PKGs have been intialised${NC}"

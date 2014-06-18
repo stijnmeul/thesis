@@ -1,0 +1,21 @@
+{
+  "friendlist": {
+    "friend": [
+      {
+        "username": "bob.stelton.7",
+        "name": "Bob Stelton",
+        "publicKey": "0123456789"
+      },
+      {
+        "username": "nonhoffreddo.dinotte",
+        "name": "nonhoffreddo.dinotte.b1",
+        "publicKey": "01234567890011"
+      },
+      {
+        "username": "goffredo.denotte",
+        "name": "goffredo denotte a1",
+        "publicKey": "01234adad356789"
+      }
+    ]
+  }
+}

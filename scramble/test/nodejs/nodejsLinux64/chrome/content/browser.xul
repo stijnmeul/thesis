@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://nodejs/skin/button.css" type="text/css"?>
+<overlay id="nodejs-browser-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script src="chrome://nodejs/content/nodejs.js"/>
+	<toolbarpalette id="BrowserToolbarPalette">
+	  <toolbarbutton 
+	  	id="nodejs-button" 
+	  	class="toolbarbutton-1"
+	    label="Node.js" 
+	    tooltiptext="Start Node.js"
+	    oncommand="if ( event.target == event.currentTarget ) NODEJS.start(event);" 
+	    type="menu-button">
+			<menupopup id="nodejs-toolbarbutton-popup">
+				<menuitem label="Change Script" 
+				id="nodejs_change" 
+				class="menuitem-iconic" 
+				oncommand="NODEJS.change();"/>									
+			</menupopup>	    
+		</toolbarbutton>	    
+	</toolbarpalette>	
+</overlay>

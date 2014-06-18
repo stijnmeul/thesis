@@ -1,0 +1,25 @@
+/*  content/button.css  */
+
+#nodejs-button {
+  list-style-image: url("chrome://nodejs/skin/red.png");
+}
+
+toolbar[iconsize="small"] #nodejs-button {
+  list-style-image: url("chrome://nodejs/skin/red.png");
+}
+
+#nodejs-button.nodeoff {
+  list-style-image: url("chrome://nodejs/skin/red.png");
+}
+
+toolbar[iconsize="small"] #nodejs-button.nodeoff {
+  list-style-image: url("chrome://nodejs/skin/red.png");
+}
+
+#nodejs-button.nodeon {
+  list-style-image: url("chrome://nodejs/skin/green.png");
+}
+
+toolbar[iconsize="small"] #nodejs-button.nodeon {
+  list-style-image: url("chrome://nodejs/skin/green.png");
+}
