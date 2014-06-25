@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<dialog title="Password" orient="vertical" autostretch="always" 
+        onload="pwddlg.onLoad(this); " buttons="accept,cancel" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        ondialogaccept="return pwddlg.onAccept()">
+
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/pwd.js"></script>
+    
+    <vbox flex="1">
+        <hbox flex="1">
+            <image src="chrome://scramble/skin/imgs/scramble_medium_icon.png" style="padding:5px 10px 5px 5px;" />
+            <vbox flex="1">
+                <label control="password" id="description" value="Insert Password" />
+          	    <textbox id="pwd-textbox" type="password"/>
+
+                <hbox>
+                    <spacer flex="1" />
+                    <label id="spacelabel" value="" style="margin: 0px 40px" />                    
+                    <checkbox id="pwd-showbox" label="Show Password" oncommand="pwddlg.onShow();"/>
+                    <checkbox id="pwd-savebox" label="Save Password" />                                        
+                </hbox>            
+            </vbox>
+        </hbox>
+
+        <spacer flex="1" /> 
+        <label value="" />
+        <description style="white-space: pre;" hidden="true" id="note">Note: This is required to update your JCE libraries, in the case </description>
+         <description style="white-space: pre;" hidden="true" id="note1">you don't want to do it automatically, you can always do it</description>
+         <description style="white-space: pre;" hidden="true" id="note2"> manually by following the instructions on http://java.com</description>
+        
+        
+    </vbox>
+    
+</dialog>

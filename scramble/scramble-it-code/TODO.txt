@@ -1,0 +1,25 @@
+
+22 Oct
+- Delete/Remove Contact from Group
+- Remove Group
+- Validity FIELD
+- update 
+
+BUGS!
+- Encrypt for group
+- Encrypt for more than one person
+
+
+Dec 2
+ - Code Validation + Guidelines check   (Use JSlint.com )
+
+20 Dec
+ - Test in a clean environment (tested in MacOS 10.6/ Firefox 3.5.6 / GnuPG 1.4.9 )
+
+22 Dec
+ - Group manager and group management instead of keychain
+ - organise DTDs
+
+ 1Jan
+ - Test: Create a new group, new contact (from server or pk), move contacts to a group, remove contacts from group and permanently....Encrypt text, decrypt text on Elgg
+         

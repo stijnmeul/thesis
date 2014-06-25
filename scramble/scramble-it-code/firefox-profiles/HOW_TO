@@ -1,0 +1,13 @@
+Create two Firefox profiles.
+
+For each of them, go to Edit -> Preferences -> Advanced tab -> Encryption tab -> View Certificates -> Import -> select the file x509.cacert -> tick the "Trust this CA to identify software developers" checkbox -> OK
+
+Copy the scrambleData in your two profiles and you will be able to use the keys and settings as they are (no need to generate key and import contacts).
+
+Install scramble-1-12-signed.xpi
+
+Have fun!
+
+Credentials for Michael's Facebook account are: 
+username: michimuell@student.ethz.ch
+password: dummypasswd

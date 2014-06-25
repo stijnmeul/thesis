@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addressbook>
+	<contacts><contact id="7679781670227885243" fingerprint="c881f86ff5bcd765c7d4e6186a9410bd667d3cbb" aes="+ecp0zhQcexgiI2498TElA==" exp="BouncyCastle"><persona type="name">Iulia Ion</persona></contact></contacts>
+	<groups><group name="Friends"><member>7679781670227885243</member></group></groups>
+</addressbook>

@@ -1,0 +1,104 @@
+<!-- General Naming Buttons -->
+<!ENTITY general.Save "Save">
+<!ENTITY general.Cancel "Cancel">
+<!ENTITY general.Done "Done">
+<!ENTITY general.Add "Add">
+<!ENTITY general.listMail "Email">
+<!ENTITY general.listDesc "Description">
+<!ENTITY general.listlabel0 "keyName">
+<!ENTITY general.pwd "Password">
+
+<!ENTITY mainMenu.label "Scramble It!">
+
+<!ENTITY mainMenu.item1 "Key Ring...">
+<!ENTITY mainMenu.item2 "About...">
+<!ENTITY mainMenu.item3 "Settings">
+<!ENTITY mainMenu.item4 "Group Manager...">
+<!ENTITY mainMenu.item5 "Add New Member...">
+<!ENTITY mainMenu.item6 "Text Dialog...">
+
+<!-- Password Menu -->
+<!ENTITY pwdMenu.title "Insert Your Password">
+<!ENTITY pwdMenu.label "Save Password">
+<!ENTITY pwdMenu.show "Show Password">
+
+<!-- crypt Dialogue Menus -->
+<!ENTITY cryptDlg.encrypt "Encrypt to Text">
+<!ENTITY cryptDlg.decrypt "Decrypt">
+<!ENTITY cryptDlg.title "Text Dialog">
+<!ENTITY cryptDlg.encryptedtxt "Encrypted Text:">
+<!ENTITY cryptDlg.insert "Insert Text/Link:">
+<!ENTITY cryptDlg.textvalue "Insert Text/Link">
+<!ENTITY cryptDlg.encryptLink "Encrypt to Link">
+
+<!-- steganography Dialogue Menus -->
+<!ENTITY stegDlg.insert "Create a text to replace the encryption or use the suggested one:">
+<!ENTITY stegDlg.publish "Publish">
+<!ENTITY stegDlg.refresh "Get Other Text">
+<!ENTITY stegDlg.tinyUrl "Use a TinyUrl Link">
+<!ENTITY stegDlg.cancel "Cancel">
+
+<!-- Key Ring Menu -->
+<!ENTITY keyring.title "Key Ring Dialog">
+<!ENTITY keyring.memberLabel "Members">
+<!ENTITY keyring.groupLabel "Groups">
+<!ENTITY keyring.memberlist1 "Name">
+<!ENTITY keyring.memberlist2 "ID">
+<!ENTITY keyring.memberlist3 "Fingerprint">
+<!ENTITY keyring.grouplist1 "Group Name">
+<!ENTITY keyring.grouplist2 "Description">
+<!ENTITY keyring.group-members1 "Group Members">
+<!ENTITY keyring.group-members2 "ID">
+<!ENTITY keyring.buttonMember "Add Member...">
+<!ENTITY keyring.buttonGroup "Manage Groups...">
+
+<!-- Group Manager Dialog -->
+<!ENTITY groupmanager.title "Group Manager">
+<!ENTITY groupmanager.listheader1 "Member Name">
+<!ENTITY groupmanager.listheader2 "ID">
+<!ENTITY groupmanager.listheader3 "FingerPrint">
+<!ENTITY groupmanager.buttons1 "&gt;&gt; Add to Group &gt;&gt;">
+<!ENTITY groupmanager.buttons2 "&lt;&lt; Remove From Group &lt;&lt;">
+<!ENTITY groupmanager.buttons3 "[+] Add New Group [+]">
+<!ENTITY groupmanager.buttons4 "[-] Remove Group [-]">
+<!ENTITY groupmanager.menuLabel "Groups">
+<!ENTITY groupmanager.list2header1 "Group Members">
+<!ENTITY groupmanager.list2header2 "ID">
+<!ENTITY groupmanager.newgrpCaption "Add New Group">
+<!ENTITY groupmanager.newgrpName "Name">
+<!ENTITY groupmanager.newgrpDescription "Description">
+<!ENTITY groupmanager.nickButton "Add Nickname...">
+<!ENTITY groupmanager.nickCaption "Give Member a Nickname">
+<!ENTITY groupmanager.nickLabel "Member Nickname">
+<!ENTITY groupmanager.allmembers "All Existing Members:">
+<!ENTITY groupmanager.allgroups "Groups List:">
+
+<!-- Add Member Dialog -->
+<!ENTITY addmember.title "Add New Member">
+<!ENTITY addmember.PK "Public Key:">
+
+
+<!-- Setting Dialog -->
+<!ENTITY settings.title "Scramble! Settings">
+<!ENTITY settings.erasepwd "Erase">
+<!ENTITY settings.savepwd "Save">
+<!ENTITY settings.tinylink "TinyLink">
+<!ENTITY settings.enable "Enable as Default">
+<!ENTITY settings.changeserver "Change Server">
+<!ENTITY settings.serverurl "Server URL">
+<!ENTITY settings.gen "General">
+<!ENTITY settings.adv "Advanced">
+<!ENTITY settings.keys "Keys">
+<!ENTITY settings.upload2server "Upload Public Key to Key Server">
+<!ENTITY settings.export2file "Export your Public Key to a File">
+<!ENTITY settings.exportAes2file "Export your AES Key to a File">
+<!ENTITY settings.exportkeys "Export KeyRings">
+<!ENTITY settings.importkeys "Import KeyRings">
+<!ENTITY settings.generate "Generate new Keys">
+<!ENTITY settings.importgroups "Import old Groups">
+<!ENTITY settings.exportgroups "Export Groups">
+<!ENTITY settings.contacts "Contact Groups">
+<!ENTITY settings.junpolicies "Java Unrestricted Policies">
+<!ENTITY settings.jvmjce "Update JVM JCE">
+<!ENTITY settings.advwarn "Warning: These are advanced options and might affect your current Scramble! preferences!">
+

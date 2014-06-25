@@ -1,0 +1,8 @@
+#mainBox {
+	min-width: 320px;
+	max-width: 320px;
+	min-height: 410px;
+	max-height: 410px;	
+	
+	margin: 2px;
+}

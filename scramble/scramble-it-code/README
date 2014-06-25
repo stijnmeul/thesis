@@ -1,0 +1,12 @@
+Scramble! 
+
+Requirements:
+ (1) Unix System (Linux or Mac) or Windows
+ (2) Firefox 4.* or higher
+ (3) Java Plug-in for Firefox. 
+ (4) Java version 1.6 (For BC version: Update the unrestricted policy files from JCE required for large keys) - if using OpenJDK check FAQ page.
+
+ url: http://tinyurl.com/scrambleit
+
+License: 
+  - This application and source code is licensed under EPL. Please check the LICENSE file for more details.

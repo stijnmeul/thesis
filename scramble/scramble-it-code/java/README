@@ -1,0 +1,9 @@
+About java/
+
+javaFirefoxExtensionUtils.jar : utility classes to help to set the correct permissions to load the java as xpcom 
+
+openpgp/OpenPGP.jar : contains the library to build the OpenPGP encryption/decryption methods using the Bouncycastle provider
+
+openpgp/jars/ : contains the extra required libraries by the OpenPGP.jar 
+
+openpgp/jce_lib/ : contains the update files to update the local java with the JCE unlimited policies

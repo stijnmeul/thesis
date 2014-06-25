@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://scramble/skin/initd.css" type="text/css" ?>
+
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<dialog title="Initialisation Preferences" orient="vertical" autostretch="always" 
+        onload="initdlg.onLoad(this);" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"  buttons="none" >
+
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/initDlg.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/app/loadns.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/app/dialogLoader.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/facebookLogin.js" />
+    
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties" />
+    </stringbundleset>
+    
+    
+    <vbox id="mainBox">
+        
+        <hbox>
+            <spacer flex="1" />
+            <image src="chrome://scramble/skin/imgs/scramble_medium_icon.png" style="margin:5px 10px 5px 5px;"/>
+            <spacer flex="1" />            
+        </hbox>
+        
+        <tabbox id="initialiseTabs" selectedIndex="0">
+            <tabs style="color:grey">
+                <tab label="Disclaimer" style="color:black" />
+                <tab label="Setup" onclick="initdlg.onTabSelect()"/>
+                <!--   commented for CMU tests                
+                    <tab label="Contacts" onclick="initdlg.onTabSelect()"/>
+                -->
+                <tab label="Finish" onclick="initdlg.onTabSelect()"/>
+            </tabs>
+            
+            <tabpanels>
+                <tabpanel>
+                    <!-- tabpanel First (index=0) elements go here -->
+                    
+                    <vbox flex="1">
+
+                        <label style="font-weight: bold; margin-bottom: 5px;" id="licensetext" value="&init.disc;" />
+                        <textbox multiline="true" readonly="true" class="plain" value="&init.msg;" />
+                        <label value="" />
+                        <label style="font-weight: bold; margin-bottom: 5px;" id="licensetext" value="&init.license;" />
+                        <textbox multiline="true" readonly="true" class="plain" value="&init.license_txt;" />
+
+                        <spacer flex="1" />
+                        <hbox style="margin: 3px">
+                            <spacer flex="1" />
+                            <button label="Next" class="smallButton" oncommand="initdlg.onTabChange();" />
+                            <spacer flex="1" />
+                        </hbox>    
+                        <separator class="groove" />
+                        <textbox multiline="true" readonly="true" class="plain" value="&init.warn;" />
+                    </vbox>                
+                </tabpanel>
+        
+                <tabpanel>
+                    <!-- tabpanel Second (index=1) elements go here -->
+                    <vbox flex="1">
+                        <label style="font-weight: bold; margin-bottom: 5px;" value="New Keys" />
+                        <textbox multiline="true" readonly="true" class="plain" value="In order to use Scramble! you need to generate a public/secret key to protect your data." />
+
+                        <hbox>
+                            <spacer flex="1" />
+                            <button id="genkeypair" class="smallButton" label="Generate..." oncommand="initdlg.onGenKeyPair()" />          	    
+                        </hbox>                        
+                        <separator class="groove" />
+                        <!--label id="genkey_label" value="" /-->
+                        <label style="font-weight: bold; margin-bottom: 5px;" value="Import" />
+                        <textbox multiline="true" readonly="true" class="plain" value="If you already use Scramble! you import your old keys." />                        
+                        <hbox>
+                            <spacer flex="1" />
+                            <button id="importkeypair" class="smallButton" label="Import..." oncommand="initdlg.onImportKeyPair();" />
+                        </hbox>    	        
+
+                        <spacer flex="1" />
+                        <hbox style="margin: 3px">
+                            <spacer flex="1" />
+                            <button label="Next" class="smallButton" oncommand="initdlg.onTabChange();" />
+                            <spacer flex="1" />
+                        </hbox>    
+                    </vbox>
+                
+                </tabpanel>
+
+                <!-- tabpanel Third (index=2) elements go here -->
+                <!--   commented for CMU tests
+                <tabpanel>
+                    <vbox flex="1">
+                        <label style="font-weight: bold; margin-bottom: 5px;" value="Contacts (Optional)" />
+                        <textbox multiline="true" readonly="true" class="plain" value="If you use Facebook and you want to import the keys of your contacts that use Scramble!, you can import them..." />                        
+                        
+                        <hbox>
+                            <spacer flex="1" />
+                            <button id="importkeypair" class="smallButton" label="Import..." oncommand="initdlg.onImportKeyPair();" />
+                        </hbox>    	        
+                        
+                        <spacer flex="1" />
+                        <hbox style="margin: 3px">
+                            <spacer flex="1" />
+                            <button label="Next" class="smallButton" oncommand="initdlg.onTabChange();" />
+                            <spacer flex="1" />
+                        </hbox>
+                    </vbox>
+                </tabpanel>
+                -->
+        
+                <tabpanel>
+                    <!-- tabpanel Fourth (index=3) elements go here -->
+                    
+                    <vbox flex="1">
+                    
+                        <vbox>
+                            <label id="finish" value="Initialisation Process Complete" />
+                            <label id="notfinish" hidden='true' value="(Please Complete the missing parts - in red)" />
+                        </vbox>
+                    
+                        <spacer flex="1" />
+                    
+                        <label style="font-weight: bold; margin-bottom: 5px;" value="Report" />
+                        <label id="result_sk" value="Secret Key: " />
+                        <label id="result_pwd" value="Password: " />
+                        <label id="result_pk" value="Public Keys: " />
+                        <label id="result_fb" value="Facebook Imported (Optional): " />
+                    
+                        <spacer flex="1" />
+                        <hbox style="margin: 3px">
+                            <spacer flex="1" />
+                            <button label="Finish" class="smallButton" oncommand="initdlg.onTabChange();" />
+                            <spacer flex="1" />
+                        </hbox>                    
+                    </vbox>                    
+                </tabpanel>
+        
+            </tabpanels>
+        
+        </tabbox>
+
+        <spacer flex="1" />
+        <hbox style="margin: 3px">
+            <spacer flex="1" />
+            <button label="Cancel" class="smallButton" oncommand="initdlg.onCancel();"/>
+        </hbox>
+    </vbox>
+
+
+</dialog>

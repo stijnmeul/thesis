@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addressbook>
+	<contacts><contact id="-3558037395527477202" fingerprint="4e73d12cd4343c3e9f0f3fb3ce9f4fd70e07582e" aes="MNQwm0JoE30nLbYGYXEIRQ==" exp="BouncyCastle"><persona type="name">Michael Müller</persona></contact></contacts>
+	<groups><group name="Friends"><member>-3558037395527477202</member></group></groups>
+</addressbook>

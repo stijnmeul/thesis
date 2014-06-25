@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups description="Scramble XML Group File">
+  
+<group name="Friends">
+	<description>This is the default Group of Friends</description>
+	<members>
+		<member id="5584282154584912279" fingerprint="8c10c3f9c5b7da096d24ea674d7f5b0865963197" AESKEY="QwyinsjAG7hUicZWFdJ50g==" salt="ZWA3BKOWgi8=" exp="BouncyCastle">Michael (...)  &lt;michael@muller.com&gt;
+			<persona type="name">Michael Müller</persona>
+			<persona type="email">michael@muller.com</persona>
+			<persona type="facebook">https://www.facebook.com/profile.php?id=100003204601590</persona>
+		</member>
+	</members>
+</group>
+<group name="me">
+	<members>
+		<member id="1884324586130665677" fingerprint="50b30832b45334437bd385b41a26773a3dda70cd" AESKEY="QwyinsjAG7hUicZWFdJ50g==" salt="ZWA3BKOWgi8=" exp="BouncyCastle">Iulia Ion (...)  &lt;iulia.ion@inf.ethz.ch&gt;
+			<persona type="name">Iulia Ion</persona>
+			<persona type="email">iulia.ion@inf.ethz.ch</persona>
+			<persona type="email">iulia@ion.com</persona>
+			<persona type="facebook">https://www.facebook.com/iulia.ion</persona>
+		</member>
+	</members><description>TBD</description>
+</group></groups>

@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://scramble/skin/keychain.css" type="text/css"?>
+
+<?xml-stylesheet href="dragboxes.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<window title="&keychain.title;" orient="vertical" autostretch="always"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" buttons="none" 
+        onload="keychain.onLoad(this);"
+        ondialogcancel="return maindlg.onCancel();">
+                
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/keychain.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/app/loadns.js" />    
+    <script type="application/x-javascript" src="chrome://scramble/content/app/dialogLoader.js" />
+    
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties"/>
+    </stringbundleset>
+
+
+    <groupbox id="keychainpanel">    
+    
+        <hbox flex="1">
+            <vbox>
+                <dragbox flex="1" acceptdrag="box" ondrop="maindlg.onDragAndDrop(event)">
+                
+                    <tree id="list_groups" hidecolumnpicker="false" seltype="multiple" flex="1" rows="20" onclick="keychain.showSelectedGroups();" ondblclick="onAccept();">
+                      <treecols>
+                        <treecol label="&keychain.grplabel;" style="width: 10.3em" primary="true" />          
+                        <treecol ignoreincolumnpicker="true" label="&keychain.grouplist;" hidden="true" />                      
+                      </treecols>
+                      
+                      <treechildren id="list_groups_tree" >
+                      </treechildren>
+                    </tree>
+                            
+                </dragbox>
+                
+                <hbox>
+                    <button class="buttonPlus" label="&general.buttonPlus;" oncommand="keychain.addNewGroup()" />
+                    <button class="buttonPlus" label="&general.buttonMinus;" oncommand="keychain.removeGroup();" />    
+                    <spacer flex="1" />
+                </hbox>
+
+            </vbox>
+            
+            <vbox>                
+                <dragbox flex="1" drag="box" >
+                
+                    <tree id="list_contacts" hidecolumnpicker="false" seltype="multiple" flex="1" rows="20" onclick="keychain.contactSelected();" ondblclick="onAccept();">
+                      <treecols>
+                        <treecol label="&keychain.contlabel;" style="width: 12.3em" primary="true" />
+                        <treecol label="&keychain.contID;" hidden="true" ignoreincolumnpicker="true" />
+                        <treecol label="&keychain.contmail;" hidden="true" ignoreincolumnpicker="true" />
+                        <treecol label="&keychain.contfingerprint;" hidden="true" ignoreincolumnpicker="true" />
+                        <treecol label="&keychain.contNotes;" hidden="true" ignoreincolumnpicker="true" />
+                      </treecols>
+                      
+                      <treechildren id="list_contacts_tree" tooltip="dragDropTip" >
+                      </treechildren>
+                      
+                    </tree>
+                
+                </dragbox>
+                
+                <hbox>
+                    <button class="buttonPlus" label="&general.buttonPlus;"  oncommand="descriptionBox.setAddContact();" />  
+                    <button class="buttonPlus" label="&general.buttonMinus;"  oncommand="keychain.removeContact();" />
+                    <spacer flex="1" />                
+                </hbox>
+                
+            </vbox>
+            
+
+            <label value="" id="noDescription" class="emptyBox" flex="1" />
+            
+            <groupbox id="miscBox">
+                <vbox id="descriptionBox" align="center" flex="1"> 
+                    <vbox flex="1">
+                        <label id="descriptionName" value="&description.name;" />
+                        <label id="descriptionLabel" value="" />                                                    
+
+                        <vbox flex="1">
+                            <vbox flex="1">
+                                <label class="descriptionExtra" value="&description.email;" />
+                                <label class="descriptionValues" id="descriptionMail" value="" />
+                            </vbox>
+                            <vbox flex="1">
+                                <label class="descriptionExtra" id="descriptionID" value="&description.id;" />
+                                <label class="descriptionValues" id="descriptionFingerprint" value="" />                                
+                            </vbox>
+                            
+                            
+                        </vbox>
+                    
+                        <separator class="groove" />
+                    
+                        <vbox flex="1">
+                            <label id="descriptionNote" value="&description.note;" />
+                            <label id="descriptionNoteVal" value="" />
+                    
+                            <hbox flex="1">
+                                <spacer flex="1" />
+                                <!--button class="smallButton" label="Edit" /-->
+                            </hbox>
+                        </vbox>
+                        
+                    </vbox>
+                    
+                </vbox>
+                               
+                <!--  Start add contact box -->
+                
+                <vbox id="addcontactBox" align="center">
+                
+                <hbox style="margin: 4px; font-weight: bold; font-size: 120%;" >
+                    <spacer flex="1" />
+                    <label value="Add Contact From..." />
+                    <spacer flex="1" />
+                </hbox>
+                
+                <tabbox selectedIndex="0">            
+                    <tabs>
+                      <tab label="&addcontact.searchtitle;" />
+                      <tab label="&addcontact.PKfile;" />
+                      <tab label="&addcontact.PK;" />
+                    </tabs>
+            
+                    <tabpanels id="mainpanel">
+                      <tabpanel id="serverpanel">
+                          <vbox flex="1">
+                              <label value="&addcontact.searchlabel;" />
+                              <textbox id="contactsearch" value="" />
+                              <hbox>
+                                  <spacer flex="1" /> 
+                                  <button class="smallButton" id="but_server" label="&addcontact.searchbutton;" oncommand="contactBox.onServerSearch();" />  
+                              </hbox>
+                              <separator class="groove"/>
+                              <description id="addcontact_desc" value="&addcontact.server;"></description>
+                              <label id="contactBoxLogo" value="" class="emptyBox" flex="1" />
+                              <vbox id="resultbox" hidden="true" flex="1">  
+                                  <listbox id="list_result" seltype="multiple" rows="7" ondblclick="contactBox.onAdd();">
+                                    <listhead>
+                                      <listheader label="UID" hidden="true"></listheader>                                                  
+                                      <listheader label="Names"></listheader>    
+                                    </listhead>
+                                  </listbox>
+                              </vbox>                              
+                          </vbox>
+                      </tabpanel>
+                      
+                      <tabpanel id="filepanel">
+                          <vbox flex="1">
+                              <label value="&addcontact.searchPKFile;"/>
+	                          <hbox>
+	                          		<!--spacer flex="1" /-->
+	                          		<button class="smallButton" id="butPK_file" label="&addcontact.searchbutton;" oncommand="contactBox.onPKFileSearch();" />  
+	                          </hbox> 
+                             <!--  <label id="addPKfileinfo" value="" />  -->
+                               <description id="addPKfiledesc" crop="start" style="width: 100px;" value=""></description>
+
+	                         <vbox>  
+							  <label control="aeskey" value="AES Key:"/>  
+							  <textbox id="aeskey" value=""/>  
+							</vbox>                            
+                              
+                             <!-- <label id="addAESfileinfo" value="" /> -->
+                             
+                              <description id="addAESfiledesc" crop="start" style="width: 100px;" value=""></description>
+                              <label id="contactBoxLogo" value="" class="emptyBox" flex="1" />
+                          </vbox>
+                      </tabpanel>
+                      
+                      <tabpanel id="contactpanel">
+                          <vbox flex="1">
+                              <label  id="mbrpk-label" value="&addcontact.PK;"/>
+                              <textbox id="addmemberpk" rows="15" style="width: 100%;" multiline="true" value="" />
+                          </vbox>
+                      </tabpanel>
+                    </tabpanels>
+            
+                    <hbox id="addcontactButBox">
+                        <spacer flex="1" />                        
+                        <button class="smallButton" label="&general.buttonCancel;" oncommand="contactBox.onCancel();" />                      
+                        <button class="smallButton" label="&general.buttonAdd;"  oncommand="contactBox.onAdd();" />
+                    </hbox>
+            
+                </tabbox>
+                </vbox>
+              <!--  End add contact box -->
+            
+              <label id="miscBoxPic" value="" flex="1"/>
+            
+            </groupbox>
+            
+        </hbox>
+
+    </groupbox>
+
+	<!--
+	<hbox>
+		<spacer flex="1" />
+		<button id="publishFacebook" label="publishToFacebook" oncommand="cryptobridge.publishKeyToFacebook();"/>
+	</hbox>
+	-->
+
+    <hbox>
+        <spacer flex="1" />        
+        <button id="buttonOK" label="&general.buttonOK;"  oncommand="maindlg.onAccept();" />  
+        <button id="buttonCancel" label="&general.buttonCancel;" oncommand="maindlg.onCancel();" />
+    </hbox>
+
+    <tooltip id="dragDropTip" orient="vertical">
+        <description value="&keychain.dragTooltip;" style="font-weight:bold" />
+        <description value="&keychain.dragTooltipDescription;" />
+    </tooltip>
+    
+</window>

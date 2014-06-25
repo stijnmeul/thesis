@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages>
+
+	<!-- TWITTER -->
+	<page id="tweet"> 
+		<url>twitter.com/*</url>
+		<block id="twitt">
+			<region>//div[@class='tweet-content']</region>
+			<sender>.//div[@class='twitt-user-name']</sender>
+			<data type="text">.//*[contains(@class,'twitt-text')]</data>
+		</block>
+	</page>
+
+</pages>

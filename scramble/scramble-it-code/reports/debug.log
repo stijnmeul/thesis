@@ -1,0 +1,137 @@
+2012-01-26 11:22:09,174 DEBUG Steganography - File not found: /home/iulia/.mozilla/firefox/j8qsqub9.michael/scrambleData/aes.key
+2012-01-26 11:22:09,271 DEBUG Steganography - File not found: /home/iulia/.mozilla/firefox/j8qsqub9.michael/scrambleData/dropbox.key
+2012-01-26 11:22:09,294 INFO  DropboxStorage - Creating Dropbox account for TH0WBBUZTO@scramble.com
+2012-01-30 16:54:43,549 DEBUG OpenPGP - recipientID[0]: 1884324586130665677
+2012-01-30 16:54:43,554 DEBUG OpenPGP - pubKeyRingPath: /home/iulia/.mozilla/firefox/j8qsqub9.michael/scrambleData/pubring.bpg
+2012-01-30 16:54:43,554 DEBUG OpenPGP - secKeyRingPath: /home/iulia/.mozilla/firefox/j8qsqub9.michael/scrambleData/secring.bpg
+2012-03-01 14:07:24,663 DEBUG Steganography - File not found: FAIL/aes.key
+2012-03-01 14:07:24,813 DEBUG Steganography - Could not save data +FbtFmihwswX1na7QjA/Dw== to file: FAIL/aes.key
+2012-03-01 14:07:24,813 DEBUG Steganography - File not found: FAIL/dropbox.key
+2012-03-01 14:07:24,834 INFO  DropboxStorage - Creating Dropbox account for Z33Q5ITFJ4@scramble.com
+2012-03-01 14:07:28,332 DEBUG Steganography - Could not save data Z33Q5ITFJ4@scramble.com:JQRKOEW3U0ZB to file: FAIL/dropbox.key
+2012-10-01 17:34:48,348 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:34:48,671 DEBUG Steganography - Could not save data ztybTl4f1oB/vt0Oy6xo6w== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:34:48,671 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:34:48,772 INFO  DropboxStorage - Creating Dropbox account for QGSC8VMLS8@scramble.com
+2012-10-01 17:34:52,049 DEBUG Steganography - Could not save data QGSC8VMLS8@scramble.com:DRG9FVJZ6Z0X to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:38:04,680 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:38:04,813 DEBUG Steganography - Could not save data AK4//klsEPwvMwwaOq57BQ== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:38:04,814 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:38:04,847 INFO  DropboxStorage - Creating Dropbox account for SUQR6NAY0A@scramble.com
+2012-10-01 17:38:10,857 DEBUG Steganography - Could not save data SUQR6NAY0A@scramble.com:8SZETZVOHV34 to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:40:28,072 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:40:28,196 DEBUG Steganography - Could not save data qMe8WZ9tgiNJAiY86bW46Q== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:40:28,197 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:40:28,232 INFO  DropboxStorage - Creating Dropbox account for Y9PXIFDBRI@scramble.com
+2012-10-01 17:40:32,038 DEBUG Steganography - Could not save data Y9PXIFDBRI@scramble.com:U1KY7MNH6PPD to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:42:45,916 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:42:46,060 DEBUG Steganography - Could not save data Q8p0Z/wxnZoVjGMOg16+NA== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:42:46,060 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:42:46,088 INFO  DropboxStorage - Creating Dropbox account for 3T1H2D0MK4@scramble.com
+2012-10-01 17:42:51,252 DEBUG Steganography - Could not save data 3T1H2D0MK4@scramble.com:E06BXJEJOF91 to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:44:59,316 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:44:59,818 DEBUG Steganography - Could not save data O9Yq9GIQa+2PO6AkGyoxbQ== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:44:59,818 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:44:59,852 INFO  DropboxStorage - Creating Dropbox account for 5W93STBDJL@scramble.com
+2012-10-01 17:45:03,577 DEBUG Steganography - Could not save data 5W93STBDJL@scramble.com:K16GIX9ZBVFT to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:45:27,530 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:45:27,690 DEBUG Steganography - Could not save data bFrhDq1tT0i4ko4RWs0oPg== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:45:27,690 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:45:27,734 INFO  DropboxStorage - Creating Dropbox account for J3CSDRPN7V@scramble.com
+2012-10-01 17:45:31,574 DEBUG Steganography - Could not save data J3CSDRPN7V@scramble.com:I7P6EBZNG36Y to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:46:50,058 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:46:50,191 DEBUG Steganography - Could not save data zELBvipADKHgoSomdweWKg== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:46:50,191 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:46:50,224 INFO  DropboxStorage - Creating Dropbox account for IBCAMCOLU1@scramble.com
+2012-10-01 17:46:54,771 DEBUG Steganography - Could not save data IBCAMCOLU1@scramble.com:N0F8LNW8APPC to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:47:56,425 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:47:56,549 DEBUG Steganography - Could not save data bX+XzttV1wcdo7fTBFMZUw== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:47:56,549 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:47:56,583 INFO  DropboxStorage - Creating Dropbox account for 3DSUOJNEVD@scramble.com
+2012-10-01 17:47:59,925 DEBUG Steganography - Could not save data 3DSUOJNEVD@scramble.com:MSLOCRUUSJ9O to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:48:33,407 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:48:33,530 DEBUG Steganography - Could not save data yyWET0grpj9mQ2VaS32uqw== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:48:33,531 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:48:33,564 INFO  DropboxStorage - Creating Dropbox account for GQ3MPFRHXY@scramble.com
+2012-10-01 17:48:36,795 DEBUG Steganography - Could not save data GQ3MPFRHXY@scramble.com:VAKFWJSE6RYA to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:49:39,163 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:49:39,278 DEBUG Steganography - Could not save data N/bEtS1jo0Xn0e48HiXvjw== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:49:39,279 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:49:39,309 INFO  DropboxStorage - Creating Dropbox account for L5U1KQ5XOO@scramble.com
+2012-10-01 17:49:44,178 DEBUG Steganography - Could not save data L5U1KQ5XOO@scramble.com:K4SLW14YOFXQ to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:50:36,358 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:50:36,480 DEBUG Steganography - Could not save data 96zMxYH80Gle8t9Hy0WO9Q== to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-01 17:50:36,481 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:50:36,512 INFO  DropboxStorage - Creating Dropbox account for BSV2BC9W3E@scramble.com
+2012-10-01 17:50:40,208 DEBUG Steganography - Could not save data BSV2BC9W3E@scramble.com:4SV3QX11JLSI to file: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-01 17:52:36,130 DEBUG OpenPGP - recipientID[0]: 4850931738481380214
+2012-10-01 17:52:36,168 DEBUG OpenPGP - pubKeyRingPath: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/pubring.bpg
+2012-10-01 17:52:36,168 DEBUG OpenPGP - secKeyRingPath: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/secring.bpg
+2012-10-01 17:52:36,170 DEBUG OpenPGP - sender: 4850931738481380214
+2012-10-01 17:52:36,231 ERROR OpenPGP - PGP exception: 
+org.bouncycastle.openpgp.PGPException: Exception creating cipher
+	at org.bouncycastle.openpgp.PGPEncryptedDataGenerator.open(Unknown Source)
+	at org.bouncycastle.openpgp.PGPEncryptedDataGenerator.open(Unknown Source)
+	at be.cosic.scramble.openpgp.OpenPGPEncryption.encrypt(OpenPGPEncryption.java:98)
+	at be.cosic.scramble.OpenPGP.encrypt(OpenPGP.java:193)
+	at be.cosic.scramble.Scramble.encrypt(Scramble.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at sun.plugin.javascript.JSInvoke.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at sun.plugin.javascript.JSClassLoader.invoke(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass$MethodInfo.invoke(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass$MemberBundle.invoke(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass.invoke0(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass.invoke(Unknown Source)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo$DefaultInvocationDelegate.invoke(Unknown Source)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo.doObjectOp(Unknown Source)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo$LiveConnectWorker.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.checkCryptoPerm(Cipher.java:1024)
+	at javax.crypto.Cipher.init(Cipher.java:1345)
+	... 24 more
+2012-10-02 09:55:25,518 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/aes.key
+2012-10-02 09:55:26,295 DEBUG Steganography - File not found: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/dropbox.key
+2012-10-02 09:55:26,436 INFO  DropboxStorage - Creating Dropbox account for MG1QJT6EUN@scramble.com
+2012-10-02 09:55:46,050 DEBUG OpenPGP - recipientID[0]: 4850931738481380214
+2012-10-02 09:55:46,385 DEBUG OpenPGP - pubKeyRingPath: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/pubring.bpg
+2012-10-02 09:55:46,385 DEBUG OpenPGP - secKeyRingPath: /Users/filipe_mrb/Library/Application Support/Firefox/Profiles/6nmv1ohy.dev2/scrambleData/secring.bpg
+2012-10-02 09:55:46,471 DEBUG OpenPGP - sender: 4850931738481380214
+2012-10-02 09:55:46,640 ERROR OpenPGP - PGP exception: 
+org.bouncycastle.openpgp.PGPException: Exception creating cipher
+	at org.bouncycastle.openpgp.PGPEncryptedDataGenerator.open(Unknown Source)
+	at org.bouncycastle.openpgp.PGPEncryptedDataGenerator.open(Unknown Source)
+	at be.cosic.scramble.openpgp.OpenPGPEncryption.encrypt(OpenPGPEncryption.java:98)
+	at be.cosic.scramble.OpenPGP.encrypt(OpenPGP.java:193)
+	at be.cosic.scramble.Scramble.encrypt(Scramble.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at sun.plugin.javascript.JSInvoke.invoke(Unknown Source)
+	at sun.reflect.GeneratedMethodAccessor1.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at sun.plugin.javascript.JSClassLoader.invoke(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass$MethodInfo.invoke(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass$MemberBundle.invoke(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass.invoke0(Unknown Source)
+	at sun.plugin2.liveconnect.JavaClass.invoke(Unknown Source)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo$DefaultInvocationDelegate.invoke(Unknown Source)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo.doObjectOp(Unknown Source)
+	at sun.plugin2.main.client.LiveConnectSupport$PerAppletInfo$LiveConnectWorker.run(Unknown Source)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.security.InvalidKeyException: Illegal key size
+	at javax.crypto.Cipher.checkCryptoPerm(Cipher.java:1024)
+	at javax.crypto.Cipher.init(Cipher.java:1345)
+	... 24 more

@@ -1,0 +1,64 @@
+<!-- General Labels/Buttons/Menus -->
+<!ENTITY general.buttonOK "Done">
+<!ENTITY general.buttonCancel "Cancel">
+<!ENTITY general.buttonPlus "+">
+<!ENTITY general.buttonMinus "-">
+<!ENTITY general.buttonAdd "Add">
+<!ENTITY general.buttonRemove "Remove from group">
+<!ENTITY general.buttonDelete "Delete">
+<!ENTITY general.buttonSave "Save">
+
+<!-- Status Bar Naming Buttons/Menus -->
+<!ENTITY mainMenu.label "Scramble">
+<!ENTITY mainMenu.description "Your Data!">
+
+<!ENTITY mainMenu.item1 "Scramble It!">
+<!ENTITY mainMenu.item2 "Key Chain...">
+<!ENTITY mainMenu.item3 "Settings...">
+<!ENTITY mainMenu.item4 "About...">
+<!ENTITY mainMenu.item5 "Text Dialog...">
+<!ENTITY mainMenu.item6 "Unscramble It!">
+<!ENTITY mainMenu.item7 "Text Steganography!">
+<!ENTITY mainMenu.item8 "Image Steganography!">
+
+
+<!-- Key Chain Labels/Buttons/Menus -->
+<!ENTITY keychain.title "Key Chain">
+<!ENTITY keychain.grplabel "Groups">
+<!ENTITY keychain.contlabel "Contacts">
+<!ENTITY keychain.contmail "email">
+<!ENTITY keychain.contID "UID">
+<!ENTITY keychain.contfingerprint "fingerprint">
+<!ENTITY keychain.contaeskey "aeskey">
+<!ENTITY keychain.grouplist "TBD">
+<!ENTITY keychain.contNotes "Notes">
+<!ENTITY keychain.dragTooltip "Drag And Drop">
+<!ENTITY keychain.dragTooltipDescription "Contacts TO Groups">
+
+
+<!-- Contact description Labels/Buttons/Menus -->
+<!ENTITY description.name "Name">
+<!ENTITY description.email "email:">
+<!ENTITY description.id "fingerprint:">
+<!ENTITY description.note "notes:">
+
+<!-- Add Contact Labels/Buttons/Menus -->
+<!ENTITY addcontact.searchtitle "Server">
+<!ENTITY addcontact.searchlabel "Name or email:">
+<!ENTITY addcontact.searchbutton "Search">
+<!ENTITY addcontact.server "Search Contact Key on http://pgp.mit.edu/ server">
+<!ENTITY addcontact.PK "Text">
+<!ENTITY addcontact.PKfile "File">
+<!ENTITY addcontact.searchresult "Result:">
+<!ENTITY addcontact.searchPKFile "Select the Public Key file to Import:">
+<!ENTITY addcontact.searchAESFile "Select the AES Key file to Import:">
+
+<!-- Deletion Dialog Labels/Buttons -->
+<!ENTITY deletion.title "Deletion">
+
+<!-- Init Dialog Messages -->
+<!ENTITY init.disc "Disclaimer">
+<!ENTITY init.license "License">
+<!ENTITY init.msg "This is Scramble initialisation dialog. This will work as a guide tour into the preferences of Scramble extension.">
+<!ENTITY init.warn "Warning: Please be aware that all changes will affect Scramble! Preferences, for changing use Settings Menu.">
+<!ENTITY init.license_txt "This software is distributed under Eclipse Public License (EPL)">
