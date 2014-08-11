@@ -1,7 +1,0 @@
-#include "nsISupports.idl"
-
-[scriptable, uuid(017FD347-4B99-4714-916B-0019F7707F63)]
-interface nsIMyComponent : nsISupports
-{
-  string hello();
-};  
