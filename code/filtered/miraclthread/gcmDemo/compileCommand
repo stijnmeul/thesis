@@ -1,1 +1,0 @@
-gcc-4.7 mrgcm.c mraes.c -I ../include/ -o gcm
