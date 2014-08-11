@@ -1,0 +1,44 @@
+\BOOKMARK [0][-]{chapter*.1}{Preface}{}% 1
+\BOOKMARK [0][-]{chapter*.2}{Abstract}{}% 2
+\BOOKMARK [0][-]{section*.3}{List of Figures}{}% 3
+\BOOKMARK [0][-]{section*.4}{List of Tables}{}% 4
+\BOOKMARK [0][-]{chapter*.5}{List of Abbreviations}{}% 5
+\BOOKMARK [0][-]{chapter*.6}{List of Symbols}{}% 6
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 7
+\BOOKMARK [1][-]{section.1.1}{Problem Statement}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.2}{Existing Solutions}{chapter.1}% 9
+\BOOKMARK [1][-]{section.1.3}{Goals}{chapter.1}% 10
+\BOOKMARK [1][-]{section.1.4}{Main Idea}{chapter.1}% 11
+\BOOKMARK [1][-]{section.1.5}{Structure of this Thesis}{chapter.1}% 12
+\BOOKMARK [0][-]{chapter.2}{Required Background}{}% 13
+\BOOKMARK [1][-]{section.2.1}{Complexity Theory}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.2}{Probability Theory}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.3}{Abstract Algebra}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.4}{Number Theoretic Assumptions}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.5}{Bilinear Maps}{chapter.2}% 18
+\BOOKMARK [1][-]{section.2.6}{Cryptographic Definitions}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.7}{Summary}{chapter.2}% 20
+\BOOKMARK [0][-]{chapter.3}{Cryptographic Building Blocks}{}% 21
+\BOOKMARK [1][-]{section.3.1}{Public Key Infrastructures}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.2}{Identity-Based Encryption}{chapter.3}% 23
+\BOOKMARK [1][-]{section.3.3}{Broadcast Encryption}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.4}{Secret Sharing}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.5}{Distributed Key Generation}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.6}{Summary}{chapter.3}% 27
+\BOOKMARK [0][-]{chapter.4}{Design of a Practical Encryption Scheme for Online Social Networks}{}% 28
+\BOOKMARK [1][-]{section.4.1}{Model of the Current Situation}{chapter.4}% 29
+\BOOKMARK [1][-]{section.4.2}{Threat Model}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.3}{Our Proposal}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.4}{Summary}{chapter.4}% 32
+\BOOKMARK [0][-]{chapter.5}{Implementation}{}% 33
+\BOOKMARK [1][-]{section.5.1}{Software Architecture}{chapter.5}% 34
+\BOOKMARK [1][-]{section.5.2}{Implementation Details}{chapter.5}% 35
+\BOOKMARK [1][-]{section.5.3}{Implemented Code}{chapter.5}% 36
+\BOOKMARK [1][-]{section.5.4}{Performance Analysis}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.5}{Current Limitations}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.6}{Summary}{chapter.5}% 39
+\BOOKMARK [0][-]{chapter.6}{Conclusion}{}% 40
+\BOOKMARK [0][-]{appendix.A}{Gentry's IBE Scheme}{}% 41
+\BOOKMARK [0][-]{appendix.B}{Nederlandse Samenvatting}{}% 42
+\BOOKMARK [0][-]{appendix.C}{English Paper}{}% 43
+\BOOKMARK [0][-]{section*.80}{Bibliography}{}% 44

@@ -530,7 +530,7 @@ We further showed the feasibility of applying Algorithm~\ref{alg:our_scheme} to 
     \begin{enumerate}
         \item On input of security parameter $\lambda$ generate a prime $q$, two groups $G_1, G_2$ of order $q$, and an admissible bilinear map $e: G_1 \times G_2 \rightarrow G_T$. Choose random generators $P \in G_1$ and $Q \in G_2$. 
     
-        \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow G_1$, ${H_2: G_T \rightarrow \{ 0,1 \}^{l}}$ and $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$, such that $H_1, H_2$ can be modelled as random oracles.
+        \item Choose cryptographic hash functions $H_1: \{ 0,1 \}^{*} \rightarrow G_2$, ${H_2: G_T \rightarrow \{ 0,1 \}^{l}}$ and $H_3: \{ 0, 1 \}^{l} \rightarrow \{ 0,1 \}^{l}$, such that $H_1, H_2$ can be modelled as random oracles.
         
         \item Each PKG $j$ generates $n-1$ shares $\sigma_{jv}$ of a Pedersen VSS scheme by executing \texttt{DKG.Setup}, and redistributing the $n-1$ shares $\sigma_{jv}$ with the other $v$ PKGs.
 
@@ -547,10 +547,6 @@ We further showed the feasibility of applying Algorithm~\ref{alg:our_scheme} to 
     \begin{enumerate}
         \item User with identifier \id{i}, authenticates to $\Lambda$ or all PKGs and sends \id{i}.
         \item Each PKG computes $Q_{\id{i}} = H_1 \left( \id{i} \right)$, and $Q_{priv,\id{i}}^{(j)} = s_j Q_{\id{i}}$, where $s_j$ is the secret share from PKG $j$.
-        \item The user $\id{i}$ computes the shared public parameter $P$ using the Lagrange coefficients $b_j$ as follows:
-        \begin{equation*}
-         P = \sum_{j \in \Lambda} b_j P_{pub}^{\left( j \right)} \quad \textrm{for} \quad b_j = \prod_{z \in \Lambda} \frac{z}{z-j}
-        \end{equation*}
         \item All PKGs in $\Lambda$ return $Q_{priv,\id{i}}^{(j)}$ to the corresponding user $\id{i}$ over a secure channel.
         \item Each user verifies for each $Q_{priv,\id{i}}^{(j)}$ value whether, 
         \begin{equation*}
@@ -596,6 +592,10 @@ We further showed the feasibility of applying Algorithm~\ref{alg:our_scheme} to 
     \begin{enumerate}
         \item Generate a random symmetric session key $k \leftarrow \{ 0,1 \}^{l}$.
         \item Choose a random value $\rho \in \{ 0,1 \}^{l}$ and compute $r$ as a hash of concatenated values $r = H_3 \left( \{ \rho \parallel k \} \right)$
+        \item Compute the shared public parameter $P_{pub}$ using the Lagrange coefficients $b_j$ as follows:
+        \begin{equation*}
+         P_{pub} = \sum_{j \in \Lambda} b_j P_{pub}^{\left( j \right)} \quad \textrm{for} \quad b_j = \prod_{z \in \Lambda} \frac{z}{z-j}
+        \end{equation*}
         \item For each recipient $\id{i} \in \mathcal{S}$, compute the ciphertext, running the \texttt{IBE.Encrypt} algorithm, as follows.
             \begin{equation*}
                 w_i = \rho \oplus H_2 \left( g_{\id{i}}^r \right) \; \; \; \textrm{where} \; \; \; g_{\id{i}} = e \left( Q_{\id{i}}, P_{pub} \right) \in G_T

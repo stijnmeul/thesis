@@ -374,17 +374,6 @@ O.~Goldreich.
 \newblock {\em The Foundations of Cryptography - Volume 1, Basic Techniques}.
 \newblock Cambridge University Press, 2001.
 
-\bibitem{art:Goldwasser84}
-S.~Goldwasser and S.~Micali.
-\newblock Probabilistic encryption.
-\newblock {\em Journal of Computer and System Sciences}, 28(2):270 -- 299,
-  1984.
-
-\bibitem{art:Goldwasser89}
-S.~Goldwasser, S.~Micali, and C.~Rackoff.
-\newblock The knowledge complexity of interactive proof systems.
-\newblock {\em SIAM J. Comput.}, 18(1):186--208, 1989.
-
 \bibitem{art:GoodrichST04}
 M.~T. Goodrich, J.~Z. Sun, and R.~Tamassia.
 \newblock Efficient tree-based revocation in groups of low-state devices.
