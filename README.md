@@ -11,34 +11,36 @@ This thesis was promoted by prof. dr. ir. Vincent Rijmen and prof. dr. ir. Bart 
 
 Directory structure
 =====
-anotherScramble          Firefox files required for the Scramble Firefox extension.
+anotherScramble:          Firefox files required for the Scramble Firefox extension.
 
-code                     C and C++ files required for the identity-based encryption mechanism
+code:                     C and C++ files required for the identity-based encryption mechanism
 
- code/client             C and C++ files for clientside encryption and decryption
+ code/client:             C and C++ files for clientside encryption and decryption
  
- code/cppmiracl          Old C and C++ MIRACL files that can not be used for multithreading
+ code/cppmiracl:          Old C and C++ MIRACL files that can not be used for multithreading
  
- code/dkg                C and C++ files to support the DKG mechanism
+ code/dkg:                C and C++ files to support the DKG mechanism
  
- code/htdocs-thesis      PHP files and C++ binaries for the server side of the DKG mechanism
+ code/htdocs-thesis:      PHP files and C++ binaries for the server side of the DKG mechanism
  
- code/miraclthread       C and C++ MIRACL files used to support the identity-based encryption mechanism
+ code/miraclthread:       C and C++ MIRACL files used to support the identity-based encryption mechanism
  
- code/setupPkg           C and C++ files to build, install and copy the correct serverside binaries to the PHP server path
+ code/setupPkg:           C and C++ files to build, install and copy the correct serverside binaries to the PHP server path
  
- code/socketDemo         A simple socket demo
+ code/socketDemo:         A simple socket demo
+ 
+finalpresentation:        Keynote of my final thesis presentation in June 2014
 
-guidelines               files describing the goals of this thesis and how the text should look like
+guidelines:               files describing the goals of this thesis and how the text should look like
 
-intermediatepresentation Keynote of my intermediate thesis presentation in December 2013
+intermediatepresentation: Keynote of my intermediate thesis presentation in December 2013
 
-pets                     short article that was submitted to HotPETS 2014 (although not accepted)
+pets:                     short article that was submitted to HotPETS 2014 (although not accepted)
 
-planning                 Ghant chart with deadlines
+planning:                 Ghant chart with deadlines
 
-scramble                 old Firefox files for an outdated Scramble extension
+scramble:                 old Firefox files for an outdated Scramble extension
 
-securitymodel            files describing how the attacker model looks like. See thesistext for updated version.
+securitymodel:            files describing how the attacker model looks like. See thesistext for updated version.
 
 
