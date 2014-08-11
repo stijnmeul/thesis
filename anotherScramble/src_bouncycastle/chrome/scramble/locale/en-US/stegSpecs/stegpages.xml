@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns:xi="http://www.w3.org/2001/XInclude">
+	<!-- TEST PAGE -->
+	<page id="localhost">
+		<url>http://ionsecurity.org/steg.html</url>
+		<block id="chatMessage">
+			<region>//*[contains(@class,'msgBlock')]</region>
+			<sender>.//*[contains(@class,'sender')]</sender>
+			<data type="text">.//*[contains(@class,'message')]</data>
+		</block>
+	</page>
+	
+ 	<!-- GMAIL -->
+	<page id="email"> 
+		<url>https://mail.google.com/*</url>
+		<block id="mailMessage">
+			<region>//div[@class='gs']</region>
+			<sender>.//div[@class='iw']/span[@class='gD']/@email</sender>
+			<data type="text">.//*[contains(@class,'ii gt')]//div[not(contains(@class,'gmail_quote'))]/text()</data>
+		</block>
+		
+		<block id="chatMessage">
+			<region>//*[contains(@class,'aec')]</region>
+			<sender> .//@title</sender>
+			<data type="text">.//div[@class='kl']</data>
+		</block>
+	</page>
+
+</pages>

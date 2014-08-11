@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pages>
+	<!-- FACEBOOK -->
+	<page id="messages"> 
+		<url>www.facebook.com/messages/</url>
+		<block id="message">
+			<region>//*[contains(@class,'MessagingMessage')]</region>
+			<sender>.//strong/a</sender>
+			<data type="text">.//*[contains(@class,'uiListItem')]</data>
+		</block>
+	</page>
+	
+	<page id="wall-profile"> 
+	<url>www.facebook.com/*</url>
+		<block id="tickerFeedMessage">
+			<region>//*[@class='tickerFeedMessage']</region>
+			<sender>.//*[contains(@class, 'actorName')]</sender>
+			<data type="text">.//*[@class='messageBody']</data>
+		</block>
+		
+		<block id="mainPost">
+			<region>//*[@class='mainWrapper']</region>
+			<sender>.//*[contains(@class, 'actorName')]</sender>
+			<data type="text">.//*[@class='messageBody']</data>
+		</block>
+
+		<block id="messageComment">
+			<region>//div[contains(@class, 'commentContent')]</region>
+			<sender>.//*[contains(@class, 'actorName')]</sender>
+			<data type="text">.//*[@class='commentBody']</data>
+		</block>
+
+		<block id="chatMessage">
+			<region>//*[contains(@class,'fbChatMessageGroup')]</region>
+			<sender>.//*[contains(@class,'actorName')]/a</sender>
+			<data type="text">.//*[contains(@class,'messages')]//div[contains(@class, 'fbChatMessage')]</data>
+		</block>
+	</page>
+
+	<page id="album"> 
+		<url>www.facebook.com/photo.php*</url>
+		<block id="chatMessage">
+			<region>/html</region>
+			<sender>//*[contains(@id, 'fbPhotoSnowboxAuthorName') or contains(@id, 'fbPhotoPageAuthorName')]/a</sender>
+			<data type="img">//img[contains(@class, 'spotlight')  or contains(@class, 'fbPhotoImage')]/@src</data>			
+		</block>
+	</page>
+</pages>

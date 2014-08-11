@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<dialog title="&deletion.title;" orient="vertical" 
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+        onload="deletiondlg.onLoad(this);" 
+        buttons="none" >
+
+        <script type="application/x-javascript" src="chrome://scramble/content/hci/js/deletion.js"></script>
+        
+        <hbox flex="1">
+        
+            <image src="chrome://scramble/skin/imgs/scramble_medium_icon.png" style="padding:5px 10px 5px 5px;"/>
+            
+            <vbox flex="1">
+                <label id="deleteLabel" value="" />
+                <spacer flex="1" />
+                <hbox>
+                    <spacer flex="1" />
+                    <button id="buttoncancel" label="&general.buttonCancel;" oncommand="deletiondlg.onCancel();" />              
+                    <label id="spacelabel" value="" style="margin: 0px 20px" />        
+                    <button id="buttondelete" label="&general.buttonDelete;" oncommand="deletiondlg.onDelete();" />  
+                    <button id="buttonremove" label="&general.buttonRemove;" oncommand="deletiondlg.onRemove();" />        
+                </hbox>
+            </vbox>
+        </hbox>
+
+
+</dialog>

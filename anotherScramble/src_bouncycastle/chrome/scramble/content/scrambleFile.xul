@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<overlay id="scrambleFileOverlay "xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  
+    <row id="filterBox">
+        <button label="ola" oncommand="alert('ola')" />
+    </row>
+    <button dlgtype="cancel" icon="cancel" class="dialog-button"/>  
+  
+</overlay>

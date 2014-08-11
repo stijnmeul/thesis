@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://scramble/skin/scramble.css" type="text/css"?>
+
+<!DOCTYPE overlay SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<overlay id="scrambleOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onload="">
+
+    <script type="application/x-javascript" src="chrome://scramble/content/app/loadns.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/keychain.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/app/scramble.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/app/htmlactions.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/app/listeners.js" />    
+    <script type="application/x-javascript" src="chrome://scramble/content/app/initialise.js" />        
+    <script type="application/x-javascript" src="chrome://scramble/content/app/dialogLoader.js" />
+    
+    <script type="application/x-javascript" src="chrome://global/content/XPCNativeWrapper.js" />
+
+    <stringbundleset>
+        <stringbundle id="scramble_strings" src="chrome://scramble/locale/scramble.properties" />
+    </stringbundleset>
+
+    <popupset id="mainPopupSet">
+        <menupopup id="scrambleMenu">        
+            <menuitem label="&mainMenu.item1;"  tooltiptext="Scramble!..." oncommand="scrambleAppNS.scramble.onMenuClick(0)" style="font-weight:bold" />
+            <menuitem label="&mainMenu.item7;" oncommand="scrambleAppNS.scramble.onMenuClick(2)" style="font-weight:bold" />
+            <menuitem label="&mainMenu.item6;" disabled="true" oncommand="" style="font-weight:bold" />
+            <menuseparator/>
+            <menuitem label="&mainMenu.item2;" oncommand="scrambleAppNS.scramble.onMenuClick(3)" />
+            <menuitem label="&mainMenu.item5;" oncommand="scrambleAppNS.scramble.onMenuClick(6)" />
+            <menuitem label="&mainMenu.item3;" oncommand="scrambleAppNS.scramble.onMenuClick(5)" />
+            <menuitem label="&mainMenu.item4;" oncommand="scrambleAppNS.scramble.onMenuClick(4)" />
+            <menuitem label="Retrieve Facebook Friends" oncommand="scrambleAppNS.scramble.onMenuClick(7)"  style="font-weight:bold"/>             
+        </menupopup>   
+    </popupset>
+    
+    <popup id="contentAreaContextMenu">
+        <menu id="menu-rightclick" label="&mainMenu.label;" class="menu-iconic" image='chrome://scramble/skin/imgs/scramble_small_icon.png'>
+            <menupopup id="submenu-rightclickpopup">
+                <menuitem label="&mainMenu.item1;" oncommand="scrambleAppNS.scramble.onMenuClick(0)" style="font-weight:bold" />
+                 <menuitem label="&mainMenu.item7;" oncommand="scrambleAppNS.scramble.onMenuClick(2)" style="font-weight:bold" />
+                <menuitem label="&mainMenu.item6;" disabled="true" oncommand="Unscramble" style="font-weight:bold" />
+                <menuseparator/>
+                <menuitem label="&mainMenu.item2;" oncommand="scrambleAppNS.scramble.onMenuClick(3)" />
+                <menuitem label="&mainMenu.item5;" oncommand="scrambleAppNS.scramble.onMenuClick(6)" />
+                <menuitem label="&mainMenu.item3;" oncommand="scrambleAppNS.scramble.onMenuClick(5)" />
+                <menuitem label="&mainMenu.item4;" oncommand="scrambleAppNS.scramble.onMenuClick(4)"/> 
+                <menuitem label="Retrieve Facebook Friends" oncommand="scrambleAppNS.scramble.onMenuClick(7)"  style="font-weight:bold"/> 
+            </menupopup>
+        </menu>
+    </popup>
+
+    <keyset>
+        <key id="sample-key" modifiers="alt" key="S" oncommand="scrambleAppNS.scramble.onMenuClick(4)" />
+    </keyset>
+
+    <toolbarpalette id="BrowserToolbarPalette">    
+        <toolbarbutton id="toolbarpalette-button" 
+                image="chrome://scramble/skin/imgs/scramble_small_icon.png"
+                class="toolbarbutton-1 chromeclass-toolbar-additional" label="test"/>
+    
+        <toolbarbutton id="toolbarpalette-button" 
+                     class="toolbarbutton-1 chromeclass-toolbar-additional"
+                     label="Scramble"
+                     tooltiptext="Scramble! Your Data..."
+                     oncommand="scrambleAppNS.scramble.onMenuClick(0);"
+                     type="menu-button" contextmenu="scrambleMenu" />
+                     <!-- menu scrambleMenu is copied here -->
+    </toolbarpalette>
+
+
+</overlay>

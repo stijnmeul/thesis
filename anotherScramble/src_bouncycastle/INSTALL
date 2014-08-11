@@ -1,0 +1,34 @@
+Scramble! ... 
+(http://tinyurl.com/scrambleIt)  
+
+License: EPL
+Authors: COSIC, K.U.Leuven (filipe.beato@esat.kuleuven.be)
+
+
+USER MODE:
+  Installation:
+  
+    1. Open (install) the scramble-XXX.xpi file with (in) Mozilla Firefox.
+    2. Follow the initialisation dialog that is automatically launched when Scramble starts for the first time
+    3. Generate a new key (Import old key rings also available)
+    4. Open your favourite web site for sharing social content (such as Facebook, Clique orTwitter). Write a new “post” select the content and left click on top of the Rubik cube on the bottom left corner to Scramble your data.
+    5. Scramble! is up and running... 
+    
+    mode info in the FAQ page in: http://tinyurl.com/scrambleit
+
+
+DEVELOPER MODE:
+
+  Installation:
+	- Open the XPI file with Firefox
+	(see requirements on README)
+	- If developer wants to perform changes and install in the debug mode:
+		. Extract to a folder (EXT_FOLDER)
+		. Go to the <Firefox/Profiles/CurrentProfile/extentions> 
+		. Create a file name "scramble@primelife.net" and copy the PATH_To_EXT_FOLDER to the first line of the file
+
+  Build XPI file:
+	- Run the script file 'build.sh' available in scr/ folder with two arguments [name] [version]
+	- then go to the parent folder and you will have a new folder. go inside and run 'zip -r Name.xpi *'
+	- The latest XPI file will be present directly in the folder
+

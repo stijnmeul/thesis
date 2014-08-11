@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<dialog id="warning" title="Secret image" orient="vertical" autostretch="always"
+        onload="images.onLoad();"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+		buttons="none"
+		>
+        
+        <script type="application/x-javascript" src="chrome://scramble/content/hci/js/images.js"></script>
+        <script type="application/x-javascript" src="chrome://scramble/content/utils/monitor.js"></script>
+        <script type="application/x-javascript" src="chrome://scramble/content/hci/dialogLoader.js"></script>
+         
+		<vbox flex="1">
+			<vbox flex="1">
+				<hbox flex="1">
+					<label  style="padding-top: 10px;" value="Your secret image from" />
+					<label id="sender" style="padding-top: 10px;" value="X" />
+					<label style="padding-top: 10px;" value="is:" />
+				</hbox>
+				<hbox flex="1">
+			        <image id="img" src="" width ="400"  height ="400" style="padding:5px 10px 5px 5px;" />
+                    <!--spacer flex="1" /-->
+				</hbox>
+			</vbox>
+			<hbox flex="1">
+				<spacer flex="1" />
+                <button id='but_No' label="Close" oncommand="window.close()" style="min-width: 9em; max-width: 12em; font-size: 0.9em;" />
+				<spacer flex="1" />
+			</hbox>
+        </vbox>
+</dialog>

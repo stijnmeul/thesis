@@ -1,0 +1,46 @@
+#generalPanel {
+	min-width: 300px;
+	max-width: 300px;
+	min-height: 350px;
+	max-height: 350px;	
+	
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+radio[pane] {
+  list-style-image: url("chrome://browser/skin/preferences/Options.png");
+  padding: 5px 3px 1px 0px;
+}
+
+radio[pane=generalPanel] {
+    -moz-image-region: rect(0px, 32px,  32px, 0px);
+}
+
+radio[pane=generalPanel]:hover, radio[pane=generalPanel][selected="true"] {
+    -moz-image-region: rect(32px, 32px,  64px, 0px);
+}
+
+radio[pane=advancedPanel] {
+    -moz-image-region: rect(0px, 224px, 32px, 192px);
+}
+
+radio[pane=advancedPanel]:hover, radio[pane=advancedPanel][selected="true"] {
+    -moz-image-region: rect(32px, 224px, 64px, 192px);
+}
+
+#settingsButtons {
+	margin-top: 1px;
+	margin-bottom: 2px;
+	font-size: 0.9em;
+}
+
+.smallerFontLabels {
+	font-size: 0.95em;
+}
+
+.smallButton {
+	min-width: 6em;
+	max-width: 9em;	
+	font-size: 0.8em;
+}

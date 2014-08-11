@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://scramble/locale/scramble.dtd">
+
+<dialog title="Scramble!" orient="vertical" autostretch="always" 
+        buttons="none" 
+        onload="scrambleitdlg.onLoad(this);"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    >
+
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/keychain.js" />
+    <script type="application/x-javascript" src="chrome://scramble/content/hci/js/scrambleit.js" />
+
+    <vbox flex="1">
+        <label id="description" value="Text to Scramble!" />
+        <textbox rows="5" multiline="true" id="scrambletxt" tooltip="TextTip" />
+    </vbox>
+
+    <hbox>
+        <image src="chrome://scramble/skin/imgs/scramble_small_icon.png" style="padding:5px 10px 5px 5px;" />
+        <hbox>
+            <label style="padding-top: 5px; font-weight:bold;" value="Audience: " />
+            <menulist id="AudienceMenuList" tooltip="AudienceTip" >
+                <menupopup>
+                    <menuitem id="menuall" label="All Contacts"/>
+                    <menuseparator/>
+                    <menuitem id="menuadd" label="Customize..." onclick="scrambleitdlg.loadKeyManager();" />
+                </menupopup>
+            </menulist>
+        </hbox>
+                
+        <spacer flex="4" style="padding: 0px 30px 0px 30px;" />
+        
+        <button flex="2" id="buttonOK" tooltip="DoneTip" label="&general.buttonOK;"  oncommand="scrambleitdlg.onAccept();" />  
+    </hbox>
+
+
+    <tooltip id="TextTip" orient="vertical">
+        <description value="Insert the Text to Encrypt" />
+    </tooltip>
+
+    <tooltip id="AudienceTip" orient="vertical">
+        <description value="Audience: The subset of people able to decrypt the content" />
+    </tooltip>
+
+    <tooltip id="DoneTip" orient="vertical">
+        <description value="Copy to Clipboard" />
+    </tooltip>
+
+</dialog>
